@@ -1,0 +1,32 @@
+#=======================================================
+# Basic
+#=======================================================
+server:
+  port: 8443
+  servlet:
+    context-path: /spk
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    basedir: .
+    accesslog:
+      directory: /LOGS/spk
+      enabled: true
+      file-date-format: .yyyyMMdd
+      max-days: 30
+      pattern: '|%h|%l|%u|%t|"%r"|status code:%s|%b bytes|%D ms|'
+      prefix: access
+      rotate: true
+      suffix: .log
+      
+#=======================================================
+# MySQL
+#=======================================================    
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: spk
+    password: spk1234%      
