@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 //import com.spk.api.controller.string;
 import com.spk.api.entity.ApiMst;
@@ -30,4 +31,10 @@ public interface ApiMstMapper {
 	@Select("SELECT * FROM API_MST WHERE api_id=#{api_id}")
 	@ResultMap("ApiMstMap")
 	ApiMst getByApiId(@Param("api_id") String api_id);
+	
+//	@Update("UPDATE API_MST SET api_nm=#{API_MST.api_nm}, param=#{API_MST.param} WHERE api_id=#{API_MST.api_id}")
+	@Update("UPDATE API_MST SET api_nm=#{api_nm}, param=#{param} WHERE api_id=#{api_id}")
+//	int update(@Param("API_MST") ApiMst apimst);  // good
+	int update(@Param("api_id") String api_id, @Param("api_nm") String api_nm, @Param("param") String param);
+	
 }
