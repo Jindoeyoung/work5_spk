@@ -37,15 +37,15 @@ public class ApiMstController {
 		return apimstMapper.getByApiId(api_id);
 	}
 	
-	// get¹æ½Ä
-	@PutMapping("/{api_id}")  // good
+	// get ë°©ì‹
+	@PutMapping("/{api_id}")
 	public int put(@PathVariable("api_id") String api_id, @RequestParam("api_nm") String api_nm, @RequestParam("param") String param) {
 		return apimstMapper.update(api_id, api_nm, param);
 		
-//	// Body ¹æ½Ä
-//	@PutMapping("/{api_id}")  // good
-//	public int put(@RequestBody ApiMst apimst) { // good
-//		return apimstMapper.update(apimst);  // good			
+//	// Body ë°©ì‹
+//	@PutMapping("/{api_id}")
+//	public int put(@RequestBody ApiMst apimst) {
+//		return apimstMapper.update(apimst);			
 		
 		
 	}
