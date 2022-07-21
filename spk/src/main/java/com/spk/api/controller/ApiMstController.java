@@ -26,7 +26,8 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// get
+	// INSERT (get)
+	//-------------------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("")
 	public int post(@RequestParam("api_id") 	  String api_id
 				   ,@RequestParam("reg_dt")       String reg_dt
@@ -50,36 +51,38 @@ public class ApiMstController {
 				   ,@RequestParam("developer")    String developer
 				   ,@RequestParam("participants") String participants
 				   ,@RequestParam("scenario")     String scenario) {
-		return apimstMapper.insert(
-									api_id
-									,reg_dt
-									,reg_id
-									,upt_dt
-									,upt_id
-									,api_nm
-									,api_cate
-									,version
-									,param
-									,res_form
-									,rtn_type
-									,method
-									,url
-									,proc_state
-									,proc_rate
-									,dev_fr_dt
-									,dev_to_dt
-									,requester
-									,owner
-									,developer
-									,participants
-									,scenario
-									);
+		return apimstMapper.insertParam(
+					api_id
+					,reg_dt
+					,reg_id
+					,upt_dt
+					,upt_id
+					,api_nm
+					,api_cate
+					,version
+					,param
+					,res_form
+					,rtn_type
+					,method
+					,url
+					,proc_state
+					,proc_rate
+					,dev_fr_dt
+					,dev_to_dt
+					,requester
+					,owner
+					,developer
+					,participants
+					,scenario
+					);
 	}
 	
-//	// Body
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// INSERT (Body)
+	//-------------------------------------------------------------------------------------------------------------------------------------	
 //	@PostMapping("")
 //	public int post(@RequestBody ApiMst apimst) {
-//		return apimstMapper.insert(apimst);
+//		return apimstMapper.insertBody(apimst);
 //	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------

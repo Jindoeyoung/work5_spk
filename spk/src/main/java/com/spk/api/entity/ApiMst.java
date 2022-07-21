@@ -1,7 +1,6 @@
 package com.spk.api.entity;
 
-import java.util.Date;
-
+//import java.util.Date;
 //import org.springframework.format.annotation.DateTimeFormat; // DateTimeFormat 적용 시
 
 import lombok.Data;
@@ -9,11 +8,17 @@ import lombok.Data;
 @Data
 public class ApiMst {
 	private String api_id;
+	
 //	private DateTimeFormat reg_dt;
-	private Date reg_dt;
+//	private Date reg_dt;
+	private String reg_dt;
+	
 	private String reg_id;
+	
 //	private DateTimeFormat upt_dt;
-	private Date upt_dt;
+//	private Date upt_dt;
+	private String upt_dt;
+	
 	private String upt_id;
 	private String api_nm;
 	private String api_cate;

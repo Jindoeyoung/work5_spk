@@ -20,8 +20,9 @@ public interface ApiMstMapper {
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT
-	//-------------------------------------------------------------------------------------------------------------------------------------	
-	// get
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// INSERT (get)
+	//-------------------------------------------------------------------------------------------------------------------------------------
 //	@Insert("INSERT INTO API_MST(api_id, api_nm, param) VALUES(#{api_id}, #{api_nm}, #{param})")
 	@Insert("INSERT INTO API_MST("
 				+ " api_id"			//API_ID
@@ -71,7 +72,7 @@ public interface ApiMstMapper {
 				+ ",#{participants}"
 				+ ",#{scenario}"
 				+ ")")
-	int insert(@Param("api_id") 	  String api_id
+	int insertParam(@Param("api_id") 	  String api_id
 			  ,@Param("reg_dt")       String reg_dt
 			  ,@Param("reg_id")       String reg_id
 			  ,@Param("upt_dt")       String upt_dt
@@ -94,9 +95,61 @@ public interface ApiMstMapper {
 			  ,@Param("participants") String participants
 			  ,@Param("scenario")     String scenario);			
 	
-//	// Body
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// INSERT (Body)
+	//-------------------------------------------------------------------------------------------------------------------------------------	
 //	@Insert("INSERT INTO API_MST(api_id, api_nm, param) VALUES(#{API_MST.api_id}, #{API_MST.api_nm}, #{API_MST.param})")
 //	int insert(@Param("API_MST") ApiMst apimst);
+	
+	@Insert("INSERT INTO API_MST("
+			+ " api_id"			//API_ID
+			+ ",reg_dt"			//등록일
+			+ ",reg_id"			//등록자
+			+ ",upt_dt"			//수정일
+			+ ",upt_id"			//수정자
+			+ ",api_nm"			//API 명
+			+ ",api_cate"		//카테고리
+			+ ",version"		//버전
+			+ ",param"			//파라미터
+			+ ",res_form"		//응답포맷		
+			+ ",rtn_type"		//응답타입
+			+ ",method"			//메소드
+			+ ",url"			//URL
+			+ ",proc_state"		//진행상태
+			+ ",proc_rate"		//진행률
+			+ ",dev_fr_dt"		//개발기간(시작)
+			+ ",dev_to_dt"		//개발기간(종료)
+			+ ",requester"		//사용자(요청자)
+			+ ",owner"			//소유자(관리자)
+			+ ",developer"		//개발자
+			+ ",participants"	//참여자
+			+ ",scenario)"		//시나리오
+			+ "   VALUES"
+			+ " ("
+			+ " #{API_MST.api_id}"
+			+ ",#{API_MST.reg_dt}"
+			+ ",#{API_MST.reg_id}"
+			+ ",#{API_MST.upt_dt}"
+			+ ",#{API_MST.upt_id}"
+			+ ",#{API_MST.api_nm}"
+			+ ",#{API_MST.api_cate}"
+			+ ",#{API_MST.version}"
+			+ ",#{API_MST.param}"
+			+ ",#{API_MST.res_form}"
+			+ ",#{API_MST.rtn_type}"
+			+ ",#{API_MST.method}"
+			+ ",#{API_MST.url}"
+			+ ",#{API_MST.proc_state}"
+			+ ",#{API_MST.proc_rate}"
+			+ ",#{API_MST.dev_fr_dt}"
+			+ ",#{API_MST.dev_to_dt}"
+			+ ",#{API_MST.requester}"
+			+ ",#{API_MST.owner}"
+			+ ",#{API_MST.developer}"
+			+ ",#{API_MST.participants}"
+			+ ",#{API_MST.scenario}"
+			+ ")")	
+	int insertBody(@Param("API_MST") ApiMst apimst);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT
