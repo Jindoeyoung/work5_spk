@@ -2,6 +2,7 @@ package com.spk.api.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -40,5 +41,7 @@ public interface ApiMstMapper {
 //	@Update("UPDATE API_MST SET api_nm=#{API_MST.api_nm}, param=#{API_MST.param} WHERE api_id=#{API_MST.api_id}")
 //	int update(@Param("API_MST") ApiMst apimst);
 
+	@Delete("DELETE FROM API_MST WHERE api_id=#{api_id}")
+	int delete(@Param("api_id") String api_id);
 	
 }
