@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody; // Body 방식
+import org.springframework.web.bind.annotation.RequestBody; // Body 방식
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +28,8 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (get)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PostMapping("")
+	@PutMapping("")
+//	@PostMapping("") // 원래 PostMapping 으로 테스트 했었음. 아래 Body 의 PostMapping 과 공존시키기 위해, 위의 PutPapping 으로 우선 둠 (Postman 테스트 시에도 PUT으로 해야함)
 	public int post(@RequestParam("api_id") 	  String api_id
 				   ,@RequestParam("reg_dt")       String reg_dt
 				   ,@RequestParam("reg_id")       String reg_id
@@ -80,10 +81,10 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------	
-//	@PostMapping("")
-//	public int post(@RequestBody ApiMst apimst) {
-//		return apimstMapper.insertBody(apimst);
-//	}
+	@PostMapping("")
+	public int post(@RequestBody ApiMst apimst) {
+		return apimstMapper.insertBody(apimst);
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT
