@@ -176,9 +176,30 @@ public interface ApiMstMapper {
 //	int update(@Param("api_id") String api_id, @Param("api_nm") String api_nm, @Param("param") String param);
 	
 	// Body
-	@Update("UPDATE API_MST SET api_nm=#{API_MST.api_nm}, param=#{API_MST.param} WHERE api_id=#{API_MST.api_id}")
-	int update(@Param("API_MST") ApiMst apimst);
-
+	@Update("UPDATE API_MST SET "
+			+ " reg_dt=#{API_MST.reg_dt}"
+			+ ",reg_id=#{API_MST.reg_id}"
+			+ ",upt_dt=#{API_MST.upt_dt}"
+			+ ",upt_id=#{API_MST.upt_id}"
+			+ ",api_nm=#{API_MST.api_nm}"
+			+ ",api_cate=#{API_MST.api_cate}"
+			+ ",version=#{API_MST.version}"
+			+ ",param=#{API_MST.param}"
+			+ ",res_form=#{API_MST.res_form}"
+			+ ",rtn_type=#{API_MST.rtn_type}"
+			+ ",method=#{API_MST.method}"
+			+ ",url=#{API_MST.url}"
+			+ ",proc_state=#{API_MST.proc_state}"
+			+ ",proc_rate=#{API_MST.proc_rate}"
+			+ ",dev_fr_dt=#{API_MST.dev_fr_dt}"
+			+ ",dev_to_dt=#{API_MST.dev_to_dt}"
+			+ ",requester=#{API_MST.requester}"
+			+ ",owner=#{API_MST.owner}"
+			+ ",developer=#{API_MST.developer}"
+			+ ",participants=#{API_MST.participants}"
+			+ ",scenario=#{API_MST.scenario}"			
+			+ "WHERE api_id=#{API_MST.api_id}")
+	int updateBody(@Param("API_MST") ApiMst apimst);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE

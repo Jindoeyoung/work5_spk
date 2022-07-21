@@ -113,7 +113,7 @@ public class ApiMstController {
 	//@PutMapping("/{api_id}")  
 	@PostMapping("/{api_id}")  // 원래 PutMapping 으로 테스트 했었음. 위 get PutMapping 과 공존시키기 위해, PostMapping 으로 우선 둠 (Postman 테스트 시에도 POST 으로 해야함)
 	public int put(@RequestBody ApiMst apimst) {
-		return apimstMapper.update(apimst);			
+		return apimstMapper.updateBody(apimst);			
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
