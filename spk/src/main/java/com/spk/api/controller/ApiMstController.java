@@ -103,16 +103,18 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// get
-	@PutMapping("/{api_id}")
-	public int put(@PathVariable("api_id") String api_id, @RequestParam("api_nm") String api_nm, @RequestParam("param") String param) {
-		return apimstMapper.update(api_id, api_nm, param);
-	}
-//	// Body
+//	// get
 //	@PutMapping("/{api_id}")
-//	public int put(@RequestBody ApiMst apimst) {
-//		return apimstMapper.update(apimst);			
+//	public int put(@PathVariable("api_id") String api_id, @RequestParam("api_nm") String api_nm, @RequestParam("param") String param) {
+//		return apimstMapper.update(api_id, api_nm, param);
 //	}
+	
+	// Body
+	//@PutMapping("/{api_id}")  
+	@PostMapping("/{api_id}")  // 원래 PutMapping 으로 테스트 했었음. 위 get PutMapping 과 공존시키기 위해, PostMapping 으로 우선 둠 (Postman 테스트 시에도 POST 으로 해야함)
+	public int put(@RequestBody ApiMst apimst) {
+		return apimstMapper.update(apimst);			
+	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE

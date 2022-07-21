@@ -171,13 +171,13 @@ public interface ApiMstMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------	
-	// get
-	@Update("UPDATE API_MST SET api_nm=#{api_nm}, param=#{param} WHERE api_id=#{api_id}")
-	int update(@Param("api_id") String api_id, @Param("api_nm") String api_nm, @Param("param") String param);
+//	// get
+//	@Update("UPDATE API_MST SET api_nm=#{api_nm}, param=#{param} WHERE api_id=#{api_id}")
+//	int update(@Param("api_id") String api_id, @Param("api_nm") String api_nm, @Param("param") String param);
 	
-//	// Body
-//	@Update("UPDATE API_MST SET api_nm=#{API_MST.api_nm}, param=#{API_MST.param} WHERE api_id=#{API_MST.api_id}")
-//	int update(@Param("API_MST") ApiMst apimst);
+	// Body
+	@Update("UPDATE API_MST SET api_nm=#{API_MST.api_nm}, param=#{API_MST.param} WHERE api_id=#{API_MST.api_id}")
+	int update(@Param("API_MST") ApiMst apimst);
 
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
