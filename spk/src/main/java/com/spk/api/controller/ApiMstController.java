@@ -28,9 +28,54 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// get
 	@PostMapping("")
-	public int post(@RequestParam("api_id") String api_id, @RequestParam("api_nm") String api_nm, @RequestParam("param") String param) {
-		return apimstMapper.insert(api_id, api_nm, param);
+	public int post(@RequestParam("api_id") 	  String api_id
+				   ,@RequestParam("reg_dt")       String reg_dt
+				   ,@RequestParam("reg_id")       String reg_id
+				   ,@RequestParam("upt_dt")       String upt_dt
+				   ,@RequestParam("upt_id")       String upt_id
+				   ,@RequestParam("api_nm")       String api_nm
+				   ,@RequestParam("api_cate")     String api_cate
+				   ,@RequestParam("version")      String version
+				   ,@RequestParam("param")	      String param
+				   ,@RequestParam("res_form")     String res_form
+				   ,@RequestParam("rtn_type")     String rtn_type
+				   ,@RequestParam("method")       String method
+				   ,@RequestParam("url")	      String url
+				   ,@RequestParam("proc_state")   String proc_state
+				   ,@RequestParam("proc_rate")    String proc_rate
+				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+				   ,@RequestParam("dev_to_dt")    String dev_to_dt
+				   ,@RequestParam("requester")    String requester
+				   ,@RequestParam("owner")	      String owner
+				   ,@RequestParam("developer")    String developer
+				   ,@RequestParam("participants") String participants
+				   ,@RequestParam("scenario")     String scenario) {
+		return apimstMapper.insert(
+									api_id
+									,reg_dt
+									,reg_id
+									,upt_dt
+									,upt_id
+									,api_nm
+									,api_cate
+									,version
+									,param
+									,res_form
+									,rtn_type
+									,method
+									,url
+									,proc_state
+									,proc_rate
+									,dev_fr_dt
+									,dev_to_dt
+									,requester
+									,owner
+									,developer
+									,participants
+									,scenario
+									);
 	}
+	
 //	// Body
 //	@PostMapping("")
 //	public int post(@RequestBody ApiMst apimst) {
