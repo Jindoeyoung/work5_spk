@@ -27,9 +27,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.1.193.1:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
-    username: dev
-    password: Mysql1234%    
-#    url: jdbc:mysql://localhost:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
-#    username: spk
-#    password: spk1234%
+#    url: jdbc:mysql://10.1.193.1:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
+#    username: dev
+#    password: Mysql1234%    
+    url: jdbc:mysql://localhost:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: spk
+    password: spk1234%
