@@ -28,8 +28,8 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (get)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PutMapping("")  // 포스트맨에서, 아래의 @PutMapping - PUT 으로 테스트 성공
-//	@PostMapping("") // 원래 PostMapping 으로 테스트 했었음. 아래 Body 의 PostMapping 과 공존시키기 위해, 위의 PutPapping 으로 우선 둠 (Postman 테스트 시에도 PUT으로 해야함)
+//	@PutMapping("")
+	@PostMapping("")
 	public int post(@RequestParam("api_id") 	  String api_id
 				   ,@RequestParam("reg_dt")       String reg_dt
 				   ,@RequestParam("reg_id")       String reg_id
@@ -80,8 +80,9 @@ public class ApiMstController {
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
-	//-------------------------------------------------------------------------------------------------------------------------------------	
-	@PostMapping("")
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@PutMapping("")
+//	@PostMapping("")
 	public int post(@RequestBody ApiMst apimst) {
 		return apimstMapper.insertBody(apimst);
 	}
@@ -104,7 +105,8 @@ public class ApiMstController {
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// get
-	@PutMapping("/{api_id}")
+//	@PostMapping("/{api_id}")	
+	@PutMapping("/{api_id}")  	
 	public int put(@PathVariable("api_id") String api_id
 		   ,@RequestParam("reg_dt")       String reg_dt
 		   ,@RequestParam("reg_id")       String reg_id
@@ -154,8 +156,8 @@ public class ApiMstController {
 	}
 	
 	// Body
-//	@PutMapping("/{api_id}")   // PutMapping 으로 포스트맨에서 테스트 성공  
-	@PostMapping("/{api_id}")  // 원래 PutMapping 으로 테스트 했었음. 위 get PutMapping 과 공존시키기 위해, PostMapping 으로 우선 둠 (Postman 테스트 시에도 POST 으로 해야함)
+	@PostMapping("/{api_id}")	
+//	@PutMapping("/{api_id}")  
 	public int put(@RequestBody ApiMst apimst) {
 		return apimstMapper.updateBody(apimst);			
 	}
