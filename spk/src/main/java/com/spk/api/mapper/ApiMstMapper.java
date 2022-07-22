@@ -174,6 +174,53 @@ public interface ApiMstMapper {
 //	// get
 //	@Update("UPDATE API_MST SET api_nm=#{api_nm}, param=#{param} WHERE api_id=#{api_id}")
 //	int update(@Param("api_id") String api_id, @Param("api_nm") String api_nm, @Param("param") String param);
+
+	// get
+	@Update("UPDATE API_MST SET "
+				+ "reg_dt=#{reg_dt}"
+				+ ",reg_id=#{reg_id}"
+				+ ",upt_dt=#{upt_dt}"
+				+ ",upt_id=#{upt_id}"
+				+ ",api_nm=#{api_nm}"
+				+ ",api_cate=#{api_cate}"
+				+ ",version=#{version}"
+				+ ",param=#{param}"
+				+ ",res_form=#{res_form}"
+				+ ",rtn_type=#{rtn_type}"
+				+ ",method=#{method}"
+				+ ",url=#{url}"
+				+ ",proc_state=#{proc_state}"
+				+ ",proc_rate=#{proc_rate}"
+				+ ",dev_fr_dt=#{dev_fr_dt}"
+				+ ",dev_to_dt=#{dev_to_dt}"
+				+ ",requester=#{requester}"
+				+ ",owner=#{owner}"
+				+ ",developer=#{developer}"
+				+ ",participants=#{participants}"
+				+ ",scenario=#{scenario}"
+				+ "WHERE api_id=#{api_id}")
+	int updateParam(@Param("api_id") String api_id
+			  ,@Param("reg_dt")       String reg_dt
+			  ,@Param("reg_id")       String reg_id
+			  ,@Param("upt_dt")       String upt_dt
+			  ,@Param("upt_id")       String upt_id
+			  ,@Param("api_nm")       String api_nm
+			  ,@Param("api_cate")     String api_cate
+			  ,@Param("version")      String version
+			  ,@Param("param")	      String param
+			  ,@Param("res_form")     String res_form
+		 	  ,@Param("rtn_type")     String rtn_type
+			  ,@Param("method")       String method
+			  ,@Param("url")	      String url
+			  ,@Param("proc_state")   String proc_state
+			  ,@Param("proc_rate")    String proc_rate
+			  ,@Param("dev_fr_dt")    String dev_fr_dt
+			  ,@Param("dev_to_dt")    String dev_to_dt
+			  ,@Param("requester")    String requester
+			  ,@Param("owner")	      String owner
+			  ,@Param("developer")    String developer
+			  ,@Param("participants") String participants
+			  ,@Param("scenario")     String scenario);				
 	
 	// Body
 	@Update("UPDATE API_MST SET "
