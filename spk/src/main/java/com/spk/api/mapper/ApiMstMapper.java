@@ -196,9 +196,7 @@ public interface ApiMstMapper {
 
 	// Params
 	@Update("UPDATE API_MST SET "
-				+ "reg_dt=#{reg_dt}"
-				+ ",reg_id=#{reg_id}"
-				+ ",upt_dt=#{upt_dt}"
+				+ "upt_dt=#{upt_dt}"
 				+ ",upt_id=#{upt_id}"
 				+ ",api_nm=#{api_nm}"
 				+ ",api_cate=#{api_cate}"
@@ -243,9 +241,7 @@ public interface ApiMstMapper {
 	
 	// Body
 	@Update("UPDATE API_MST SET "
-			+ " reg_dt=#{API_MST.reg_dt}"
-			+ ",reg_id=#{API_MST.reg_id}"
-			+ ",upt_dt=#{API_MST.upt_dt}"
+			+ "upt_dt=#{API_MST.upt_dt}"
 			+ ",upt_id=#{API_MST.upt_id}"
 			+ ",api_nm=#{API_MST.api_nm}"
 			+ ",api_cate=#{API_MST.api_cate}"
