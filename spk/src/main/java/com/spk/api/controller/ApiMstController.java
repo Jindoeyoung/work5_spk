@@ -50,7 +50,7 @@ public class ApiMstController {
 				   ,@RequestParam("requester")    String requester
 				   ,@RequestParam("owner")	      String owner
 				   ,@RequestParam("developer")    String developer
-				   ,@RequestParam("participants") String participants
+				   ,@RequestParam("participant")  String participant
 				   ,@RequestParam("scenario")     String scenario) {
 		return apimstMapper.insertParam(
 					api_id
@@ -73,7 +73,7 @@ public class ApiMstController {
 					,requester
 					,owner
 					,developer
-					,participants
+					,participant
 					,scenario
 					);
 	}
@@ -127,7 +127,7 @@ public class ApiMstController {
 		   ,@RequestParam("requester")    String requester
 		   ,@RequestParam("owner")	      String owner
 		   ,@RequestParam("developer")    String developer
-		   ,@RequestParam("participants") String participants
+		   ,@RequestParam("participant")  String participant
 		   ,@RequestParam("scenario")     String scenario) {		
 		return apimstMapper.updateParam(
 				api_id
@@ -150,7 +150,7 @@ public class ApiMstController {
 				,requester
 				,owner
 				,developer
-				,participants
+				,participant
 				,scenario
 				);				
 	}

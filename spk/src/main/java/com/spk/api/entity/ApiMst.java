@@ -35,6 +35,6 @@ public class ApiMst {
 	private String requester;
 	private String owner;
 	private String developer;
-	private String participants;
+	private String participant;
 	private String scenario;
 }

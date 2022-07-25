@@ -45,7 +45,7 @@ public interface ApiMstMapper {
 				+ ",requester"		//사용자(요청자)
 				+ ",owner"			//소유자(관리자)
 				+ ",developer"		//개발자
-				+ ",participants"	//참여자
+				+ ",participant"	//참여자
 				+ ",scenario)"		//시나리오
 				+ "   VALUES"
 				+ " ("
@@ -69,7 +69,7 @@ public interface ApiMstMapper {
 				+ ",#{requester}"
 				+ ",#{owner}"
 				+ ",#{developer}"
-				+ ",#{participants}"
+				+ ",#{participant}"
 				+ ",#{scenario}"
 				+ ")")
 	int insertParam(@Param("api_id") 	  String api_id
@@ -92,7 +92,7 @@ public interface ApiMstMapper {
 			  ,@Param("requester")    String requester
 			  ,@Param("owner")	      String owner
 			  ,@Param("developer")    String developer
-			  ,@Param("participants") String participants
+			  ,@Param("participant")  String participant
 			  ,@Param("scenario")     String scenario);			
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
@@ -122,7 +122,7 @@ public interface ApiMstMapper {
 			+ ",requester"		//사용자(요청자)
 			+ ",owner"			//소유자(관리자)
 			+ ",developer"		//개발자
-			+ ",participants"	//참여자
+			+ ",participant"	//참여자
 			+ ",scenario)"		//시나리오
 			+ "   VALUES"
 			+ " ("
@@ -146,7 +146,7 @@ public interface ApiMstMapper {
 			+ ",#{API_MST.requester}"
 			+ ",#{API_MST.owner}"
 			+ ",#{API_MST.developer}"
-			+ ",#{API_MST.participants}"
+			+ ",#{API_MST.participant}"
 			+ ",#{API_MST.scenario}"
 			+ ")")	
 	int insertBody(@Param("API_MST") ApiMst apimst);
@@ -177,7 +177,7 @@ public interface ApiMstMapper {
 		@Result(property="requester", column="requester"),
 		@Result(property="owner", column="owner"),
 		@Result(property="developer", column="developer"),
-		@Result(property="participants", column="participants"),
+		@Result(property="participant", column="participant"),
 		@Result(property="scenario", column="scenario")
 	})
 	List<ApiMst> getAll();
@@ -213,7 +213,7 @@ public interface ApiMstMapper {
 				+ ",requester=#{requester}"
 				+ ",owner=#{owner}"
 				+ ",developer=#{developer}"
-				+ ",participants=#{participants}"
+				+ ",participant=#{participant}"
 				+ ",scenario=#{scenario}"
 				+ "WHERE api_id=#{api_id}")
 	int updateParam(@Param("api_id") String api_id
@@ -236,7 +236,7 @@ public interface ApiMstMapper {
 			  ,@Param("requester")    String requester
 			  ,@Param("owner")	      String owner
 			  ,@Param("developer")    String developer
-			  ,@Param("participants") String participants
+			  ,@Param("participant")  String participant
 			  ,@Param("scenario")     String scenario);				
 	
 	// Body
@@ -258,7 +258,7 @@ public interface ApiMstMapper {
 			+ ",requester=#{API_MST.requester}"
 			+ ",owner=#{API_MST.owner}"
 			+ ",developer=#{API_MST.developer}"
-			+ ",participants=#{API_MST.participants}"
+			+ ",participant=#{API_MST.participant}"
 			+ ",scenario=#{API_MST.scenario}"			
 			+ "WHERE api_id=#{API_MST.api_id}")
 	int updateBody(@Param("API_MST") ApiMst apimst);
