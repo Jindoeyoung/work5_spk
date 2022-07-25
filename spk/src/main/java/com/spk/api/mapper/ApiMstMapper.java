@@ -21,7 +21,7 @@ public interface ApiMstMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// INSERT (get)
+	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
 //	@Insert("INSERT INTO API_MST(api_id, api_nm, param) VALUES(#{api_id}, #{api_nm}, #{param})")
 	@Insert("INSERT INTO API_MST("
@@ -194,7 +194,7 @@ public interface ApiMstMapper {
 //	@Update("UPDATE API_MST SET api_nm=#{api_nm}, param=#{param} WHERE api_id=#{api_id}")
 //	int update(@Param("api_id") String api_id, @Param("api_nm") String api_nm, @Param("param") String param);
 
-	// get
+	// Params
 	@Update("UPDATE API_MST SET "
 				+ "reg_dt=#{reg_dt}"
 				+ ",reg_id=#{reg_id}"
