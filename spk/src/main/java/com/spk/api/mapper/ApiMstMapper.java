@@ -158,8 +158,27 @@ public interface ApiMstMapper {
 	@Select("SELECT * FROM API_MST")
 	@Results(id="ApiMstMap", value={
 		@Result(property="api_id", column="api_id"),
+		@Result(property="reg_dt", column="reg_dt"),
+		@Result(property="reg_id", column="reg_id"),
+		@Result(property="upt_dt", column="upt_dt"),
+		@Result(property="upt_id", column="upt_id"),
 		@Result(property="api_nm", column="api_nm"),
+		@Result(property="api_cate", column="api_cate"),
+		@Result(property="version", column="version"),
 		@Result(property="param", column="param"),
+		@Result(property="res_form", column="res_form"),
+		@Result(property="rtn_type", column="rtn_type"),
+		@Result(property="method", column="method"),
+		@Result(property="url", column="url"),
+		@Result(property="proc_state", column="proc_state"),
+		@Result(property="proc_rate", column="proc_rate"),
+		@Result(property="dev_fr_dt", column="dev_fr_dt"),
+		@Result(property="dev_to_dt", column="dev_to_dt"),
+		@Result(property="requester", column="requester"),
+		@Result(property="owner", column="owner"),
+		@Result(property="developer", column="developer"),
+		@Result(property="participants", column="participants"),
+		@Result(property="scenario", column="scenario")
 	})
 	List<ApiMst> getAll();
 	
