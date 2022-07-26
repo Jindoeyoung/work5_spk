@@ -111,7 +111,7 @@ public interface ComMstMapper {
 			+ ",scenario)"		//시나리오
 			+ "   VALUES"
 			+ " ("
-			+ " #{COM_MST.api_id}"
+			+ " #{COM_MST.com_id}"
 			+ ",#{COM_MST.reg_dt}"
 			+ ",#{COM_MST.reg_id}"
 			+ ",#{COM_MST.upt_dt}"
@@ -139,7 +139,7 @@ public interface ComMstMapper {
 	// list
 	@Select("SELECT * FROM COM_MST")
 	@Results(id="ComMstMap", value={
-		@Result(property="api_id", column="api_id"),
+		@Result(property="com_id", column="com_id"),
 		@Result(property="reg_dt", column="reg_dt"),
 		@Result(property="reg_id", column="reg_id"),
 		@Result(property="upt_dt", column="upt_dt"),
