@@ -30,8 +30,10 @@ public interface ApiScenMapper {
 				+ ",upt_dt"			//수정일
 				+ ",upt_id"			//수정자
 				+ ",func_nm"		//시나리오 기능명
-				+ ",dev_fr_dt"		//개발기간 시작일시
-				+ ",dev_to_dt)"		//개발기간 종료일시
+				+ ",proc_state"		//진행상태
+				+ ",use_yn)"		//사용여부				
+//				+ ",dev_fr_dt"		//개발기간 시작일시
+//				+ ",dev_to_dt)"		//개발기간 종료일시
 				+ "  VALUES"
 				+ " ("
 				+ " #{api_scen_id}"
@@ -41,8 +43,10 @@ public interface ApiScenMapper {
 				+ ",#{upt_dt}"
 				+ ",#{upt_id}"
 				+ ",#{func_nm}"
-				+ ",#{dev_fr_dt}"
-				+ ",#{dev_to_dt}"
+				+ ",#{proc_state}"
+				+ ",#{use_yn}"				
+//				+ ",#{dev_fr_dt}"
+//				+ ",#{dev_to_dt}"
 				+ ")")
 	int insertParam(
 			   @Param("api_scen_id")  String api_scen_id
@@ -52,8 +56,10 @@ public interface ApiScenMapper {
 			  ,@Param("upt_dt")       String upt_dt
 			  ,@Param("upt_id")       String upt_id
 			  ,@Param("func_nm")      String func_nm
-			  ,@Param("dev_fr_dt")    String dev_fr_dt
-			  ,@Param("dev_to_dt")    String dev_to_dt
+			  ,@Param("proc_state")   String proc_state
+			  ,@Param("use_yn")    	  String use_yn			  
+//			  ,@Param("dev_fr_dt")    String dev_fr_dt
+//			  ,@Param("dev_to_dt")    String dev_to_dt
 			  );
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
@@ -67,8 +73,10 @@ public interface ApiScenMapper {
 			+ ",upt_dt"			//수정일
 			+ ",upt_id"			//수정자
 			+ ",func_nm"		//시나리오 기능명
-			+ ",dev_fr_dt"		//개발기간 시작일시
-			+ ",dev_to_dt)"		//개발기간 종료일시
+			+ ",proc_state"		//진행상태
+			+ ",use_yn)"		//사용여부			
+//			+ ",dev_fr_dt"		//개발기간 시작일시
+//			+ ",dev_to_dt)"		//개발기간 종료일시
 			+ "  VALUES"
 			+ " ("
 			+ " #{API_SCEN.api_scen_id}"
@@ -78,8 +86,10 @@ public interface ApiScenMapper {
 			+ ",#{API_SCEN.upt_dt}"
 			+ ",#{API_SCEN.upt_id}"
 			+ ",#{API_SCEN.func_nm}"
-			+ ",#{API_SCEN.dev_fr_dt}"
-			+ ",#{API_SCEN.dev_to_dt}"
+			+ ",#{API_SCEN.proc_state}"
+			+ ",#{API_SCEN.use_yn}"			
+//			+ ",#{API_SCEN.dev_fr_dt}"
+//			+ ",#{API_SCEN.dev_to_dt}"
 			+ ")")	
 	int insertBody(@Param("API_SCEN") ApiScen apiscen);
 	
@@ -96,8 +106,10 @@ public interface ApiScenMapper {
 		@Result(property="upt_dt", column="upt_dt"),
 		@Result(property="upt_id", column="upt_id"),
 		@Result(property="func_nm", column="func_nm"),
-		@Result(property="dev_fr_dt", column="dev_fr_dt"),
-		@Result(property="dev_to_dt", column="dev_to_dt")
+		@Result(property="proc_state", column="proc_state"),
+		@Result(property="use_yn", column="use_yn")		
+//		@Result(property="dev_fr_dt", column="dev_fr_dt"),
+//		@Result(property="dev_to_dt", column="dev_to_dt")
 	})
 	List<ApiScen> getAll();
 	
@@ -117,8 +129,10 @@ public interface ApiScenMapper {
 				+ "upt_dt=#{upt_dt}"
 				+ ",upt_id=#{upt_id}"
 				+ ",func_nm=#{func_nm}"
-				+ ",dev_fr_dt=#{dev_fr_dt}"
-				+ ",dev_to_dt=#{dev_to_dt}"
+				+ ",proc_state=#{proc_state}"
+				+ ",use_yn=#{use_yn}"				
+//				+ ",dev_fr_dt=#{dev_fr_dt}"
+//				+ ",dev_to_dt=#{dev_to_dt}"
 				+ "WHERE api_scen_id=#{api_scen_id}"
 				+ " AND api_id=#{api_id}")
 	int updateParam(
@@ -127,8 +141,10 @@ public interface ApiScenMapper {
 			  ,@Param("upt_dt")       String upt_dt
 			  ,@Param("upt_id")       String upt_id
 			  ,@Param("func_nm")      String func_nm
-			  ,@Param("dev_fr_dt")    String dev_fr_dt
-			  ,@Param("dev_to_dt")    String dev_to_dt
+			  ,@Param("proc_state")   String proc_state
+			  ,@Param("use_yn")    	  String use_yn			  
+//			  ,@Param("dev_fr_dt")    String dev_fr_dt
+//			  ,@Param("dev_to_dt")    String dev_to_dt
 			  );				
 	
 	// Body
@@ -136,8 +152,10 @@ public interface ApiScenMapper {
 			+ "upt_dt=#{API_SCEN.upt_dt}"
 			+ ",upt_id=#{API_SCEN.upt_id}"
 			+ ",func_nm=#{API_SCEN.func_nm}"
-			+ ",dev_fr_dt=#{API_SCEN.dev_fr_dt}"
-			+ ",dev_to_dt=#{API_SCEN.dev_to_dt}"			
+			+ ",proc_state=#{API_SCEN.proc_state}"
+			+ ",use_yn=#{API_SCEN.use_yn}"			
+//			+ ",dev_fr_dt=#{API_SCEN.dev_fr_dt}"
+//			+ ",dev_to_dt=#{API_SCEN.dev_to_dt}"			
 			+ "WHERE api_scen_id=#{api_scen_id}"
 			+ "  AND api_id=#{api_id}")
 	int updateBody(@Param("API_SCEN") ApiScen apiscen);

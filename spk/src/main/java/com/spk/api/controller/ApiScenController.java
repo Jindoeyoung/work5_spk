@@ -37,8 +37,10 @@ public class ApiScenController {
 				   ,@RequestParam("upt_dt")       String upt_dt
 				   ,@RequestParam("upt_id")       String upt_id
 				   ,@RequestParam("func_nm")      String func_nm
-				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-				   ,@RequestParam("dev_to_dt")    String dev_to_dt) {
+				   ,@RequestParam("proc_state")   String proc_state
+				   ,@RequestParam("use_yn")    	  String use_yn) {				   
+//				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+//				   ,@RequestParam("dev_to_dt")    String dev_to_dt) {
 		return apiscenMapper.insertParam(
 					api_scen_id
 					,api_id
@@ -47,8 +49,10 @@ public class ApiScenController {
 					,upt_dt
 					,upt_id
 					,func_nm
-					,dev_fr_dt
-					,dev_to_dt
+					,proc_state
+					,use_yn					
+//					,dev_fr_dt
+//					,dev_to_dt
 					);
 	}	
 	
@@ -89,17 +93,21 @@ public class ApiScenController {
 		   ,@PathVariable("api_id")       String api_id	
 		   ,@RequestParam("upt_dt")       String upt_dt
 		   ,@RequestParam("upt_id")       String upt_id
-		   ,@RequestParam("func_nm")       String func_nm
-		   ,@RequestParam("dev_fr_dt")     String dev_fr_dt
-		   ,@RequestParam("dev_to_dt")     String dev_to_dt) {		
+		   ,@RequestParam("func_nm")      String func_nm
+		   ,@RequestParam("proc_state")   String proc_state
+		   ,@RequestParam("use_yn")       String use_yn) {		   
+//		   ,@RequestParam("dev_fr_dt")     String dev_fr_dt
+//		   ,@RequestParam("dev_to_dt")     String dev_to_dt) {		
 		return apiscenMapper.updateParam(
 				api_scen_id
 				,api_id
 				,upt_dt
 				,upt_id
 				,func_nm
-				,dev_fr_dt
-				,dev_to_dt
+				,proc_state
+				,use_yn				
+//				,dev_fr_dt
+//				,dev_to_dt
 				);				
 	}
 	

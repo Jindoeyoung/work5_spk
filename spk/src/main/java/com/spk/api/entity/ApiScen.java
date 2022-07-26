@@ -11,6 +11,8 @@ public class ApiScen {
 	private String upt_dt;
 	private String upt_id;
 	private String func_nm;
-	private String dev_fr_dt;
-	private String dev_to_dt;
+	private String proc_state;
+	private String use_yn;
+//	private String dev_fr_dt;
+//	private String dev_to_dt;	
 }
