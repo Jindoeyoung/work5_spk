@@ -71,7 +71,7 @@ public class ApiScenController {
 	}
 	// one
 	@GetMapping("/{api_scen_id},{api_id}")
-	public ApiScen getByApiId(
+	public ApiScen getByScenApiId(
 			@PathVariable("api_scen_id") String api_scen_id
 		   ,@PathVariable("api_id") String api_id
 			) {
