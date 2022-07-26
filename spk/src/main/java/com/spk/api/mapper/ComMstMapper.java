@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Many;
 
 import com.spk.api.entity.ComMst;
 
@@ -149,6 +150,7 @@ public interface ComMstMapper {
 		@Result(property="com_attr", column="com_attr"),
 		@Result(property="com_form", column="com_form"),
 		@Result(property="com_src", column="com_src"),
+		@Result(property="api_src", column="com_id", many=@Many(select="com.spk.api.mapper.ComApiRelMapper.getApiSrcByComId")),
 		@Result(property="dev_fr_dt", column="dev_fr_dt"),
 		@Result(property="dev_to_dt", column="dev_to_dt"),
 		@Result(property="use_fr_dt", column="use_fr_dt"),

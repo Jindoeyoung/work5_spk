@@ -14,6 +14,7 @@ public class ComMst {
 	private String com_attr;
 	private String com_form;
 	private String com_src;
+	private String api_src;
 	private String dev_fr_dt;
 	private String dev_to_dt;
 	private String use_fr_dt;
