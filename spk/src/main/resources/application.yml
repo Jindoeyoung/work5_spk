@@ -33,3 +33,10 @@ spring:
     url: jdbc:mysql://localhost:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
     username: spk
     password: spk1234%
+    
+#=======================================================
+# Security
+#=======================================================
+api-key: eW5hIGRvd25sb2FkIHNlcnZlciBzZWNlcnQga2V5IGF1dGg=
+secret-key: eW5hIGRvd25sb2FkIHNlcnZlciByZXN0IGFwaSBjYWxsIC0gY29udGVudHMgZG93bmxvYWQgZXhjdXRlLiA=  
+signature-algorithm: HmacSHA256    
