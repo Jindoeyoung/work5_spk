@@ -69,7 +69,7 @@ public class ComApiRelController {
 		return comapirelMapper.getAll();
 	}
 	// one
-	@GetMapping("/{com_id}")
+	@GetMapping("/{com_id},{api_id}")
 	public ComApiRel getByComApiId(
 			@PathVariable("com_id") String com_id
 		   ,@PathVariable("api_id") String api_id
