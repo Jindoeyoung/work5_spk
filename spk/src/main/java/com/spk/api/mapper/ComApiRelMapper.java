@@ -101,13 +101,10 @@ public interface ComApiRelMapper {
 	
 	// only Api list
 	@Select("SELECT * FROM COM_API_REL WHERE com_id=#{com_id}")
-//	@Select("SELECT 'C:\src' FROM DUAL")
-//	@Select("SELECT '/src' FROM DUAL")
 	@Results(id="ComApiRelSrcMap", value= {
 		@Result(property="api_src", column="api_src")
 	})
 	List<ComApiRel> getApiSrcByComId(
-//	ComApiRel getApiSrcByComId(
 			@Param("com_id") String com_id
 			);
 	

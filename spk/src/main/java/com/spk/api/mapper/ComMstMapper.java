@@ -139,8 +139,6 @@ public interface ComMstMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
 	@Select("SELECT * FROM COM_MST")
-//	@Select("SELECT M.*, 'C\\:\\/src' as api_src FROM COM_MST M")
-//	@Select("SELECT M.*, '/spike/api/src' as api_src FROM COM_MST M")
 	@Results(id="ComMstMap", value={
 		@Result(property="com_id", column="com_id"),
 		@Result(property="reg_dt", column="reg_dt"),
@@ -153,7 +151,6 @@ public interface ComMstMapper {
 		@Result(property="com_form", column="com_form"),
 		@Result(property="com_src", column="com_src"),
 		@Result(property="api_src", column="com_id", many=@Many(select="com.spk.api.mapper.ComApiRelMapper.getApiSrcByComId")),
-//		@Result(property="api_src", column="api_src"),		
 		@Result(property="dev_fr_dt", column="dev_fr_dt"),
 		@Result(property="dev_to_dt", column="dev_to_dt"),
 		@Result(property="use_fr_dt", column="use_fr_dt"),
@@ -168,8 +165,6 @@ public interface ComMstMapper {
 	
 	// one
 	@Select("SELECT * FROM COM_MST WHERE com_id=#{com_id}")
-//	@Select("SELECT M.*, 'C\\:\\/src' as api_src FROM COM_MST M WHERE M.com_id=#{com_id}")
-//	@Select("SELECT M.*, '/spike/api/src' as api_src FROM COM_MST M WHERE M.com_id=#{com_id}")
 	@ResultMap("ComMstMap")
 	ComMst getByComId(@Param("com_id") String com_id);	
 	
