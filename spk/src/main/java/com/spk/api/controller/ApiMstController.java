@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.ApiMst;
 import com.spk.api.mapper.ApiMstMapper;
+//import com.spk.api.security.SignVerifier;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +23,8 @@ public class ApiMstController {
 	
 	@Autowired 
 	private ApiMstMapper apimstMapper;
+
+//	SignVerifier verifier = new SignVerifier();
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT
@@ -93,11 +96,21 @@ public class ApiMstController {
 	// list
 	@GetMapping("")
 	public List<ApiMst> getAll() {
+
+//	public List<ApiMst> getAll(@PathVariable("api_key") String api_key) {		
+//		SignVerifier verifier = new SignVerifier();
+//		
+//		  if (!verifier.verifySignature(api_key)) {
+//		//		response.sendError(HttpServletResponse.SC_NOT_FOUND, "주어진 키에 해당하는 파일 정보가 없습니다.");
+//				return null;
+//		  }		
+		
 		return apimstMapper.getAll();
 	}
 	// one
 	@GetMapping("/{api_id}")
 	public ApiMst getByApiId(@PathVariable("api_id") String api_id) {
+		System.out.println("123=>"+apimstMapper.getByApiId(api_id));
 		return apimstMapper.getByApiId(api_id);
 	}
 	
