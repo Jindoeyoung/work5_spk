@@ -107,7 +107,7 @@ public class ApiMstController {
 		
 		// Return할 최종 결과값		
 		JsonObject dataResult = new JsonObject();
-		JsonObject jsonObj1 = new JsonObject();
+		
 		JsonArray jsonArr1 = new JsonArray();		
 		
 		String Message = "SUCCESS";
@@ -119,6 +119,9 @@ public class ApiMstController {
 		for (ApiMst item : datas) {
 		System.out.println("item==>"+item);
 		
+			JsonObject jsonObj1 = new JsonObject();
+		
+			jsonObj1.addProperty("api_id", item.getApi_id());
 			jsonObj1.addProperty("reg_dt", item.getReg_dt());
 			jsonObj1.addProperty("reg_id", item.getReg_id());
 			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
@@ -205,16 +208,14 @@ public class ApiMstController {
 		
 		ApiMst apimst = apimstMapper.getByApiId(api_id);
 		
-		
 		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		
 		JsonObject jsonObj1 = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();
 		
 		jsonObj1.addProperty("reg_dt", apimst.getReg_dt());
 		jsonObj1.addProperty("reg_id", apimst.getReg_id());
