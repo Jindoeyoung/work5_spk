@@ -217,6 +217,7 @@ public class ApiMstController {
 		
 		JsonObject jsonObj1 = new JsonObject();
 		
+		jsonObj1.addProperty("api_id", apimst.getApi_id());
 		jsonObj1.addProperty("reg_dt", apimst.getReg_dt());
 		jsonObj1.addProperty("reg_id", apimst.getReg_id());
 		jsonObj1.addProperty("upt_dt", apimst.getUpt_dt());
