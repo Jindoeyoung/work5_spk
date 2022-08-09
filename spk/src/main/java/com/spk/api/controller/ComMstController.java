@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.spk.api.entity.ApiMst;
 import com.spk.api.entity.ComMst;
 import com.spk.api.mapper.ComMstMapper;
 
 @RestController
-@RequestMapping("/com")
+//@RequestMapping("/com")
+@RequestMapping(value = "/com", produces = "application/json; charset=utf8")
 public class ComMstController {
 
 	@Autowired 
@@ -88,14 +92,105 @@ public class ComMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
 	@GetMapping("")
-	public List<ComMst> getAll() {
-		return commstMapper.getAll();
+	public String getAll() {
+		// Return할 최종 결과값		
+		JsonObject dataResult = new JsonObject();
+		
+		JsonArray jsonArr1 = new JsonArray();		
+		
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");		
+		
+		List<ComMst> datas = (List<ComMst>) commstMapper.getAll();		
+		
+		for (ComMst item : datas) {
+		System.out.println("item==>"+item);
+		
+			JsonObject jsonObj1 = new JsonObject();
+		
+			jsonObj1.addProperty("com_id", item.getCom_id());
+			jsonObj1.addProperty("reg_dt", item.getReg_dt());
+			jsonObj1.addProperty("reg_id", item.getReg_id());
+			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
+			jsonObj1.addProperty("upt_id", item.getUpt_id());
+			jsonObj1.addProperty("com_nm", item.getCom_nm());
+			jsonObj1.addProperty("com_cate", item.getCom_cate());
+			jsonObj1.addProperty("com_attr", item.getCom_attr());
+			jsonObj1.addProperty("com_form", item.getCom_form());
+			jsonObj1.addProperty("com_src", item.getCom_src());
+			//jsonObj1.addProperty("api_id", item);
+			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
+			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
+			jsonObj1.addProperty("use_fr_dt", item.getUse_fr_dt());
+			jsonObj1.addProperty("use_to_dt", item.getUse_to_dt());
+			jsonObj1.addProperty("requester", item.getRequester());
+			jsonObj1.addProperty("owner", item.getOwner());
+			jsonObj1.addProperty("developer", item.getDeveloper());
+			jsonObj1.addProperty("participant", item.getParticipant());
+			jsonObj1.addProperty("scenario", item.getScenario());
+			jsonArr1.add(jsonObj1);		
+			
+			dataResult.add("data", jsonArr1);		
+		}		
+				
+		return dataResult.toString();
 	}
+	
+//	// list
+//	@GetMapping("")
+//	public List<ComMst> getAll() {
+//		return commstMapper.getAll();
+//	}
+	
 	// one
 	@GetMapping("/{com_id}")
-	public ComMst getByComId(@PathVariable("com_id") String com_id) {
-		return commstMapper.getByComId(com_id);
+	public String getByComId(@PathVariable("com_id") String com_id) {
+
+		ComMst commst = commstMapper.getByComId(com_id);
+		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+		
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+		
+		JsonObject jsonObj1 = new JsonObject();
+		
+		jsonObj1.addProperty("com_id", commst.getCom_id());
+		jsonObj1.addProperty("reg_dt", commst.getReg_dt());
+		jsonObj1.addProperty("reg_id", commst.getReg_id());
+		jsonObj1.addProperty("upt_dt", commst.getUpt_dt());
+		jsonObj1.addProperty("upt_id", commst.getUpt_id());
+		jsonObj1.addProperty("com_nm", commst.getCom_nm());
+		jsonObj1.addProperty("com_cate", commst.getCom_cate());
+		jsonObj1.addProperty("com_attr", commst.getCom_attr());
+		jsonObj1.addProperty("com_form", commst.getCom_form());
+		jsonObj1.addProperty("com_src", commst.getCom_src());
+		//jsonObj1.addProperty("api_id", commst);
+		jsonObj1.addProperty("dev_fr_dt", commst.getDev_fr_dt());
+		jsonObj1.addProperty("dev_to_dt", commst.getDev_to_dt());
+		jsonObj1.addProperty("use_fr_dt", commst.getUse_fr_dt());
+		jsonObj1.addProperty("use_to_dt", commst.getUse_to_dt());
+		jsonObj1.addProperty("requester", commst.getRequester());
+		jsonObj1.addProperty("owner", commst.getOwner());
+		jsonObj1.addProperty("developer", commst.getDeveloper());
+		jsonObj1.addProperty("participant", commst.getParticipant());
+		jsonObj1.addProperty("scenario", commst.getScenario());
+		jsonArr1.add(jsonObj1);		
+		
+		dataResult.add("data", jsonArr1);
+				
+		return dataResult.toString();		
 	}	
+	
+	
+//	// one
+//	@GetMapping("/{com_id}")
+//	public ComMst getByComId(@PathVariable("com_id") String com_id) {
+//		return commstMapper.getByComId(com_id);
+//	}	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
