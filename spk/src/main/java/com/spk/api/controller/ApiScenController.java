@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.spk.api.entity.ApiScen;
+import com.spk.api.entity.ComScen;
 import com.spk.api.mapper.ApiScenMapper;
 
 @RestController
-@RequestMapping("/apiscen")
+@RequestMapping(value = "/apiscen", produces = "application/json; charset=utf8")
 public class ApiScenController {
 
 	@Autowired 
@@ -73,14 +76,54 @@ public class ApiScenController {
 	public List<ApiScen> getAll() {
 		return apiscenMapper.getAll();
 	}
-	// one
-	@GetMapping("/{api_scen_id},{api_id}")
-	public ApiScen getByScenApiId(
-			@PathVariable("api_scen_id") String api_scen_id
-		   ,@PathVariable("api_id") String api_id
-			) {
-		return apiscenMapper.getByApiScenId(api_scen_id, api_id);
+	
+	
+	// one to list (api_id 에 해당하는 시나리오 여러 건)
+	@GetMapping("/{api_id}")
+	public String getByApiId(@PathVariable("api_id") String api_id) {
+
+		// Return할 최종 결과값		
+		JsonObject dataResult = new JsonObject();
+		
+		JsonArray jsonArr1 = new JsonArray();		
+		
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+		
+		List<ApiScen> datas = (List<ApiScen>) apiscenMapper.getByApiId(api_id);
+		
+		for (ApiScen item : datas) {
+		System.out.println("[getByComScenId] item==>"+item);
+		
+			JsonObject jsonObj1 = new JsonObject();
+			
+			jsonObj1.addProperty("api_scen_id", item.getApi_scen_id());
+			jsonObj1.addProperty("api_id", item.getApi_id());
+			jsonObj1.addProperty("reg_dt", item.getReg_dt());
+			jsonObj1.addProperty("reg_id", item.getReg_id());
+			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
+			jsonObj1.addProperty("upt_id", item.getUpt_id());
+			jsonObj1.addProperty("func_nm", item.getFunc_nm());
+			jsonObj1.addProperty("proc_state", item.getProc_state());
+			jsonObj1.addProperty("use_yn", item.getUse_yn());
+			jsonArr1.add(jsonObj1);		
+	
+			dataResult.add("data", jsonArr1);
+		}
+		
+		return dataResult.toString();
 	}
+	
+//	이하는 only one row 조회	
+//	// one
+//	@GetMapping("/{api_scen_id},{api_id}")
+//	public ApiScen getByScenApiId(
+//			@PathVariable("api_scen_id") String api_scen_id
+//		   ,@PathVariable("api_id") String api_id
+//			) {
+//		return apiscenMapper.getByApiScenId(api_scen_id, api_id);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE

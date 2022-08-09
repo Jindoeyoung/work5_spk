@@ -113,13 +113,22 @@ public interface ApiScenMapper {
 	})
 	List<ApiScen> getAll();
 	
-	// one
-	@Select("SELECT * FROM API_SCEN WHERE api_scen_id=#{api_scen_id} AND api_id=#{api_id}")
+	
+	// one (api_id 에 해당하는 시나리오 여러 건)
+	@Select("SELECT * FROM API_SCEN WHERE api_id=#{api_id}")
 	@ResultMap("ApiScenMap")
-	ApiScen getByApiScenId(
-			 @Param("api_scen_id") String api_scen_id
-			,@Param("api_id") String api_id
-			);
+	List<ApiScen> getByApiId(
+			@Param("api_id") String api_id
+			);	
+	
+//	이하는 only one row 조회
+//	// one
+//	@Select("SELECT * FROM API_SCEN WHERE api_scen_id=#{api_scen_id} AND api_id=#{api_id}")
+//	@ResultMap("ApiScenMap")
+//	ApiScen getByApiScenId(
+//			 @Param("api_scen_id") String api_scen_id
+//			,@Param("api_id") String api_id
+//			);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE

@@ -100,14 +100,23 @@ public interface ComScenMapper {
 		@Result(property="dev_to_dt", column="dev_to_dt")
 	})
 	List<ComScen> getAll();
+
 	
-	// one
-	@Select("SELECT * FROM COM_SCEN WHERE com_scen_id=#{com_scen_id} AND com_id=#{com_id}")
+	// one (com_id 에 해당하는 시나리오 여러 건)
+	@Select("SELECT * FROM COM_SCEN WHERE com_id=#{com_id}")
 	@ResultMap("ComScenMap")
-	ComScen getByComScenId(
-			 @Param("com_scen_id") String com_scen_id
-			,@Param("com_id") String com_id
-			);
+	List<ComScen> getByComId(
+			@Param("com_id") String com_id
+			);	
+
+//  이하는 only one row 조회
+//	// one
+//	@Select("SELECT * FROM COM_SCEN WHERE com_scen_id=#{com_scen_id} AND com_id=#{com_id}")
+//	@ResultMap("ComScenMap")
+//	ComScen getByComScenId(
+//			 @Param("com_scen_id") String com_scen_id
+//			,@Param("com_id") String com_id
+//			);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE

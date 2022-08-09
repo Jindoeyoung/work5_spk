@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.spk.api.entity.ComMst;
 import com.spk.api.entity.ComScen;
 import com.spk.api.mapper.ComScenMapper;
 
 @RestController
-@RequestMapping("/comscen")
+//@RequestMapping("/comscen")
+@RequestMapping(value = "/comscen", produces = "application/json; charset=utf8")
 public class ComScenController {
 
 	@Autowired 
@@ -69,14 +73,53 @@ public class ComScenController {
 	public List<ComScen> getAll() {
 		return comscenMapper.getAll();
 	}
-	// one
-	@GetMapping("/{com_scen_id},{com_id}")
-	public ComScen getByComScenId(
-			@PathVariable("com_scen_id") String com_scen_id
-		   ,@PathVariable("com_id") String com_id
-			) {
-		return comscenMapper.getByComScenId(com_scen_id, com_id);
-	}
+
+	// one to list (com_id 에 해당하는 시나리오 여러 건)
+	@GetMapping("/{com_id}")
+	public String getByComId(@PathVariable("com_id") String com_id) {
+
+		// Return할 최종 결과값		
+		JsonObject dataResult = new JsonObject();
+		
+		JsonArray jsonArr1 = new JsonArray();		
+		
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+		
+		List<ComScen> datas = (List<ComScen>) comscenMapper.getByComId(com_id);
+		
+		for (ComScen item : datas) {
+		System.out.println("[getByComScenId] item==>"+item);
+		
+			JsonObject jsonObj1 = new JsonObject();
+			
+			jsonObj1.addProperty("com_scen_id", item.getCom_scen_id());
+			jsonObj1.addProperty("com_id", item.getCom_id());
+			jsonObj1.addProperty("reg_dt", item.getReg_dt());
+			jsonObj1.addProperty("reg_id", item.getReg_id());
+			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
+			jsonObj1.addProperty("upt_id", item.getUpt_id());
+			jsonObj1.addProperty("func_nm", item.getFunc_nm());
+			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
+			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
+			jsonArr1.add(jsonObj1);		
+	
+			dataResult.add("data", jsonArr1);
+		}
+		
+		return dataResult.toString();
+	}	
+	
+//  이하는 only one row 조회	
+//	// one
+//	@GetMapping("/{com_scen_id},{com_id}")
+//	public ComScen getByComScenId(
+//			@PathVariable("com_scen_id") String com_scen_id
+//		   ,@PathVariable("com_id") String com_id
+//			) {
+//		return comscenMapper.getByComScenId(com_scen_id, com_id);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
