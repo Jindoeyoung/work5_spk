@@ -130,7 +130,7 @@ public class ApiScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// Params
 //	@PostMapping("/{api_scen_id},{api_id}")	
-	@PutMapping("/{api_scen_id},{api_id}")  	
+	@PutMapping("/api_scen_id={api_scen_id},api_id={api_id}")  	
 	public int put(
 			@PathVariable("api_scen_id")  String api_scen_id
 		   ,@PathVariable("api_id")       String api_id	
@@ -164,7 +164,7 @@ public class ApiScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/{api_scen_id},{api_id}")	
+	@DeleteMapping("/api_scen_id={api_scen_id},api_id={api_id}")	
 	public int delete(
 			@PathVariable("api_scen_id") String api_scen_id
 		   ,@PathVariable("api_id") String api_id

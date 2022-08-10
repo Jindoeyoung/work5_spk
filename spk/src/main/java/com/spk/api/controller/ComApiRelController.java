@@ -124,7 +124,8 @@ public class ComApiRelController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// Params
 //	@PostMapping("/{com_id}")	
-	@PutMapping("/{com_id},{api_id}")  	
+//	@PutMapping("/{com_id},{api_id}")  	
+	@PutMapping("/com_id={com_id},api_id={api_id}")
 	public int put(
 				   @PathVariable("com_id") 		 String com_id
 				  ,@PathVariable("api_id") 		 String api_id
@@ -151,7 +152,7 @@ public class ComApiRelController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/{com_id},{api_id}")	
+	@DeleteMapping("/com_id={com_id},api_id={api_id}")	
 	public int delete(
 			@PathVariable("com_id") String com_id
 		   ,@PathVariable("api_id") String api_id	

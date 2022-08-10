@@ -126,7 +126,7 @@ public class ComScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// Params
 //	@PostMapping("/{com_scen_id},{com_id}")	
-	@PutMapping("/{com_scen_id},{com_id}")  	
+	@PutMapping("/com_scen_id={com_scen_id},com_id={com_id}")  	
 	public int put(
 			@PathVariable("com_scen_id")  String com_scen_id
 		   ,@PathVariable("com_id")       String com_id	
@@ -156,7 +156,7 @@ public class ComScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/{com_scen_id},{com_id}")	
+	@DeleteMapping("/com_scen_id={com_scen_id},com_id={com_id}")	
 	public int delete(
 			@PathVariable("com_scen_id") String com_scen_id
 		   ,@PathVariable("com_id") String com_id
