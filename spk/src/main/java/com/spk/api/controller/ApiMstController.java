@@ -268,7 +268,7 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// Params
 //	@PostMapping("/{api_id}")	
-	@PutMapping("/{api_id}")  	
+	@PutMapping("/api_id={api_id}")  	
 	public int put(@PathVariable("api_id") String api_id
 		   ,@RequestParam("reg_dt")       String reg_dt
 		   ,@RequestParam("reg_id")       String reg_id

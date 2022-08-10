@@ -197,7 +197,7 @@ public class ComMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// Params
 //	@PostMapping("/{com_id}")	
-	@PutMapping("/{com_id}")  	
+	@PutMapping("/com_id={com_id}")  	
 	public int put(
 				   @PathVariable("com_id") 		 String com_id
 				  ,@RequestParam("upt_dt")       String upt_dt
