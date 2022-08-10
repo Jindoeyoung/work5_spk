@@ -90,16 +90,23 @@ public interface ComApiRelMapper {
 	})
 	List<ComApiRel> getAll();	
 	
-	// one
-	@Select("SELECT * FROM COM_API_REL WHERE com_id=#{com_id} AND api_id=#{api_id}")
+	// list (특정 com_id 에 해당하는 api_id 여러 건)
+	@Select("SELECT * FROM COM_API_REL WHERE com_id=#{com_id}")
 	@ResultMap("ComApiRelMap")
-	ComApiRel getByComApiId(
+	List<ComApiRel> getByComId(
 			@Param("com_id") String com_id
-		   ,@Param("api_id") String api_id
-			);	
+			);		
 	
+//  이하는 only one row 조회	
+//	// one
+//	@Select("SELECT * FROM COM_API_REL WHERE com_id=#{com_id} AND api_id=#{api_id}")
+//	@ResultMap("ComApiRelMap")
+//	ComApiRel getByComApiId(
+//			@Param("com_id") String com_id
+//		   ,@Param("api_id") String api_id
+//			);	
 	
-	// only Api list
+	// only Api list (ComMstMapper 에서 사용)
 	@Select("SELECT * FROM COM_API_REL WHERE com_id=#{com_id}")
 	@Results(id="ComApiRelSrcMap", value= {
 		@Result(property="api_src", column="api_src")
