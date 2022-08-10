@@ -78,8 +78,8 @@ public class ApiScenController {
 	}
 	
 	
-	// one to list (api_id 에 해당하는 시나리오 여러 건)
-	@GetMapping("/{api_id}")
+	// list (특정 api_id 에 해당하는 시나리오 여러 건)
+	@GetMapping("/api_id={api_id}")
 	public String getByApiId(@PathVariable("api_id") String api_id) {
 
 		// Return할 최종 결과값		

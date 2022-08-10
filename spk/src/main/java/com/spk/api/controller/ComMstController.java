@@ -144,7 +144,7 @@ public class ComMstController {
 //	}
 	
 	// one
-	@GetMapping("/{com_id}")
+	@GetMapping("/com_id={com_id}")
 	public String getByComId(@PathVariable("com_id") String com_id) {
 
 		ComMst commst = commstMapper.getByComId(com_id);
@@ -248,7 +248,7 @@ public class ComMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/{com_id}")	
+	@DeleteMapping("/com_id={com_id}")	
 	public int delete(@PathVariable("com_id") String com_id) {
 		return commstMapper.delete(com_id);
 	}	

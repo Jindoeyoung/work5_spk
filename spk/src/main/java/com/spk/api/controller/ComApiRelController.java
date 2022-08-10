@@ -73,7 +73,7 @@ public class ComApiRelController {
 	}
 	
 	// list (특정 com_id 에 해당하는 api_id 여러 건)
-	@GetMapping("/{com_id}")
+	@GetMapping("/com_id={com_id}")
 	public String getByComId(@PathVariable("com_id") String com_id) {
 
 		// Return할 최종 결과값		

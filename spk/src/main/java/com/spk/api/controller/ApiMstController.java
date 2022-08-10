@@ -200,7 +200,7 @@ public class ApiMstController {
 	
 	//================TRY(2)===================================
 	// one
-	@GetMapping(value = "/{api_id}")
+	@GetMapping(value = "/api_id={api_id}")
 	public String getByApiId(@PathVariable("api_id") String api_id) {
 		
 		
@@ -327,7 +327,7 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/{api_id}")	
+	@DeleteMapping("/api_id={api_id}")	
 	public int delete(@PathVariable("api_id") String api_id) {
 		return apimstMapper.delete(api_id);
 	}

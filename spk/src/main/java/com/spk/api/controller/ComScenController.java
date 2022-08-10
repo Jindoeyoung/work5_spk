@@ -74,8 +74,8 @@ public class ComScenController {
 		return comscenMapper.getAll();
 	}
 
-	// one to list (com_id 에 해당하는 시나리오 여러 건)
-	@GetMapping("/{com_id}")
+	// list (특정 com_id 에 해당하는 시나리오 여러 건)
+	@GetMapping("/com_id={com_id}")
 	public String getByComId(@PathVariable("com_id") String com_id) {
 
 		// Return할 최종 결과값		
