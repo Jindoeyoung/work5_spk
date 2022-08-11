@@ -22,39 +22,39 @@ public interface ComScenMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (get)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@Insert("INSERT INTO COM_SCEN("
-				+ " com_scen_id"	//컴포넌트 시나리오 ID
-				+ ",com_id"			//컴포넌트 ID
-				+ ",reg_dt"			//등록일
-				+ ",reg_id"			//등록자
-				+ ",upt_dt"			//수정일
-				+ ",upt_id"			//수정자
-				+ ",func_nm"		//시나리오 기능명
-				+ ",dev_fr_dt"		//개발기간 시작일시
-				+ ",dev_to_dt)"		//개발기간 종료일시
-				+ "  VALUES"
-				+ " ("
-				+ " #{com_scen_id}"
-				+ ",#{com_id}"
-				+ ",#{reg_dt}"
-				+ ",#{reg_id}"
-				+ ",#{upt_dt}"
-				+ ",#{upt_id}"
-				+ ",#{func_nm}"
-				+ ",#{dev_fr_dt}"
-				+ ",#{dev_to_dt}"
-				+ ")")
-	int insertParam(
-			   @Param("com_scen_id")  String com_scen_id
-			  ,@Param("com_id") 	  String com_id
-			  ,@Param("reg_dt")       String reg_dt
-			  ,@Param("reg_id")       String reg_id
-			  ,@Param("upt_dt")       String upt_dt
-			  ,@Param("upt_id")       String upt_id
-			  ,@Param("func_nm")      String func_nm
-			  ,@Param("dev_fr_dt")    String dev_fr_dt
-			  ,@Param("dev_to_dt")    String dev_to_dt
-			  );
+//	@Insert("INSERT INTO COM_SCEN("
+//				+ " com_scen_id"	//컴포넌트 시나리오 ID
+//				+ ",com_id"			//컴포넌트 ID
+//				+ ",reg_dt"			//등록일
+//				+ ",reg_id"			//등록자
+//				+ ",upt_dt"			//수정일
+//				+ ",upt_id"			//수정자
+//				+ ",func_nm"		//시나리오 기능명
+//				+ ",dev_fr_dt"		//개발기간 시작일시
+//				+ ",dev_to_dt)"		//개발기간 종료일시
+//				+ "  VALUES"
+//				+ " ("
+//				+ " #{com_scen_id}"
+//				+ ",#{com_id}"
+//				+ ",#{reg_dt}"
+//				+ ",#{reg_id}"
+//				+ ",#{upt_dt}"
+//				+ ",#{upt_id}"
+//				+ ",#{func_nm}"
+//				+ ",#{dev_fr_dt}"
+//				+ ",#{dev_to_dt}"
+//				+ ")")
+//	int insertParam(
+//			   @Param("com_scen_id")  String com_scen_id
+//			  ,@Param("com_id") 	  String com_id
+//			  ,@Param("reg_dt")       String reg_dt
+//			  ,@Param("reg_id")       String reg_id
+//			  ,@Param("upt_dt")       String upt_dt
+//			  ,@Param("upt_id")       String upt_id
+//			  ,@Param("func_nm")      String func_nm
+//			  ,@Param("dev_fr_dt")    String dev_fr_dt
+//			  ,@Param("dev_to_dt")    String dev_to_dt
+//			  );
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
@@ -121,24 +121,24 @@ public interface ComScenMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------	
-	// Params
-	@Update("UPDATE COM_SCEN SET "
-				+ "upt_dt=#{upt_dt}"
-				+ ",upt_id=#{upt_id}"
-				+ ",func_nm=#{func_nm}"
-				+ ",dev_fr_dt=#{dev_fr_dt}"
-				+ ",dev_to_dt=#{dev_to_dt}"
-				+ "WHERE com_scen_id=#{com_scen_id}"
-				+ " AND com_id=#{com_id}")
-	int updateParam(
-			   @Param("com_scen_id")  String com_scen_id
-			  ,@Param("com_id")       String com_id
-			  ,@Param("upt_dt")       String upt_dt
-			  ,@Param("upt_id")       String upt_id
-			  ,@Param("func_nm")      String func_nm
-			  ,@Param("dev_fr_dt")    String dev_fr_dt
-			  ,@Param("dev_to_dt")    String dev_to_dt
-			  );				
+//	// Params
+//	@Update("UPDATE COM_SCEN SET "
+//				+ "upt_dt=#{upt_dt}"
+//				+ ",upt_id=#{upt_id}"
+//				+ ",func_nm=#{func_nm}"
+//				+ ",dev_fr_dt=#{dev_fr_dt}"
+//				+ ",dev_to_dt=#{dev_to_dt}"
+//				+ "WHERE com_scen_id=#{com_scen_id}"
+//				+ " AND com_id=#{com_id}")
+//	int updateParam(
+//			   @Param("com_scen_id")  String com_scen_id
+//			  ,@Param("com_id")       String com_id
+//			  ,@Param("upt_dt")       String upt_dt
+//			  ,@Param("upt_id")       String upt_id
+//			  ,@Param("func_nm")      String func_nm
+//			  ,@Param("dev_fr_dt")    String dev_fr_dt
+//			  ,@Param("dev_to_dt")    String dev_to_dt
+//			  );
 	
 	// Body
 	@Update("UPDATE COM_SCEN SET "
@@ -147,19 +147,30 @@ public interface ComScenMapper {
 			+ ",func_nm=#{COM_SCEN.func_nm}"
 			+ ",dev_fr_dt=#{COM_SCEN.dev_fr_dt}"
 			+ ",dev_to_dt=#{COM_SCEN.dev_to_dt}"			
-			+ "WHERE com_scen_id=#{com_scen_id}"
-			+ "  AND com_id=#{com_id}")
+			+ "WHERE com_scen_id=#{COM_SCEN.com_scen_id}"
+			+ "  AND com_id=#{COM_SCEN.com_id}")
 	int updateBody(@Param("COM_SCEN") ComScen comscen);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
+//	@Delete("DELETE FROM COM_SCEN "
+//			+"WHERE com_scen_id=#{com_scen_id}"
+//			+ " AND com_id=#{com_id}")
+//	int delete(
+//			@Param("com_scen_id") String com_scen_id
+//		   ,@Param("com_id") String com_id
+//			);
+
+	// 삭제 - 단건
 	@Delete("DELETE FROM COM_SCEN "
-			+"WHERE com_scen_id=#{com_scen_id}"
-			+ " AND com_id=#{com_id}")
-	int delete(
-			@Param("com_scen_id") String com_scen_id
-		   ,@Param("com_id") String com_id
-			);	
+			+"WHERE com_scen_id=#{COM_SCEN.com_scen_id}"
+			+ " AND com_id=#{COM_SCEN.com_id}")
+	int delete(@Param("COM_SCEN") ComScen comscen);
+
+	// 삭제 - 여러행 
+	@Delete("DELETE FROM COM_SCEN "
+			+"WHERE com_id=#{COM_SCEN.com_id}")
+	int deleteMulti(@Param("COM_SCEN") ComScen comscen);	
 	
 }

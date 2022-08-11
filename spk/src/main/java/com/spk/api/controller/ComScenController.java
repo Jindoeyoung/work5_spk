@@ -32,35 +32,35 @@ public class ComScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-//	@PutMapping("")
-	@PostMapping("")
-	public int post(@RequestParam("com_scen_id")  String com_scen_id
-				   ,@RequestParam("com_id")       String com_id
-				   ,@RequestParam("reg_dt")       String reg_dt
-				   ,@RequestParam("reg_id")       String reg_id
-				   ,@RequestParam("upt_dt")       String upt_dt
-				   ,@RequestParam("upt_id")       String upt_id
-				   ,@RequestParam("func_nm")      String func_nm
-				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-				   ,@RequestParam("dev_to_dt")    String dev_to_dt) {
-		return comscenMapper.insertParam(
-					com_scen_id
-					,com_id
-					,reg_dt
-					,reg_id
-					,upt_dt
-					,upt_id
-					,func_nm
-					,dev_fr_dt
-					,dev_to_dt
-					);
-	}	
+////	@PutMapping("")
+//	@PostMapping("")
+//	public int post(@RequestParam("com_scen_id")  String com_scen_id
+//				   ,@RequestParam("com_id")       String com_id
+//				   ,@RequestParam("reg_dt")       String reg_dt
+//				   ,@RequestParam("reg_id")       String reg_id
+//				   ,@RequestParam("upt_dt")       String upt_dt
+//				   ,@RequestParam("upt_id")       String upt_id
+//				   ,@RequestParam("func_nm")      String func_nm
+//				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+//				   ,@RequestParam("dev_to_dt")    String dev_to_dt) {
+//		return comscenMapper.insertParam(
+//					com_scen_id
+//					,com_id
+//					,reg_dt
+//					,reg_id
+//					,upt_dt
+//					,upt_id
+//					,func_nm
+//					,dev_fr_dt
+//					,dev_to_dt
+//					);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PutMapping("")
-//	@PostMapping("")
+//	@PutMapping("")
+	@PostMapping("/ins")
 	public int post(@RequestBody ComScen comscen) {
 		return comscenMapper.insertBody(comscen);
 	}	
@@ -75,22 +75,22 @@ public class ComScenController {
 	}
 
 	// list (특정 com_id 에 해당하는 시나리오 여러 건)
-	@GetMapping("/com_id={com_id}")
-	public String getByComId(@PathVariable("com_id") String com_id) {
-
-		// Return할 최종 결과값		
+//	@GetMapping("/com_id={com_id}")
+//	public String getByComId(@PathVariable("com_id") String com_id) {
+	@PostMapping("/lst")
+	public String getByComId(@RequestBody ComScen _comscen) {
+	
 		JsonObject dataResult = new JsonObject();
-		
 		JsonArray jsonArr1 = new JsonArray();		
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		List<ComScen> datas = (List<ComScen>) comscenMapper.getByComId(com_id);
+		List<ComScen> datas = (List<ComScen>) comscenMapper.getByComId(_comscen.getCom_id());
 		
 		for (ComScen item : datas) {
-		System.out.println("[getByComScenId] item==>"+item);
+			System.out.println("[ComScenController][getByComScenId] item==>"+item);
 		
 			JsonObject jsonObj1 = new JsonObject();
 			
@@ -124,31 +124,31 @@ public class ComScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// Params
-//	@PostMapping("/{com_scen_id},{com_id}")	
-	@PutMapping("/com_scen_id={com_scen_id},com_id={com_id}")  	
-	public int put(
-			@PathVariable("com_scen_id")  String com_scen_id
-		   ,@PathVariable("com_id")       String com_id	
-		   ,@RequestParam("upt_dt")       String upt_dt
-		   ,@RequestParam("upt_id")       String upt_id
-		   ,@RequestParam("func_nm")       String func_nm
-		   ,@RequestParam("dev_fr_dt")     String dev_fr_dt
-		   ,@RequestParam("dev_to_dt")     String dev_to_dt) {		
-		return comscenMapper.updateParam(
-				com_scen_id
-				,com_id
-				,upt_dt
-				,upt_id
-				,func_nm
-				,dev_fr_dt
-				,dev_to_dt
-				);				
-	}
+//	// Params
+////	@PostMapping("/{com_scen_id},{com_id}")	
+//	@PutMapping("/com_scen_id={com_scen_id},com_id={com_id}")  	
+//	public int put(
+//			@PathVariable("com_scen_id")  String com_scen_id
+//		   ,@PathVariable("com_id")       String com_id	
+//		   ,@RequestParam("upt_dt")       String upt_dt
+//		   ,@RequestParam("upt_id")       String upt_id
+//		   ,@RequestParam("func_nm")       String func_nm
+//		   ,@RequestParam("dev_fr_dt")     String dev_fr_dt
+//		   ,@RequestParam("dev_to_dt")     String dev_to_dt) {		
+//		return comscenMapper.updateParam(
+//				com_scen_id
+//				,com_id
+//				,upt_dt
+//				,upt_id
+//				,func_nm
+//				,dev_fr_dt
+//				,dev_to_dt
+//				);				
+//	}
 	
 	// Body
-	@PostMapping("/{com_scen_id},{com_id}")	
-//	@PutMapping("/{com_scen_id},{com_id}")  
+//	@PostMapping("/{com_scen_id},{com_id}")	
+	@PutMapping("/upt")  
 	public int put(@RequestBody ComScen comscen) {
 		return comscenMapper.updateBody(comscen);			
 	}	
@@ -156,11 +156,24 @@ public class ComScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/com_scen_id={com_scen_id},com_id={com_id}")	
-	public int delete(
-			@PathVariable("com_scen_id") String com_scen_id
-		   ,@PathVariable("com_id") String com_id
-			) {
-		return comscenMapper.delete(com_scen_id, com_id);
+//	@DeleteMapping("/com_scen_id={com_scen_id},com_id={com_id}")	
+//	public int delete(
+//			@PathVariable("com_scen_id") String com_scen_id
+//		   ,@PathVariable("com_id") String com_id
+//			) {
+//		return comscenMapper.delete(com_scen_id, com_id);
+//	}
+	
+	// 삭제 - 단건
+	@DeleteMapping("/del")	
+	public int delete(@RequestBody ComScen comscen) {
+		return comscenMapper.delete(comscen);
+	}
+	
+	// 삭제 - 여러행
+	@DeleteMapping("/dels")	
+	public int deleteMulti(@RequestBody ComScen comscen) {
+		return comscenMapper.deleteMulti(comscen);
 	}	
+	
 }
