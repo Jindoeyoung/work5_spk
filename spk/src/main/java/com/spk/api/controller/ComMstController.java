@@ -32,57 +32,57 @@ public class ComMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-//	@PutMapping("")
-	@PostMapping("")
-	public int post(
-				   @RequestParam("com_id") 	  	 String com_id
-				  ,@RequestParam("reg_dt")       String reg_dt
-				  ,@RequestParam("reg_id")       String reg_id
-				  ,@RequestParam("upt_dt")       String upt_dt
-				  ,@RequestParam("upt_id")       String upt_id
-				  ,@RequestParam("com_nm")       String com_nm
-				  ,@RequestParam("com_cate")     String com_cate
-				  ,@RequestParam("com_attr")     String com_attr
-				  ,@RequestParam("com_form")	 String com_form
-				  ,@RequestParam("com_src")      String com_src
-			 	  ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-				  ,@RequestParam("dev_to_dt")    String dev_to_dt
-				  ,@RequestParam("use_fr_dt")	 String use_fr_dt
-				  ,@RequestParam("use_to_dt")    String use_to_dt
-				  ,@RequestParam("requester")    String requester
-				  ,@RequestParam("owner")	     String owner
-				  ,@RequestParam("developer")    String developer
-				  ,@RequestParam("participant")  String participant
-				  ,@RequestParam("scenario")     String scenario
-				   ) {
-		return commstMapper.insertParam(
-				   com_id
-				  ,reg_dt
-				  ,reg_id
-				  ,upt_dt
-				  ,upt_id
-				  ,com_nm
-				  ,com_cate
-				  ,com_attr
-				  ,com_form
-				  ,com_src
-			 	  ,dev_fr_dt
-				  ,dev_to_dt
-				  ,use_fr_dt
-				  ,use_to_dt
-				  ,requester
-				  ,owner
-				  ,developer
-				  ,participant
-				  ,scenario
-				);
-	}
+////	@PutMapping("")
+//	@PostMapping("")
+//	public int post(
+//				   @RequestParam("com_id") 	  	 String com_id
+//				  ,@RequestParam("reg_dt")       String reg_dt
+//				  ,@RequestParam("reg_id")       String reg_id
+//				  ,@RequestParam("upt_dt")       String upt_dt
+//				  ,@RequestParam("upt_id")       String upt_id
+//				  ,@RequestParam("com_nm")       String com_nm
+//				  ,@RequestParam("com_cate")     String com_cate
+//				  ,@RequestParam("com_attr")     String com_attr
+//				  ,@RequestParam("com_form")	 String com_form
+//				  ,@RequestParam("com_src")      String com_src
+//			 	  ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+//				  ,@RequestParam("dev_to_dt")    String dev_to_dt
+//				  ,@RequestParam("use_fr_dt")	 String use_fr_dt
+//				  ,@RequestParam("use_to_dt")    String use_to_dt
+//				  ,@RequestParam("requester")    String requester
+//				  ,@RequestParam("owner")	     String owner
+//				  ,@RequestParam("developer")    String developer
+//				  ,@RequestParam("participant")  String participant
+//				  ,@RequestParam("scenario")     String scenario
+//				   ) {
+//		return commstMapper.insertParam(
+//				   com_id
+//				  ,reg_dt
+//				  ,reg_id
+//				  ,upt_dt
+//				  ,upt_id
+//				  ,com_nm
+//				  ,com_cate
+//				  ,com_attr
+//				  ,com_form
+//				  ,com_src
+//			 	  ,dev_fr_dt
+//				  ,dev_to_dt
+//				  ,use_fr_dt
+//				  ,use_to_dt
+//				  ,requester
+//				  ,owner
+//				  ,developer
+//				  ,participant
+//				  ,scenario
+//				);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PutMapping("")
-//	@PostMapping("")
+//	@PutMapping("")
+	@PostMapping("/ins")
 	public int post(@RequestBody ComMst commst) {
 		return commstMapper.insertBody(commst);
 	}
@@ -91,7 +91,8 @@ public class ComMstController {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-	@GetMapping("")
+//	@GetMapping("/lst")
+	@PostMapping("/lst")
 	public String getAll() {
 		// Return할 최종 결과값		
 		JsonObject dataResult = new JsonObject();
@@ -144,10 +145,15 @@ public class ComMstController {
 //	}
 	
 	// one
-	@GetMapping("/com_id={com_id}")
-	public String getByComId(@PathVariable("com_id") String com_id) {
+//	@GetMapping("/com_id={com_id}")
+//	public String getByComId(@PathVariable("com_id") String com_id) {
+	@PostMapping("/dtl")
+	public String getByComId(@RequestBody ComMst _commst) {
 
-		ComMst commst = commstMapper.getByComId(com_id);
+//		String com_id = _commst.getCom_id();
+//		ComMst commst = commstMapper.getByComId(com_id);
+		
+		ComMst commst = commstMapper.getByComId(_commst.getCom_id());
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
@@ -195,52 +201,52 @@ public class ComMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// Params
-//	@PostMapping("/{com_id}")	
-	@PutMapping("/com_id={com_id}")  	
-	public int put(
-				   @PathVariable("com_id") 		 String com_id
-				  ,@RequestParam("upt_dt")       String upt_dt
-				  ,@RequestParam("upt_id")       String upt_id
-				  ,@RequestParam("com_nm")       String com_nm
-				  ,@RequestParam("com_cate")     String com_cate
-				  ,@RequestParam("com_attr")     String com_attr
-				  ,@RequestParam("com_form")	 String com_form
-				  ,@RequestParam("com_src")      String com_src
-			 	  ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-				  ,@RequestParam("dev_to_dt")    String dev_to_dt
-				  ,@RequestParam("use_fr_dt")	 String use_fr_dt
-				  ,@RequestParam("use_to_dt")    String use_to_dt
-				  ,@RequestParam("requester")    String requester
-				  ,@RequestParam("owner")	     String owner
-				  ,@RequestParam("developer")    String developer
-				  ,@RequestParam("participant")  String participant
-				  ,@RequestParam("scenario")     String scenario
-		   ) {		
-		return commstMapper.updateParam(
-				  com_id
-				  ,upt_dt
-				  ,upt_id
-				  ,com_nm
-				  ,com_cate
-				  ,com_attr
-				  ,com_form
-				  ,com_src
-			 	  ,dev_fr_dt
-				  ,dev_to_dt
-				  ,use_fr_dt
-				  ,use_to_dt
-				  ,requester
-				  ,owner
-				  ,developer
-				  ,participant
-				  ,scenario
-		  );				
-	}
+//	// Params
+////	@PostMapping("/{com_id}")	
+//	@PutMapping("/com_id={com_id}")  	
+//	public int put(
+//				   @PathVariable("com_id") 		 String com_id
+//				  ,@RequestParam("upt_dt")       String upt_dt
+//				  ,@RequestParam("upt_id")       String upt_id
+//				  ,@RequestParam("com_nm")       String com_nm
+//				  ,@RequestParam("com_cate")     String com_cate
+//				  ,@RequestParam("com_attr")     String com_attr
+//				  ,@RequestParam("com_form")	 String com_form
+//				  ,@RequestParam("com_src")      String com_src
+//			 	  ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+//				  ,@RequestParam("dev_to_dt")    String dev_to_dt
+//				  ,@RequestParam("use_fr_dt")	 String use_fr_dt
+//				  ,@RequestParam("use_to_dt")    String use_to_dt
+//				  ,@RequestParam("requester")    String requester
+//				  ,@RequestParam("owner")	     String owner
+//				  ,@RequestParam("developer")    String developer
+//				  ,@RequestParam("participant")  String participant
+//				  ,@RequestParam("scenario")     String scenario
+//		   ) {		
+//		return commstMapper.updateParam(
+//				  com_id
+//				  ,upt_dt
+//				  ,upt_id
+//				  ,com_nm
+//				  ,com_cate
+//				  ,com_attr
+//				  ,com_form
+//				  ,com_src
+//			 	  ,dev_fr_dt
+//				  ,dev_to_dt
+//				  ,use_fr_dt
+//				  ,use_to_dt
+//				  ,requester
+//				  ,owner
+//				  ,developer
+//				  ,participant
+//				  ,scenario
+//		  );				
+//	}
 	
 	// Body
-	@PostMapping("/{com_id}")	
-//	@PutMapping("/{com_id}")  
+//	@PostMapping("/{com_id}")	
+	@PutMapping("/upt")  
 	public int put(@RequestBody ComMst commst) {
 		return commstMapper.updateBody(commst);			
 	}
@@ -248,9 +254,18 @@ public class ComMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/com_id={com_id}")	
-	public int delete(@PathVariable("com_id") String com_id) {
-		return commstMapper.delete(com_id);
+//	@DeleteMapping("/com_id={com_id}")	
+//	public int delete(@PathVariable("com_id") String com_id) {
+//		return commstMapper.delete(com_id);
+//	}
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// DELETE
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@DeleteMapping("/del")	
+	public int delete(@RequestBody ComMst commst) {
+		return commstMapper.delete(commst);
 	}	
+	
 	
 }
