@@ -22,45 +22,45 @@ public interface ApiScenMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (get)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@Insert("INSERT INTO API_SCEN("
-				+ " api_scen_id"	//API 시나리오 ID
-				+ ",api_id"			//API_ID
-				+ ",reg_dt"			//등록일
-				+ ",reg_id"			//등록자
-				+ ",upt_dt"			//수정일
-				+ ",upt_id"			//수정자
-				+ ",func_nm"		//시나리오 기능명
-				+ ",proc_state"		//진행상태
-				+ ",use_yn)"		//사용여부				
-//				+ ",dev_fr_dt"		//개발기간 시작일시
-//				+ ",dev_to_dt)"		//개발기간 종료일시
-				+ "  VALUES"
-				+ " ("
-				+ " #{api_scen_id}"
-				+ ",#{api_id}"
-				+ ",#{reg_dt}"
-				+ ",#{reg_id}"
-				+ ",#{upt_dt}"
-				+ ",#{upt_id}"
-				+ ",#{func_nm}"
-				+ ",#{proc_state}"
-				+ ",#{use_yn}"				
-//				+ ",#{dev_fr_dt}"
-//				+ ",#{dev_to_dt}"
-				+ ")")
-	int insertParam(
-			   @Param("api_scen_id")  String api_scen_id
-			  ,@Param("api_id") 	  String api_id
-			  ,@Param("reg_dt")       String reg_dt
-			  ,@Param("reg_id")       String reg_id
-			  ,@Param("upt_dt")       String upt_dt
-			  ,@Param("upt_id")       String upt_id
-			  ,@Param("func_nm")      String func_nm
-			  ,@Param("proc_state")   String proc_state
-			  ,@Param("use_yn")    	  String use_yn			  
-//			  ,@Param("dev_fr_dt")    String dev_fr_dt
-//			  ,@Param("dev_to_dt")    String dev_to_dt
-			  );
+//	@Insert("INSERT INTO API_SCEN("
+//				+ " api_scen_id"	//API 시나리오 ID
+//				+ ",api_id"			//API_ID
+//				+ ",reg_dt"			//등록일
+//				+ ",reg_id"			//등록자
+//				+ ",upt_dt"			//수정일
+//				+ ",upt_id"			//수정자
+//				+ ",func_nm"		//시나리오 기능명
+//				+ ",proc_state"		//진행상태
+//				+ ",use_yn)"		//사용여부				
+////				+ ",dev_fr_dt"		//개발기간 시작일시
+////				+ ",dev_to_dt)"		//개발기간 종료일시
+//				+ "  VALUES"
+//				+ " ("
+//				+ " #{api_scen_id}"
+//				+ ",#{api_id}"
+//				+ ",#{reg_dt}"
+//				+ ",#{reg_id}"
+//				+ ",#{upt_dt}"
+//				+ ",#{upt_id}"
+//				+ ",#{func_nm}"
+//				+ ",#{proc_state}"
+//				+ ",#{use_yn}"				
+////				+ ",#{dev_fr_dt}"
+////				+ ",#{dev_to_dt}"
+//				+ ")")
+//	int insertParam(
+//			   @Param("api_scen_id")  String api_scen_id
+//			  ,@Param("api_id") 	  String api_id
+//			  ,@Param("reg_dt")       String reg_dt
+//			  ,@Param("reg_id")       String reg_id
+//			  ,@Param("upt_dt")       String upt_dt
+//			  ,@Param("upt_id")       String upt_id
+//			  ,@Param("func_nm")      String func_nm
+//			  ,@Param("proc_state")   String proc_state
+//			  ,@Param("use_yn")    	  String use_yn			  
+////			  ,@Param("dev_fr_dt")    String dev_fr_dt
+////			  ,@Param("dev_to_dt")    String dev_to_dt
+//			  );
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
@@ -133,28 +133,28 @@ public interface ApiScenMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------	
-	// Params
-	@Update("UPDATE API_SCEN SET "
-				+ "upt_dt=#{upt_dt}"
-				+ ",upt_id=#{upt_id}"
-				+ ",func_nm=#{func_nm}"
-				+ ",proc_state=#{proc_state}"
-				+ ",use_yn=#{use_yn}"				
-//				+ ",dev_fr_dt=#{dev_fr_dt}"
-//				+ ",dev_to_dt=#{dev_to_dt}"
-				+ "WHERE api_scen_id=#{api_scen_id}"
-				+ " AND api_id=#{api_id}")
-	int updateParam(
-			   @Param("api_scen_id")  String api_scen_id
-			  ,@Param("api_id")       String api_id
-			  ,@Param("upt_dt")       String upt_dt
-			  ,@Param("upt_id")       String upt_id
-			  ,@Param("func_nm")      String func_nm
-			  ,@Param("proc_state")   String proc_state
-			  ,@Param("use_yn")    	  String use_yn			  
-//			  ,@Param("dev_fr_dt")    String dev_fr_dt
-//			  ,@Param("dev_to_dt")    String dev_to_dt
-			  );				
+//	// Params
+//	@Update("UPDATE API_SCEN SET "
+//				+ "upt_dt=#{upt_dt}"
+//				+ ",upt_id=#{upt_id}"
+//				+ ",func_nm=#{func_nm}"
+//				+ ",proc_state=#{proc_state}"
+//				+ ",use_yn=#{use_yn}"				
+////				+ ",dev_fr_dt=#{dev_fr_dt}"
+////				+ ",dev_to_dt=#{dev_to_dt}"
+//				+ "WHERE api_scen_id=#{api_scen_id}"
+//				+ " AND api_id=#{api_id}")
+//	int updateParam(
+//			   @Param("api_scen_id")  String api_scen_id
+//			  ,@Param("api_id")       String api_id
+//			  ,@Param("upt_dt")       String upt_dt
+//			  ,@Param("upt_id")       String upt_id
+//			  ,@Param("func_nm")      String func_nm
+//			  ,@Param("proc_state")   String proc_state
+//			  ,@Param("use_yn")    	  String use_yn			  
+////			  ,@Param("dev_fr_dt")    String dev_fr_dt
+////			  ,@Param("dev_to_dt")    String dev_to_dt
+//			  );
 	
 	// Body
 	@Update("UPDATE API_SCEN SET "
@@ -165,19 +165,30 @@ public interface ApiScenMapper {
 			+ ",use_yn=#{API_SCEN.use_yn}"			
 //			+ ",dev_fr_dt=#{API_SCEN.dev_fr_dt}"
 //			+ ",dev_to_dt=#{API_SCEN.dev_to_dt}"			
-			+ "WHERE api_scen_id=#{api_scen_id}"
-			+ "  AND api_id=#{api_id}")
+			+ "WHERE api_scen_id=#{API_SCEN.api_scen_id}"
+			+ "  AND api_id=#{API_SCEN.api_id}")
 	int updateBody(@Param("API_SCEN") ApiScen apiscen);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@Delete("DELETE FROM API_SCEN "
-			+"WHERE api_scen_id=#{api_scen_id}"
-			+ " AND api_id=#{api_id}")
-	int delete(
-			@Param("api_scen_id") String api_scen_id
-		   ,@Param("api_id") String api_id
-			);	
+//	@Delete("DELETE FROM API_SCEN "
+//			+"WHERE api_scen_id=#{api_scen_id}"
+//			+ " AND api_id=#{api_id}")
+//	int delete(
+//			@Param("api_scen_id") String api_scen_id
+//		   ,@Param("api_id") String api_id
+//			);
 
+	// 삭제 - 단건
+	@Delete("DELETE FROM API_SCEN "
+			+"WHERE api_scen_id=#{API_SCEN.api_scen_id}"
+			+ " AND api_id=#{API_SCEN.api_id}")
+	int delete(@Param("API_SCEN") ApiScen apiscen);
+	
+	// 삭제 - 여러행
+	@Delete("DELETE FROM API_SCEN "
+			+"WHERE api_id=#{API_SCEN.api_id}")
+	int deleteMulti(@Param("API_SCEN") ApiScen apiscen);	
+	
 }

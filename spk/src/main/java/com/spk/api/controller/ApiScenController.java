@@ -31,39 +31,39 @@ public class ApiScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-//	@PutMapping("")
-	@PostMapping("")
-	public int post(@RequestParam("api_scen_id")  String api_scen_id
-				   ,@RequestParam("api_id")       String api_id
-				   ,@RequestParam("reg_dt")       String reg_dt
-				   ,@RequestParam("reg_id")       String reg_id
-				   ,@RequestParam("upt_dt")       String upt_dt
-				   ,@RequestParam("upt_id")       String upt_id
-				   ,@RequestParam("func_nm")      String func_nm
-				   ,@RequestParam("proc_state")   String proc_state
-				   ,@RequestParam("use_yn")    	  String use_yn) {				   
-//				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-//				   ,@RequestParam("dev_to_dt")    String dev_to_dt) {
-		return apiscenMapper.insertParam(
-					api_scen_id
-					,api_id
-					,reg_dt
-					,reg_id
-					,upt_dt
-					,upt_id
-					,func_nm
-					,proc_state
-					,use_yn					
-//					,dev_fr_dt
-//					,dev_to_dt
-					);
-	}	
+////	@PutMapping("")
+//	@PostMapping("")
+//	public int post(@RequestParam("api_scen_id")  String api_scen_id
+//				   ,@RequestParam("api_id")       String api_id
+//				   ,@RequestParam("reg_dt")       String reg_dt
+//				   ,@RequestParam("reg_id")       String reg_id
+//				   ,@RequestParam("upt_dt")       String upt_dt
+//				   ,@RequestParam("upt_id")       String upt_id
+//				   ,@RequestParam("func_nm")      String func_nm
+//				   ,@RequestParam("proc_state")   String proc_state
+//				   ,@RequestParam("use_yn")    	  String use_yn) {				   
+////				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+////				   ,@RequestParam("dev_to_dt")    String dev_to_dt) {
+//		return apiscenMapper.insertParam(
+//					api_scen_id
+//					,api_id
+//					,reg_dt
+//					,reg_id
+//					,upt_dt
+//					,upt_id
+//					,func_nm
+//					,proc_state
+//					,use_yn					
+////					,dev_fr_dt
+////					,dev_to_dt
+//					);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PutMapping("")
-//	@PostMapping("")
+//	@PutMapping("")
+	@PostMapping("/ins")
 	public int post(@RequestBody ApiScen apiscen) {
 		return apiscenMapper.insertBody(apiscen);
 	}	
@@ -79,9 +79,11 @@ public class ApiScenController {
 	
 	
 	// list (특정 api_id 에 해당하는 시나리오 여러 건)
-	@GetMapping("/api_id={api_id}")
-	public String getByApiId(@PathVariable("api_id") String api_id) {
-
+//	@GetMapping("/api_id={api_id}")
+//	public String getByApiId(@PathVariable("api_id") String api_id) {
+	@PostMapping("/lst")
+	public String getByApiId(@RequestBody ApiScen _apiscen) {
+	
 		// Return할 최종 결과값		
 		JsonObject dataResult = new JsonObject();
 		
@@ -91,10 +93,10 @@ public class ApiScenController {
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		List<ApiScen> datas = (List<ApiScen>) apiscenMapper.getByApiId(api_id);
+		List<ApiScen> datas = (List<ApiScen>) apiscenMapper.getByApiId(_apiscen.getApi_id());
 		
 		for (ApiScen item : datas) {
-		System.out.println("[getByComScenId] item==>"+item);
+			System.out.println("[ApiScenController][getByApiId] item==>"+item);
 		
 			JsonObject jsonObj1 = new JsonObject();
 			
@@ -128,35 +130,35 @@ public class ApiScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// Params
-//	@PostMapping("/{api_scen_id},{api_id}")	
-	@PutMapping("/api_scen_id={api_scen_id},api_id={api_id}")  	
-	public int put(
-			@PathVariable("api_scen_id")  String api_scen_id
-		   ,@PathVariable("api_id")       String api_id	
-		   ,@RequestParam("upt_dt")       String upt_dt
-		   ,@RequestParam("upt_id")       String upt_id
-		   ,@RequestParam("func_nm")      String func_nm
-		   ,@RequestParam("proc_state")   String proc_state
-		   ,@RequestParam("use_yn")       String use_yn) {		   
-//		   ,@RequestParam("dev_fr_dt")     String dev_fr_dt
-//		   ,@RequestParam("dev_to_dt")     String dev_to_dt) {		
-		return apiscenMapper.updateParam(
-				api_scen_id
-				,api_id
-				,upt_dt
-				,upt_id
-				,func_nm
-				,proc_state
-				,use_yn				
-//				,dev_fr_dt
-//				,dev_to_dt
-				);				
-	}
+//	// Params
+////	@PostMapping("/{api_scen_id},{api_id}")	
+//	@PutMapping("/api_scen_id={api_scen_id},api_id={api_id}")  	
+//	public int put(
+//			@PathVariable("api_scen_id")  String api_scen_id
+//		   ,@PathVariable("api_id")       String api_id	
+//		   ,@RequestParam("upt_dt")       String upt_dt
+//		   ,@RequestParam("upt_id")       String upt_id
+//		   ,@RequestParam("func_nm")      String func_nm
+//		   ,@RequestParam("proc_state")   String proc_state
+//		   ,@RequestParam("use_yn")       String use_yn) {		   
+////		   ,@RequestParam("dev_fr_dt")     String dev_fr_dt
+////		   ,@RequestParam("dev_to_dt")     String dev_to_dt) {		
+//		return apiscenMapper.updateParam(
+//				api_scen_id
+//				,api_id
+//				,upt_dt
+//				,upt_id
+//				,func_nm
+//				,proc_state
+//				,use_yn				
+////				,dev_fr_dt
+////				,dev_to_dt
+//				);				
+//	}
 	
 	// Body
-	@PostMapping("/{api_scen_id},{api_id}")	
-//	@PutMapping("/{api_scen_id},{api_id}")  
+//	@PostMapping("/{api_scen_id},{api_id}")	
+	@PutMapping("/upt")  
 	public int put(@RequestBody ApiScen apiscen) {
 		return apiscenMapper.updateBody(apiscen);			
 	}	
@@ -164,12 +166,24 @@ public class ApiScenController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/api_scen_id={api_scen_id},api_id={api_id}")	
-	public int delete(
-			@PathVariable("api_scen_id") String api_scen_id
-		   ,@PathVariable("api_id") String api_id
-			) {
-		return apiscenMapper.delete(api_scen_id, api_id);
+//	@DeleteMapping("/api_scen_id={api_scen_id},api_id={api_id}")	
+//	public int delete(
+//			@PathVariable("api_scen_id") String api_scen_id
+//		   ,@PathVariable("api_id") String api_id
+//			) {
+//		return apiscenMapper.delete(api_scen_id, api_id);
+//	}
+	
+	// 삭제 - 단건
+	@DeleteMapping("/del")	
+	public int delete(@RequestBody ApiScen apiscen) {
+		return apiscenMapper.delete(apiscen);
+	}	
+	
+	// 삭제 - 여러행
+	@DeleteMapping("/dels")
+	public int deleteMulti(@RequestBody ApiScen apiscen) {
+		return apiscenMapper.deleteMulti(apiscen);
 	}	
 	
 }
