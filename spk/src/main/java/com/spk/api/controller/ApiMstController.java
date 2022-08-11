@@ -35,61 +35,61 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-//	@PutMapping("")
-	@PostMapping("")
-	public int post(@RequestParam("api_id") 	  String api_id
-				   ,@RequestParam("reg_dt")       String reg_dt
-				   ,@RequestParam("reg_id")       String reg_id
-				   ,@RequestParam("upt_dt")       String upt_dt
-				   ,@RequestParam("upt_id")       String upt_id
-				   ,@RequestParam("api_nm")       String api_nm
-				   ,@RequestParam("api_cate")     String api_cate
-				   ,@RequestParam("version")      String version
-				   ,@RequestParam("param")	      String param
-				   ,@RequestParam("res_form")     String res_form
-				   ,@RequestParam("rtn_type")     String rtn_type
-				   ,@RequestParam("method")       String method
-				   ,@RequestParam("url")	      String url
-				   ,@RequestParam("proc_state")   String proc_state
-				   ,@RequestParam("proc_rate")    String proc_rate
-				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-				   ,@RequestParam("dev_to_dt")    String dev_to_dt
-				   ,@RequestParam("requester")    String requester
-				   ,@RequestParam("owner")	      String owner
-				   ,@RequestParam("developer")    String developer
-				   ,@RequestParam("participant")  String participant
-				   ,@RequestParam("scenario")     String scenario) {
-		return apimstMapper.insertParam(
-					api_id
-					,reg_dt
-					,reg_id
-					,upt_dt
-					,upt_id
-					,api_nm
-					,api_cate
-					,version
-					,param
-					,res_form
-					,rtn_type
-					,method
-					,url
-					,proc_state
-					,proc_rate
-					,dev_fr_dt
-					,dev_to_dt
-					,requester
-					,owner
-					,developer
-					,participant
-					,scenario
-					);
-	}
+////	@PutMapping("")
+//	@PostMapping("")
+//	public int post(@RequestParam("api_id") 	  String api_id
+//				   ,@RequestParam("reg_dt")       String reg_dt
+//				   ,@RequestParam("reg_id")       String reg_id
+//				   ,@RequestParam("upt_dt")       String upt_dt
+//				   ,@RequestParam("upt_id")       String upt_id
+//				   ,@RequestParam("api_nm")       String api_nm
+//				   ,@RequestParam("api_cate")     String api_cate
+//				   ,@RequestParam("version")      String version
+//				   ,@RequestParam("param")	      String param
+//				   ,@RequestParam("res_form")     String res_form
+//				   ,@RequestParam("rtn_type")     String rtn_type
+//				   ,@RequestParam("method")       String method
+//				   ,@RequestParam("url")	      String url
+//				   ,@RequestParam("proc_state")   String proc_state
+//				   ,@RequestParam("proc_rate")    String proc_rate
+//				   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+//				   ,@RequestParam("dev_to_dt")    String dev_to_dt
+//				   ,@RequestParam("requester")    String requester
+//				   ,@RequestParam("owner")	      String owner
+//				   ,@RequestParam("developer")    String developer
+//				   ,@RequestParam("participant")  String participant
+//				   ,@RequestParam("scenario")     String scenario) {
+//		return apimstMapper.insertParam(
+//					api_id
+//					,reg_dt
+//					,reg_id
+//					,upt_dt
+//					,upt_id
+//					,api_nm
+//					,api_cate
+//					,version
+//					,param
+//					,res_form
+//					,rtn_type
+//					,method
+//					,url
+//					,proc_state
+//					,proc_rate
+//					,dev_fr_dt
+//					,dev_to_dt
+//					,requester
+//					,owner
+//					,developer
+//					,participant
+//					,scenario
+//					);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PutMapping("")
-//	@PostMapping("")
+//	@PutMapping("")
+	@PostMapping("/ins")
 	public int post(@RequestBody ApiMst apimst) {
 		return apimstMapper.insertBody(apimst);
 	}
@@ -98,10 +98,8 @@ public class ApiMstController {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-	@GetMapping("")
+	@PostMapping("/lst")
 	public String getAll() {
-
-
 
 //		Utils utils = new Utils();
 		
@@ -200,13 +198,15 @@ public class ApiMstController {
 	
 	//================TRY(2)===================================
 	// one
-	@GetMapping(value = "/api_id={api_id}")
-	public String getByApiId(@PathVariable("api_id") String api_id) {
+//	@GetMapping(value = "/api_id={api_id}")
+//	public String getByApiId(@PathVariable("api_id") String api_id) {
+	@PostMapping("/dtl")
+	public String getByApiId(@RequestBody ApiMst _apimst) {
+	
 		
+		System.out.println("[ApiMstController]getByApiId=>"+apimstMapper.getByApiId(_apimst.getApi_id()));
 		
-		System.out.println("[ApiMstController]getByApiId=>"+apimstMapper.getByApiId(api_id));
-		
-		ApiMst apimst = apimstMapper.getByApiId(api_id);
+		ApiMst apimst = apimstMapper.getByApiId(_apimst.getApi_id());
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
@@ -266,60 +266,60 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// Params
-//	@PostMapping("/{api_id}")	
-	@PutMapping("/api_id={api_id}")  	
-	public int put(@PathVariable("api_id") String api_id
-		   ,@RequestParam("reg_dt")       String reg_dt
-		   ,@RequestParam("reg_id")       String reg_id
-		   ,@RequestParam("upt_dt")       String upt_dt
-		   ,@RequestParam("upt_id")       String upt_id
-		   ,@RequestParam("api_nm")       String api_nm
-		   ,@RequestParam("api_cate")     String api_cate
-		   ,@RequestParam("version")      String version
-		   ,@RequestParam("param")	      String param
-		   ,@RequestParam("res_form")     String res_form
-		   ,@RequestParam("rtn_type")     String rtn_type
-		   ,@RequestParam("method")       String method
-		   ,@RequestParam("url")	      String url
-		   ,@RequestParam("proc_state")   String proc_state
-		   ,@RequestParam("proc_rate")    String proc_rate
-		   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
-		   ,@RequestParam("dev_to_dt")    String dev_to_dt
-		   ,@RequestParam("requester")    String requester
-		   ,@RequestParam("owner")	      String owner
-		   ,@RequestParam("developer")    String developer
-		   ,@RequestParam("participant")  String participant
-		   ,@RequestParam("scenario")     String scenario) {		
-		return apimstMapper.updateParam(
-				api_id
-				,reg_dt
-				,reg_id
-				,upt_dt
-				,upt_id
-				,api_nm
-				,api_cate
-				,version
-				,param
-				,res_form
-				,rtn_type
-				,method
-				,url
-				,proc_state
-				,proc_rate
-				,dev_fr_dt
-				,dev_to_dt
-				,requester
-				,owner
-				,developer
-				,participant
-				,scenario
-				);				
-	}
+//	// Params
+////	@PostMapping("/{api_id}")	
+//	@PutMapping("/api_id={api_id}")  	
+//	public int put(@PathVariable("api_id") String api_id
+//		   ,@RequestParam("reg_dt")       String reg_dt
+//		   ,@RequestParam("reg_id")       String reg_id
+//		   ,@RequestParam("upt_dt")       String upt_dt
+//		   ,@RequestParam("upt_id")       String upt_id
+//		   ,@RequestParam("api_nm")       String api_nm
+//		   ,@RequestParam("api_cate")     String api_cate
+//		   ,@RequestParam("version")      String version
+//		   ,@RequestParam("param")	      String param
+//		   ,@RequestParam("res_form")     String res_form
+//		   ,@RequestParam("rtn_type")     String rtn_type
+//		   ,@RequestParam("method")       String method
+//		   ,@RequestParam("url")	      String url
+//		   ,@RequestParam("proc_state")   String proc_state
+//		   ,@RequestParam("proc_rate")    String proc_rate
+//		   ,@RequestParam("dev_fr_dt")    String dev_fr_dt
+//		   ,@RequestParam("dev_to_dt")    String dev_to_dt
+//		   ,@RequestParam("requester")    String requester
+//		   ,@RequestParam("owner")	      String owner
+//		   ,@RequestParam("developer")    String developer
+//		   ,@RequestParam("participant")  String participant
+//		   ,@RequestParam("scenario")     String scenario) {		
+//		return apimstMapper.updateParam(
+//				api_id
+//				,reg_dt
+//				,reg_id
+//				,upt_dt
+//				,upt_id
+//				,api_nm
+//				,api_cate
+//				,version
+//				,param
+//				,res_form
+//				,rtn_type
+//				,method
+//				,url
+//				,proc_state
+//				,proc_rate
+//				,dev_fr_dt
+//				,dev_to_dt
+//				,requester
+//				,owner
+//				,developer
+//				,participant
+//				,scenario
+//				);				
+//	}
 	
 	// Body
-	@PostMapping("/{api_id}")	
-//	@PutMapping("/{api_id}")  
+//	@PostMapping("/{api_id}")	
+	@PutMapping("/upt")  
 	public int put(@RequestBody ApiMst apimst) {
 		return apimstMapper.updateBody(apimst);			
 	}
@@ -327,9 +327,14 @@ public class ApiMstController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/api_id={api_id}")	
-	public int delete(@PathVariable("api_id") String api_id) {
-		return apimstMapper.delete(api_id);
-	}
+//	@DeleteMapping("/api_id={api_id}")	
+//	public int delete(@PathVariable("api_id") String api_id) {
+//		return apimstMapper.delete(api_id);
+//	}
+
+	@DeleteMapping("/del")	
+	public int delete(@RequestBody ApiMst apimst) {
+		return apimstMapper.delete(apimst);
+	}	
 	
 }
