@@ -30,7 +30,7 @@ public class PjtComController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
 //	@GetMapping("")	
-	@PostMapping("")	
+	@PostMapping("/lst")	
 	public String getAll() {
 
 		JsonObject dataResult = new JsonObject();
