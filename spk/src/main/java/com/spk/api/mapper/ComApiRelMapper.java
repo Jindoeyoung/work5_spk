@@ -23,33 +23,33 @@ public interface ComApiRelMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@Insert("INSERT INTO COM_API_REL("
-				+ " com_id"			//컴포넌트 ID
-				+ ",api_id"			//API ID
-				+ ",reg_dt"			//등록일
-				+ ",reg_id"			//등록자
-				+ ",upt_dt"			//수정일
-				+ ",upt_id"			//수정자
-				+ ",api_src)"		//API 소스 경로				
-				+ "   VALUES"
-				+ " ("
-				+ " #{com_id}"
-				+ ",#{api_id}"
-				+ ",#{reg_dt}"
-				+ ",#{reg_id}"
-				+ ",#{upt_dt}"
-				+ ",#{upt_id}"
-				+ ",#{api_src}"				
-				+ ")")
-	int insertParam(
-			   @Param("com_id") 	  String com_id
-			  ,@Param("api_id")       String api_id
-			  ,@Param("reg_dt")       String reg_dt
-			  ,@Param("reg_id")       String reg_id
-			  ,@Param("upt_dt")       String upt_dt
-			  ,@Param("upt_id")       String upt_id
-			  ,@Param("api_src")      String api_src			  
-			  );			
+//	@Insert("INSERT INTO COM_API_REL("
+//				+ " com_id"			//컴포넌트 ID
+//				+ ",api_id"			//API ID
+//				+ ",reg_dt"			//등록일
+//				+ ",reg_id"			//등록자
+//				+ ",upt_dt"			//수정일
+//				+ ",upt_id"			//수정자
+//				+ ",api_src)"		//API 소스 경로				
+//				+ "   VALUES"
+//				+ " ("
+//				+ " #{com_id}"
+//				+ ",#{api_id}"
+//				+ ",#{reg_dt}"
+//				+ ",#{reg_id}"
+//				+ ",#{upt_dt}"
+//				+ ",#{upt_id}"
+//				+ ",#{api_src}"				
+//				+ ")")
+//	int insertParam(
+//			   @Param("com_id") 	  String com_id
+//			  ,@Param("api_id")       String api_id
+//			  ,@Param("reg_dt")       String reg_dt
+//			  ,@Param("reg_id")       String reg_id
+//			  ,@Param("upt_dt")       String upt_dt
+//			  ,@Param("upt_id")       String upt_id
+//			  ,@Param("api_src")      String api_src			  
+//			  );
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
@@ -57,20 +57,20 @@ public interface ComApiRelMapper {
 	@Insert("INSERT INTO COM_API_REL("
 			+ " com_id"			//COM_ID
 			+ ",api_id"			//API ID
+			+ ",api_src"		//API 소스 경로
 			+ ",reg_dt"			//등록일
 			+ ",reg_id"			//등록자
 			+ ",upt_dt"			//수정일
-			+ ",upt_id"			//수정자
-			+ ",api_src)"		//API 소스 경로			
+			+ ",upt_id)"			//수정자			
 			+ "   VALUES"
 			+ " ("
-			+ " #{COM_MST.com_id}"
-			+ ",#{COM_MST.api_id}"
-			+ ",#{COM_MST.reg_dt}"
-			+ ",#{COM_MST.reg_id}"
-			+ ",#{COM_MST.upt_dt}"
-			+ ",#{COM_MST.upt_id}"
-			+ ",#{COM_MST.api_src}"
+			+ " #{COM_API_REL.com_id}"
+			+ ",#{COM_API_REL.api_id}"
+			+ ",#{COM_API_REL.api_src}"
+			+ ",#{COM_API_REL.reg_dt}"
+			+ ",#{COM_API_REL.reg_id}"
+			+ ",#{COM_API_REL.upt_dt}"
+			+ ",#{COM_API_REL.upt_id}"
 			+ ")")	
 	int insertBody(@Param("COM_API_REL") ComApiRel comapirel);	
 	
@@ -118,19 +118,19 @@ public interface ComApiRelMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------	
-	// Params
-	@Update("UPDATE COM_API_REL SET "
-				+ "upt_dt=#{upt_dt}"
-				+ ",upt_id=#{upt_id}"
-				+ ",api_src=#{api_src}"
-				+ "WHERE com_id=#{com_id} AND api_id=#{api_id}")
-	int updateParam(
-			   @Param("com_id") 	  String com_id
-			  ,@Param("api_id")       String api_id
-			  ,@Param("upt_dt")       String upt_dt
-			  ,@Param("upt_id")       String upt_id
-			  ,@Param("api_src")      String api_src
-			  );				
+//	// Params
+//	@Update("UPDATE COM_API_REL SET "
+//				+ "upt_dt=#{upt_dt}"
+//				+ ",upt_id=#{upt_id}"
+//				+ ",api_src=#{api_src}"
+//				+ "WHERE com_id=#{com_id} AND api_id=#{api_id}")
+//	int updateParam(
+//			   @Param("com_id") 	  String com_id
+//			  ,@Param("api_id")       String api_id
+//			  ,@Param("upt_dt")       String upt_dt
+//			  ,@Param("upt_id")       String upt_id
+//			  ,@Param("api_src")      String api_src
+//			  );
 	
 	// Body
 	@Update("UPDATE COM_API_REL SET "
@@ -143,10 +143,20 @@ public interface ComApiRelMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@Delete("DELETE FROM COM_API_REL WHERE com_id=#{com_id} AND api_id=#{api_id}")
-	int delete(
-			@Param("com_id") String com_id
-		   ,@Param("api_id") String api_id
-			);	
+//	@Delete("DELETE FROM COM_API_REL WHERE com_id=#{com_id} AND api_id=#{api_id}")
+//	int delete(
+//			@Param("com_id") String com_id
+//		   ,@Param("api_id") String api_id
+//			);
+
+	// 삭제 - 단건
+	@Delete("DELETE FROM COM_API_REL "
+			+ "WHERE com_id=#{COM_API_REL.com_id} "
+			+ "AND api_id=#{COM_API_REL.api_id}")
+	int delete(@Param("COM_API_REL") ComApiRel comapirel);	
 	
+	// 삭제 - 여러행
+	@Delete("DELETE FROM COM_API_REL "
+			+ "WHERE com_id=#{COM_API_REL.com_id}")
+	int deleteMulti(@Param("COM_API_REL") ComApiRel comapirel);		
 }

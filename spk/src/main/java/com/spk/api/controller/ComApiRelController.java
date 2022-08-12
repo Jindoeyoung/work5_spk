@@ -31,33 +31,33 @@ public class ComApiRelController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Params)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-//	@PutMapping("")
-	@PostMapping("")
-	public int post(
-				   @RequestParam("com_id") 	  	 String com_id
-				  ,@RequestParam("api_id")       String api_id
-				  ,@RequestParam("reg_dt")       String reg_dt
-				  ,@RequestParam("reg_id")       String reg_id
-				  ,@RequestParam("upt_dt")       String upt_dt
-				  ,@RequestParam("upt_id")       String upt_id
-				  ,@RequestParam("api_src")      String api_src
-				   ) {
-		return comapirelMapper.insertParam(
-				   com_id
-				  ,api_id
-				  ,reg_dt
-				  ,reg_id
-				  ,upt_dt
-				  ,upt_id
-				  ,api_src
-				);
-	}
+////	@PutMapping("")
+//	@PostMapping("")
+//	public int post(
+//				   @RequestParam("com_id") 	  	 String com_id
+//				  ,@RequestParam("api_id")       String api_id
+//				  ,@RequestParam("reg_dt")       String reg_dt
+//				  ,@RequestParam("reg_id")       String reg_id
+//				  ,@RequestParam("upt_dt")       String upt_dt
+//				  ,@RequestParam("upt_id")       String upt_id
+//				  ,@RequestParam("api_src")      String api_src
+//				   ) {
+//		return comapirelMapper.insertParam(
+//				   com_id
+//				  ,api_id
+//				  ,reg_dt
+//				  ,reg_id
+//				  ,upt_dt
+//				  ,upt_id
+//				  ,api_src
+//				);
+//	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PutMapping("")
-//	@PostMapping("")
+//	@PutMapping("")
+	@PostMapping("/ins")
 	public int post(@RequestBody ComApiRel comapirel) {
 		return comapirelMapper.insertBody(comapirel);
 	}
@@ -73,9 +73,11 @@ public class ComApiRelController {
 	}
 	
 	// list (특정 com_id 에 해당하는 api_id 여러 건)
-	@GetMapping("/com_id={com_id}")
-	public String getByComId(@PathVariable("com_id") String com_id) {
-
+//	@GetMapping("/com_id={com_id}")
+//	public String getByComId(@PathVariable("com_id") String com_id) {
+	@PostMapping("/lst")
+	public String getByComId(@RequestBody ComApiRel _comapirel) {
+		
 		// Return할 최종 결과값		
 		JsonObject dataResult = new JsonObject();
 		
@@ -85,10 +87,10 @@ public class ComApiRelController {
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		List<ComApiRel> datas = (List<ComApiRel>) comapirelMapper.getByComId(com_id);
+		List<ComApiRel> datas = (List<ComApiRel>) comapirelMapper.getByComId(_comapirel.getCom_id());
 		
 		for (ComApiRel item : datas) {
-		System.out.println("[getByComId] item==>"+item);
+		System.out.println("[ComApiRelController][getByComId] item==>"+item);
 		
 			JsonObject jsonObj1 = new JsonObject();
 			
@@ -122,29 +124,29 @@ public class ComApiRelController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// UPDATE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// Params
-//	@PostMapping("/{com_id}")	
-//	@PutMapping("/{com_id},{api_id}")  	
-	@PutMapping("/com_id={com_id},api_id={api_id}")
-	public int put(
-				   @PathVariable("com_id") 		 String com_id
-				  ,@PathVariable("api_id") 		 String api_id
-				  ,@RequestParam("upt_dt")       String upt_dt
-				  ,@RequestParam("upt_id")       String upt_id
-				  ,@RequestParam("api_src")      String api_src
-		   ) {		
-		return comapirelMapper.updateParam(
-				  com_id
-				  ,api_id
-				  ,upt_dt
-				  ,upt_id
-				  ,api_src
-		  );				
-	}
+//	// Params
+////	@PostMapping("/{com_id}")	
+////	@PutMapping("/{com_id},{api_id}")  	
+//	@PutMapping("/com_id={com_id},api_id={api_id}")
+//	public int put(
+//				   @PathVariable("com_id") 		 String com_id
+//				  ,@PathVariable("api_id") 		 String api_id
+//				  ,@RequestParam("upt_dt")       String upt_dt
+//				  ,@RequestParam("upt_id")       String upt_id
+//				  ,@RequestParam("api_src")      String api_src
+//		   ) {		
+//		return comapirelMapper.updateBody(
+//				  com_id
+//				  ,api_id
+//				  ,upt_dt
+//				  ,upt_id
+//				  ,api_src
+//		  );				
+//	}
 	
 	// Body
-	@PostMapping("/{com_id},{api_id}")	
-//	@PutMapping("/{com_id}")  
+//	@PostMapping("/{com_id},{api_id}")	
+	@PutMapping("/upt")
 	public int put(@RequestBody ComApiRel comapirel) {
 		return comapirelMapper.updateBody(comapirel);			
 	}	
@@ -152,12 +154,21 @@ public class ComApiRelController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@DeleteMapping("/com_id={com_id},api_id={api_id}")	
-	public int delete(
-			@PathVariable("com_id") String com_id
-		   ,@PathVariable("api_id") String api_id	
-			) {
-		return comapirelMapper.delete(com_id, api_id);
+//	@DeleteMapping("/com_id={com_id},api_id={api_id}")	
+//	public int delete(@RequestBody ComApiRel comapirel) {
+//		return comapirelMapper.delete(comapirel);
+//	}
+	
+	// 삭제 - 단건
+	@DeleteMapping("/del")
+	public int delete(@RequestBody ComApiRel comapirel) {
+		return comapirelMapper.delete(comapirel);
+	}
+
+	// 삭제 - 여러행
+	@DeleteMapping("/dels")
+	public int deleteMulti(@RequestBody ComApiRel comapirel) {
+		return comapirelMapper.deleteMulti(comapirel);
 	}	
 	
 }
