@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class PjtCom {
+	private String apikey;
 	private String com_id;
 	private String com_nm;
 	private String dev_fr_dt;
