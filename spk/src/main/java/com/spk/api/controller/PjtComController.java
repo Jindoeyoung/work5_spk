@@ -22,12 +22,50 @@ import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 import com.google.gson.JsonArray;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
-//@RequestMapping("/pjt")
 @RequestMapping(value = "/pjt", produces = "application/json; charset=utf8")
 public class PjtComController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	
+	
+//	public PjtComController(@RequestBody PjtCom _pjtcom) throws Exception {
+//		
+//        //============================================================
+//        //< 인증키
+//        //============================================================			
+//		String apikey = _pjtcom.getApikey();
+//		//logger.info("apikey:"+apikey);
+//		
+//		Utils utils = new Utils();
+//		SignVerifier verifier = new SignVerifier();
+//		JsonObject result = new JsonObject();
+//		
+//        //============================================================
+//        //< 서버인증 처리
+//        //============================================================			
+//        if (!verifier.verifySignature(apikey)) {
+//        	logger.info("[PjtComController][getAll] AUTHENTICATION RESTRICTIONS");
+//            result = utils.getMetaErrGenerator(10000, "AUTH");
+//            authCheck(result);
+////            return result.toString();
+//        }		
+//		
+////        return result.toString();
+//	}
+//	
+//	
+//	public String authCheck(String result) throws Exception {
+//		return null;
+//		
+//		
+//	}
+	
+	
+	
 	@Autowired 
 	private PjtComMapper pjtcomMapper;
 	
@@ -35,163 +73,63 @@ public class PjtComController {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-//	@GetMapping("")	
 	@PostMapping("/lst")	
 	public String getAll(@RequestBody PjtCom _pjtcom) throws Exception {
-
 		
         //============================================================
         //< 인증키
         //============================================================			
 		String apikey = _pjtcom.getApikey();
-		System.out.println("apikey:"+apikey);
-
+		//logger.info("apikey:"+apikey);
 		
 		Utils utils = new Utils();
 		SignVerifier verifier = new SignVerifier();
 		JsonObject result = new JsonObject();
-
-		String signature = apikey;
 		
         //============================================================
         //< 서버인증 처리
         //============================================================			
-        if (!verifier.verifySignature(signature)) {
-//        	logger.info("[DonwloadMetaController.hpMetaDataInfo] AUTHENTICATION RESTRICTIONS");
-        	
-        	System.out.println("[DonwloadMetaController.hpMetaDataInfo] AUTHENTICATION RESTRICTIONS");
-        	
+        if (!verifier.verifySignature(apikey)) {
+        	logger.info("[PjtComController][getAll] AUTHENTICATION RESTRICTIONS");
             result = utils.getMetaErrGenerator(10000, "AUTH");
             return result.toString();
         }		
 		
-		
+        //============================================================
+        //< Json 포맷 생성
+        //============================================================        
 		JsonObject dataResult = new JsonObject();
-//		JsonObject jsonObj1 = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();
+		JsonArray lineArr = new JsonArray();
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
-		dataResult.addProperty("result", "1");		
+		dataResult.addProperty("result", "1");
 		
-		List<PjtCom> datas = (List<PjtCom>) pjtcomMapper.getAll();		
+		List<PjtCom> datas = (List<PjtCom>) pjtcomMapper.getAll();
 		
 		for (PjtCom item : datas) {
 			System.out.println("[PjtComController][getAll] item==>"+item);
 		
-			JsonObject jsonObj1 = new JsonObject();
-			JsonObject lineData = new JsonObject();
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
 			
-			jsonObj1.addProperty("com_id", item.getCom_id());
-			jsonObj1.addProperty("com_nm", item.getCom_nm());
-			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
-			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
-			jsonObj1.addProperty("requester", item.getRequester());
-			jsonObj1.addProperty("owner", item.getOwner());
-			jsonObj1.addProperty("participant", item.getParticipant());
-			jsonObj1.addProperty("scenario", item.getScenario());
-			jsonObj1.addProperty("scen_cnt", item.getScen_cnt());		
-			jsonArr1.add(jsonObj1);
+			Obj1.addProperty("com_id", item.getCom_id());
+			Obj1.addProperty("com_nm", item.getCom_nm());
+			Obj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
+			Obj1.addProperty("dev_to_dt", item.getDev_to_dt());
+			Obj1.addProperty("requester", item.getRequester());
+			Obj1.addProperty("owner", item.getOwner());
+			Obj1.addProperty("participant", item.getParticipant());
+			Obj1.addProperty("scenario", item.getScenario());
+			Obj1.addProperty("scen_cnt", item.getScen_cnt());		
+			lineArr.add(Obj1);
 			
-			lineData.add("result", jsonArr1);
-			dataResult.add("data", lineData);
-			
+			Obj2.add("result", lineArr);
+			dataResult.add("data", Obj2);
 		}		
 				
 		return dataResult.toString();		
 		
 	}
-	
-
-	
-	
-	
-// 원본	
-	
-//	//-------------------------------------------------------------------------------------------------------------------------------------
-//	// SELECT
-//	//-------------------------------------------------------------------------------------------------------------------------------------
-//	// list
-////	@GetMapping("")	
-//	@PostMapping("/lst")	
-//	public String getAll(@RequestBody PjtCom _pjtcom) throws Exception {
-//
-//		
-//        //============================================================
-//        //< 인증키
-//        //============================================================			
-//		String apikey = _pjtcom.getApikey();
-//		System.out.println("apikey:"+apikey);
-//
-//		
-//		Utils utils = new Utils();
-//		SignVerifier verifier = new SignVerifier();
-//		JsonObject result = new JsonObject();
-//
-//		String signature = apikey;
-//		
-//        //============================================================
-//        //< 서버인증 처리
-//        //============================================================			
-//        if (!verifier.verifySignature(signature)) {
-////        	logger.info("[DonwloadMetaController.hpMetaDataInfo] AUTHENTICATION RESTRICTIONS");
-//        	
-//        	System.out.println("[DonwloadMetaController.hpMetaDataInfo] AUTHENTICATION RESTRICTIONS");
-//        	
-//            result = utils.getMetaErrGenerator(10000, "AUTH");
-//            return result.toString();
-//        }		
-//		
-//		
-//		JsonObject dataResult = new JsonObject();
-////		JsonObject jsonObj1 = new JsonObject();
-//		JsonArray jsonArr1 = new JsonArray();		
-//		
-//		String Message = "SUCCESS";
-//		dataResult.addProperty("reason", Message);
-//		dataResult.addProperty("result", "1");		
-//		
-//		List<PjtCom> datas = (List<PjtCom>) pjtcomMapper.getAll();		
-//		
-//		for (PjtCom item : datas) {
-////		System.out.println("item==>"+item);
-////		System.out.println("item.getCom_id()==>"+item.getCom_id());
-////		
-////		
-////			String com_id = null;  
-////			com_id = item.getCom_id();
-//		
-//			JsonObject jsonObj1 = new JsonObject();
-////			JsonArray jsonArr1 = new JsonArray();				
-//			
-//			jsonObj1.addProperty("com_id", item.getCom_id());
-//			jsonObj1.addProperty("com_nm", item.getCom_nm());
-//			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
-//			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
-//			jsonObj1.addProperty("requester", item.getRequester());
-//			jsonObj1.addProperty("owner", item.getOwner());
-//			jsonObj1.addProperty("participant", item.getParticipant());
-//			jsonObj1.addProperty("scenario", item.getScenario());
-//			jsonObj1.addProperty("scen_cnt", item.getScen_cnt());		
-//			jsonArr1.add(jsonObj1);		
-//			
-//			dataResult.add("data", jsonArr1);
-//			
-//			
-//		}		
-//		
-////		try {
-////			result = utils.getMultiGenerator(apimstMapper.getAll().toString());
-////		} catch (Exception e) {
-////			e.printStackTrace();
-////		}
-//				
-//		return dataResult.toString();		
-//		
-//	}	
-	
-	
-	
-	
 	
 }
