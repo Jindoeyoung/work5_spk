@@ -108,35 +108,34 @@ public class ComMstController {
 		for (ComMst item : datas) {
 		System.out.println("item==>"+item);
 		
-			JsonObject jsonObj1 = new JsonObject();
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
 		
-			jsonObj1.addProperty("com_id", item.getCom_id());
-			jsonObj1.addProperty("reg_dt", item.getReg_dt());
-			jsonObj1.addProperty("reg_id", item.getReg_id());
-			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
-			jsonObj1.addProperty("upt_id", item.getUpt_id());
-			jsonObj1.addProperty("com_nm", item.getCom_nm());
-			jsonObj1.addProperty("com_cate", item.getCom_cate());
-			jsonObj1.addProperty("com_attr", item.getCom_attr());
-			jsonObj1.addProperty("com_form", item.getCom_form());
-			jsonObj1.addProperty("com_src", item.getCom_src());
-			//jsonObj1.addProperty("api_id", item);
-			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
-			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
-			jsonObj1.addProperty("use_fr_dt", item.getUse_fr_dt());
-			jsonObj1.addProperty("use_to_dt", item.getUse_to_dt());
-			jsonObj1.addProperty("requester", item.getRequester());
-			jsonObj1.addProperty("owner", item.getOwner());
-			jsonObj1.addProperty("developer", item.getDeveloper());
-			jsonObj1.addProperty("participant", item.getParticipant());
-			jsonObj1.addProperty("scenario", item.getScenario());
-			jsonArr1.add(jsonObj1);		
+			Obj1.addProperty("com_id", item.getCom_id());
+			Obj1.addProperty("reg_dt", item.getReg_dt());
+			Obj1.addProperty("reg_id", item.getReg_id());
+			Obj1.addProperty("upt_dt", item.getUpt_dt());
+			Obj1.addProperty("upt_id", item.getUpt_id());
+			Obj1.addProperty("com_nm", item.getCom_nm());
+			Obj1.addProperty("com_cate", item.getCom_cate());
+			Obj1.addProperty("com_attr", item.getCom_attr());
+			Obj1.addProperty("com_form", item.getCom_form());
+			Obj1.addProperty("com_src", item.getCom_src());
+			//Obj1.addProperty("api_id", item);
+			Obj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
+			Obj1.addProperty("dev_to_dt", item.getDev_to_dt());
+			Obj1.addProperty("use_fr_dt", item.getUse_fr_dt());
+			Obj1.addProperty("use_to_dt", item.getUse_to_dt());
+			Obj1.addProperty("requester", item.getRequester());
+			Obj1.addProperty("owner", item.getOwner());
+			Obj1.addProperty("developer", item.getDeveloper());
+			Obj1.addProperty("participant", item.getParticipant());
+			Obj1.addProperty("scenario", item.getScenario());
 			
-			JsonObject lineData = new JsonObject();
-			lineData.add("result", jsonArr1);
-			dataResult.add("data", lineData);			
+			jsonArr1.add(Obj1);		
 			
-//			dataResult.add("data", jsonArr1);		
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);			
 		}		
 				
 		return dataResult.toString();
@@ -166,35 +165,33 @@ public class ComMstController {
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		JsonObject jsonObj1 = new JsonObject();
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
 		
-		jsonObj1.addProperty("com_id", commst.getCom_id());
-		jsonObj1.addProperty("reg_dt", commst.getReg_dt());
-		jsonObj1.addProperty("reg_id", commst.getReg_id());
-		jsonObj1.addProperty("upt_dt", commst.getUpt_dt());
-		jsonObj1.addProperty("upt_id", commst.getUpt_id());
-		jsonObj1.addProperty("com_nm", commst.getCom_nm());
-		jsonObj1.addProperty("com_cate", commst.getCom_cate());
-		jsonObj1.addProperty("com_attr", commst.getCom_attr());
-		jsonObj1.addProperty("com_form", commst.getCom_form());
-		jsonObj1.addProperty("com_src", commst.getCom_src());
-		//jsonObj1.addProperty("api_id", commst);
-		jsonObj1.addProperty("dev_fr_dt", commst.getDev_fr_dt());
-		jsonObj1.addProperty("dev_to_dt", commst.getDev_to_dt());
-		jsonObj1.addProperty("use_fr_dt", commst.getUse_fr_dt());
-		jsonObj1.addProperty("use_to_dt", commst.getUse_to_dt());
-		jsonObj1.addProperty("requester", commst.getRequester());
-		jsonObj1.addProperty("owner", commst.getOwner());
-		jsonObj1.addProperty("developer", commst.getDeveloper());
-		jsonObj1.addProperty("participant", commst.getParticipant());
-		jsonObj1.addProperty("scenario", commst.getScenario());
-		jsonArr1.add(jsonObj1);		
+		Obj1.addProperty("com_id", commst.getCom_id());
+		Obj1.addProperty("reg_dt", commst.getReg_dt());
+		Obj1.addProperty("reg_id", commst.getReg_id());
+		Obj1.addProperty("upt_dt", commst.getUpt_dt());
+		Obj1.addProperty("upt_id", commst.getUpt_id());
+		Obj1.addProperty("com_nm", commst.getCom_nm());
+		Obj1.addProperty("com_cate", commst.getCom_cate());
+		Obj1.addProperty("com_attr", commst.getCom_attr());
+		Obj1.addProperty("com_form", commst.getCom_form());
+		Obj1.addProperty("com_src", commst.getCom_src());
+		//Obj1.addProperty("api_id", commst);
+		Obj1.addProperty("dev_fr_dt", commst.getDev_fr_dt());
+		Obj1.addProperty("dev_to_dt", commst.getDev_to_dt());
+		Obj1.addProperty("use_fr_dt", commst.getUse_fr_dt());
+		Obj1.addProperty("use_to_dt", commst.getUse_to_dt());
+		Obj1.addProperty("requester", commst.getRequester());
+		Obj1.addProperty("owner", commst.getOwner());
+		Obj1.addProperty("developer", commst.getDeveloper());
+		Obj1.addProperty("participant", commst.getParticipant());
+		Obj1.addProperty("scenario", commst.getScenario());
+		jsonArr1.add(Obj1);		
 		
-		JsonObject lineData = new JsonObject();
-		lineData.add("result", jsonArr1);
-		dataResult.add("data", lineData);
-		
-//		dataResult.add("data", jsonArr1);
+		Obj2.add("result", jsonArr1);
+		dataResult.add("data", Obj2);
 				
 		return dataResult.toString();		
 	}	
