@@ -132,7 +132,11 @@ public class ComMstController {
 			jsonObj1.addProperty("scenario", item.getScenario());
 			jsonArr1.add(jsonObj1);		
 			
-			dataResult.add("data", jsonArr1);		
+			JsonObject lineData = new JsonObject();
+			lineData.add("result", jsonArr1);
+			dataResult.add("data", lineData);			
+			
+//			dataResult.add("data", jsonArr1);		
 		}		
 				
 		return dataResult.toString();
@@ -186,7 +190,11 @@ public class ComMstController {
 		jsonObj1.addProperty("scenario", commst.getScenario());
 		jsonArr1.add(jsonObj1);		
 		
-		dataResult.add("data", jsonArr1);
+		JsonObject lineData = new JsonObject();
+		lineData.add("result", jsonArr1);
+		dataResult.add("data", lineData);
+		
+//		dataResult.add("data", jsonArr1);
 				
 		return dataResult.toString();		
 	}	

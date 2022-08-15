@@ -14,4 +14,8 @@ public class PjtCom {
 	private String participant;
 	private String scenario;
 	private String scen_cnt;
+	private String partici_cnt;
+	private String proc_state;
+	private Integer proc_rate;	
+	
 }

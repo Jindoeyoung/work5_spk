@@ -25,6 +25,12 @@ public interface PjtComMapper {
 			+ ",M.participant"
 			+ ",M.scenario"
 			+ ",(SELECT COUNT(1) FROM COM_SCEN S WHERE M.com_id=S.com_id) AS scen_cnt "
+			+" ,(CASE when isnull(M.REQUESTER) then 0 else 1 end) + "
+			+"  (CASE when isnull(M.OWNER) then 0 else 1 end) + "
+			+"  (CASE when isnull(M.PARTICIPANT) then 0 else 1 end) + "
+			+"  (CASE when isnull(M.SCENARIO) then 0 else 1 end) as partici_cnt "
+			+ ",M.proc_state "
+			+ ",M.proc_rate "			
 			+ "FROM COM_MST M")
 	@Results(id="PjtComMap", value={
 		@Result(property="com_id", column="com_id"),
@@ -35,7 +41,10 @@ public interface PjtComMapper {
 		@Result(property="owner", column="owner"),
 		@Result(property="participant", column="participant"),
 		@Result(property="scenario", column="scenario"),
-		@Result(property="scen_cnt", column="scen_cnt")
+		@Result(property="scen_cnt", column="scen_cnt"),
+		@Result(property="partici_cnt", column="partici_cnt"),
+		@Result(property="proc_state", column="proc_state"),
+		@Result(property="proc_rate", column="proc_rate")
 	})
 	List<PjtCom> getAll();	
 }

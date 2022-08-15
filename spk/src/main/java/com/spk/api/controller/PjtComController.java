@@ -121,7 +121,11 @@ public class PjtComController {
 			Obj1.addProperty("owner", item.getOwner());
 			Obj1.addProperty("participant", item.getParticipant());
 			Obj1.addProperty("scenario", item.getScenario());
-			Obj1.addProperty("scen_cnt", item.getScen_cnt());		
+			Obj1.addProperty("scen_cnt", item.getScen_cnt());
+			Obj1.addProperty("partici_cnt", item.getPartici_cnt());
+			Obj1.addProperty("proc_state", item.getProc_state());
+			Obj1.addProperty("proc_rate", item.getProc_rate());
+			
 			lineArr.add(Obj1);
 			
 			Obj2.add("result", lineArr);
