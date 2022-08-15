@@ -15,9 +15,11 @@ import com.google.gson.JsonObject;
 import com.spk.api.entity.ApiMst;
 import com.spk.api.entity.PjtCom;
 import com.spk.api.mapper.PjtComMapper;
+import com.spk.api.security.AuthCheck;
 import com.spk.api.security.SignVerifier;
 import com.spk.api.util.Utils;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 import com.google.gson.JsonArray;
@@ -30,9 +32,27 @@ import org.slf4j.LoggerFactory;
 public class PjtComController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired 
+	private PjtComMapper pjtcomMapper;
+		
+//	AuthCheck authcheck = new AuthCheck();
+//	
+//	public String PjtComController(@RequestBody PjtCom _pjtcom) throws Exception {
+//
+//		if (!authcheck.getMetaAuthErrGenerator(_pjtcom.getApikey()).equals("{}")) {
+//			System.out.println("123===");
+//			return authcheck.getMetaAuthErrGenerator(_pjtcom.getApikey());
+//			}
+//		return null;		
+//		
+//	}
+	
+
 	
 	
 //	public PjtComController(@RequestBody PjtCom _pjtcom) throws Exception {
+//		logger.info("====================1");
+//		
 //		
 //        //============================================================
 //        //< 인증키
@@ -58,16 +78,15 @@ public class PjtComController {
 //	}
 //	
 //	
-//	public String authCheck(String result) throws Exception {
-//		return null;
-//		
-//		
+//	public String authCheck(JsonObject result) throws Exception {
+//		return result.toString();
 //	}
 	
 	
+	AuthCheck authcheck = new AuthCheck();
+
 	
-	@Autowired 
-	private PjtComMapper pjtcomMapper;
+	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT
@@ -76,24 +95,37 @@ public class PjtComController {
 	@PostMapping("/lst")	
 	public String getAll(@RequestBody PjtCom _pjtcom) throws Exception {
 		
-        //============================================================
-        //< 인증키
-        //============================================================			
-		String apikey = _pjtcom.getApikey();
-		//logger.info("apikey:"+apikey);
+//		AuthCheck cuthcheck = new AuthCheck();
 		
-		Utils utils = new Utils();
-		SignVerifier verifier = new SignVerifier();
-		JsonObject result = new JsonObject();
+//		authcheck.getMetaAuthErrGenerator(_pjtcom.getApikey());
 		
-        //============================================================
-        //< 서버인증 처리
-        //============================================================			
-        if (!verifier.verifySignature(apikey)) {
-        	logger.info("[PjtComController][getAll] AUTHENTICATION RESTRICTIONS");
-            result = utils.getMetaErrGenerator(10000, "AUTH");
-            return result.toString();
-        }		
+//		String chk = authcheck.getMetaAuthErrGenerator(_pjtcom.getApikey());
+//		return chk;
+		
+		if (!authcheck.getMetaAuthErrGenerator(_pjtcom.getApikey()).equals("{}")) {
+			System.out.println("123===");
+			return authcheck.getMetaAuthErrGenerator(_pjtcom.getApikey());
+		}
+		
+		
+//        //============================================================
+//        //< 인증키
+//        //============================================================			
+//		String apikey = _pjtcom.getApikey();
+//		//logger.info("apikey:"+apikey);
+//		
+//		Utils utils = new Utils();
+//		SignVerifier verifier = new SignVerifier();
+//		JsonObject result = new JsonObject();
+//		
+//        //============================================================
+//        //< 서버인증 처리
+//        //============================================================			
+//        if (!verifier.verifySignature(apikey)) {
+//        	logger.info("[PjtComController][getAll] AUTHENTICATION RESTRICTIONS");
+//            result = utils.getMetaErrGenerator(10000, "AUTH");
+//            return result.toString();
+//        }		
 		
         //============================================================
         //< Json 포맷 생성
