@@ -92,20 +92,23 @@ public class ComScenController {
 		for (ComScen item : datas) {
 			System.out.println("[ComScenController][getByComScenId] item==>"+item);
 		
-			JsonObject jsonObj1 = new JsonObject();
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
 			
-			jsonObj1.addProperty("com_scen_id", item.getCom_scen_id());
-			jsonObj1.addProperty("com_id", item.getCom_id());
-			jsonObj1.addProperty("reg_dt", item.getReg_dt());
-			jsonObj1.addProperty("reg_id", item.getReg_id());
-			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
-			jsonObj1.addProperty("upt_id", item.getUpt_id());
-			jsonObj1.addProperty("func_nm", item.getFunc_nm());
-			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
-			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
-			jsonArr1.add(jsonObj1);		
+			Obj1.addProperty("com_scen_id", item.getCom_scen_id());
+			Obj1.addProperty("com_id", item.getCom_id());
+			Obj1.addProperty("reg_dt", item.getReg_dt());
+			Obj1.addProperty("reg_id", item.getReg_id());
+			Obj1.addProperty("upt_dt", item.getUpt_dt());
+			Obj1.addProperty("upt_id", item.getUpt_id());
+			Obj1.addProperty("func_nm", item.getFunc_nm());
+			Obj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
+			Obj1.addProperty("dev_to_dt", item.getDev_to_dt());
+			
+			jsonArr1.add(Obj1);		
 	
-			dataResult.add("data", jsonArr1);
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);			
 		}
 		
 		return dataResult.toString();

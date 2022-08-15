@@ -92,18 +92,21 @@ public class ComApiRelController {
 		for (ComApiRel item : datas) {
 		System.out.println("[ComApiRelController][getByComId] item==>"+item);
 		
-			JsonObject jsonObj1 = new JsonObject();
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
 			
-			jsonObj1.addProperty("com_id", item.getCom_id());
-			jsonObj1.addProperty("api_id", item.getApi_id());
-			jsonObj1.addProperty("api_src", item.getApi_src());
-			jsonObj1.addProperty("reg_dt", item.getReg_dt());
-			jsonObj1.addProperty("reg_id", item.getReg_id());
-			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
-			jsonObj1.addProperty("upt_id", item.getUpt_id());
-			jsonArr1.add(jsonObj1);		
+			Obj1.addProperty("com_id", item.getCom_id());
+			Obj1.addProperty("api_id", item.getApi_id());
+			Obj1.addProperty("api_src", item.getApi_src());
+			Obj1.addProperty("reg_dt", item.getReg_dt());
+			Obj1.addProperty("reg_id", item.getReg_id());
+			Obj1.addProperty("upt_dt", item.getUpt_dt());
+			Obj1.addProperty("upt_id", item.getUpt_id());
+			
+			jsonArr1.add(Obj1);		
 	
-			dataResult.add("data", jsonArr1);
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);
 		}
 		
 		return dataResult.toString();		
