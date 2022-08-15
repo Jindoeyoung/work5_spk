@@ -98,20 +98,23 @@ public class ApiScenController {
 		for (ApiScen item : datas) {
 			System.out.println("[ApiScenController][getByApiId] item==>"+item);
 		
-			JsonObject jsonObj1 = new JsonObject();
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
 			
-			jsonObj1.addProperty("api_scen_id", item.getApi_scen_id());
-			jsonObj1.addProperty("api_id", item.getApi_id());
-			jsonObj1.addProperty("reg_dt", item.getReg_dt());
-			jsonObj1.addProperty("reg_id", item.getReg_id());
-			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
-			jsonObj1.addProperty("upt_id", item.getUpt_id());
-			jsonObj1.addProperty("func_nm", item.getFunc_nm());
-			jsonObj1.addProperty("proc_state", item.getProc_state());
-			jsonObj1.addProperty("use_yn", item.getUse_yn());
-			jsonArr1.add(jsonObj1);		
+			Obj1.addProperty("api_scen_id", item.getApi_scen_id());
+			Obj1.addProperty("api_id", item.getApi_id());
+			Obj1.addProperty("reg_dt", item.getReg_dt());
+			Obj1.addProperty("reg_id", item.getReg_id());
+			Obj1.addProperty("upt_dt", item.getUpt_dt());
+			Obj1.addProperty("upt_id", item.getUpt_id());
+			Obj1.addProperty("func_nm", item.getFunc_nm());
+			Obj1.addProperty("proc_state", item.getProc_state());
+			Obj1.addProperty("use_yn", item.getUse_yn());
+			
+			jsonArr1.add(Obj1);		
 	
-			dataResult.add("data", jsonArr1);
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);			
 		}
 		
 		return dataResult.toString();

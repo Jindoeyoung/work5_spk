@@ -117,35 +117,40 @@ public class ApiMstController {
 		for (ApiMst item : datas) {
 		System.out.println("item==>"+item);
 		
-			JsonObject jsonObj1 = new JsonObject();
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
 		
-			jsonObj1.addProperty("api_id", item.getApi_id());
-			jsonObj1.addProperty("reg_dt", item.getReg_dt());
-			jsonObj1.addProperty("reg_id", item.getReg_id());
-			jsonObj1.addProperty("upt_dt", item.getUpt_dt());
-			jsonObj1.addProperty("upt_id", item.getUpt_id());
-			jsonObj1.addProperty("api_nm", item.getApi_nm());
-			jsonObj1.addProperty("api_cate", item.getApi_cate());
-			jsonObj1.addProperty("version", item.getVersion());
-			jsonObj1.addProperty("param", item.getParam());
-			jsonObj1.addProperty("res_form", item.getRes_form());		
-			jsonObj1.addProperty("rtn_type", item.getRtn_type());
-			jsonObj1.addProperty("method", item.getMethod());
-			jsonObj1.addProperty("url", item.getUrl());
-			jsonObj1.addProperty("proc_state", item.getProc_state());
-			jsonObj1.addProperty("proc_rate", item.getProc_rate());
-			jsonObj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
-			jsonObj1.addProperty("dev_to_dt", item.getDev_to_dt());
-			jsonObj1.addProperty("requester", item.getRequester());
-			jsonObj1.addProperty("owner", item.getOwner());
-			jsonObj1.addProperty("developer", item.getDeveloper());
-			jsonObj1.addProperty("participant", item.getParticipant());
-			jsonObj1.addProperty("scenario", item.getScenario());
-			jsonArr1.add(jsonObj1);		
+			Obj1.addProperty("api_id", item.getApi_id());
+			Obj1.addProperty("reg_dt", item.getReg_dt());
+			Obj1.addProperty("reg_id", item.getReg_id());
+			Obj1.addProperty("upt_dt", item.getUpt_dt());
+			Obj1.addProperty("upt_id", item.getUpt_id());
+			Obj1.addProperty("api_nm", item.getApi_nm());
+			Obj1.addProperty("api_cate", item.getApi_cate());
+			Obj1.addProperty("version", item.getVersion());
+			Obj1.addProperty("param", item.getParam());
+			Obj1.addProperty("res_form", item.getRes_form());		
+			Obj1.addProperty("rtn_type", item.getRtn_type());
+			Obj1.addProperty("method", item.getMethod());
+			Obj1.addProperty("url", item.getUrl());
+			Obj1.addProperty("proc_state", item.getProc_state());
+			Obj1.addProperty("proc_rate", item.getProc_rate());
+			Obj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
+			Obj1.addProperty("dev_to_dt", item.getDev_to_dt());
+			Obj1.addProperty("requester", item.getRequester());
+			Obj1.addProperty("owner", item.getOwner());
+			Obj1.addProperty("developer", item.getDeveloper());
+			Obj1.addProperty("participant", item.getParticipant());
+			Obj1.addProperty("scenario", item.getScenario());
+			
+			jsonArr1.add(Obj1);		
+			
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);				
 			
 	//		JsonObject lineData = new JsonObject();
 	//		lineData.add("result", jsonArr1);
-			dataResult.add("data", jsonArr1);		
+//			dataResult.add("data", jsonArr1);		
 
 		}		
 		
@@ -215,35 +220,40 @@ public class ApiMstController {
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		JsonObject jsonObj1 = new JsonObject();
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
 		
-		jsonObj1.addProperty("api_id", apimst.getApi_id());
-		jsonObj1.addProperty("reg_dt", apimst.getReg_dt());
-		jsonObj1.addProperty("reg_id", apimst.getReg_id());
-		jsonObj1.addProperty("upt_dt", apimst.getUpt_dt());
-		jsonObj1.addProperty("upt_id", apimst.getUpt_id());
-		jsonObj1.addProperty("api_nm", apimst.getApi_nm());
-		jsonObj1.addProperty("api_cate", apimst.getApi_cate());
-		jsonObj1.addProperty("version", apimst.getVersion());
-		jsonObj1.addProperty("param", apimst.getParam());
-		jsonObj1.addProperty("res_form", apimst.getRes_form());		
-		jsonObj1.addProperty("rtn_type", apimst.getRtn_type());
-		jsonObj1.addProperty("method", apimst.getMethod());
-		jsonObj1.addProperty("url", apimst.getUrl());
-		jsonObj1.addProperty("proc_state", apimst.getProc_state());
-		jsonObj1.addProperty("proc_rate", apimst.getProc_rate());
-		jsonObj1.addProperty("dev_fr_dt", apimst.getDev_fr_dt());
-		jsonObj1.addProperty("dev_to_dt", apimst.getDev_to_dt());
-		jsonObj1.addProperty("requester", apimst.getRequester());
-		jsonObj1.addProperty("owner", apimst.getOwner());
-		jsonObj1.addProperty("developer", apimst.getDeveloper());
-		jsonObj1.addProperty("participant", apimst.getParticipant());
-		jsonObj1.addProperty("scenario", apimst.getScenario());
-		jsonArr1.add(jsonObj1);		
+		Obj1.addProperty("api_id", apimst.getApi_id());
+		Obj1.addProperty("reg_dt", apimst.getReg_dt());
+		Obj1.addProperty("reg_id", apimst.getReg_id());
+		Obj1.addProperty("upt_dt", apimst.getUpt_dt());
+		Obj1.addProperty("upt_id", apimst.getUpt_id());
+		Obj1.addProperty("api_nm", apimst.getApi_nm());
+		Obj1.addProperty("api_cate", apimst.getApi_cate());
+		Obj1.addProperty("version", apimst.getVersion());
+		Obj1.addProperty("param", apimst.getParam());
+		Obj1.addProperty("res_form", apimst.getRes_form());		
+		Obj1.addProperty("rtn_type", apimst.getRtn_type());
+		Obj1.addProperty("method", apimst.getMethod());
+		Obj1.addProperty("url", apimst.getUrl());
+		Obj1.addProperty("proc_state", apimst.getProc_state());
+		Obj1.addProperty("proc_rate", apimst.getProc_rate());
+		Obj1.addProperty("dev_fr_dt", apimst.getDev_fr_dt());
+		Obj1.addProperty("dev_to_dt", apimst.getDev_to_dt());
+		Obj1.addProperty("requester", apimst.getRequester());
+		Obj1.addProperty("owner", apimst.getOwner());
+		Obj1.addProperty("developer", apimst.getDeveloper());
+		Obj1.addProperty("participant", apimst.getParticipant());
+		Obj1.addProperty("scenario", apimst.getScenario());
+		
+		jsonArr1.add(Obj1);		
+		
+		Obj2.add("result", jsonArr1);
+		dataResult.add("data", Obj2);		
 		
 //		JsonObject lineData = new JsonObject();
 //		lineData.add("result", jsonArr1);
-		dataResult.add("data", jsonArr1);		
+//		dataResult.add("data", jsonArr1);		
 		
 //		String[] arrApiMst = new String[apimst. ];
 		
