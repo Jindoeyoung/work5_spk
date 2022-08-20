@@ -127,6 +127,20 @@ public class ComMstController {
 			Obj1.addProperty("com_form", item.getCom_form());
 			Obj1.addProperty("com_src", item.getCom_src());
 			//Obj1.addProperty("api_id", item);
+			
+	        //============================================================
+	        //< api_src 의 loop data, Json Object 처리
+	        //============================================================   		
+			List<ComApiRel2> datas2 = item.getApi_src();
+			JsonArray jsonArr2 = new JsonArray();
+			for (ComApiRel2 item2 : datas2) {
+//				logger.info("src===>"+item2.getApi_src());
+				JsonObject Obj3 = new JsonObject();
+				Obj3.addProperty("api_src", item2.getApi_src());
+				jsonArr2.add(Obj3);
+			}
+			Obj1.add("api_src", jsonArr2);			
+			
 			Obj1.addProperty("dev_fr_dt", item.getDev_fr_dt());
 			Obj1.addProperty("dev_to_dt", item.getDev_to_dt());
 			Obj1.addProperty("use_fr_dt", item.getUse_fr_dt());
