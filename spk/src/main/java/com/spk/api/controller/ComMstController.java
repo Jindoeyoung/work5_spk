@@ -2,6 +2,8 @@ package com.spk.api.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.ApiMst;
+import com.spk.api.entity.ComApiRel;
+import com.spk.api.entity.ComApiRel2;
 import com.spk.api.entity.ComMst;
 import com.spk.api.mapper.ComMstMapper;
 
@@ -23,7 +27,8 @@ import com.spk.api.mapper.ComMstMapper;
 //@RequestMapping("/com")
 @RequestMapping(value = "/com", produces = "application/json; charset=utf8")
 public class ComMstController {
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired 
 	private ComMstMapper commstMapper;
 	
@@ -178,7 +183,20 @@ public class ComMstController {
 		Obj1.addProperty("com_attr", commst.getCom_attr());
 		Obj1.addProperty("com_form", commst.getCom_form());
 		Obj1.addProperty("com_src", commst.getCom_src());
-		//Obj1.addProperty("api_id", commst);
+		
+        //============================================================
+        //< api_src 의 loop data, Json Object 처리
+        //============================================================   		
+		List<ComApiRel2> datas2 = commst.getApi_src();
+		JsonArray jsonArr2 = new JsonArray();
+		for (ComApiRel2 item2 : datas2) {
+//			logger.info("src===>"+item2.getApi_src());
+			JsonObject Obj3 = new JsonObject();
+			Obj3.addProperty("api_src", item2.getApi_src());
+			jsonArr2.add(Obj3);
+		}
+		Obj1.add("api_src", jsonArr2);
+			
 		Obj1.addProperty("dev_fr_dt", commst.getDev_fr_dt());
 		Obj1.addProperty("dev_to_dt", commst.getDev_to_dt());
 		Obj1.addProperty("use_fr_dt", commst.getUse_fr_dt());
@@ -196,6 +214,11 @@ public class ComMstController {
 		return dataResult.toString();		
 	}	
 	
+//	// 원 Json 리턴 형태 테스트용
+//	@PostMapping("/dtl")
+//	public ComMst getByComId(@RequestBody ComMst _commst) {	
+//		return commstMapper.getByComId(_commst.getCom_id());
+//	}
 	
 //	// one
 //	@GetMapping("/{com_id}")

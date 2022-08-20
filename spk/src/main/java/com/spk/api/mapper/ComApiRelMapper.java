@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.spk.api.entity.ComApiRel;
+import com.spk.api.entity.ComApiRel2;
 
 @Mapper
 public interface ComApiRelMapper {
@@ -111,7 +112,7 @@ public interface ComApiRelMapper {
 	@Results(id="ComApiRelSrcMap", value= {
 		@Result(property="api_src", column="api_src")
 	})
-	List<ComApiRel> getApiSrcByComId(
+	List<ComApiRel2> getApiSrcByComId(
 			@Param("com_id") String com_id
 			);
 	
