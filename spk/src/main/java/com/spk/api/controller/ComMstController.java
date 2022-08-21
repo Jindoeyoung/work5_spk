@@ -22,6 +22,7 @@ import com.spk.api.entity.ComApiRel;
 import com.spk.api.entity.ComApiRel2;
 import com.spk.api.entity.ComMst;
 import com.spk.api.mapper.ComMstMapper;
+import com.spk.api.service.ComMstService;
 
 @RestController
 //@RequestMapping("/com")
@@ -31,6 +32,9 @@ public class ComMstController {
 	
 	@Autowired 
 	private ComMstMapper commstMapper;
+	
+	@Autowired
+	private ComMstService commstService;
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT
@@ -92,6 +96,17 @@ public class ComMstController {
 		return commstMapper.insertBody(commst);
 	}
 	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// INSERT2 (Body)
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping("/ins2")
+	public int post2(@RequestBody ComMst commst) {
+		logger.info("commst=>"+commst);
+		return commstService.insertBody(commst);
+	}	
+	
+	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
@@ -131,9 +146,11 @@ public class ComMstController {
 	        //============================================================
 	        //< api_src 의 loop data, Json Object 처리
 	        //============================================================   		
-			List<ComApiRel2> datas2 = item.getApi_src();
+			List<ComApiRel> datas2 = item.getApi_src();
+//			List<ComApiRel2> datas2 = commst.getApi_src();	// ComApiRel2 사용 시
 			JsonArray jsonArr2 = new JsonArray();
-			for (ComApiRel2 item2 : datas2) {
+			for (ComApiRel item2 : datas2) {
+//			for (ComApiRel2 item2 : datas2) {	// ComApiRel2 사용 시	
 //				logger.info("src===>"+item2.getApi_src());
 				JsonObject Obj3 = new JsonObject();
 				Obj3.addProperty("api_src", item2.getApi_src());
@@ -201,9 +218,11 @@ public class ComMstController {
         //============================================================
         //< api_src 의 loop data, Json Object 처리
         //============================================================   		
-		List<ComApiRel2> datas2 = commst.getApi_src();
+		List<ComApiRel> datas2 = commst.getApi_src();
+//		List<ComApiRel2> datas2 = commst.getApi_src();	// ComApiRel2 사용 시
 		JsonArray jsonArr2 = new JsonArray();
-		for (ComApiRel2 item2 : datas2) {
+		for (ComApiRel item2 : datas2) {
+//		for (ComApiRel2 item2 : datas2) {	// ComApiRel2 사용 시
 //			logger.info("src===>"+item2.getApi_src());
 			JsonObject Obj3 = new JsonObject();
 			Obj3.addProperty("api_src", item2.getApi_src());
