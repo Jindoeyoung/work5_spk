@@ -1,5 +1,7 @@
 package com.spk.api.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,17 +12,26 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.StHakJeokM;
 import com.spk.api.mapper.StHakJeokMMapper;
+import com.spk.api.security.AuthCheck;
 
 @RestController
 @RequestMapping(value = "/hj", produces = "application/json; charset=utf8")
 public class StHakJeokMController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private StHakJeokMMapper sthakjeokmmapper;
 	
+	AuthCheck authcheck = new AuthCheck();
+	
 	// one
-	@PostMapping("/dtl")
-	public String getByHakbeon(@RequestBody StHakJeokM _hakjeokm) {
+	@PostMapping("/studentinfo")
+	public String getByHakbeon(@RequestBody StHakJeokM _hakjeokm) throws Exception {
+		
+		if (!authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][getByHakbeon] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey());
+		}		
 		
 		StHakJeokM hakjeokm = sthakjeokmmapper.getByHakbeon(_hakjeokm.getHakbeon());
 		

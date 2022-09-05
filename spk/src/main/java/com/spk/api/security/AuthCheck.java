@@ -29,12 +29,12 @@ public class AuthCheck {
 	  //< 서버인증 처리
 	  //============================================================			
 	    if (!verifier.verifySignature(apikey)) {
-	  	logger.info("[PjtComController][getAll] AUTHENTICATION RESTRICTIONS");
+	    	logger.info("AUTH CHECKING");
 	        result = utils.getMetaErrGenerator(10000, "AUTH");
-	        System.out.println("result 1) ===>"+result.toString());
+//	        System.out.println("result 1) ===>"+result.toString());
 	        return result.toString();
 	    }
-	    System.out.println("result 2) ===>"+result.toString());
+//	    System.out.println("result 2) ===>"+result.toString());
 	    return result.toString();
 	    
 //	    return null;
