@@ -38,7 +38,7 @@ public class StSuGangMController {
 		List<StSuGangM> datas = (List<StSuGangM>) stsugangmmapper.getSugangList(_sugang);		
 		
 		for (StSuGangM item : datas) {
-		System.out.println("item==>"+item);
+		System.out.println("item 1==>"+item);
 		
 			JsonObject Obj1 = new JsonObject();
 			JsonObject Obj2 = new JsonObject();
