@@ -24,7 +24,7 @@ public class StSeongJeokMController {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-	@PostMapping("/seongjeokinfo")
+	@PostMapping("/seongjeokinfo2")
 	public String getSeongJeokList(@RequestBody StSeongJeokM _seongjeok) {
 
 		JsonObject dataResult = new JsonObject();
@@ -43,6 +43,9 @@ public class StSeongJeokMController {
 			JsonObject Obj1 = new JsonObject();
 			JsonObject Obj2 = new JsonObject();
 		
+			Obj1.addProperty("year", item.getYear());
+			Obj1.addProperty("hakgi", item.getHakgi());	
+			Obj1.addProperty("hakbeon", item.getHakbeon());
 			Obj1.addProperty("gwamok", item.getGwamok());
 			Obj1.addProperty("gubun", item.getGubun());
 			Obj1.addProperty("hakjeom", item.getHakjeom());

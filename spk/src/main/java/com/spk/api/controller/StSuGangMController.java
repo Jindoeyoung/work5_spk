@@ -24,7 +24,8 @@ public class StSuGangMController {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-	@PostMapping("/suganginfo")
+//	@PostMapping("/suganginfo")
+	@PostMapping("/seongjeokinfo1")
 	public String getSugangList(@RequestBody StSuGangM _sugang) {
 
 		JsonObject dataResult = new JsonObject();
@@ -45,6 +46,7 @@ public class StSuGangMController {
 		
 			Obj1.addProperty("year", item.getYear());
 			Obj1.addProperty("hakgi", item.getHakgi());
+			Obj1.addProperty("hakbeon", item.getHakbeon());
 			Obj1.addProperty("isu_gb", item.getIsu_gb());
 			Obj1.addProperty("chongjeom", item.getChongjeom());
 			Obj1.addProperty("shinchung", item.getShinchung());
