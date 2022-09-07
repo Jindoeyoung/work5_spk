@@ -3,6 +3,7 @@ package com.spk.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,8 @@ public class StSeongJeokMController {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-	@PostMapping("/seongjeokinfo2")
+	@PostMapping("/GwamokSeongjeok")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getSeongJeokList(@RequestBody StSeongJeokM _seongjeok) {
 
 		JsonObject dataResult = new JsonObject();
