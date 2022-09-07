@@ -51,29 +51,34 @@ public class StSuGangMController {
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");		
 		
-		for (StSuGangM item : datas) {
-		System.out.println("item 1==>"+item);
-		
-			JsonObject Obj1 = new JsonObject();
-			JsonObject Obj2 = new JsonObject();
-		
-			Obj1.addProperty("year", item.getYear());
-			Obj1.addProperty("hakgi", item.getHakgi());
-			Obj1.addProperty("hakbeon", item.getHakbeon());
-			Obj1.addProperty("isu_gb", item.getIsu_gb());
-			Obj1.addProperty("chongjeom", item.getChongjeom());
-			Obj1.addProperty("shinchung", item.getShinchung());
-			Obj1.addProperty("chwideuk", item.getChwideuk());
-			Obj1.addProperty("pyeongjeom_pyeonggyun", item.getPyeongjeom_pyeonggyun());
-			Obj1.addProperty("chongjeom_pyeonggyun", item.getChongjeom_pyeonggyun());
-			Obj1.addProperty("haksa_gyeonggo", item.getHaksa_gyeonggo());
+		if (datas.size() > 0) {
 			
-			jsonArr1.add(Obj1);		
+			for (StSuGangM item : datas) {
+			System.out.println("item 1==>"+item);
 			
-			Obj2.add("result", jsonArr1);
-			dataResult.add("data", Obj2);				
-
-		}		
+				JsonObject Obj1 = new JsonObject();
+				JsonObject Obj2 = new JsonObject();
+			
+				Obj1.addProperty("year", item.getYear());
+				Obj1.addProperty("hakgi", item.getHakgi());
+				Obj1.addProperty("hakbeon", item.getHakbeon());
+				Obj1.addProperty("isu_gb", item.getIsu_gb());
+				Obj1.addProperty("chongjeom", item.getChongjeom());
+				Obj1.addProperty("shinchung", item.getShinchung());
+				Obj1.addProperty("chwideuk", item.getChwideuk());
+				Obj1.addProperty("pyeongjeom_pyeonggyun", item.getPyeongjeom_pyeonggyun());
+				Obj1.addProperty("chongjeom_pyeonggyun", item.getChongjeom_pyeonggyun());
+				Obj1.addProperty("haksa_gyeonggo", item.getHaksa_gyeonggo());
+				
+				jsonArr1.add(Obj1);		
+				
+				Obj2.add("result", jsonArr1);
+				dataResult.add("data", Obj2);				
+			}
+			
+		} else {
+			dataResult.addProperty("data", "");
+		}
 		return dataResult.toString();
 	}	
 	
