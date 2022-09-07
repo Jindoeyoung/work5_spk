@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class StSuGangM {
+	private String apikey;
 	private String year;
 	private String hakgi;
 	private String haknyeon;

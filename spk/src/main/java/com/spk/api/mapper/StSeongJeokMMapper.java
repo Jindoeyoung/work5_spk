@@ -17,7 +17,7 @@ public interface StSeongJeokMMapper {
 	// SELECT
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// list
-	@Select("SELECT * FROM ST_SEONGJEOK_M WHERE year LIKE CONCAT(#{ST_SUGANG_M.year}, '%') and hakgi LIKE CONCAT(#{ST_SUGANG_M.hakgi}, '%') and hakbeon LIKE CONCAT(#{ST_SUGANG_M.hakbeon}, '%')")
+	@Select("SELECT * FROM ST_SEONGJEOK_M WHERE hakbeon=#{hakbeon}")
 	@Results(id="SeongJeokMap", value={
 		@Result(property="year",           	column="year"),
 		@Result(property="hakgi",	  		column="hakgi"),
@@ -32,5 +32,6 @@ public interface StSeongJeokMMapper {
 		@Result(property="yeongae",	  		column="yeongae"),
 		@Result(property="injung_hakjeom", 	column="injung_hakjeom")	
 	})
-	List<StSeongJeokM> getSeongJeokList(@Param("ST_SUGANG_M") StSeongJeokM seongjeok);
+	List<StSeongJeokM> getSeongJeokList(@Param("hakbeon") String hakbeon);
+//	List<StSeongJeokM> getSeongJeokList(@Param("ST_SUGANG_M") StSeongJeokM seongjeok);
 }
