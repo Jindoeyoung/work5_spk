@@ -37,4 +37,6 @@ public class StHakJeokM {
 	private String hakwi_no;
 	private String imsi_hakjeok;
 	private String bokhakyejeong_ilja;
+	private String sex;
+	private String bigo;
 }

@@ -1,5 +1,7 @@
 package com.spk.api.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
@@ -7,6 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 
 import com.spk.api.entity.StHakJeokM;
+import com.spk.api.entity.StSeongJeokM;
 
 @Mapper
 public interface StHakJeokMMapper {
@@ -47,5 +50,38 @@ public interface StHakJeokMMapper {
 		@Result(property="imsi_hakjeok",        column="imsi_hakjeok"),
 		@Result(property="bokhakyejeong_ilja",  column="bokhakyejeong_ilja")
 	})
-	StHakJeokM getByHakbeon(@Param("hakbeon") String hakbeon);		
+	StHakJeokM getByHakbeon(@Param("hakbeon") String hakbeon);
+	
+	@Select("SELECT "
+			+ "     hakbeon"
+			+ "    ,haknyeon"
+			+ "    ,h_name"
+			+ "    ,hakgwa"
+			+ "    ,ban"
+			+ "    ,case when substr(jumin_no,7,1) = 1 or substr(jumin_no,7,1) = 3 then '남자'"
+			+ "          when substr(jumin_no,7,1) = 2 or substr(jumin_no,7,1) = 3 then '여자' end as sex"
+			+ "    ,sangtae"
+			+ "    ,bigo"
+			+ " FROM "
+			+ "    ST_HAKJEOK_M "
+			+ " WHERE "
+//			+ "   and year LIKE CONCAT(#{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "       haknyeon LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "   and hakgwa LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
+			+ "   and h_name LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
+			+ "   and hakbeon LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")			
+//			+ " WHERE hakbeon LIKE CONCAT(#{ST_HAKJEOK_M.hakbeon}, '%')")
+	@Results(id="SeongJeokMap", value={
+		@Result(property="hakbeon",           	column="hakbeon"),
+		@Result(property="haknyeon",	  		column="haknyeon"),
+		@Result(property="h_name",	  			column="h_name"),
+		@Result(property="hakgwa",	  			column="hakgwa"),
+		@Result(property="ban",	  				column="ban"),
+		@Result(property="sex",	  				column="sex"),
+		@Result(property="sangtae",	  			column="sangtae"),
+		@Result(property="bigo",	  			column="bigo")	
+	})
+	List<StHakJeokM> getSudentList(@Param("ST_HAKJEOK_M") StHakJeokM hakjeokm);
+//	List<StHakJeokM> getSudentList(@Param("hakbeon") String hakbeon);
+	
 }

@@ -1,5 +1,7 @@
 package com.spk.api.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,66 @@ public class StHakJeokMController {
 	private StHakJeokMMapper sthakjeokmmapper;
 	
 	AuthCheck authcheck = new AuthCheck();
+	
+	
+	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// list
+	@PostMapping("/student-list")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getStudentList(@RequestBody StHakJeokM _hakjeokm) throws Exception  {
+
+		if (!authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][getStudentList] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey());		
+		}
+		
+		List<StHakJeokM> datas = (List<StHakJeokM>) sthakjeokmmapper.getSudentList(_hakjeokm);				
+		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();		
+		
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");		
+
+		if (datas.size() > 0) {
+		
+			for (StHakJeokM item : datas) {
+			System.out.println("item==>"+item);
+			
+				JsonObject Obj1 = new JsonObject();
+				JsonObject Obj2 = new JsonObject();
+			
+				Obj1.addProperty("hakbeon", item.getHakbeon());
+				Obj1.addProperty("haknyeon", item.getHaknyeon());	
+				Obj1.addProperty("h_name", item.getH_name());
+				Obj1.addProperty("hakgwa", item.getHakgwa());
+				Obj1.addProperty("ban", item.getBan());
+				Obj1.addProperty("sex", item.getSex());
+				Obj1.addProperty("sangtae", item.getSangtae());
+				Obj1.addProperty("bigo", item.getBigo());
+				
+				jsonArr1.add(Obj1);		
+				
+				Obj2.add("result", jsonArr1);
+				dataResult.add("data", Obj2);				
+			}
+			
+		} else {
+			dataResult.addProperty("data", "");
+		}
+			
+		return dataResult.toString();
+	}	
+	
+	
+	
+	
+	
 	
 	// one
 	@PostMapping("/studentinfo")
