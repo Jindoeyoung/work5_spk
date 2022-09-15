@@ -52,25 +52,44 @@ public interface StHakJeokMMapper {
 	})
 	StHakJeokM getByHakbeon(@Param("hakbeon") String hakbeon);
 	
+//	@Select("SELECT "
+//			+ "     hakbeon"
+//			+ "    ,haknyeon"
+//			+ "    ,h_name"
+//			+ "    ,hakgwa"
+//			+ "    ,ban"
+//			+ "    ,case when substr(jumin_no,7,1) = 1 or substr(jumin_no,7,1) = 3 then '남자'"
+//			+ "          when substr(jumin_no,7,1) = 2 or substr(jumin_no,7,1) = 3 then '여자' end as sex"
+//			+ "    ,sangtae"
+//			+ "    ,bigo"
+//			+ " FROM "
+//			+ "    ST_HAKJEOK_M "
+//			+ " WHERE "
+////			+ "   and year LIKE CONCAT(#{ST_HAKJEOK_M.haknyeon}, '%') "
+//			+ "       haknyeon LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+//			+ "   and hakgwa LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
+//			+ "   and h_name LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
+//			+ "   and hakbeon LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")			
+////			+ " WHERE hakbeon LIKE CONCAT(#{ST_HAKJEOK_M.hakbeon}, '%')")
+	
 	@Select("SELECT "
-			+ "     hakbeon"
-			+ "    ,haknyeon"
-			+ "    ,h_name"
-			+ "    ,hakgwa"
-			+ "    ,ban"
-			+ "    ,case when substr(jumin_no,7,1) = 1 or substr(jumin_no,7,1) = 3 then '남자'"
-			+ "          when substr(jumin_no,7,1) = 2 or substr(jumin_no,7,1) = 3 then '여자' end as sex"
-			+ "    ,sangtae"
-			+ "    ,bigo"
+			+ "     HJ.hakbeon"
+			+ "    ,HJ.haknyeon"
+			+ "    ,HJ.h_name"
+			+ "    ,HJ.hakgwa"
+			+ "    ,HJ.ban"
+			+ "    ,case when substr(HJ.jumin_no,7,1) = 1 or substr(HJ.jumin_no,7,1) = 3 then '남자'"
+			+ "          when substr(HJ.jumin_no,7,1) = 2 or substr(HJ.jumin_no,7,1) = 3 then '여자' end as sex"
+			+ "    ,HJ.sangtae"
+			+ "    ,HJ.bigo"
 			+ " FROM "
-			+ "    ST_HAKJEOK_M "
+			+ "    ST_BUSEOTEAMBAN_H TB INNER JOIN ST_HAKJEOK_M HJ ON (TB.hakbeon = HJ.hakbeon) "
 			+ " WHERE "
-//			+ "   and year LIKE CONCAT(#{ST_HAKJEOK_M.haknyeon}, '%') "
-			+ "       haknyeon LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
-			+ "   and hakgwa LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
-			+ "   and h_name LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
-			+ "   and hakbeon LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")			
-//			+ " WHERE hakbeon LIKE CONCAT(#{ST_HAKJEOK_M.hakbeon}, '%')")
+			+ "       TB.year LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
+			+ "   and HJ.haknyeon LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "   and HJ.hakgwa LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
+			+ "   and HJ.h_name LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
+			+ "   and HJ.hakbeon LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")
 	@Results(id="SeongJeokMap", value={
 		@Result(property="hakbeon",           	column="hakbeon"),
 		@Result(property="haknyeon",	  		column="haknyeon"),

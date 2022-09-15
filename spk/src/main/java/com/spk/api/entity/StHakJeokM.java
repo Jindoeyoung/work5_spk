@@ -39,4 +39,5 @@ public class StHakJeokM {
 	private String bokhakyejeong_ilja;
 	private String sex;
 	private String bigo;
+	private String year;
 }
