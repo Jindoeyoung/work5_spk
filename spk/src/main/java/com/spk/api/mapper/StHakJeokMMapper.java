@@ -86,8 +86,10 @@ public interface StHakJeokMMapper {
 			+ "    ST_BUSEOTEAMBAN_H TB INNER JOIN ST_HAKJEOK_M HJ ON (TB.hakbeon = HJ.hakbeon) "
 			+ " WHERE "
 			+ "       TB.year LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
-			+ "   and HJ.haknyeon LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "   and HJ.hakgi LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
 			+ "   and HJ.hakgwa LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
+			+ "   and HJ.haknyeon LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "   and HJ.ban LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "
 			+ "   and HJ.h_name LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
 			+ "   and HJ.hakbeon LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")
 	@Results(id="SeongJeokMap", value={
