@@ -2,16 +2,16 @@ package com.spk.api.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
-//import com.spk.api.entity.ComMst;
 import com.spk.api.entity.StHakJeokM;
-//import com.spk.api.entity.StSeongJeokM;
 
 @Mapper
 public interface StHakJeokMMapper {
@@ -23,8 +23,6 @@ public interface StHakJeokMMapper {
 			+ " hakbeon"
 			+ ",reg_id"
 			+ ",reg_dt"
-			+ ",upt_id"
-			+ ",upt_dt"
 			+ ",jumin_no"
 			+ ",birthday"
 			+ ",h_name"
@@ -60,8 +58,6 @@ public interface StHakJeokMMapper {
 			+ " #{ST_HAKJEOK_M.hakbeon}"
 			+ ",#{ST_HAKJEOK_M.reg_id}"
 			+ ",#{ST_HAKJEOK_M.reg_dt}"
-			+ ",#{ST_HAKJEOK_M.upt_id}"
-			+ ",#{ST_HAKJEOK_M.upt_dt}"
 			+ ",#{ST_HAKJEOK_M.jumin_no}"
 			+ ",#{ST_HAKJEOK_M.birthday}"
 			+ ",#{ST_HAKJEOK_M.h_name}"
@@ -185,4 +181,49 @@ public interface StHakJeokMMapper {
 	List<StHakJeokM> getSudentList(@Param("ST_HAKJEOK_M") StHakJeokM hakjeokm);
 //	List<StHakJeokM> getSudentList(@Param("hakbeon") String hakbeon);
 	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// UPDATE
+	//-------------------------------------------------------------------------------------------------------------------------------------	
+	@Update("UPDATE ST_HAKJEOK_M SET "
+			+ " upt_id             = #{ST_HAKJEOK_M.upt_id}"               
+			+ ",upt_dt	       	   = #{ST_HAKJEOK_M.upt_dt}"            
+			+ ",jumin_no	       = #{ST_HAKJEOK_M.jumin_no}"          
+			+ ",birthday	       = #{ST_HAKJEOK_M.birthday}"          
+			+ ",h_name	           = #{ST_HAKJEOK_M.h_name}"            
+			+ ",c_nane	           = #{ST_HAKJEOK_M.c_nane}"            
+			+ ",gukga	           = #{ST_HAKJEOK_M.gukga}"             
+			+ ",e_name_last	       = #{ST_HAKJEOK_M.e_name_last}"       
+			+ ",e_name	           = #{ST_HAKJEOK_M.e_name}"            
+			+ ",sangtae	           = #{ST_HAKJEOK_M.sangtae}"           
+			+ ",byeondongsayu      = #{ST_HAKJEOK_M.byeondongsayu}"     
+			+ ",byeondong_ilja     = #{ST_HAKJEOK_M.byeondong_ilja}"    
+			+ ",gwajeong_gb	       = #{ST_HAKJEOK_M.gwajeong_gb}"       
+			+ ",juya_gb	           = #{ST_HAKJEOK_M.juya_gb}"           
+			+ ",hakgwa	           = #{ST_HAKJEOK_M.hakgwa}"            
+			+ ",jeongong	       = #{ST_HAKJEOK_M.jeongong}"          
+			+ ",haknyeon	       = #{ST_HAKJEOK_M.haknyeon}"          
+			+ ",ban		           = #{ST_HAKJEOK_M.ban}"               
+			+ ",hakgi	       	   = #{ST_HAKJEOK_M.hakgi}"             
+			+ ",isuhakgi	       = #{ST_HAKJEOK_M.isuhakgi}"          
+			+ ",iphak_hakgwa       = #{ST_HAKJEOK_M.iphak_hakgwa}"      
+			+ ",jeonhyeong_gb      = #{ST_HAKJEOK_M.jeonhyeong_gb}"     
+			+ ",wetak_company      = #{ST_HAKJEOK_M.wetak_company}"     
+			+ ",iphak_ilja	       = #{ST_HAKJEOK_M.iphak_ilja}"        
+			+ ",joleop_haknyeon    = #{ST_HAKJEOK_M.joleop_haknyeon}"   
+			+ ",joleop_hakgwa      = #{ST_HAKJEOK_M.joleop_hakgwa}"     
+			+ ",iphak_juya	       = #{ST_HAKJEOK_M.iphak_juya}"        
+			+ ",iphak_gb	       = #{ST_HAKJEOK_M.iphak_gb}"          
+			+ ",byunguk_gb	       = #{ST_HAKJEOK_M.byunguk_gb}"        
+			+ ",joleop_jeungseo_no = #{ST_HAKJEOK_M.joleop_jeungseo_no}"
+			+ ",hakwi_no	       = #{ST_HAKJEOK_M.hakwi_no}"          
+			+ ",bigo 	           = #{ST_HAKJEOK_M.bigo}"              
+			+ "WHERE hakbeon = #{ST_HAKJEOK_M.hakbeon}")	
+	int updateBody(@Param("ST_HAKJEOK_M") StHakJeokM hakjeokm);
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// DELETE
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@Delete("DELETE FROM ST_HAKJEOK_M WHERE hakbeon=#{ST_HAKJEOK_M.hakbeon}")
+	int delete(@Param("ST_HAKJEOK_M") StHakJeokM hakjeokm);	
 }

@@ -6,9 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -157,6 +159,23 @@ public class StHakJeokMController {
 		}
 		logger.info("getByHakbeon=>"+dataResult.toString());		
 		return dataResult.toString();
+	}	
+	
+	
+	// Body
+	@PutMapping("/upt")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public int put(@RequestBody StHakJeokM hakjeokm) {
+		return sthakjeokmmapper.updateBody(hakjeokm);			
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// DELETE
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@DeleteMapping("/del")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public int delete(@RequestBody StHakJeokM hakjeokm) {
+		return sthakjeokmmapper.delete(hakjeokm);
 	}	
 	
 	
