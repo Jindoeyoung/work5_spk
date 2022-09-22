@@ -9,13 +9,93 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 
-import com.spk.api.entity.ComMst;
+//import com.spk.api.entity.ComMst;
 import com.spk.api.entity.StHakJeokM;
-import com.spk.api.entity.StSeongJeokM;
+//import com.spk.api.entity.StSeongJeokM;
 
 @Mapper
 public interface StHakJeokMMapper {
 
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// INSERT (Body)
+	//-------------------------------------------------------------------------------------------------------------------------------------	
+	@Insert("INSERT INTO ST_HAKJEOK_M ("
+			+ " hakbeon"
+			+ ",reg_id"
+			+ ",reg_dt"
+			+ ",upt_id"
+			+ ",upt_dt"
+			+ ",jumin_no"
+			+ ",birthday"
+			+ ",h_name"
+			+ ",c_nane"
+			+ ",gukga"
+			+ ",e_name_last"
+			+ ",e_name"
+			+ ",sangtae"
+			+ ",byeondongsayu"
+			+ ",byeondong_ilja"
+			+ ",gwajeong_gb"
+			+ ",juya_gb"
+			+ ",hakgwa"
+			+ ",jeongong"
+			+ ",haknyeon"
+			+ ",ban"
+			+ ",hakgi"
+			+ ",isuhakgi"
+			+ ",iphak_hakgwa"
+			+ ",jeonhyeong_gb"
+			+ ",wetak_company"
+			+ ",iphak_ilja"
+			+ ",joleop_haknyeon"
+			+ ",joleop_hakgwa"
+			+ ",iphak_juya"
+			+ ",iphak_gb"
+			+ ",byunguk_gb"
+			+ ",joleop_jeungseo_no"
+			+ ",hakwi_no"
+			+ ",bigo) "
+			+ "   VALUES"
+			+ " ("
+			+ " #{ST_HAKJEOK_M.hakbeon}"
+			+ ",#{ST_HAKJEOK_M.reg_id}"
+			+ ",#{ST_HAKJEOK_M.reg_dt}"
+			+ ",#{ST_HAKJEOK_M.upt_id}"
+			+ ",#{ST_HAKJEOK_M.upt_dt}"
+			+ ",#{ST_HAKJEOK_M.jumin_no}"
+			+ ",#{ST_HAKJEOK_M.birthday}"
+			+ ",#{ST_HAKJEOK_M.h_name}"
+			+ ",#{ST_HAKJEOK_M.c_nane}"
+			+ ",#{ST_HAKJEOK_M.gukga}"
+			+ ",#{ST_HAKJEOK_M.e_name_last}"
+			+ ",#{ST_HAKJEOK_M.e_name}"
+			+ ",#{ST_HAKJEOK_M.sangtae}"
+			+ ",#{ST_HAKJEOK_M.byeondongsayu}"
+			+ ",#{ST_HAKJEOK_M.byeondong_ilja}"
+			+ ",#{ST_HAKJEOK_M.gwajeong_gb}"
+			+ ",#{ST_HAKJEOK_M.juya_gb}"
+			+ ",#{ST_HAKJEOK_M.hakgwa}"
+			+ ",#{ST_HAKJEOK_M.jeongong}"
+			+ ",#{ST_HAKJEOK_M.haknyeon}"
+			+ ",#{ST_HAKJEOK_M.ban}"
+			+ ",#{ST_HAKJEOK_M.hakgi}"
+			+ ",#{ST_HAKJEOK_M.isuhakgi}"
+			+ ",#{ST_HAKJEOK_M.iphak_hakgwa}"
+			+ ",#{ST_HAKJEOK_M.jeonhyeong_gb}"
+			+ ",#{ST_HAKJEOK_M.wetak_company}"
+			+ ",#{ST_HAKJEOK_M.iphak_ilja}"
+			+ ",#{ST_HAKJEOK_M.joleop_haknyeon}"
+			+ ",#{ST_HAKJEOK_M.joleop_hakgwa}"
+			+ ",#{ST_HAKJEOK_M.iphak_juya}"
+			+ ",#{ST_HAKJEOK_M.iphak_gb}"
+			+ ",#{ST_HAKJEOK_M.byunguk_gb}"
+			+ ",#{ST_HAKJEOK_M.joleop_jeungseo_no}"
+			+ ",#{ST_HAKJEOK_M.hakwi_no}"
+			+ ",#{ST_HAKJEOK_M.bigo}"
+			+ ")")	
+	int insertBody(@Param("ST_HAKJEOK_M") StHakJeokM hakjeokm);	
+	
+	
 	// select one
 	@Select("SELECT * FROM ST_HAKJEOK_M WHERE hakbeon=#{hakbeon}")
 	@Results(id="HakJeokMap", value={
