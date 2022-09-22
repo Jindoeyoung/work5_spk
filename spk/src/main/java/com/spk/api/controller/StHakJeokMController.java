@@ -35,8 +35,14 @@ public class StHakJeokMController {
 	// INSERT (Body)
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("/ins")
-	public int post(@RequestBody StHakJeokM hakjeokm) {
-		return sthakjeokmmapper.insertBody(hakjeokm);
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public int post(@RequestBody StHakJeokM hakjeokm) throws Exception {
+		if (!authcheck.getMetaAuthErrGenerator(hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][insert] AUTHENTICATION RESTRICTIONS");
+		} else {		
+			return sthakjeokmmapper.insertBody(hakjeokm);
+		}
+		return 0;
 	}	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
@@ -162,20 +168,40 @@ public class StHakJeokMController {
 	}	
 	
 	
+//	// Body
+//	@PutMapping("/upt")
+//	@CrossOrigin(origins = "*", allowedHeaders = "*")
+//	public int put(@RequestBody StHakJeokM hakjeokm) {
+//		return sthakjeokmmapper.updateBody(hakjeokm);			
+//	}
+	
+	
 	// Body
 	@PutMapping("/upt")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public int put(@RequestBody StHakJeokM hakjeokm) {
-		return sthakjeokmmapper.updateBody(hakjeokm);			
-	}
+	public int put(@RequestBody StHakJeokM hakjeokm) throws Exception {
+		if (!authcheck.getMetaAuthErrGenerator(hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][update] AUTHENTICATION RESTRICTIONS");
+		} else {
+			return sthakjeokmmapper.updateBody(hakjeokm);
+		}
+		return 0;		
+	}	
+	
+	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// DELETE
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	@DeleteMapping("/del")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public int delete(@RequestBody StHakJeokM hakjeokm) {
-		return sthakjeokmmapper.delete(hakjeokm);
+	public int delete(@RequestBody StHakJeokM hakjeokm) throws Exception {
+		if (!authcheck.getMetaAuthErrGenerator(hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][delete] AUTHENTICATION RESTRICTIONS");
+		} else {
+			return sthakjeokmmapper.delete(hakjeokm);
+		}
+		return 0;
 	}	
 	
 	
