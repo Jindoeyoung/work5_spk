@@ -2,12 +2,14 @@ package com.spk.api.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 
+import com.spk.api.entity.ComMst;
 import com.spk.api.entity.StHakJeokM;
 import com.spk.api.entity.StSeongJeokM;
 
@@ -46,9 +48,7 @@ public interface StHakJeokMMapper {
 		@Result(property="iphak_gb",            column="iphak_gb"),
 		@Result(property="byunguk_gb",          column="byunguk_gb"),
 		@Result(property="joleop_jeungseo_no",  column="joleop_jeungseo_no"),
-		@Result(property="hakwi_no",            column="hakwi_no"),
-		@Result(property="imsi_hakjeok",        column="imsi_hakjeok"),
-		@Result(property="bokhakyejeong_ilja",  column="bokhakyejeong_ilja")
+		@Result(property="hakwi_no",            column="hakwi_no")
 	})
 	StHakJeokM getByHakbeon(@Param("hakbeon") String hakbeon);
 	

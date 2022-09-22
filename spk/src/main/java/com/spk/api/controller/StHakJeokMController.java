@@ -57,7 +57,7 @@ public class StHakJeokMController {
 		if (datas.size() > 0) {
 		
 			for (StHakJeokM item : datas) {
-			System.out.println("item==>"+item);
+//			System.out.println("item==>"+item);
 			
 				JsonObject Obj1 = new JsonObject();
 				JsonObject Obj2 = new JsonObject();
@@ -80,7 +80,7 @@ public class StHakJeokMController {
 		} else {
 			dataResult.addProperty("data", "");
 		}
-			
+		logger.info("getStudentList=>"+dataResult.toString());	
 		return dataResult.toString();
 	}	
 	
@@ -150,7 +150,7 @@ public class StHakJeokMController {
 		} else {
 			dataResult.addProperty("data", "");
 		}
-				
+		logger.info("getByHakbeon=>"+dataResult.toString());		
 		return dataResult.toString();
 	}	
 	
