@@ -54,7 +54,6 @@ public class StSuGangMController {
 		if (datas.size() > 0) {
 			
 			for (StSuGangM item : datas) {
-			System.out.println("item 1==>"+item);
 			
 				JsonObject Obj1 = new JsonObject();
 				JsonObject Obj2 = new JsonObject();
@@ -79,6 +78,7 @@ public class StSuGangMController {
 		} else {
 			dataResult.addProperty("data", "");
 		}
+		logger.info("getSugangList=>"+dataResult.toString());
 		return dataResult.toString();
 	}	
 	

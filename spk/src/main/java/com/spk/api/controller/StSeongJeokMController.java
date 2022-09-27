@@ -53,7 +53,6 @@ public class StSeongJeokMController {
 		if (datas.size() > 0) {
 		
 			for (StSeongJeokM item : datas) {
-			System.out.println("item==>"+item);
 			
 				JsonObject Obj1 = new JsonObject();
 				JsonObject Obj2 = new JsonObject();
@@ -79,7 +78,7 @@ public class StSeongJeokMController {
 		} else {
 			dataResult.addProperty("data", "");
 		}
-			
+		logger.info("getSeongJeokList=>"+dataResult.toString());	
 		return dataResult.toString();
 	}	
 }

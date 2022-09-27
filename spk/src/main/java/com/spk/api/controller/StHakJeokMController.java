@@ -103,7 +103,7 @@ public class StHakJeokMController {
 	
 	
 	// one
-	@PostMapping("/studentinfo")
+	@PostMapping("/student-info")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getByHakbeon(@RequestBody StHakJeokM _hakjeokm) throws Exception {
 		
