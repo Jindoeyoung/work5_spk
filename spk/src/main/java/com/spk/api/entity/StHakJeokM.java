@@ -9,7 +9,8 @@ public class StHakJeokM {
 	private String reg_dt;
 	private String reg_id;
 	private String upt_dt;
-	private String upt_id;	
+	private String upt_id;
+	private String profile;
 	private String jumin_no;
 	private String birthday;
 	private String h_name;

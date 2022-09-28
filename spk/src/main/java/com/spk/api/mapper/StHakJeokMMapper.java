@@ -96,6 +96,7 @@ public interface StHakJeokMMapper {
 	@Select("SELECT * FROM ST_HAKJEOK_M WHERE hakbeon=#{hakbeon}")
 	@Results(id="HakJeokMap", value={
 		@Result(property="hakbeon",             column="hakbeon"),
+		@Result(property="profile",             column="profile"),
 		@Result(property="jumin_no",            column="jumin_no"),
 		@Result(property="birthday",            column="birthday"),
 		@Result(property="h_name",              column="h_name"),

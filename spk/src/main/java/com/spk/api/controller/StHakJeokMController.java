@@ -126,6 +126,7 @@ public class StHakJeokMController {
 
 		if (hakjeokm != null) {
 			Obj1.addProperty("hakbeon", hakjeokm.getHakbeon());
+			Obj1.addProperty("profile", hakjeokm.getProfile());
 			Obj1.addProperty("jumin_no", hakjeokm.getJumin_no());
 			Obj1.addProperty("birthday", hakjeokm.getBirthday());
 			Obj1.addProperty("h_name", hakjeokm.getH_name());
