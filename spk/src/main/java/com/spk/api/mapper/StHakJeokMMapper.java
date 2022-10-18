@@ -171,7 +171,7 @@ public interface StHakJeokMMapper {
 			+ " FROM "
 			+ "    ST_BUSEOTEAMBAN_H TB INNER JOIN ST_HAKJEOK_M HJ ON (TB.hakbeon = HJ.hakbeon) "
 			+ " WHERE "
-			+ "       TB.year LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
+			+ "       ifnull(TB.year,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
 			+ "   and ifnull(HJ.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
 			+ "   and ifnull(HJ.hakgwa,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
 			+ "   and ifnull(HJ.haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
