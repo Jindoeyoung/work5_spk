@@ -46,9 +46,8 @@ public class StHakJeokMController {
 	}	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// SELECT
+	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// list
 	@PostMapping("/student-list")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getStudentList(@RequestBody StHakJeokM _hakjeokm) throws Exception  {
@@ -102,7 +101,9 @@ public class StHakJeokMController {
 	
 	
 	
-	// one
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT - ONE
+	//-------------------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("/student-info")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getByHakbeon(@RequestBody StHakJeokM _hakjeokm) throws Exception {
@@ -156,6 +157,7 @@ public class StHakJeokMController {
 			Obj1.addProperty("byunguk_gb", hakjeokm.getByunguk_gb());
 			Obj1.addProperty("joleop_jeungseo_no", hakjeokm.getJoleop_jeungseo_no());
 			Obj1.addProperty("hakwi_no", hakjeokm.getHakwi_no());
+			Obj1.addProperty("bigo", hakjeokm.getBigo());
 			
 			jsonArr1.add(Obj1);		
 			
@@ -205,8 +207,80 @@ public class StHakJeokMController {
 		return 0;
 	}	
 	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT 칼럼 헤더명
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping("/hakjeok-column-name")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getKorColumnName(@RequestBody StHakJeokM _hakjeokm) throws Exception {
+		
+		if (!authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][getByHakbeon] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey());
+		}		
+
+		StHakJeokM hakjeokm = sthakjeokmmapper.getKorColumnName(_hakjeokm.getHakbeon());
+
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
+
+		if (hakjeokm != null) {
+			Obj1.addProperty("hakbeon", hakjeokm.getHakbeon());
+			Obj1.addProperty("profile", hakjeokm.getProfile());
+			Obj1.addProperty("jumin_no", hakjeokm.getJumin_no());
+			Obj1.addProperty("birthday", hakjeokm.getBirthday());
+			Obj1.addProperty("h_name", hakjeokm.getH_name());
+			Obj1.addProperty("c_nane", hakjeokm.getC_nane());
+			Obj1.addProperty("gukga", hakjeokm.getGukga());
+			Obj1.addProperty("e_name_last", hakjeokm.getE_name_last());
+			Obj1.addProperty("e_name", hakjeokm.getE_name());
+			Obj1.addProperty("sangtae", hakjeokm.getSangtae());
+			Obj1.addProperty("byeondongsayu", hakjeokm.getByeondongsayu());
+			Obj1.addProperty("byeondong_ilja", hakjeokm.getByeondong_ilja());
+			Obj1.addProperty("gwajeong_gb", hakjeokm.getGwajeong_gb());
+			Obj1.addProperty("juya_gb", hakjeokm.getJuya_gb());
+			Obj1.addProperty("hakgwa", hakjeokm.getHakgwa());
+			Obj1.addProperty("jeongong", hakjeokm.getJeongong());
+			Obj1.addProperty("haknyeon", hakjeokm.getHaknyeon());
+			Obj1.addProperty("ban", hakjeokm.getBan());
+			Obj1.addProperty("hakgi", hakjeokm.getHakgi());
+			Obj1.addProperty("isuhakgi", hakjeokm.getIsuhakgi());
+			Obj1.addProperty("iphak_hakgwa", hakjeokm.getIphak_hakgwa());
+			Obj1.addProperty("jeonhyeong_gb", hakjeokm.getJeonhyeong_gb());
+			Obj1.addProperty("wetak_company", hakjeokm.getWetak_company());
+			Obj1.addProperty("iphak_ilja", hakjeokm.getIphak_ilja());
+			Obj1.addProperty("joleop_haknyeon", hakjeokm.getJoleop_haknyeon());
+			Obj1.addProperty("joleop_hakgwa", hakjeokm.getJoleop_hakgwa());
+			Obj1.addProperty("iphak_juya", hakjeokm.getIphak_juya());
+			Obj1.addProperty("iphak_gb", hakjeokm.getIphak_gb());
+			Obj1.addProperty("byunguk_gb", hakjeokm.getByunguk_gb());
+			Obj1.addProperty("joleop_jeungseo_no", hakjeokm.getJoleop_jeungseo_no());
+			Obj1.addProperty("hakwi_no", hakjeokm.getHakwi_no());
+			Obj1.addProperty("bigo", hakjeokm.getBigo());
+			
+			jsonArr1.add(Obj1);		
+			
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);		
+		} else {
+			dataResult.addProperty("data", "");
+		}
+		logger.info("getByHakbeon=>"+dataResult.toString());		
+		return dataResult.toString();
+	}	
 	
-	// one
+	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT - ONE (GET 방식)
+	//-------------------------------------------------------------------------------------------------------------------------------------
 //	@GetMapping("/studentinfo_get/{apikey},{hakbeon}")
 //	public String getByHakbeonGet(@PathVariable String apikey, @PathVariable String hakbeon) throws Exception {
 	@GetMapping("/studentinfo_get/apikey={apikey}&hakbeon={hakbeon}")
