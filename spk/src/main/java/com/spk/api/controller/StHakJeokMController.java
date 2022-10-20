@@ -213,7 +213,7 @@ public class StHakJeokMController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("/hakjeok-column-name")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String getKorColumnName(@RequestBody VHakJeokSeongJeok _vHakjeokSeongjeok) throws Exception {
+	public String getKorColumnNameHakjeok(@RequestBody VHakJeokSeongJeok _vHakjeokSeongjeok) throws Exception {
 		
 		if (!authcheck.getMetaAuthErrGenerator(_vHakjeokSeongjeok.getApikey()).equals("{}")) {
 			logger.info("[StHakJeokMController][getByHakbeon] AUTHENTICATION RESTRICTIONS");
@@ -233,8 +233,6 @@ public class StHakJeokMController {
 		JsonObject Obj2 = new JsonObject();
 
 		if (vHakjeokSeongjeok != null) {
-			
-			if (_vHakjeokSeongjeok.getGubun().equals("hakjeok")) {
 				Obj1.addProperty("hakbeon", 			vHakjeokSeongjeok.getHakbeon());
 				Obj1.addProperty("profile", 			vHakjeokSeongjeok.getProfile());
 				Obj1.addProperty("jumin_no", 			vHakjeokSeongjeok.getJumin_no());
@@ -267,19 +265,6 @@ public class StHakJeokMController {
 				Obj1.addProperty("joleop_jeungseo_no", 	vHakjeokSeongjeok.getJoleop_jeungseo_no());
 				Obj1.addProperty("hakwi_no", 			vHakjeokSeongjeok.getHakwi_no());
 				Obj1.addProperty("bigo", 				vHakjeokSeongjeok.getBigo());
-			} else if (_vHakjeokSeongjeok.getGubun().equals("seongjeok")) {
-				Obj1.addProperty("sg_year", 			vHakjeokSeongjeok.getSg_year());
-				Obj1.addProperty("sg_hakgi",			vHakjeokSeongjeok.getSg_hakgi());
-				Obj1.addProperty("sg_haknyeon", 		vHakjeokSeongjeok.getSg_haknyeon());
-				Obj1.addProperty("sg_hakbeon",			vHakjeokSeongjeok.getSg_hakbeon());
-				Obj1.addProperty("isu_gb",				vHakjeokSeongjeok.getIsu_gb());
-				Obj1.addProperty("chongjeom",			vHakjeokSeongjeok.getChongjeom());
-				Obj1.addProperty("shinchung",			vHakjeokSeongjeok.getShinchung());
-				Obj1.addProperty("chwideuk",			vHakjeokSeongjeok.getChwideuk());
-				Obj1.addProperty("pyeongjeom_pyeonggyun",	vHakjeokSeongjeok.getPyeongjeom_pyeonggyun());
-				Obj1.addProperty("chongjeom_pyeonggyun",	vHakjeokSeongjeok.getChongjeom_pyeonggyun());
-				Obj1.addProperty("haksa_gyeonggo",		vHakjeokSeongjeok.getHaksa_gyeonggo());
-			}
 			jsonArr1.add(Obj1);		
 			
 			Obj2.add("result", jsonArr1);
@@ -287,7 +272,56 @@ public class StHakJeokMController {
 		} else {
 			dataResult.addProperty("data", "");
 		}
-		logger.info("getByHakbeon=!!@@@>"+dataResult.toString());		
+		logger.info("getKorColumnNameHakjeok=>"+dataResult.toString());		
+		return dataResult.toString();
+	}	
+	
+	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT 칼럼 헤더명
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping("/seongjeok-column-name")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getKorColumnNameSeongjeok(@RequestBody VHakJeokSeongJeok _vHakjeokSeongjeok) throws Exception {
+		
+		if (!authcheck.getMetaAuthErrGenerator(_vHakjeokSeongjeok.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][getByHakbeon] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_vHakjeokSeongjeok.getApikey());
+		}		
+
+		VHakJeokSeongJeok vHakjeokSeongjeok = sthakjeokmmapper.getKorColumnName(_vHakjeokSeongjeok.getHakbeon());
+
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
+
+		if (vHakjeokSeongjeok != null) {
+			Obj1.addProperty("sg_year", 			vHakjeokSeongjeok.getSg_year());
+			Obj1.addProperty("sg_hakgi",			vHakjeokSeongjeok.getSg_hakgi());
+			Obj1.addProperty("sg_haknyeon", 		vHakjeokSeongjeok.getSg_haknyeon());
+			Obj1.addProperty("sg_hakbeon",			vHakjeokSeongjeok.getSg_hakbeon());
+			Obj1.addProperty("isu_gb",				vHakjeokSeongjeok.getIsu_gb());
+			Obj1.addProperty("chongjeom",			vHakjeokSeongjeok.getChongjeom());
+			Obj1.addProperty("shinchung",			vHakjeokSeongjeok.getShinchung());
+			Obj1.addProperty("chwideuk",			vHakjeokSeongjeok.getChwideuk());
+			Obj1.addProperty("pyeongjeom_pyeonggyun",	vHakjeokSeongjeok.getPyeongjeom_pyeonggyun());
+			Obj1.addProperty("chongjeom_pyeonggyun",	vHakjeokSeongjeok.getChongjeom_pyeonggyun());
+			Obj1.addProperty("haksa_gyeonggo",		vHakjeokSeongjeok.getHaksa_gyeonggo());
+			jsonArr1.add(Obj1);		
+			
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);		
+		} else {
+			dataResult.addProperty("data", "");
+		}
+		logger.info("getKorColumnNameSeongjeok=>"+dataResult.toString());		
 		return dataResult.toString();
 	}	
 	
