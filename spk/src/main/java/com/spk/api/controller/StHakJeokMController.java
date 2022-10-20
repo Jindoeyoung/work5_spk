@@ -377,10 +377,10 @@ public class StHakJeokMController {
 		JsonObject Obj2 = new JsonObject();
 
 		if (vHakjeokSeongjeok != null) {
-			Obj1.addProperty("sg_year", 			vHakjeokSeongjeok.getSg_year());
-			Obj1.addProperty("sg_hakgi",			vHakjeokSeongjeok.getSg_hakgi());
-			Obj1.addProperty("sg_haknyeon", 		vHakjeokSeongjeok.getSg_haknyeon());
-			Obj1.addProperty("sg_hakbeon",			vHakjeokSeongjeok.getSg_hakbeon());
+			Obj1.addProperty("year", 			vHakjeokSeongjeok.getSg_year());
+			Obj1.addProperty("hakgi",			vHakjeokSeongjeok.getSg_hakgi());
+			Obj1.addProperty("haknyeon", 		vHakjeokSeongjeok.getSg_haknyeon());
+			Obj1.addProperty("hakbeon",			vHakjeokSeongjeok.getSg_hakbeon());
 			Obj1.addProperty("isu_gb",				vHakjeokSeongjeok.getIsu_gb());
 			Obj1.addProperty("chongjeom",			vHakjeokSeongjeok.getChongjeom());
 			Obj1.addProperty("shinchung",			vHakjeokSeongjeok.getShinchung());
