@@ -22,6 +22,7 @@ import com.spk.api.entity.ComApiRel;
 import com.spk.api.entity.ComApiRel2;
 import com.spk.api.entity.ComMst;
 import com.spk.api.mapper.ComMstMapper;
+import com.spk.api.security.AuthCheck;
 import com.spk.api.service.ComMstService;
 
 @RestController
@@ -35,6 +36,8 @@ public class ComMstController {
 	
 	@Autowired
 	private ComMstService commstService;
+	
+	AuthCheck authcheck = new AuthCheck();
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// INSERT
@@ -247,8 +250,22 @@ public class ComMstController {
 		return dataResult.toString();		
 	}	
 	
+	/**
+	 * <p> 시나리오 조회 </p>
+	 * <ul>
+	 * 	<li>컴포넌트 그룹 아이디로 시나리오를 조회한다. </li>
+	 * </ul> 
+	 * @param _commst ComMst 객체
+	 * @return String
+	 * @throws Exception e 
+	 */ 
 	@PostMapping("/scenario-info")
-	public String getScenarioByComId(@RequestBody ComMst _commst) {
+	public String getScenarioByComId(@RequestBody ComMst _commst) throws Exception {
+		
+		if (!authcheck.getMetaAuthErrGenerator(_commst.getApikey()).equals("{}")) {
+			logger.info("[ComMstController][getScenarioByComId] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_commst.getApikey());		
+		}		
 		
 		ComMst commst = commstMapper.getScenarioByComId(_commst.getCom_id());
 		
@@ -259,16 +276,20 @@ public class ComMstController {
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");			
 		
-		JsonObject Obj1 = new JsonObject();
-		JsonObject Obj2 = new JsonObject();
-
-		Obj1.addProperty("com_id", commst.getCom_id());
-		Obj1.addProperty("scenario", commst.getScenario());
-		jsonArr1.add(Obj1);		
-		
-		Obj2.add("result", jsonArr1);
-		dataResult.add("data", Obj2);
-				
+		if (commst != null) {
+			JsonObject Obj1 = new JsonObject();
+			JsonObject Obj2 = new JsonObject();
+	
+			Obj1.addProperty("com_id", commst.getCom_id());
+			Obj1.addProperty("scenario", commst.getScenario());
+			jsonArr1.add(Obj1);		
+			
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);
+		} else {
+			dataResult.addProperty("data", "");
+		}
+		logger.info("getScenarioByComId=>"+dataResult.toString());		
 		return dataResult.toString();		
 	}	
 	

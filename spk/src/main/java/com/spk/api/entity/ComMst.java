@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class ComMst {
+	private String apikey;
 	private String com_id;
 	private String reg_dt;
 	private String reg_id;
