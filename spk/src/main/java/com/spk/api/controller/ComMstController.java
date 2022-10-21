@@ -247,6 +247,32 @@ public class ComMstController {
 		return dataResult.toString();		
 	}	
 	
+	@PostMapping("/scenario-info")
+	public String getScenarioByComId(@RequestBody ComMst _commst) {
+		
+		ComMst commst = commstMapper.getScenarioByComId(_commst.getCom_id());
+		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+		
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+		
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
+
+		Obj1.addProperty("com_id", commst.getCom_id());
+		Obj1.addProperty("scenario", commst.getScenario());
+		jsonArr1.add(Obj1);		
+		
+		Obj2.add("result", jsonArr1);
+		dataResult.add("data", Obj2);
+				
+		return dataResult.toString();		
+	}	
+	
+	
 //	// 원 Json 리턴 형태 테스트용
 //	@PostMapping("/dtl")
 //	public ComMst getByComId(@RequestBody ComMst _commst) {	
