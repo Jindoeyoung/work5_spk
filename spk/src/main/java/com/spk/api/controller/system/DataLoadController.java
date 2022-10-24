@@ -1,7 +1,9 @@
 package com.spk.api.controller.system;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.spk.api.entity.redis.BusA;
+import com.spk.api.entity.redis.BusADataDetail;
 import com.spk.api.entity.system.UserInfo;
 import com.spk.api.mapper.system.DataLoadMapper;
 //import com.spk.api.security.AuthCheck;
+import com.spk.api.service.redis.BusAService;
 
 @RestController
 @RequestMapping(value = "/data-load", produces = "application/json; charset=utf8")
@@ -28,6 +33,9 @@ public class DataLoadController {
 	@Autowired 
 	private DataLoadMapper dataLoadMapper;
 
+	@Autowired
+    private BusAService busAService;	
+	
 	@PostMapping("/{from_sabun},{to_sabun}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getBySabun(@PathVariable("from_sabun") String from_sabun
@@ -71,7 +79,7 @@ public class DataLoadController {
 				JsonObject dataResult = new JsonObject();
 				JsonArray jsonArr1 = new JsonArray();					
 				
-				dataResult.addProperty("user_id", item.getUser_id());	
+//				dataResult.addProperty("user_id", item.getUser_id());	
 				
 				JsonObject Obj1 = new JsonObject();
 				JsonObject Obj2 = new JsonObject();				
@@ -102,6 +110,39 @@ public class DataLoadController {
 				
 //				Obj1.add("flag_info", jsonArr1);
 //				dataResult.add("data", Obj2);				
+				
+//				List<Map<String, Object>> list = new ArrayList<>();
+//		        for (Object jsonObject : jsonArr1) {
+//		            list.add(getMapFromJSONObject((JSONObject) jsonObject));
+//		        }
+//		출처: https://insanelysimple.tistory.com/271 [Simple is best:티스토리]
+				
+				logger.info("from sabun =>"+from_sabun);
+				logger.info("to sabun =>"+to_sabun);
+				
+				List<BusADataDetail> empList = new ArrayList<BusADataDetail>(); // 데이터를 저장할 List
+				for(Object arr : jsonArr1) {
+					JsonObject obj = (JsonObject) arr; // JSONArray 데이터를 하나씩 가져와 JSONObject로 변환해준다.
+				    
+				    // 값을 VO에 넣어준다.
+					BusADataDetail busADataDetail = new BusADataDetail();
+					
+					busADataDetail.setComponentId("CMC-002^FU-002-01");
+//					busADataDetail.setComponentId(obj.get("componentId").toString());
+					
+					busADataDetail.setComponentName("(공통)_조회조건");
+					busADataDetail.setMethods(methods);                //    methods[0].toString());
+					
+//					busADataDetail.setDomainId((String) obj.get("domainName"));
+//					empVO.setCompanyCd((String) obj.get("company"));
+					empList.add(busADataDetail); // list에 추가해준다.
+				}
+				
+				
+				
+				BusA busA = null;
+				busA = busAService.registerUser(item.getUser_id(), empList );
+//				busA = busAService.registerUser(item.getUser_id(), List<BusADataDetail> Obj1);
 				
 				logger.info("dataResult.toString()====>"+dataResult.toString());
 			}
