@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.spk.api.entity.StHakJeokM;
 import com.spk.api.entity.system.UserInfo;
 import com.spk.api.mapper.system.DataLoadMapper;
-import com.spk.api.mapper.system.UserLoginMapper;
-import com.spk.api.security.AuthCheck;
+//import com.spk.api.security.AuthCheck;
 
 @RestController
 @RequestMapping(value = "/data-load", produces = "application/json; charset=utf8")
@@ -28,14 +26,11 @@ public class DataLoadController {
 
 	@Autowired 
 	private DataLoadMapper dataLoadMapper;
-//	private UserLoginMapper userLoginMapper;
 
 	@PostMapping("/{from_sabun},{to_sabun}")
-//	@GetMapping("/{from_sabun},{to_sabun}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getBySabun(@PathVariable("from_sabun") String from_sabun
 			                ,@PathVariable("to_sabun") String to_sabun) throws Exception {
-//	public String getBySabun(@RequestBody UserInfo _userInfo) throws Exception {		
 		
 		logger.info("from sabun =>"+from_sabun);
 		logger.info("to sabun =>"+to_sabun);
@@ -46,17 +41,9 @@ public class DataLoadController {
 		JsonArray jsonArr1 = new JsonArray();		
 		
 		String Message = "";
-//		dataResult.addProperty("reason", Message);
-//		dataResult.addProperty("result", "1");			
-
-//		if (userInfo != null) {	
-//			logger.info("[userLoginController][getBySabun] item==>"+userInfo);
-
-			Message = "SUCCESS";
-			dataResult.addProperty("reason", Message);
-			dataResult.addProperty("result", "1");			
-			
-
+		Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
 			
 		if (datas.size() > 0) {
 				
