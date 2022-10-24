@@ -38,6 +38,21 @@ spring:
 #    password: spk1234%
     
 #=======================================================
+# Redis
+#=======================================================    
+  redis:
+#    port: 6388
+#    host: 127.0.0.1
+#    password: digi!cap!
+#    database: 0
+#    timeout: 0
+    port: 6379
+    host: 127.0.0.1
+    password: digi!cap!
+    database: 0
+    timeout: 0    
+    
+#=======================================================
 # Security
 #=======================================================
 api-key: eW5hIGRvd25sb2FkIHNlcnZlciBzZWNlcnQga2V5IGF1dGg=
