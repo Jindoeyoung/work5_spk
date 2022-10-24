@@ -91,11 +91,11 @@ public class DataLoadController {
 				Obj1.addProperty("componentId", "CMC-002^FU-002-01");
 				Obj1.addProperty("componentName", "(공통)_조회조건");
 				
-				jsonArrMethods.add(methods[0]);
+//				jsonArrMethods.add(methods[0]);
+//				Obj1.add("methods", jsonArrMethods);
 				
-				Obj1.add("methods", jsonArrMethods);
 //				Obj1.addProperty("methods", Arrays.toString(methods));
-//				Obj1.addProperty("methods", methods.toString());
+				Obj1.addProperty("methods", "R");
 				
 				jsonArr1.add(Obj1);		
 	
@@ -104,37 +104,80 @@ public class DataLoadController {
 				dataResult.add("flag_info", jsonArr1);
 				
 				
-//				Obj2.add("flag_info", jsonArr1);
 				
-//				dataResult.addProperty
 				
-//				Obj1.add("flag_info", jsonArr1);
-//				dataResult.add("data", Obj2);				
 				
-//				List<Map<String, Object>> list = new ArrayList<>();
-//		        for (Object jsonObject : jsonArr1) {
-//		            list.add(getMapFromJSONObject((JSONObject) jsonObject));
-//		        }
-//		출처: https://insanelysimple.tistory.com/271 [Simple is best:티스토리]
 				
-				logger.info("from sabun =>"+from_sabun);
-				logger.info("to sabun =>"+to_sabun);
+				
+				
+//				JsonObject dataResult = new JsonObject();
+//				JsonArray jsonArr1 = new JsonArray();					
+				
+//				dataResult.addProperty("user_id", item.getUser_id());	
+				
+				JsonObject Obj3 = new JsonObject();
+				JsonObject Obj4 = new JsonObject();				
+				
+				JsonArray jsonArr2 = new JsonArray();
+				
+				Obj3.addProperty("componentId", "CMC-003^FU-001-01");
+				Obj3.addProperty("componentName", "(공통)_그리드");
+				Obj3.addProperty("apiBySelf", "/spk/hj/hakjeok-column-name");
+				Obj3.addProperty("apiBySelfMethod", "POST");
+				
+				jsonArr2.add(Obj3);		
+				
+				jsonArr1.addAll(jsonArr2);				
+				
+				
+				
+				
+				
+				
+				
+				
+
+				
+//				logger.info("from sabun =>"+from_sabun);
+//				logger.info("to sabun =>"+to_sabun);
 				
 				List<BusADataDetail> empList = new ArrayList<BusADataDetail>(); // 데이터를 저장할 List
 				for(Object arr : jsonArr1) {
+					
+					methods = null;
+					
 					JsonObject obj = (JsonObject) arr; // JSONArray 데이터를 하나씩 가져와 JSONObject로 변환해준다.
 				    
 				    // 값을 VO에 넣어준다.
 					BusADataDetail busADataDetail = new BusADataDetail();
 					
-					busADataDetail.setComponentId("CMC-002^FU-002-01");
+					if ( obj.get("componentId") != null )
+					busADataDetail.setComponentId(obj.get("componentId").toString());
+					
+					if ( obj.get("componentName") != null )
+					busADataDetail.setComponentName(obj.get("componentName").toString());
+					
+					if ( obj.get("apiBySelf") != null )
+					busADataDetail.setApiBySelf(obj.get("apiBySelf").toString()  );
+					
+					if ( obj.get("apiBySelfMethod") != null )
+					busADataDetail.setApiBySelfMethod(obj.get("apiBySelfMethod").toString());
+					
+					String[] methods_value = new String[1];
+					if ( obj.get("methods") != null )
+						methods_value[0] = obj.get("methods").toString();							
+					
+					
+					if ( methods_value[0] != null )
+					busADataDetail.setMethods(methods_value);                //    methods[0].toString());
+					
+					
 //					busADataDetail.setComponentId(obj.get("componentId").toString());
-					
-					busADataDetail.setComponentName("(공통)_조회조건");
-					busADataDetail.setMethods(methods);                //    methods[0].toString());
-					
-//					busADataDetail.setDomainId((String) obj.get("domainName"));
-//					empVO.setCompanyCd((String) obj.get("company"));
+//					busADataDetail.setComponentName(obj.get("componentName").toString());					
+//					busADataDetail.setApiBySelf(obj.get("apiBySelf").toString());
+//					busADataDetail.setApiBySelfMethod(obj.get("apiBySelfMethod").toString());
+//					busADataDetail.setMethods(methods);                //    methods[0].toString());
+
 					empList.add(busADataDetail); // list에 추가해준다.
 				}
 				
