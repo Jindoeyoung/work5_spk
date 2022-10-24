@@ -169,7 +169,13 @@ public interface ComMstMapper {
 	ComMst getByComId(@Param("com_id") String com_id);	
 	
 	// one - 
-	@Select("SELECT com_id, scenario FROM COM_MST WHERE com_id=#{com_id}")
+	@Select("  	SELECT "
+			+ "		com_id, "
+			+ "		owner, "
+			+ "		scenario, "
+			+ "		reg_dt "
+			+ "	FROM COM_MST "
+			+ "WHERE com_id=#{com_id}")
 	@ResultMap("ComMstMap")
 	ComMst getScenarioByComId(@Param("com_id") String com_id);	
 	

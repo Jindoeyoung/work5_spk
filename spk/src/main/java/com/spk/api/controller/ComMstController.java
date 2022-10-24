@@ -281,7 +281,9 @@ public class ComMstController {
 			JsonObject Obj2 = new JsonObject();
 	
 			Obj1.addProperty("com_id", commst.getCom_id());
+			Obj1.addProperty("owner", commst.getOwner());
 			Obj1.addProperty("scenario", commst.getScenario());
+			Obj1.addProperty("reg_dt", commst.getReg_dt());
 			jsonArr1.add(Obj1);		
 			
 			Obj2.add("result", jsonArr1);
