@@ -177,20 +177,21 @@ public class DataLoadController {
 					BusADataDetail busADataDetail = new BusADataDetail();
 					
 					if ( obj.get("componentId") != null )
-					busADataDetail.setComponentId(obj.get("componentId").toString());
+//					busADataDetail.setComponentId(obj.get("componentId").toString());
+						busADataDetail.setComponentId(obj.get("componentId").getAsString());
 					
 					if ( obj.get("componentName") != null )
-					busADataDetail.setComponentName(obj.get("componentName").toString());
+					busADataDetail.setComponentName(obj.get("componentName").getAsString());
 					
 					if ( obj.get("apiBySelf") != null )
-					busADataDetail.setApiBySelf(obj.get("apiBySelf").toString()  );
+					busADataDetail.setApiBySelf(obj.get("apiBySelf").getAsString()  );
 					
 					if ( obj.get("apiBySelfMethod") != null )
-					busADataDetail.setApiBySelfMethod(obj.get("apiBySelfMethod").toString());
+					busADataDetail.setApiBySelfMethod(obj.get("apiBySelfMethod").getAsString());
 					
 					String[] methods_value = new String[1];
 					if ( obj.get("methods") != null )
-						methods_value[0] = obj.get("methods").toString();							
+						methods_value[0] = obj.get("methods").getAsString();							
 					
 					
 					if ( methods_value[0] != null )
@@ -208,10 +209,10 @@ public class DataLoadController {
 							BusAApiByAction busAApiByAction = new BusAApiByAction();
 							
 							if ( obj2.get("api") != null )
-							busAApiByAction.setApi(obj2.get("api").toString());				
+							busAApiByAction.setApi(obj2.get("api").getAsString());				
 						
 							if ( obj2.get("apiMethod") != null )
-							busAApiByAction.setApiMethod(obj2.get("apiMethod").toString());				
+							busAApiByAction.setApiMethod(obj2.get("apiMethod").getAsString());				
 						
 							
 							BusAApiByActionCommon busAApiByActionCommon = new BusAApiByActionCommon();  // 데이터를 저장할 Object
@@ -219,11 +220,17 @@ public class DataLoadController {
 							
 							logger.info("######obj2.get(\"common\").toString()######>"+obj2.get("common").toString());
 							
-							JsonObject obj3 = (JsonObject) arr2;  // 여기 개발 중
+//							JsonObject obj3 = (JsonObject) arr2;  // 여기 개발 중
+							JsonObject obj3 = obj2.get("common").getAsJsonObject();
+							
+							logger.info("@@@@@obj3.get(\"componentId\").toString()@@@@@>"+obj3.get("componentId").getAsString());
+							
+							if ( obj3.get("componentId") != null )
+							busAApiByActionCommon.setComponentId(obj3.get("componentId").getAsString());
 							
 							
-							if ( obj2.get("componentId") != null )
-							busAApiByActionCommon.setComponentId(obj2.get("componentId").toString());
+//							if ( obj2.get("componentId") != null )
+//							busAApiByActionCommon.setComponentId(obj2.get("componentId").toString());
 							
 							
 							
