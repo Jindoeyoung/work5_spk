@@ -36,4 +36,45 @@ public interface StSugangSincheongMMapper {
 	})
 	List<StSugangSincheongM> getSugangSincheongList(@Param("hakbeon") String hakbeon);
 //	List<StSugangSincheongM> getSeongJeokList(@Param("ST_SUGANGSINCHEONG_M") StSugangSincheongM sugangsincheong);
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT 칼럼 헤더명
+	//-------------------------------------------------------------------------------------------------------------------------------------	
+	// select 
+	@Select("SELECT  "
+			+ "     max(case COLUMN_NAME "
+			+ "		    when 'ISU_GB' then '이수구분' end) as ISU_GB "
+			+ "    ,max(case COLUMN_NAME "
+			+ "	    	when 'GWAMOK_CD' then '교과목코드' end) as GWAMOK_CD "
+			+ "    ,max(case COLUMN_NAME "
+			+ "			when 'BAN' then '분반' end) as BAN "
+			+ "    ,max(case COLUMN_NAME "
+			+ "			when 'GWAMOK_NM' then '교과목명' end) as GWAMOK_NM "
+			+ "    ,max(case COLUMN_NAME "
+			+ "			when 'HAKJEOM' then '학점' end) as HAKJEOM "
+			+ "    ,max(case COLUMN_NAME "
+			+ "			when 'GYOSU_NM' then '담당교수' end) as GYOSU_NM "
+			+ "    ,max(case COLUMN_NAME "
+			+ "			when 'GWAMOK_SIGAN' then '과목시간' end) as GWAMOK_SIGAN "
+			+ "    ,max(case COLUMN_NAME "
+			+ "			when 'JAEISU_GB' then '재이수구분' end) as JAEISU_GB "
+			+ "    ,max(case COLUMN_NAME "
+			+ "    		when 'DEUGGUP' then '등급' end) as DEUGGUP "
+			+ "  FROM INFORMATION_SCHEMA.COLUMNS "
+			+ " WHERE TABLE_NAME = 'ST_SUGANGSINCHEONG_M' "
+			+ "   AND TABLE_SCHEMA = 'spike' ")
+//	@ResultMap("HakJeokMap")
+	@Results(id="SugangSincheongMap", value={
+			@Result(property="isu_gb",              column="isu_gb"),
+			@Result(property="gwamok_cd",           column="gwamok_cd"),
+			@Result(property="ban",            		column="ban"),
+			@Result(property="gwamok_nm",           column="gwamok_nm"),
+			@Result(property="hakjeom",             column="hakjeom"),
+			@Result(property="gyosu_nm",            column="gyosu_nm"),
+			@Result(property="gwamok_sigan",        column="gwamok_sigan"),
+			@Result(property="jaeisu_gb",         	column="jaeisu_gb"),
+			@Result(property="deuggup",             column="deuggup")
+	})
+	StSugangSincheongM getKorColumnName();
+//	StSugangSincheongM getKorColumnName(@Param("hakbeon") String hakbeon);	
 }

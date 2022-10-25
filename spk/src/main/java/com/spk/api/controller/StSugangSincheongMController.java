@@ -15,6 +15,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.StSuGangM;
 import com.spk.api.entity.StSugangSincheongM;
+import com.spk.api.entity.VHakJeokSeongJeok;
 import com.spk.api.mapper.StSuGangMMapper;
 import com.spk.api.mapper.StSugangSincheongMMapper;
 import com.spk.api.security.AuthCheck;
@@ -85,6 +86,54 @@ public class StSugangSincheongMController {
 			dataResult.addProperty("data", "");
 		}
 		logger.info("getSugangList=>"+dataResult.toString());
+		return dataResult.toString();
+	}	
+	
+	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT 칼럼 헤더명
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping("/sugang-sincheong-column-name")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getKorColumnNameSugangSincheong(@RequestBody StSugangSincheongM _StSugangSincheongM) throws Exception {
+		
+		if (!authcheck.getMetaAuthErrGenerator(_StSugangSincheongM.getApikey()).equals("{}")) {
+			logger.info("[StSugangSincheongMController][getKorColumnNameSugangSincheong] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_StSugangSincheongM.getApikey());
+		}		
+
+		StSugangSincheongM stSugangSincheongM = stsugangsincheongmmapper.getKorColumnName();
+//		VHakJeokSeongJeok vHakjeokSeongjeok = stsugangsincheongmmapper.getKorColumnName(_StSugangSincheongM.getHakbeon());
+
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
+
+		if (stSugangSincheongM != null) {
+			Obj1.addProperty("isu_gb", 			stSugangSincheongM.getIsu_gb());
+			Obj1.addProperty("gwamok_cd",		stSugangSincheongM.getGwamok_cd());
+			Obj1.addProperty("ban", 			stSugangSincheongM.getBan());
+			Obj1.addProperty("gwamok_nm",		stSugangSincheongM.getGwamok_nm());
+			Obj1.addProperty("hakjeom",			stSugangSincheongM.getHakjeom());
+			Obj1.addProperty("gyosu_nm",		stSugangSincheongM.getGyosu_nm());
+			Obj1.addProperty("gwamok_sigan",	stSugangSincheongM.getGwamok_sigan());
+			Obj1.addProperty("jaeisu_gb",		stSugangSincheongM.getJaeisu_gb());
+			Obj1.addProperty("deuggup",			stSugangSincheongM.getDeuggup());
+			jsonArr1.add(Obj1);		
+			
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);		
+		} else {
+			dataResult.addProperty("data", "");
+		}
+		logger.info("getKorColumnNameSugangSincheong=>"+dataResult.toString());		
 		return dataResult.toString();
 	}	
 	
