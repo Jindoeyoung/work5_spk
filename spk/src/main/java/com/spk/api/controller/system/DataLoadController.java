@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.redis.BusA;
+import com.spk.api.entity.redis.BusAApiByAction;
+import com.spk.api.entity.redis.BusAApiByActionCommon;
 import com.spk.api.entity.redis.BusADataDetail;
 import com.spk.api.entity.system.UserInfo;
 import com.spk.api.mapper.system.DataLoadMapper;
@@ -82,7 +84,7 @@ public class DataLoadController {
 //				dataResult.addProperty("user_id", item.getUser_id());	
 				
 				JsonObject Obj1 = new JsonObject();
-				JsonObject Obj2 = new JsonObject();				
+//				JsonObject Obj2 = new JsonObject();				
 				
 				JsonArray jsonArrMethods = new JsonArray();
 				String[] methods = new String[1];
@@ -115,21 +117,44 @@ public class DataLoadController {
 				
 //				dataResult.addProperty("user_id", item.getUser_id());	
 				
-				JsonObject Obj3 = new JsonObject();
-				JsonObject Obj4 = new JsonObject();				
-				
+				JsonObject Obj2 = new JsonObject();				
 				JsonArray jsonArr2 = new JsonArray();
 				
-				Obj3.addProperty("componentId", "CMC-003^FU-001-01");
-				Obj3.addProperty("componentName", "(공통)_그리드");
-				Obj3.addProperty("apiBySelf", "/spk/hj/hakjeok-column-name");
-				Obj3.addProperty("apiBySelfMethod", "POST");
+				Obj2.addProperty("componentId", "CMC-003^FU-001-01");
+				Obj2.addProperty("componentName", "(공통)_그리드");
+				Obj2.addProperty("apiBySelf", "/spk/hj/hakjeok-column-name");
+				Obj2.addProperty("apiBySelfMethod", "POST");
 				
-				jsonArr2.add(Obj3);		
-				
+				jsonArr2.add(Obj2);		
 				jsonArr1.addAll(jsonArr2);				
 				
 				
+				
+				
+				// 학생정보조회그리드
+				JsonObject Obj3 = new JsonObject();
+				JsonObject Obj3_1 = new JsonObject();
+				JsonObject Obj3_2 = new JsonObject();
+				JsonArray jsonArr3 = new JsonArray();
+				
+				Obj3.addProperty("componentId", "CMO-003^FU-003-01");
+				Obj3.addProperty("componentName", "학생정보조회그리드");
+				Obj3.addProperty("apiBySelf", "/spk/hj/hakjeok-column-name");
+				Obj3.addProperty("apiBySelfMethod", "POST");
+				
+				JsonArray jsonArrapiByActions = new JsonArray();
+				
+				Obj3_1.addProperty("api", "/spk/hj/student-list");
+				Obj3_1.addProperty("apiMethod", "POST");
+				Obj3_2.addProperty("componentId", "CMC-001^FU-002-01");
+				Obj3_1.add("common", Obj3_2);
+				
+				jsonArrapiByActions.add(Obj3_1);
+//				logger.info("@@@@@@@@@@@@@=>"+jsonArrapiByActions);
+				Obj3.add("apiByActions", jsonArrapiByActions);
+				
+				jsonArr3.add(Obj3);
+				jsonArr1.addAll(jsonArr3);					
 				
 				
 				
@@ -172,6 +197,50 @@ public class DataLoadController {
 					busADataDetail.setMethods(methods_value);                //    methods[0].toString());
 					
 					
+					if ( obj.get("apiByActions") != null ) {
+//					if ( jsonArrapiByActions != null ) {
+					
+						List<BusAApiByAction> busAApiByActionList = new ArrayList<BusAApiByAction>();  // 데이터를 저장할 List
+						for(Object arr2 : jsonArrapiByActions) {
+						
+							JsonObject obj2 = (JsonObject) arr2; // JSONArray 데이터를 하나씩 가져와 JSONObject로 변환해준다.
+							
+							BusAApiByAction busAApiByAction = new BusAApiByAction();
+							
+							if ( obj2.get("api") != null )
+							busAApiByAction.setApi(obj2.get("api").toString());				
+						
+							if ( obj2.get("apiMethod") != null )
+							busAApiByAction.setApiMethod(obj2.get("apiMethod").toString());				
+						
+							
+							BusAApiByActionCommon busAApiByActionCommon = new BusAApiByActionCommon();  // 데이터를 저장할 Object
+							
+							
+							logger.info("######obj2.get(\"common\").toString()######>"+obj2.get("common").toString());
+							
+							JsonObject obj3 = (JsonObject) arr2;  // 여기 개발 중
+							
+							
+							if ( obj2.get("componentId") != null )
+							busAApiByActionCommon.setComponentId(obj2.get("componentId").toString());
+							
+							
+							
+							if ( obj2.get("common") != null )
+								busAApiByAction.setCommon(busAApiByActionCommon);   
+
+							busAApiByActionList.add(busAApiByAction);
+						}		
+						//busAApiByAction.add(null)    addAll(jsonArrapiByActions);
+						
+						busADataDetail.setApiByActions(busAApiByActionList);	
+						
+					}	
+					
+//					empList.add(busADataDetail);
+					
+					
 //					busADataDetail.setComponentId(obj.get("componentId").toString());
 //					busADataDetail.setComponentName(obj.get("componentName").toString());					
 //					busADataDetail.setApiBySelf(obj.get("apiBySelf").toString());
@@ -179,6 +248,8 @@ public class DataLoadController {
 //					busADataDetail.setMethods(methods);                //    methods[0].toString());
 
 					empList.add(busADataDetail); // list에 추가해준다.
+					
+					
 				}
 				
 				
