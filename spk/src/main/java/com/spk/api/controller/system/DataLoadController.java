@@ -122,7 +122,8 @@ public class DataLoadController {
 				
 				Obj2.addProperty("componentId", "CMC-003^FU-001-01");
 				Obj2.addProperty("componentName", "(공통)_그리드");
-				Obj2.addProperty("apiBySelf", "/spk/hj/hakjeok-column-name");
+				Obj2.addProperty("methods", "R");
+				Obj2.addProperty("apiBySelf", "/spk/user-grids/");
 				Obj2.addProperty("apiBySelfMethod", "POST");
 				
 				jsonArr2.add(Obj2);		
@@ -139,6 +140,7 @@ public class DataLoadController {
 				
 				Obj3.addProperty("componentId", "CMO-003^FU-003-01");
 				Obj3.addProperty("componentName", "학생정보조회그리드");
+				Obj3.addProperty("methods", "R");
 				Obj3.addProperty("apiBySelf", "/spk/hj/hakjeok-column-name");
 				Obj3.addProperty("apiBySelfMethod", "POST");
 				
@@ -147,6 +149,8 @@ public class DataLoadController {
 				Obj3_1.addProperty("api", "/spk/hj/student-list");
 				Obj3_1.addProperty("apiMethod", "POST");
 				Obj3_2.addProperty("componentId", "CMC-001^FU-002-01");
+				Obj3_2.addProperty("auths", "0,2,3");
+				
 				Obj3_1.add("common", Obj3_2);
 				
 				jsonArrapiByActions.add(Obj3_1);
@@ -218,15 +222,57 @@ public class DataLoadController {
 							BusAApiByActionCommon busAApiByActionCommon = new BusAApiByActionCommon();  // 데이터를 저장할 Object
 							
 							
-							logger.info("######obj2.get(\"common\").toString()######>"+obj2.get("common").toString());
+//							logger.info("######obj2.get(\"common\").toString()######>"+obj2.get("common").toString());
 							
 //							JsonObject obj3 = (JsonObject) arr2;  // 여기 개발 중
 							JsonObject obj3 = obj2.get("common").getAsJsonObject();
 							
-							logger.info("@@@@@obj3.get(\"componentId\").toString()@@@@@>"+obj3.get("componentId").getAsString());
+//							logger.info("@@@@@obj3.get(\"componentId\").toString()@@@@@>"+obj3.get("componentId").getAsString());
 							
 							if ( obj3.get("componentId") != null )
 							busAApiByActionCommon.setComponentId(obj3.get("componentId").getAsString());
+							
+							
+//							int[] auths_value = new int[3];
+							String[] auths_value = new String[3];
+//							int[] int_auths_value = null;
+							int[] i_auths_value = new int[3];			
+							
+														
+							if ( obj3.get("auths") != null ) {
+								logger.info("################# obj3.get(\"auths\")==>"+obj3.get("auths"));
+								
+//								if ( auths_value[0] != 0 )
+//								if ( auths_value.length > 0 )
+								if ( obj3.get("auths") != null )
+									logger.info("1");
+									auths_value = obj3.get("auths").toString().replace("\"", "")  .split(",");
+									
+//								auths_value[0] = obj.get("auths").getAsInt();
+									logger.info("auths_value[1]==>"+auths_value[0]);
+									logger.info("auths_value[2]==>"+auths_value[1]);
+									logger.info("auths_value[3]==>"+auths_value[2]);
+									logger.info("2");
+								
+								i_auths_value =  Arrays.stream(auths_value).mapToInt(Integer::parseInt).toArray();
+//								int_auths_value = Integer.parseInt(obj3.get("auths").toString());
+								logger.info("3");
+//								auths_value = obj.get("auths").getAsInt();
+								
+//								logger.info("#################obj.get(\"auths\").getAsInt()==>"+obj.get("auths").getAsInt());
+								logger.info("#################int_auths_value[0]==>"+i_auths_value[0]);
+								logger.info("#################int_auths_value[1]==>"+i_auths_value[1]);
+								logger.info("#################int_auths_value[2]==>"+i_auths_value[2]);
+							}
+								
+							busAApiByActionCommon.setAuths(i_auths_value);                //    methods[0].toString());
+							
+
+							
+							
+							
+//							if ( obj3.get("auths") != null )
+//								busAApiByActionCommon.setAuths(obj3.get("auths").getAsInt());      
 							
 							
 //							if ( obj2.get("componentId") != null )
