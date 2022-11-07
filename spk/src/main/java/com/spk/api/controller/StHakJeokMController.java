@@ -91,7 +91,13 @@ public class StHakJeokMController {
 			}
 			
 		} else {
-			dataResult.addProperty("data", "");
+			
+			JsonObject Obj3 = new JsonObject();			
+			
+			Obj3.add("result", jsonArr1);
+			dataResult.add("data", Obj3);			
+			
+//			dataResult.addProperty("data", "");
 		}
 		logger.info("getStudentList=>"+dataResult.toString());	
 		return dataResult.toString();
