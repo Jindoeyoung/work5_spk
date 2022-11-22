@@ -45,4 +45,6 @@ public class StHakJeokM {
 	private String sex;
 	private String bigo;
 	private String year;
+	private String curr_haknyeon;
+	private String curr_ban;
 }

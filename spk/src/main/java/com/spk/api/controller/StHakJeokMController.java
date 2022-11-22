@@ -76,10 +76,12 @@ public class StHakJeokMController {
 				JsonObject Obj2 = new JsonObject();
 			
 				Obj1.addProperty("hakbeon", item.getHakbeon());
-				Obj1.addProperty("haknyeon", item.getHaknyeon());	
+				Obj1.addProperty("haknyeon", item.getCurr_haknyeon());
+//				Obj1.addProperty("haknyeon", item.getHaknyeon());	
 				Obj1.addProperty("h_name", item.getH_name());
 				Obj1.addProperty("hakgwa", item.getHakgwa());
-				Obj1.addProperty("ban", item.getBan());
+				Obj1.addProperty("ban", item.getCurr_ban());
+//				Obj1.addProperty("ban", item.getBan());
 				Obj1.addProperty("sex", item.getSex());
 				Obj1.addProperty("sangtae", item.getSangtae());
 				Obj1.addProperty("bigo", item.getBigo());
@@ -149,8 +151,10 @@ public class StHakJeokMController {
 				Obj1.addProperty("juya_gb", item.getJuya_gb());
 				Obj1.addProperty("hakgwa", item.getHakgwa());
 				Obj1.addProperty("jeongong", item.getJeongong());
-				Obj1.addProperty("haknyeon", item.getHaknyeon());
-				Obj1.addProperty("ban", item.getBan());
+				Obj1.addProperty("haknyeon", item.getCurr_haknyeon());
+				Obj1.addProperty("ban", item.getCurr_ban());
+//				Obj1.addProperty("haknyeon", item.getHaknyeon());
+//				Obj1.addProperty("ban", item.getBan());
 				Obj1.addProperty("hakgi", item.getHakgi());
 				Obj1.addProperty("isuhakgi", item.getIsuhakgi());
 				Obj1.addProperty("iphak_hakgwa", item.getIphak_hakgwa());
@@ -174,7 +178,13 @@ public class StHakJeokMController {
 			}
 			
 		} else {
-			dataResult.addProperty("data", "");
+			
+			JsonObject Obj3 = new JsonObject();			
+			
+			Obj3.add("result", jsonArr1);
+			dataResult.add("data", Obj3);			
+			
+//			dataResult.addProperty("data", "");
 		}
 		logger.info("getStudentList=>"+dataResult.toString());	
 		return dataResult.toString();

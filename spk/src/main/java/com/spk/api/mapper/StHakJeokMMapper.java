@@ -161,10 +161,12 @@ public interface StHakJeokMMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Select("SELECT "
 			+ "     HJ.hakbeon"
-			+ "    ,HJ.haknyeon"
+			+ "    ,TB.curr_haknyeon"
+//			+ "    ,HJ.haknyeon"
 			+ "    ,HJ.h_name"
 			+ "    ,HJ.hakgwa"
-			+ "    ,HJ.ban"
+			+ "    ,TB.curr_ban"
+//			+ "    ,HJ.ban"
 			+ "    ,case when substr(HJ.jumin_no,7,1) = 1 or substr(HJ.jumin_no,7,1) = 3 then '남자'"
 			+ "          when substr(HJ.jumin_no,7,1) = 2 or substr(HJ.jumin_no,7,1) = 4 then '여자' end as sex"
 			+ "    ,HJ.sangtae"
@@ -172,19 +174,26 @@ public interface StHakJeokMMapper {
 			+ " FROM "
 			+ "    ST_BUSEOTEAMBAN_H TB INNER JOIN ST_HAKJEOK_M HJ ON (TB.hakbeon = HJ.hakbeon) "
 			+ " WHERE "
-			+ "       ifnull(TB.year,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
-			+ "   and ifnull(HJ.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
+			+ "       ifnull(TB.year,' ') LIKE case when #{ST_HAKJEOK_M.year} = '' or #{ST_HAKJEOK_M.year} = '%' then (select max(X.year) from ST_BUSEOTEAMBAN_H X where X.HAKBEON = TB.HAKBEON) else CONCAT('%', #{ST_HAKJEOK_M.year}, '%') end "
+//			+ "       ifnull(TB.year,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
+			+ "   and ifnull(TB.hakgi,' ') LIKE case when #{ST_HAKJEOK_M.hakgi} = '' or #{ST_HAKJEOK_M.hakgi} = '%' then (select max(X.hakgi) from ST_BUSEOTEAMBAN_H X where X.HAKBEON = TB.HAKBEON) else CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') end "
+//			+ "   and ifnull(TB.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
+//			+ "   and ifnull(HJ.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
 			+ "   and ifnull(HJ.hakgwa,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
-			+ "   and ifnull(HJ.haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
-			+ "   and ifnull(HJ.ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "
+			+ "   and ifnull(TB.curr_haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+//			+ "   and ifnull(HJ.haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "   and ifnull(TB.curr_ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "			
+//			+ "   and ifnull(HJ.ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "
 			+ "   and ifnull(HJ.h_name,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
 			+ "   and ifnull(HJ.hakbeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")
 	@Results(id="SeongJeokMap", value={
 		@Result(property="hakbeon",           	column="hakbeon"),
-		@Result(property="haknyeon",	  		column="haknyeon"),
+		@Result(property="curr_haknyeon",	  	column="curr_haknyeon"),		
+//		@Result(property="haknyeon",	  		column="haknyeon"),
 		@Result(property="h_name",	  			column="h_name"),
 		@Result(property="hakgwa",	  			column="hakgwa"),
-		@Result(property="ban",	  				column="ban"),
+		@Result(property="curr_ban",	  		column="curr_ban"),
+//		@Result(property="ban",	  				column="ban"),
 		@Result(property="sex",	  				column="sex"),
 		@Result(property="sangtae",	  			column="sangtae"),
 		@Result(property="bigo",	  			column="bigo")	
@@ -215,8 +224,10 @@ public interface StHakJeokMMapper {
 			+ "    ,HJ.juya_gb"
 			+ "    ,HJ.hakgwa"
 			+ "    ,HJ.jeongong"
-			+ "    ,HJ.haknyeon"
-			+ "    ,HJ.ban"
+			+ "    ,TB.curr_haknyeon"
+//			+ "    ,HJ.haknyeon"
+			+ "    ,TB.curr_ban"			
+//			+ "    ,HJ.ban"
 			+ "    ,HJ.hakgi"
 			+ "    ,HJ.isuhakgi"
 			+ "    ,HJ.iphak_hakgwa"
@@ -237,13 +248,26 @@ public interface StHakJeokMMapper {
 			+ " FROM "
 			+ "    ST_BUSEOTEAMBAN_H TB INNER JOIN ST_HAKJEOK_M HJ ON (TB.hakbeon = HJ.hakbeon) "
 			+ " WHERE "
-			+ "       ifnull(TB.year,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
-			+ "   and ifnull(HJ.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
+			+ "       ifnull(TB.year,' ') LIKE case when #{ST_HAKJEOK_M.year} = '' or #{ST_HAKJEOK_M.year} = '%' then (select max(X.year) from ST_BUSEOTEAMBAN_H X where X.HAKBEON = TB.HAKBEON) else CONCAT('%', #{ST_HAKJEOK_M.year}, '%') end "
+//			+ "       ifnull(TB.year,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
+			+ "   and ifnull(TB.hakgi,' ') LIKE case when #{ST_HAKJEOK_M.hakgi} = '' or #{ST_HAKJEOK_M.hakgi} = '%' then (select max(X.hakgi) from ST_BUSEOTEAMBAN_H X where X.HAKBEON = TB.HAKBEON) else CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') end "
+//			+ "   and ifnull(TB.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
+//			+ "   and ifnull(HJ.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
 			+ "   and ifnull(HJ.hakgwa,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
-			+ "   and ifnull(HJ.haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
-			+ "   and ifnull(HJ.ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "
+			+ "   and ifnull(TB.curr_haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+//			+ "   and ifnull(HJ.haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+			+ "   and ifnull(TB.curr_ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "			
+//			+ "   and ifnull(HJ.ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "
 			+ "   and ifnull(HJ.h_name,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
-			+ "   and ifnull(HJ.hakbeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")
+			+ "   and ifnull(HJ.hakbeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")			
+// old			
+//			+ "       ifnull(TB.year,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.year}, '%') "
+//			+ "   and ifnull(HJ.hakgi,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgi}, '%') "
+//			+ "   and ifnull(HJ.hakgwa,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakgwa}, '%') "
+//			+ "   and ifnull(HJ.haknyeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.haknyeon}, '%') "
+//			+ "   and ifnull(HJ.ban,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.ban}, '%') "
+//			+ "   and ifnull(HJ.h_name,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.h_name}, '%') "
+//			+ "   and ifnull(HJ.hakbeon,' ') LIKE CONCAT('%', #{ST_HAKJEOK_M.hakbeon}, '%')")
 	@Results(id="HakJeokListMap", value={
 			@Result(property="hakbeon",             column="hakbeon"),
 			@Result(property="profile",             column="profile"),
@@ -261,8 +285,10 @@ public interface StHakJeokMMapper {
 			@Result(property="juya_gb",             column="juya_gb"),
 			@Result(property="hakgwa",              column="hakgwa"),
 			@Result(property="jeongong",            column="jeongong"),
-			@Result(property="haknyeon",            column="haknyeon"),
-			@Result(property="ban",                 column="ban"),
+			@Result(property="curr_haknyeon",	  	column="curr_haknyeon"),
+			@Result(property="curr_ban",	  		column="curr_ban"),
+//			@Result(property="haknyeon",            column="haknyeon"),
+//			@Result(property="ban",                 column="ban"),
 			@Result(property="hakgi",               column="hakgi"),
 			@Result(property="isuhakgi",            column="isuhakgi"),
 			@Result(property="iphak_hakgwa",        column="iphak_hakgwa"),
