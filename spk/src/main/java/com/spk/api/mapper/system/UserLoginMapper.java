@@ -20,13 +20,15 @@ public interface UserLoginMapper {
 			+ "      ,user_nm "
 			+ "      ,user_grp_cd "
 			+ "  FROM USER_MST "
-			+ " WHERE sabun=#{sabun}")
+			+ " WHERE sabun=#{sabun} "
+			+ "   AND router_id=#{router_id} ")
 	@Results(id="ComScenMap", value={
 			@Result(property="user_id", column="user_id"),
 			@Result(property="user_nm", column="user_nm"),
 			@Result(property="user_grp_cd", column="user_grp_cd"),
 		})
 	UserInfo getBySabun(
+			 @Param("router_id") String router_id,
 			 @Param("sabun") String sabun
 			);
 }

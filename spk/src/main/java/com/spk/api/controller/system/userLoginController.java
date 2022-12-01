@@ -34,7 +34,14 @@ public class userLoginController {
 			return authcheck.getMetaAuthErrGenerator(_userInfo.getApikey());
 		}		
 		
-		UserInfo userInfo = userLoginMapper.getBySabun(_userInfo.getSabun());
+		String router_id = _userInfo.getSabun().substring(0,7);
+		String sabun = _userInfo.getSabun().substring(7);
+		
+//		logger.info("router_id========>"+router_id);
+//		logger.info("sabun========>"+sabun);
+		
+//		UserInfo userInfo = userLoginMapper.getBySabun(_userInfo.getSabun());
+		UserInfo userInfo = userLoginMapper.getBySabun(router_id, sabun);
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();		
