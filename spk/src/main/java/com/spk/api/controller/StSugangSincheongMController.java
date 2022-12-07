@@ -117,6 +117,7 @@ public class StSugangSincheongMController {
 		JsonObject Obj2 = new JsonObject();
 
 		if (stSugangSincheongM != null) {
+			Obj1.addProperty("hakbeon", 		stSugangSincheongM.getHakbeon());
 			Obj1.addProperty("isu_gb", 			stSugangSincheongM.getIsu_gb());
 			Obj1.addProperty("gwamok_cd",		stSugangSincheongM.getGwamok_cd());
 			Obj1.addProperty("ban", 			stSugangSincheongM.getBan());

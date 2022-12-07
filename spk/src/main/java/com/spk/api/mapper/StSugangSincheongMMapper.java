@@ -43,6 +43,8 @@ public interface StSugangSincheongMMapper {
 	// select 
 	@Select("SELECT  "
 			+ "     max(case COLUMN_NAME "
+			+ "		    when 'HAKBEON' then '학번' end) as HAKBEON "			
+			+ "    ,max(case COLUMN_NAME "
 			+ "		    when 'ISU_GB' then '이수구분' end) as ISU_GB "
 			+ "    ,max(case COLUMN_NAME "
 			+ "	    	when 'GWAMOK_CD' then '교과목코드' end) as GWAMOK_CD "
@@ -65,6 +67,7 @@ public interface StSugangSincheongMMapper {
 			+ "   AND TABLE_SCHEMA = 'spike' ")
 //	@ResultMap("HakJeokMap")
 	@Results(id="SugangSincheongMap", value={
+			@Result(property="hakbeon",             column="hakbeon"),
 			@Result(property="isu_gb",              column="isu_gb"),
 			@Result(property="gwamok_cd",           column="gwamok_cd"),
 			@Result(property="ban",            		column="ban"),
