@@ -157,6 +157,29 @@ public interface StHakJeokMMapper {
 	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT - BONGSA_INFO - ONE
+	//-------------------------------------------------------------------------------------------------------------------------------------	
+	@Select(" SELECT "
+			+ "  HJ.hakbeon "
+			+ " ,HJ.hakgwa "
+			+ " ,HJ.h_name "
+			+ " ,HJ.hp_no "
+			+ " ,BS.bongsa_sigan "
+			+ " FROM "
+			+ "  ST_HAKJEOK_M HJ INNER JOIN ST_BONGSA_M BS ON (HJ.hakbeon = BS.hakbeon) "
+			+ " WHERE HJ.hakbeon=#{hakbeon}")
+	@Results(id="BongsaMap", value={
+		@Result(property="h_name",              column="h_name"),
+		@Result(property="hakgwa",              column="hakgwa"),
+		@Result(property="hakbeon",             column="hakbeon"),
+		@Result(property="hp_no",             	column="hp_no"),
+		@Result(property="bongsa_sigan",        column="bongsa_sigan")
+	})
+	StHakJeokM getBongsaSiganByHakbeon(@Param("hakbeon") String hakbeon);	
+	
+	
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Select("SELECT "

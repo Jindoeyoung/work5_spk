@@ -47,4 +47,6 @@ public class StHakJeokM {
 	private String year;
 	private String curr_haknyeon;
 	private String curr_ban;
+	private String hp_no;
+	private String bongsa_sigan;
 }

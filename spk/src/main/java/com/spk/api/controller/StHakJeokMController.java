@@ -262,6 +262,50 @@ public class StHakJeokMController {
 	}	
 	
 	
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT - BONGSA_INFO - ONE
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping("/bongsa-info")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getBongsaSiganByHakbeon(@RequestBody StHakJeokM _hakjeokm) throws Exception {
+		
+		if (!authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey()).equals("{}")) {
+			logger.info("[StHakJeokMController][getBongsaSiganByHakbeon] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_hakjeokm.getApikey());
+		}		
+
+		StHakJeokM hakjeokm = sthakjeokmmapper.getBongsaSiganByHakbeon(_hakjeokm.getHakbeon());
+
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+
+		String Message = "SUCCESS";
+		dataResult.addProperty("reason", Message);
+		dataResult.addProperty("result", "1");			
+
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
+
+		if (hakjeokm != null) {
+			Obj1.addProperty("hakbeon", hakjeokm.getHakbeon());
+			Obj1.addProperty("hakgwa", hakjeokm.getHakgwa());
+			Obj1.addProperty("h_name", hakjeokm.getH_name());
+			Obj1.addProperty("hp_no", hakjeokm.getHp_no());
+			Obj1.addProperty("bongsa_sigan", hakjeokm.getBongsa_sigan());
+			
+			jsonArr1.add(Obj1);		
+			
+			Obj2.add("result", jsonArr1);
+			dataResult.add("data", Obj2);		
+		} else {
+			dataResult.addProperty("data", "");
+		}
+		logger.info("getBongsaSiganByHakbeon=>"+dataResult.toString());		
+		return dataResult.toString();
+	}	
+	
+	
+	
 //	// Body
 //	@PutMapping("/upt")
 //	@CrossOrigin(origins = "*", allowedHeaders = "*")
