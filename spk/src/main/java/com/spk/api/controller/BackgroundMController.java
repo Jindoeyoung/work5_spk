@@ -24,7 +24,7 @@ import com.spk.api.mapper.BackgroundMMapper;
 import com.spk.api.security.AuthCheck;
 
 @RestController
-@RequestMapping(value = "/set", produces = "application/json; charset=utf8")
+@RequestMapping(value = "/background-mst", produces = "application/json; charset=utf8")
 public class BackgroundMController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -36,7 +36,7 @@ public class BackgroundMController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PostMapping("/background")
+	@PostMapping("/")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getBackgroundMasterList(@RequestBody BackgroundM _backgroundm) throws Exception  {
 
