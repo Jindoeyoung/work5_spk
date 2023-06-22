@@ -16,5 +16,6 @@ public class UserInfo {
 	private String depart_cd;
 	private String rank_cd;
 	private String charge_cd;
-	private String sabun;	
+	private String sabun;
+	private String background_id; // 배경화면ID
 }
