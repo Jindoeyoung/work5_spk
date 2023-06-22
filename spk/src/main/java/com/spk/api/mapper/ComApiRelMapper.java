@@ -57,6 +57,7 @@ public interface ComApiRelMapper {
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Insert("INSERT INTO COM_API_REL("
 			+ " com_id"			//COM_ID
+			+ ",func_id"		//FUNC_ID
 			+ ",api_id"			//API ID
 			+ ",api_src"		//API 소스 경로
 			+ ",reg_dt"			//등록일
@@ -66,6 +67,7 @@ public interface ComApiRelMapper {
 			+ "   VALUES"
 			+ " ("
 			+ " #{COM_API_REL.com_id}"
+			+ ",#{COM_API_REL.func_id}"
 			+ ",#{COM_API_REL.api_id}"
 			+ ",#{COM_API_REL.api_src}"
 			+ ",#{COM_API_REL.reg_dt}"
