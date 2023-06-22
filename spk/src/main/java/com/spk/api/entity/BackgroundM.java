@@ -3,10 +3,10 @@ package com.spk.api.entity;
 import lombok.Data;
 
 @Data
-public class SpTempleteM {
+public class BackgroundM {
 	private String apikey;
-	private String templete_id;
-	private String templete_gbn;
+	private String background_id;
+	private String background_gbn;
 	private String spike_id;
 	private String reg_dt;
 	private String reg_id;

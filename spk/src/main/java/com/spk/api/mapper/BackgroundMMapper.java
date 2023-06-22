@@ -12,26 +12,26 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 //import org.apache.ibatis.annotations.Update;
 
-import com.spk.api.entity.SpTempleteM;
+import com.spk.api.entity.BackgroundM;
 
 @Mapper
-public interface SpTempleteMMapper {
+public interface BackgroundMMapper {
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Select("    SELECT "
-		  + "      a.TEMPLETE_ID, "
+		  + "      a.BACKGROUND_ID, "
 		  + "      a.IMAGE_SRC, "
 		  + "      a.THUMNAIL_SRC "
-		  + "    FROM SP_TEMPLETE_MST a "
-		  + "   WHERE a.TEMPLETE_GBN = '1' "
-		  + "ORDER BY a.TEMPLETE_ID")
+		  + "    FROM BACKGROUND_MST a "
+		  + "   WHERE a.BACKGROUND_GBN = '1' "
+		  + "ORDER BY a.BACKGROUND_ID")
 	@Results(id="SpTempleteMap", value={
-		@Result(property="templete_id",           column="templete_id"),
+		@Result(property="background_id",         column="background_id"),
 		@Result(property="image_src",             column="image_src"),
 		@Result(property="thumnail_src",          column="thumnail_src")
 	})
-	List<SpTempleteM> getTempleteMasterList(@Param("SP_TEMPLETE_MST") SpTempleteM templetem);
+	List<BackgroundM> getBackgroundMasterList(@Param("BACKGROUND_MST") BackgroundM backgroundm);
 	
 }

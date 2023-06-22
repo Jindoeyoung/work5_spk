@@ -19,33 +19,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.spk.api.entity.SpTempleteM;
-import com.spk.api.mapper.SpTempleteMMapper;
+import com.spk.api.entity.BackgroundM;
+import com.spk.api.mapper.BackgroundMMapper;
 import com.spk.api.security.AuthCheck;
 
 @RestController
 @RequestMapping(value = "/set", produces = "application/json; charset=utf8")
-public class SpTempleteMController {
+public class BackgroundMController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private SpTempleteMMapper sptempletemmapper;
+	private BackgroundMMapper backgroundmmapper;
 	
 	AuthCheck authcheck = new AuthCheck();
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PostMapping("/templete")
+	@PostMapping("/background")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String getTempleteMasterList(@RequestBody SpTempleteM _templetem) throws Exception  {
+	public String getBackgroundMasterList(@RequestBody BackgroundM _backgroundm) throws Exception  {
 
-		if (!authcheck.getMetaAuthErrGenerator(_templetem.getApikey()).equals("{}")) {
-			logger.info("[SpTempleteMController][getTempleteMasterList] AUTHENTICATION RESTRICTIONS");
-			return authcheck.getMetaAuthErrGenerator(_templetem.getApikey());		
+		if (!authcheck.getMetaAuthErrGenerator(_backgroundm.getApikey()).equals("{}")) {
+			logger.info("[BackgroundMController][getBackgroundMasterList] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(_backgroundm.getApikey());		
 		}
 		
-		List<SpTempleteM> datas = (List<SpTempleteM>) sptempletemmapper.getTempleteMasterList(_templetem);				
+		List<BackgroundM> datas = (List<BackgroundM>) backgroundmmapper.getBackgroundMasterList(_backgroundm);				
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();		
@@ -56,7 +56,7 @@ public class SpTempleteMController {
 
 		if (datas.size() > 0) {
 		
-			for (SpTempleteM item : datas) {
+			for (BackgroundM item : datas) {
 //			System.out.println("item==>"+item);
 			
 				JsonObject Obj1 = new JsonObject();
@@ -80,7 +80,7 @@ public class SpTempleteMController {
 			
 //			dataResult.addProperty("data", "");
 		}
-		logger.info("getTempleteMasterList=>"+dataResult.toString());	
+		logger.info("getBackgroundMasterList=>"+dataResult.toString());	
 		return dataResult.toString();
 	}	
 	
