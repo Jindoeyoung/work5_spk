@@ -62,6 +62,7 @@ public class BackgroundMController {
 				JsonObject Obj1 = new JsonObject();
 				JsonObject Obj2 = new JsonObject();
 			
+				Obj1.addProperty("background_id", item.getBackground_id());
 				Obj1.addProperty("thumbnails", item.getThumnail_src());
 				Obj1.addProperty("originals", item.getImage_src());
 				
