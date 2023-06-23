@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spk.api.entity.BackgroundUser;
 import com.spk.api.mapper.BackgroundUserMapper;
 import com.spk.api.security.AuthCheck;
+import com.spk.api.service.BackgroundUserService;
+import com.spk.api.service.ComMstService;
 
 @RestController
 @RequestMapping(value = "/background", produces = "application/json; charset=utf8")
@@ -21,6 +23,9 @@ public class BackgroundUserController {
 
 	@Autowired
 	private BackgroundUserMapper backgroundUserMapper;
+	
+	@Autowired
+	private BackgroundUserService backgroundUserService;	
 	
 	AuthCheck authcheck = new AuthCheck();
 	
@@ -33,7 +38,8 @@ public class BackgroundUserController {
 		if (!authcheck.getMetaAuthErrGenerator(backgroundUser.getApikey()).equals("{}")) {
 			logger.info("[BackgroundUserController][update] AUTHENTICATION RESTRICTIONS");
 		} else {
-			return backgroundUserMapper.updateBody(backgroundUser);
+			return backgroundUserService.insertBody(backgroundUser);
+//			return backgroundUserMapper.updateBody(backgroundUser);
 		}
 		return 0;		
 	}
