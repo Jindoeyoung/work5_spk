@@ -17,7 +17,7 @@ import com.spk.api.security.AuthCheck;
 
 @RestController
 @RequestMapping(value = "/login-info", produces = "application/json; charset=utf8")
-public class userLoginController {
+public class UserLoginController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired 
