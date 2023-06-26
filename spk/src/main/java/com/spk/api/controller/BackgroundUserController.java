@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.BackgroundUser;
-import com.spk.api.mapper.BackgroundUserMapper;
+//import com.spk.api.mapper.BackgroundUserMapper;
 import com.spk.api.security.AuthCheck;
 import com.spk.api.service.BackgroundUserService;
-import com.spk.api.service.ComMstService;
+//import com.spk.api.service.ComMstService;
 
 @RestController
 @RequestMapping(value = "/background", produces = "application/json; charset=utf8")
 public class BackgroundUserController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private BackgroundUserMapper backgroundUserMapper;
+//	@Autowired
+//	private BackgroundUserMapper backgroundUserMapper;
 	
 	@Autowired
 	private BackgroundUserService backgroundUserService;	

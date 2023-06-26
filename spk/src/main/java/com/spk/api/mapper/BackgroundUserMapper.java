@@ -15,7 +15,7 @@ public interface BackgroundUserMapper {
 	@Update("UPDATE BACKGROUND_USER SET "
 		+ "       background_id = #{BACKGROUND_USER.background_id} "
 		+ "      ,upt_dt	    = now() "
-		+ "      ,upt_id        = #{BACKGROUND_USER.upt_id} "		
+		+ "      ,upt_id        = #{BACKGROUND_USER.upt_id} "
 		+ "  WHERE spike_id = #{BACKGROUND_USER.spike_id}")
 	int updateBody(@Param("BACKGROUND_USER") BackgroundUser backgroundUser);
 }

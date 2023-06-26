@@ -1,13 +1,13 @@
 package com.spk.api.service;
 
-import java.util.List;
+//import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.spk.api.entity.BackgroundUser;
@@ -39,17 +39,17 @@ public class BackgroundUserService {
 		int rslt1 = 0;
 		
 		rslt1 = backgroundUserMapper.updateBody(backgroundUser);
-		logger.info("rslt1===@@@===>"+rslt1);
+//		logger.info("rslt1===@@@===>"+rslt1);
 		
 		int rslt2 = 0;
 			
 		rslt2 = backgroundUserHstMapper.insertBody(backgroundUser);
-		logger.info("rslt2===@@@===>"+rslt2);
+//		logger.info("rslt2===@@@===>"+rslt2);
 		
 		if (rslt1 < 1 || rslt2 < 1) {
-			throw new RuntimeException("COM_MST Exception 2...");
+			throw new RuntimeException("BackgroundUserService Exception.");
 		}
-		
+		logger.info("[BackgroundUserService] insertBody ["+rslt1+"]["+rslt2+"]");
 		return rslt1;
 	}
 	
