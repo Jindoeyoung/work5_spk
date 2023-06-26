@@ -32,7 +32,7 @@ public class BackgroundUserController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// update
 	//-------------------------------------------------------------------------------------------------------------------------------------	
-	@PutMapping("/")
+	@PutMapping("/insert")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public int put(@RequestBody BackgroundUser backgroundUser) throws Exception {
 		if (!authcheck.getMetaAuthErrGenerator(backgroundUser.getApikey()).equals("{}")) {
