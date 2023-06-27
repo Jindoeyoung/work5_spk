@@ -32,14 +32,17 @@ public interface UserLoginMapper {
 			+ "      ,UM.user_nm "
 			+ "      ,UM.user_grp_cd "
 			+ "      ,BU.background_id "
+			+ "      ,BM.image_src "
 			+ "  FROM USER_MST UM LEFT OUTER JOIN BACKGROUND_USER BU ON (UM.USER_ID = BU.SPIKE_ID) "
+			+ "                   LEFT OUTER JOIN BACKGROUND_MST BM ON (BU.BACKGROUND_ID = BM.BACKGROUND_ID) "
 			+ " WHERE UM.SABUN=#{sabun} "
 			+ "   AND UM.ROUTER_ID=#{router_id} ")
 	@Results(id="UserInfoMap", value={
 			@Result(property="user_id", 		column="user_id"),
 			@Result(property="user_nm", 		column="user_nm"),
 			@Result(property="user_grp_cd", 	column="user_grp_cd"),
-			@Result(property="background_id", 	column="background_id")
+			@Result(property="background_id", 	column="background_id"),
+			@Result(property="image_src", 		column="image_src")
 		})	
 	UserInfo getBySabun(
 			 @Param("router_id") String router_id,

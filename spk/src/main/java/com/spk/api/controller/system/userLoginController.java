@@ -64,6 +64,7 @@ public class UserLoginController {
 			Obj1.addProperty("user_nm", userInfo.getUser_nm());
 			Obj1.addProperty("user_grp_cd", userInfo.getUser_grp_cd());
 			Obj1.addProperty("background_id", userInfo.getBackground_id());
+			Obj1.addProperty("image_src", userInfo.getImage_src());
 			
 			jsonArr1.add(Obj1);		
 	
