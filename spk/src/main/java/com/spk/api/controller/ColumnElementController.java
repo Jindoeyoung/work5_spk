@@ -15,8 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.spk.api.entity.BackgroundM;
 import com.spk.api.entity.ColumnElement;
-import com.spk.api.mapper.ColumnElementMapper;
+import com.spk.api.entity.ColumnElementM;
+import com.spk.api.entity.ColumnElementTyp;
+import com.spk.api.mapper.ColumnElementMMapper;
+import com.spk.api.mapper.ColumnElementTypMapper;
+import com.spk.api.mapper.ColumnElementValMapper;
+//import com.spk.api.mapper.ColumnElementMapper;
 import com.spk.api.security.AuthCheck;
 
 @RestController
@@ -24,8 +30,18 @@ import com.spk.api.security.AuthCheck;
 public class ColumnElementController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+//	@Autowired
+//	private ColumnElementMapper columnElementMapper;
+	
 	@Autowired
-	private ColumnElementMapper columnElementMapper;
+	private ColumnElementMMapper columnElementMMapper;	
+	
+	@Autowired
+	private ColumnElementTypMapper columnElementTypMapper;	
+	
+	@Autowired
+	private ColumnElementValMapper columnElementValMapper;	
+	
 	
 	AuthCheck authcheck = new AuthCheck();
 	
@@ -34,56 +50,64 @@ public class ColumnElementController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("/")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String getColumnElementList(@RequestBody ColumnElement colElement) throws Exception  {
+	public String getColumnElementList(@RequestBody ColumnElementM colElementM) throws Exception  {
 
-		if (!authcheck.getMetaAuthErrGenerator(colElement.getApikey()).equals("{}")) {
-			logger.info("[BackgroundMController][getBackgroundMasterList] AUTHENTICATION RESTRICTIONS");
-			return authcheck.getMetaAuthErrGenerator(colElement.getApikey());
+		if (!authcheck.getMetaAuthErrGenerator(colElementM.getApikey()).equals("{}")) {
+			logger.info("[ColumnElementController][getColumnElementList] AUTHENTICATION RESTRICTIONS");
+			return authcheck.getMetaAuthErrGenerator(colElementM.getApikey());
 		}
 		
-		List<ColumnElement> datas = (List<ColumnElement>) columnElementMapper.getColumnElementList(colElement);
+		
+		// Element 마스터
+		ColumnElementM elementM = columnElementMMapper.getColumnElementMstList(colElementM);
+		// Element 타입
+		List<ColumnElementTyp> datas = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(colElementM);
 		
 		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();
-		JsonArray jsonArr2 = new JsonArray();
-		String result = "result";
-		
+		JsonArray jsonArr1 = new JsonArray();			
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
-		dataResult.addProperty(result, "1");		
+		dataResult.addProperty("result", "1");	
+		
+		JsonObject obj1 = new JsonObject();
+		JsonObject obj2 = new JsonObject();
+		JsonObject obj3 = new JsonObject();			
+			
+			
 
-		if (datas.size() > 0) {
+		if (elementM != null) {
 		
-			for (ColumnElement item : datas) {
-				
-			System.out.println("item==>"+item);
-			
-			
-			
-			JsonObject obj1 = new JsonObject();
+		obj1.addProperty("key", elementM.getCol_nm());
+		obj1.addProperty("value", elementM.getCol_desc());
 		
-			obj1.addProperty("key", item.getCol_nm());
-			obj1.addProperty("value", item.getCol_desc());
-			obj1.addProperty("elementType", item.getElement_typ());
-			obj1.addProperty("elementValue", item.getElement_val());
+			// 엘리먼트 TYPE
+			if (datas.size() > 0) {
 				
-			
-			
-			obj1.addProperty("elementSelected", "0");
-			obj1.addProperty("permission", item.getCol_auth());
-			
-			
-			dataResult.add("data", obj1);
-			
-			//Obj2.add("background_size", jsonArr1);
-//			dataResult.add("data", obj1);			
-			
-			
-			
-			
-			
-			
+				for (ColumnElementTyp item : datas) {
+					//System.out.println("item  #####>"+item);
+					System.out.println("item.getElement_typ()  #####>"+item.getElement_typ());
+					obj2.addProperty("elementType", item.getElement_typ());
+				
+				
+					jsonArr1.add(obj2);	
+				
+					obj1.add("elements", jsonArr1);
+					dataResult.add("data", obj1);
+					
+				}
+			}
+		
+		obj1.addProperty("elementSelected", "0");
+		obj1.addProperty("permission", elementM.getCol_auth());
+		
+		dataResult.add("data", obj1);			
+
+		
+		//Obj2.add("background_size", jsonArr1);
+//		dataResult.add("data", obj1);			
+		
+		
 			
 			
 			
@@ -135,7 +159,7 @@ public class ColumnElementController {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@				
 				
 				
-			}
+//			}
 			
 		} else {
 			

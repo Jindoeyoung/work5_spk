@@ -9,12 +9,13 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 
 import com.spk.api.entity.ColumnElement;
+import com.spk.api.entity.ColumnElementM;
 
 @Mapper
 public interface ColumnElementMapper {
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	// SELECT - LIST
+	// SELECT - LIST (3개 테이블 전체 Join)
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Select("   SELECT "
 		  + "      em.col_nm "
@@ -32,5 +33,22 @@ public interface ColumnElementMapper {
 		@Result(property="element_val",          column="element_val"),
 		@Result(property="col_auth",          	 column="col_auth")
 	})
-	List<ColumnElement> getColumnElementList(@Param("BACKGROUND_MST") ColumnElement columnElement);
+	List<ColumnElement> getColumnElementList(@Param("COL_ELEMENT_MST") ColumnElement columnElement);
+
+	//-------------------------------------------------------------------------------------------------------------------------------------
+	// SELECT - LIST
+	//-------------------------------------------------------------------------------------------------------------------------------------	
+	@Select("   SELECT "
+		  + "      col_nm "
+		  + "      ,col_desc "
+		  + "      ,col_auth "
+		  + "   FROM COL_ELEMENT_MST "		  
+		  + "   WHERE tbl_nm = 'ST_HAKJEOK_M' ")
+	@Results(id="ColElementMstMap", value={
+		@Result(property="col_nm",         		 column="col_nm"),
+		@Result(property="col_desc",             column="col_desc"),
+		@Result(property="col_auth",          	 column="col_auth")
+	})
+	List<ColumnElementM> getColumnElementMstList(@Param("COL_ELEMENT_MST") ColumnElementM columnElementM);
+	
 }
