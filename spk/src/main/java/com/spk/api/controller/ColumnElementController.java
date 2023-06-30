@@ -84,14 +84,19 @@ public class ColumnElementController {
 			// 엘리먼트 TYPE
 			if (datas.size() > 0) {
 				
+//				String[] type;
 				for (ColumnElementTyp item : datas) {
 					//System.out.println("item  #####>"+item);
-					System.out.println("item.getElement_typ()  #####>"+item.getElement_typ());
+					//System.out.println("item.getElement_typ()  #####>"+item.getElement_typ());
+
+					
 					obj2.addProperty("elementType", item.getElement_typ());
-				
+//					obj2.addProperty("elementType", eType);
 				
 					jsonArr1.add(obj2);	
 				
+//					eType = "";
+					
 					obj1.add("elements", jsonArr1);
 					dataResult.add("data", obj1);
 					
