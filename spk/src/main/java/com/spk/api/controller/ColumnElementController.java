@@ -31,7 +31,7 @@ import com.spk.api.security.AuthCheck;
 @RequestMapping(value = "/column-element", produces = "application/json; charset=utf8")
 public class ColumnElementController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
 //	@Autowired
 //	private ColumnElementMapper columnElementMapper;
 	
@@ -76,7 +76,7 @@ public class ColumnElementController {
 		dataResult.addProperty("result", "1");	
 		
 		JsonObject obj1 = new JsonObject();
-		JsonObject obj2 = new JsonObject();
+//		JsonObject obj2 = new JsonObject();
 		JsonObject obj3 = new JsonObject();			
 			
 			
@@ -89,37 +89,30 @@ public class ColumnElementController {
 			// 엘리먼트 TYPE
 			if (elementTyp.size() > 0) {
 				
-//				String[] arrElementTyp = new String[elementTyp.size()];
+				String[] arrElementTyp = new String[elementTyp.size()];
+				int i = 0;
 				
 				for (ColumnElementTyp item : elementTyp) {
+				JsonObject obj2 = new JsonObject();
+				logger.info("=== START ========");	
 //					logger.info("item  #####>"+item);
 //					logger.info("elementTyp.size()===>"+elementTyp.size());
 					logger.info("item.getElement_typ()  #####>"+item.getElement_typ());
 
+					logger.info(" [i]   #####>"+i);
+					arrElementTyp[i] = item.getElement_typ();
+					
+					logger.info("arrElementTyp[i]   #####>"+arrElementTyp[i]);
 					
 					obj2.addProperty("elementType", item.getElement_typ());
+					
 
+					i++;
 					
-					
-					// Element 밸류
-					List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item.getTbl_nm(), item.getCol_nm(), item.getElement_typ());
-					
-					String[] arrElementVal = new String[elementVal.size()];
-					int i = 0;
-						for (ColumnElementVal item2 : elementVal) {
-							
-							logger.info("item2 @@@ ===>"+item2.getElement_val());
-							
-							arrElementVal[i] = item2.getElement_val();
-							logger.info("arrElementVal[i] @@@@ ====>"+arrElementVal[i]);
-							i = i++;
-							
-						}
-					obj2.addProperty("elementValue", Arrays.toString(arrElementVal));
-						
-					jsonArr1.add(obj2);	
+				logger.info("============= END =======  ");
+				jsonArr1.add(obj2);
 				}
-
+				
 					
 				obj1.add("elements", jsonArr1);
 				dataResult.add("data", obj1);
