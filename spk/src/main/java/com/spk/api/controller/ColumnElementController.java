@@ -1,5 +1,6 @@
 package com.spk.api.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import com.spk.api.entity.BackgroundM;
 import com.spk.api.entity.ColumnElement;
 import com.spk.api.entity.ColumnElementM;
 import com.spk.api.entity.ColumnElementTyp;
+import com.spk.api.entity.ColumnElementVal;
 import com.spk.api.mapper.ColumnElementMMapper;
 import com.spk.api.mapper.ColumnElementTypMapper;
 import com.spk.api.mapper.ColumnElementValMapper;
@@ -61,7 +63,10 @@ public class ColumnElementController {
 		// Element 마스터
 		ColumnElementM elementM = columnElementMMapper.getColumnElementMstList(colElementM);
 		// Element 타입
-		List<ColumnElementTyp> datas = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(colElementM);
+		List<ColumnElementTyp> elementTyp = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(colElementM);
+		
+
+		
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();			
@@ -78,29 +83,48 @@ public class ColumnElementController {
 
 		if (elementM != null) {
 		
-		obj1.addProperty("key", elementM.getCol_nm());
-		obj1.addProperty("value", elementM.getCol_desc());
+			obj1.addProperty("key", elementM.getCol_nm());
+			obj1.addProperty("value", elementM.getCol_desc());
 		
 			// 엘리먼트 TYPE
-			if (datas.size() > 0) {
+			if (elementTyp.size() > 0) {
 				
-//				String[] type;
-				for (ColumnElementTyp item : datas) {
-					//System.out.println("item  #####>"+item);
-					//System.out.println("item.getElement_typ()  #####>"+item.getElement_typ());
+//				String[] arrElementTyp = new String[elementTyp.size()];
+				
+				for (ColumnElementTyp item : elementTyp) {
+//					logger.info("item  #####>"+item);
+//					logger.info("elementTyp.size()===>"+elementTyp.size());
+					logger.info("item.getElement_typ()  #####>"+item.getElement_typ());
 
 					
 					obj2.addProperty("elementType", item.getElement_typ());
-//					obj2.addProperty("elementType", eType);
-				
+
+					
+					
+					// Element 밸류
+					List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item.getTbl_nm(), item.getCol_nm(), item.getElement_typ());
+					
+					String[] arrElementVal = new String[elementVal.size()];
+					int i = 0;
+						for (ColumnElementVal item2 : elementVal) {
+							
+							logger.info("item2 @@@ ===>"+item2.getElement_val());
+							
+							arrElementVal[i] = item2.getElement_val();
+							logger.info("arrElementVal[i] @@@@ ====>"+arrElementVal[i]);
+							i = i++;
+							
+						}
+					obj2.addProperty("elementValue", Arrays.toString(arrElementVal));
+						
 					jsonArr1.add(obj2);	
-				
-//					eType = "";
-					
-					obj1.add("elements", jsonArr1);
-					dataResult.add("data", obj1);
-					
 				}
+
+					
+				obj1.add("elements", jsonArr1);
+				dataResult.add("data", obj1);
+					
+				
 			}
 		
 		obj1.addProperty("elementSelected", "0");

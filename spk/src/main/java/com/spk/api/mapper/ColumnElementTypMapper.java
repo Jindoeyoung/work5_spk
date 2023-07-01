@@ -18,13 +18,17 @@ public interface ColumnElementTypMapper {
 	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Select("   SELECT "
-		  + "       element_typ "
+		  + "        tbl_nm "	
+		  + "       ,col_nm "
+		  + "       ,element_typ "
 		  + "     FROM COL_ELEMENT_TYP "		  
 		  + "    WHERE tbl_nm = #{COL_ELEMENT_TYP.tbl_nm} "
 		  + "      AND col_nm = #{COL_ELEMENT_TYP.col_nm} "
 		  + " ORDER BY sort_seq ")
 	@Results(id="ColElementTypMap", value={
-		@Result(property="element_typ",          column="element_typ")
+		@Result(property="tbl_nm",          column="tbl_nm"),	
+		@Result(property="col_nm",          column="col_nm"),	
+		@Result(property="element_typ",     column="element_typ")
 	})
 	List<ColumnElementTyp> getColumnElementTypList(@Param("COL_ELEMENT_TYP") ColumnElementM columnElementM);	
 }

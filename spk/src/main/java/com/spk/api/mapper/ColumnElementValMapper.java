@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.spk.api.entity.ColumnElementM;
 import com.spk.api.entity.ColumnElementTyp;
+import com.spk.api.entity.ColumnElementVal;
 
 @Mapper
 public interface ColumnElementValMapper {
@@ -26,5 +27,5 @@ public interface ColumnElementValMapper {
 	@Results(id="ColElementTypMap", value={
 		@Result(property="element_val",          column="element_val")
 	})
-	List<ColumnElementTyp> getColumnElementMstList(@Param("tbl_nm") String tbl_nm, @Param("col_nm") String col_nm, @Param("element_typ") String element_typ);		  
+	List<ColumnElementVal> getColumnElementValList(@Param("tbl_nm") String tbl_nm, @Param("col_nm") String col_nm, @Param("element_typ") String element_typ);		  
 }
