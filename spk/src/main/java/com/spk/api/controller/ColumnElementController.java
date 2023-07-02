@@ -69,7 +69,8 @@ public class ColumnElementController {
 		
 		
 		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();			
+		JsonArray jsonArr1 = new JsonArray();
+		JsonArray jsonArr2 = new JsonArray();
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
@@ -88,29 +89,101 @@ public class ColumnElementController {
 		
 			// 엘리먼트 TYPE
 			if (elementTyp.size() > 0) {
-				
-				String[] arrElementTyp = new String[elementTyp.size()];
-				int i = 0;
+
 				
 				for (ColumnElementTyp item : elementTyp) {
-				JsonObject obj2 = new JsonObject();
-				logger.info("=== START ========");	
-//					logger.info("item  #####>"+item);
-//					logger.info("elementTyp.size()===>"+elementTyp.size());
-					logger.info("item.getElement_typ()  #####>"+item.getElement_typ());
-
-					logger.info(" [i]   #####>"+i);
-					arrElementTyp[i] = item.getElement_typ();
-					
-					logger.info("arrElementTyp[i]   #####>"+arrElementTyp[i]);
-					
+					JsonObject obj2 = new JsonObject();
 					obj2.addProperty("elementType", item.getElement_typ());
+
+					// Element 밸류
+					List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item.getTbl_nm(), item.getCol_nm(), item.getElement_typ());
+					
+					
+//					String valStr = "";
+//					String valStrs = "";
+					String arrayValStr = "";
+					
+					
+					String[] eleVals;
+					
+					if (elementVal.size() > 0) {
+
+						String[] arrElementVal = new String[elementVal.size()];
+						int i = 0;
+
+						for (ColumnElementVal item2 : elementVal) {
+
+//////////////////////////////////////// 배열로 만들어 하는 방법 [ START ]
+							arrElementVal[i] = item2.getElement_val();
+//							arrElementVal[i] = new String("\""+item2.getElement_val()+"\"");
+							
+							logger.info("arrElementVal[i]===>"+arrElementVal[i]);
+							
+////////////////////////////////////////배열로 만들어 하는 방법 [ END ]
+							
+// from 여기									
+
+
+							jsonArr2.add(item2.getElement_val());
+//							jsonArr2.add(Arrays.toString(arrElementVal));
+														
+							
+							
+// to 여기								
+							
+							i++;
+
+						}
+
+						obj2.add("elementValue", jsonArr2);
+						
+// from 여기						
+						
+//						logger.info("arrElementVal @@@@@@==>"+arrElementVal);
+//						logger.info("Arrays.toString(arrElementVal) @@@@@@==>"+Arrays.toString(arrElementVal));
+//						
+//						
+//						String reArrElementVal = Arrays.toString(arrElementVal).replace("[", "").replace("]", "");
+////						String reArrElementVal = Arrays.toString(arrElementVal).replace("[\"", "").replace("\"]", "");
+////						String reArrElementVal = Arrays.toString(arrElementVal).replace("[\"", "").replace("\"]", "").replace("\"", "\"");
+//								 
+//						logger.info("reArrElementVal #####==>"+reArrElementVal);
+//						
+//	//					logger.info("valStr--->"+valStr);
+//						
+////						arrayValStr = "[" + valStrs + "]";
+//	//					logger.info("arrayValStr@@@>"+arrayValStr);
+//						
+//						// 아래 줄은, 항상 array 로 리턴 경우이므로, 적절치 않음
+//	//					jsonArr2.add(valStrs);
+////						jsonArr2.add(arrElementVal);
+//						
+//						
+//						jsonArr2.add(reArrElementVal);
+////						jsonArr2.add(arrElementVal.toString());
+////						jsonArr2.add(Arrays.toString(arrElementVal));
+//						obj2.add("elementValue", jsonArr2);
+						
+// to 여기						
 					
 
-					i++;
+//						obj2.addProperty("elementValue", arrElementVal.toString());
+//						obj2.addProperty("elementValue", Arrays.toString(arrElementVal));
+//						obj2.addProperty("elementValue", Arrays.toString(eleVals));
+						
+						
+					} else {
+						arrayValStr = " ";
+						obj2.addProperty("elementValue", arrayValStr);
+					}
+						
+						
+//					obj2.addProperty("elementValue", arrayValStr);
+//					obj2.addProperty("elementValue", Arrays.toString(arrElementVal));
+
 					
-				logger.info("============= END =======  ");
-				jsonArr1.add(obj2);
+					
+					jsonArr1.add(obj2);
 				}
 				
 					
