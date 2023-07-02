@@ -13,4 +13,5 @@ public class ColumnElementM {
 	private String upt_id;
 	private String col_desc;
 	private String col_auth;
+	private String[] cols_nm;
 }
