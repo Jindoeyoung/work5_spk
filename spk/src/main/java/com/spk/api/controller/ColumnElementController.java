@@ -1,6 +1,6 @@
 package com.spk.api.controller;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.spk.api.entity.BackgroundM;
-import com.spk.api.entity.ColumnElement;
+//import com.spk.api.entity.ColumnElement;
 import com.spk.api.entity.ColumnElementM;
 import com.spk.api.entity.ColumnElementTyp;
 import com.spk.api.entity.ColumnElementVal;
@@ -59,14 +58,10 @@ public class ColumnElementController {
 			return authcheck.getMetaAuthErrGenerator(colElementM.getApikey());
 		}
 		
-		
 		// Element 마스터
 		ColumnElementM elementM = columnElementMMapper.getColumnElementMstList(colElementM);
 		// Element 타입
 		List<ColumnElementTyp> elementTyp = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(colElementM);
-		
-
-		
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();  // Element 타입 용
@@ -83,9 +78,8 @@ public class ColumnElementController {
 			obj1.addProperty("key", elementM.getCol_nm());
 			obj1.addProperty("value", elementM.getCol_desc());
 		
-			// 엘리먼트 타입/밸류 set
+			// 엘리먼트 타입/밸류 set [START]
 			if (elementTyp.size() > 0) {
-				
 				for (ColumnElementTyp item : elementTyp) {
 					// Element 타입 set
 					JsonObject obj2 = new JsonObject();
@@ -95,39 +89,33 @@ public class ColumnElementController {
 					List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item.getTbl_nm(), item.getCol_nm(), item.getElement_typ());
 					if (elementVal.size() > 0) {
 						for (ColumnElementVal item2 : elementVal) {
-//							jsonArr2.add(item2.getElement_val());
-							jsonArr2.add(Integer.parseInt(item2.getElement_val()));
+							jsonArr2.add(item2.getElement_val());
 						}
 						obj2.add("elementValue", jsonArr2);
 					} else {
-
 						obj2.addProperty("elementValue", " ");
 					}
-					
+
+					// 타입과 밸류를 배열에 set
 					jsonArr1.add(obj2);
 				}
-				
-					
 				obj1.add("elements", jsonArr1);
 				dataResult.add("data", obj1);
-					
-				
 			}
+			// 엘리먼트 타입/밸류 set [END]
 		
 		obj1.addProperty("elementSelected", 0);
-		obj1.addProperty("permission", elementM.getCol_auth());
+		
+		// 권한
+		boolean auth = elementM.getCol_auth().equals("Y") ? true : false;
+		obj1.addProperty("permission", auth);
+//		obj1.addProperty("permission", elementM.getCol_auth());
 		
 		dataResult.add("data", obj1);			
-
 			
 		} else {
-			
-			JsonObject Obj3 = new JsonObject();			
-			
-			Obj3.add("background_size", jsonArr1);
-			dataResult.add("data", Obj3);			
-			
-//			dataResult.addProperty("data", "");
+			// 데이터 없을 시
+			dataResult.addProperty("data", "");
 		}
 		logger.info("getColumnElementList=>"+dataResult.toString());	
 		return dataResult.toString();
