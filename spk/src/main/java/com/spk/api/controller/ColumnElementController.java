@@ -69,119 +69,40 @@ public class ColumnElementController {
 		
 		
 		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();
-		JsonArray jsonArr2 = new JsonArray();
+		JsonArray jsonArr1 = new JsonArray();  // Element 타입 용
+		JsonArray jsonArr2 = new JsonArray();  // Element 밸류 용
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
 		dataResult.addProperty("result", "1");	
 		
 		JsonObject obj1 = new JsonObject();
-//		JsonObject obj2 = new JsonObject();
-		JsonObject obj3 = new JsonObject();			
-			
-			
 
 		if (elementM != null) {
 		
 			obj1.addProperty("key", elementM.getCol_nm());
 			obj1.addProperty("value", elementM.getCol_desc());
 		
-			// 엘리먼트 TYPE
+			// 엘리먼트 타입/밸류 set
 			if (elementTyp.size() > 0) {
-
 				
 				for (ColumnElementTyp item : elementTyp) {
+					// Element 타입 set
 					JsonObject obj2 = new JsonObject();
 					obj2.addProperty("elementType", item.getElement_typ());
 
-					// Element 밸류
+					// Element 밸류 set
 					List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item.getTbl_nm(), item.getCol_nm(), item.getElement_typ());
-					
-					
-//					String valStr = "";
-//					String valStrs = "";
-					String arrayValStr = "";
-					
-					
-					String[] eleVals;
-					
 					if (elementVal.size() > 0) {
-
-						String[] arrElementVal = new String[elementVal.size()];
-						int i = 0;
-
 						for (ColumnElementVal item2 : elementVal) {
-
-//////////////////////////////////////// 배열로 만들어 하는 방법 [ START ]
-							arrElementVal[i] = item2.getElement_val();
-//							arrElementVal[i] = new String("\""+item2.getElement_val()+"\"");
-							
-							logger.info("arrElementVal[i]===>"+arrElementVal[i]);
-							
-////////////////////////////////////////배열로 만들어 하는 방법 [ END ]
-							
-// from 여기									
-
-
-							jsonArr2.add(item2.getElement_val());
-//							jsonArr2.add(Arrays.toString(arrElementVal));
-														
-							
-							
-// to 여기								
-							
-							i++;
-
+//							jsonArr2.add(item2.getElement_val());
+							jsonArr2.add(Integer.parseInt(item2.getElement_val()));
 						}
-
 						obj2.add("elementValue", jsonArr2);
-						
-// from 여기						
-						
-//						logger.info("arrElementVal @@@@@@==>"+arrElementVal);
-//						logger.info("Arrays.toString(arrElementVal) @@@@@@==>"+Arrays.toString(arrElementVal));
-//						
-//						
-//						String reArrElementVal = Arrays.toString(arrElementVal).replace("[", "").replace("]", "");
-////						String reArrElementVal = Arrays.toString(arrElementVal).replace("[\"", "").replace("\"]", "");
-////						String reArrElementVal = Arrays.toString(arrElementVal).replace("[\"", "").replace("\"]", "").replace("\"", "\"");
-//								 
-//						logger.info("reArrElementVal #####==>"+reArrElementVal);
-//						
-//	//					logger.info("valStr--->"+valStr);
-//						
-////						arrayValStr = "[" + valStrs + "]";
-//	//					logger.info("arrayValStr@@@>"+arrayValStr);
-//						
-//						// 아래 줄은, 항상 array 로 리턴 경우이므로, 적절치 않음
-//	//					jsonArr2.add(valStrs);
-////						jsonArr2.add(arrElementVal);
-//						
-//						
-//						jsonArr2.add(reArrElementVal);
-////						jsonArr2.add(arrElementVal.toString());
-////						jsonArr2.add(Arrays.toString(arrElementVal));
-//						obj2.add("elementValue", jsonArr2);
-						
-// to 여기						
-					
-
-//						obj2.addProperty("elementValue", arrElementVal.toString());
-//						obj2.addProperty("elementValue", Arrays.toString(arrElementVal));
-//						obj2.addProperty("elementValue", Arrays.toString(eleVals));
-						
-						
 					} else {
-						arrayValStr = " ";
-						obj2.addProperty("elementValue", arrayValStr);
-					}
-						
-						
-//					obj2.addProperty("elementValue", arrayValStr);
-//					obj2.addProperty("elementValue", Arrays.toString(arrElementVal));
 
-					
+						obj2.addProperty("elementValue", " ");
+					}
 					
 					jsonArr1.add(obj2);
 				}
@@ -193,68 +114,11 @@ public class ColumnElementController {
 				
 			}
 		
-		obj1.addProperty("elementSelected", "0");
+		obj1.addProperty("elementSelected", 0);
 		obj1.addProperty("permission", elementM.getCol_auth());
 		
 		dataResult.add("data", obj1);			
 
-		
-		//Obj2.add("background_size", jsonArr1);
-//		dataResult.add("data", obj1);			
-		
-		
-			
-			
-			
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@			
-//				JsonObject obj1 = new JsonObject();
-//				JsonObject obj2 = new JsonObject();
-//				JsonObject obj3 = new JsonObject();
-//			
-//				obj1.addProperty("key", item.getCol_nm());
-//				obj1.addProperty("value", item.getCol_desc());
-//				
-//				
-////				for (ColumnElement item_2 : datas) {
-////					System.out.println("item_2 [S] @@@ ==>"+item);
-//					
-//				obj2.addProperty("elementType", item.getElement_typ());
-//				
-//				
-////				if (item.getElement_val() != "") { 
-////				
-////				
-////					jsonArr2.add(obj2);					
-////					obj2.add("elementValue", jsonArr2);
-////				} else {
-////					obj2.add("elementValue", jsonArr2);
-////				}
-//				
-//				
-//				
-//
-//					
-//					jsonArr1.add(obj2);
-//					
-//					obj1.add("elements", jsonArr1);
-//					dataResult.add("data", obj1);						
-//					
-////					System.out.println("item_2 [E] @@@ ==>"+item);
-////				}
-//				
-//				
-//				obj1.addProperty("elementSelected", "0");
-//				obj1.addProperty("permission", item.getCol_auth());
-//				
-//				
-//		
-//				
-//				//Obj2.add("background_size", jsonArr1);
-////				dataResult.add("data", obj1);
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@				
-				
-				
-//			}
 			
 		} else {
 			
