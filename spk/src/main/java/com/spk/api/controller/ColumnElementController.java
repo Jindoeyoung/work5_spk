@@ -50,7 +50,7 @@ public class ColumnElementController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST (칼럼 1개)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PostMapping("/")
+	@PostMapping("/one-col")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getColumnElementList(@RequestBody ColumnElementM colElementM) throws Exception  {
 
@@ -62,7 +62,7 @@ public class ColumnElementController {
 		// Element 마스터
 		ColumnElementM elementM = columnElementMMapper.getColumnElementMstList(colElementM);
 		// Element 타입
-		List<ColumnElementTyp> elementTyp = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(colElementM);
+		List<ColumnElementTyp> elementTyp = (List<ColumnElementTyp>) columnElementTypMapper.getOneColumnElementTypList(colElementM);
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();  // Element 타입 용
@@ -76,6 +76,7 @@ public class ColumnElementController {
 
 		if (elementM != null) {
 		
+			obj1.addProperty("table", elementM.getTbl_nm());
 			obj1.addProperty("key", elementM.getCol_nm());
 			obj1.addProperty("value", elementM.getCol_desc());
 		
@@ -127,7 +128,7 @@ public class ColumnElementController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST (칼럼 여러개)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PostMapping("/multi")
+	@PostMapping("/")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMultiColumnElementList(@RequestBody ColumnElementM colElementM) throws Exception  {
 
@@ -136,27 +137,16 @@ public class ColumnElementController {
 			return authcheck.getMetaAuthErrGenerator(colElementM.getApikey());
 		}
 		
+//		logger.info("colElementM.getTbl_nm()==@@@@@@==>"+colElementM.getTbl_nm());
 		
-		logger.info("colElementM.getTbl_nm()==@@@@@@==>"+colElementM.getTbl_nm());
-		logger.info("colElementM.getCols_nm()==@@@@@@==>"+Arrays.toString(colElementM.getCols_nm()));
+		List<ColumnElementM> elementM = columnElementMMapper.getMultiColumnElementMstList(colElementM.getTbl_nm());
 		
-		String sent = "HAKNYEON HAKGI";
-		
-		// Element 마스터 (여러건 get)
-//		List<ColumnElementM> elementM = columnElementMMapper.getMultiColumnElementMstList(colElementM.getTbl_nm(), Arrays.toString(colElementM.getCols_nm()));
-		List<ColumnElementM> elementM = columnElementMMapper.getMultiColumnElementMstList(colElementM.getTbl_nm(), sent);
-		
-		
-		logger.info("elementM.size()==>"+elementM.size());
-		
-		
-		
-		// Element 타입
-//		List<ColumnElementTyp> elementTyp = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(colElementM);
+
 		
 		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();  // Element 타입 용
-		JsonArray jsonArr2 = new JsonArray();  // Element 밸류 용
+		JsonArray jsonArrAllRow = new JsonArray();  // 반복 행 담기 용
+		JsonArray jsonArrTyp = new JsonArray();  	// Element 타입 용
+		JsonArray jsonArrVal = new JsonArray();  	// Element 밸류 용
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
@@ -167,7 +157,7 @@ public class ColumnElementController {
 			for (ColumnElementM item : elementM) {
 			
 				JsonObject obj1 = new JsonObject();
-				JsonObject obj2 = new JsonObject();				
+				JsonObject obj3 = new JsonObject();
 			
 				logger.info("key=>"+item.getCol_nm());
 				logger.info("value=>"+item.getCol_desc());
@@ -175,55 +165,52 @@ public class ColumnElementController {
 				obj1.addProperty("key", item.getCol_nm());
 				obj1.addProperty("value", item.getCol_desc());			
 		
-			}
-			
-		}
-
-/*	
-			if (elementM != null) {
-			
-
+				// Element 타입
+				List<ColumnElementTyp> elementTyp = (List<ColumnElementTyp>) columnElementTypMapper.getColumnElementTypList(item.getTbl_nm(), item.getCol_nm());
 			
 				// 엘리먼트 타입/밸류 set [START]
 				if (elementTyp.size() > 0) {
-					for (ColumnElementTyp item : elementTyp) {
+					for (ColumnElementTyp item2 : elementTyp) {
 						// Element 타입 set
 						JsonObject obj2 = new JsonObject();
-						obj2.addProperty("elementType", item.getElement_typ());
+						obj2.addProperty("elementType", item2.getElement_typ());
 	
 						// Element 밸류 set
-						List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item.getTbl_nm(), item.getCol_nm(), item.getElement_typ());
+						List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item2.getTbl_nm(), item2.getCol_nm(), item2.getElement_typ());
 						if (elementVal.size() > 0) {
-							for (ColumnElementVal item2 : elementVal) {
-								jsonArr2.add(item2.getElement_val());
+							for (ColumnElementVal item3 : elementVal) {
+								jsonArrVal.add(item3.getElement_val());
 							}
-							obj2.add("elementValue", jsonArr2);
+							obj2.add("elementValue", jsonArrVal);
 						} else {
-							obj2.addProperty("elementValue", " ");
+							obj2.addProperty("elementValue", "");
 						}
 	
 						// 타입과 밸류를 배열에 set
-						jsonArr1.add(obj2);
+						jsonArrTyp.add(obj2);
 					}
-					obj1.add("elements", jsonArr1);
+					obj1.add("elements", jsonArrTyp);
 					dataResult.add("data", obj1);
 				}
 				// 엘리먼트 타입/밸류 set [END]
 			
-			obj1.addProperty("elementSelected", 0);
-			
-			// 권한
-			boolean auth = elementM.getCol_auth().equals("Y") ? true : false;
-			obj1.addProperty("permission", auth);
-			
-			dataResult.add("data", obj1);			
+				obj1.addProperty("elementSelected", 0);
 				
-			} else {
-				// 데이터 없을 시
-				dataResult.addProperty("data", "");
+				// 권한
+				boolean auth = item.getCol_auth().equals("Y") ? true : false;
+				obj1.addProperty("permission", auth);
+				
+				jsonArrAllRow.add(obj1);
+				obj3.add("result", jsonArrAllRow);
+				
+				dataResult.add("data", obj3);
+			
 			}
-*/
-		
+				
+		} else {
+			// 데이터 없을 시
+			dataResult.addProperty("data", "");
+		}
 		
 		
 		logger.info("getColumnElementList=>"+dataResult.toString());	
