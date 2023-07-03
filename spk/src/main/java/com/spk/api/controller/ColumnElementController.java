@@ -94,7 +94,7 @@ public class ColumnElementController {
 						}
 						obj2.add("elementValue", jsonArr2);
 					} else {
-						obj2.addProperty("elementValue", " ");
+						obj2.addProperty("elementValue", "");
 					}
 
 					// 타입과 밸류를 배열에 set
@@ -140,7 +140,7 @@ public class ColumnElementController {
 		logger.info("colElementM.getTbl_nm()==@@@@@@==>"+colElementM.getTbl_nm());
 		logger.info("colElementM.getCols_nm()==@@@@@@==>"+Arrays.toString(colElementM.getCols_nm()));
 		
-		String sent = "'HAKNYEON', 'HAKGI'";
+		String sent = "HAKNYEON HAKGI";
 		
 		// Element 마스터 (여러건 get)
 //		List<ColumnElementM> elementM = columnElementMMapper.getMultiColumnElementMstList(colElementM.getTbl_nm(), Arrays.toString(colElementM.getCols_nm()));
