@@ -41,8 +41,10 @@ public interface ColumnElementMMapper {
 		  + "       ,col_desc "
 		  + "       ,col_auth "
 		  + "     FROM COL_ELEMENT_MST "		  
-		  + "    WHERE tbl_nm = #{tbl_nm} " )
+		  + "    WHERE tbl_nm = #{tbl_nm} " 
 //		  + "      AND col_nm in ( #{cols_nm} ) ")
+		  + "      AND USE_YN = 'Y' "
+		  + "   ORDER BY SORT_SEQ " )
 	@Results(id="ColMultiElementMstMap", value={
 		@Result(property="tbl_nm",         		 column="tbl_nm"),
 		@Result(property="col_nm",         		 column="col_nm"),
