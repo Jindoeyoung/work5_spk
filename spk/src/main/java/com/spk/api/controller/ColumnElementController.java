@@ -173,7 +173,7 @@ public class ColumnElementController {
 						List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item2.getTbl_nm(), item2.getCol_nm(), item2.getElement_typ());
 						if (elementVal.size() > 0) {
 							for (ColumnElementVal item3 : elementVal) {
-								jsonArr3.add(item3.getElement_val());
+								jsonArr3.add(item3.getElement_val_nm());
 							}
 							obj3.add("elementValue", jsonArr3);
 						} else {
