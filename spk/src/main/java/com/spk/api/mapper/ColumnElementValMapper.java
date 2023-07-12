@@ -19,7 +19,8 @@ public interface ColumnElementValMapper {
 	// SELECT - LIST
 	//-------------------------------------------------------------------------------------------------------------------------------------	
 	@Select("   SELECT "
-		  + "      element_val_nm "
+		  + "      element_val  "
+		  + "      ,element_val_nm "
 		  + "   FROM COL_ELEMENT_VAL "		  
 		  + "    WHERE tbl_nm 	   = #{tbl_nm} "
 		  + "      AND col_nm 	   = #{col_nm} "

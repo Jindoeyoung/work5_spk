@@ -155,6 +155,10 @@ public class ColumnElementController {
 				JsonArray jsonArr2 = new JsonArray(); 	// Element 타입 용
 				JsonArray jsonArr3 = new JsonArray(); 	// Element 밸류 용
 				
+//				JsonArray jsonArr4 = new JsonArray(); 	// Element 밸류 용
+				
+//				JsonObject obj5 = new JsonObject();
+				
 				obj1.addProperty("table", item.getTbl_nm());
 				obj1.addProperty("key", item.getCol_nm());  	
 				obj1.addProperty("value", item.getCol_desc()); 		
@@ -166,23 +170,52 @@ public class ColumnElementController {
 				if (elementTyp.size() > 0) {
 					for (ColumnElementTyp item2 : elementTyp) {
 						// Element 타입 set
-						JsonObject obj3 = new JsonObject();
+						JsonObject obj3 = new JsonObject();  // elements 배열 하위 Json 담기
 						obj3.addProperty("elementType", item2.getElement_typ());
 
 						// Element 밸류 set
 						List<ColumnElementVal> elementVal = (List<ColumnElementVal>) columnElementValMapper.getColumnElementValList(item2.getTbl_nm(), item2.getCol_nm(), item2.getElement_typ());
 						if (elementVal.size() > 0) {
 							for (ColumnElementVal item3 : elementVal) {
-								jsonArr3.add(item3.getElement_val_nm());
+								JsonObject obj4 = new JsonObject();  // elementValue 배열 하위 Json 담기
+								
+								obj4.addProperty("key", item3.getElement_val());
+								obj4.addProperty("value", item3.getElement_val_nm());
+								//jsonArr3.add(item3.getElement_val_nm());
+								
+								jsonArr3.add(obj4);
+								
 							}
 							obj3.add("elementValue", jsonArr3);
 						} else {
-							obj3.addProperty("elementValue", "");
-						}
+							
+							logger.info("여기 시작"+item.getCol_nm()+":"+item2.getElement_typ());
+							
+							JsonObject obj5 = new JsonObject();  // 위로
+							JsonArray jsonArr4 = new JsonArray(); 	// 위로
+							
+							obj5.addProperty("key", "");
+							jsonArr4.add(obj5);
+							obj3.add("elementValue", jsonArr4);
 
-						// 타입과 밸류를 배열에 set
+							
+//							obj3.addProperty("elementValue", "");
+							
+							
+							
+							
+						}  // End of : if (elementVal.size() > 0) {
+						
+// 아래 3줄과 같이 하면, 값이 있는 경우도, 위에서 이미 담았던 ojb3 에 덮어 쓰므로, 안나오게 됨 						
+//						obj5.addProperty("key", "");
+//						jsonArr4.add(obj5);
+//						obj3.add("elementValue", jsonArr4);						
+						
+
+
+						// 타입과 밸류를 elements 배열에 set
 						jsonArr2.add(obj3);
-					}
+					}  // End of : for (ColumnElementTyp item2 : elementTyp) {
 					obj1.add("elements", jsonArr2);	
 				}  // End of : if (elementTyp.size() > 0) {
 				// 엘리먼트 타입/밸류 set [END]
