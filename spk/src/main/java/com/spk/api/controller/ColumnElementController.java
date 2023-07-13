@@ -189,7 +189,7 @@ public class ColumnElementController {
 							obj3.add("elementValue", jsonArr3);
 						} else {
 							
-							logger.info("여기 시작"+item.getCol_nm()+":"+item2.getElement_typ());
+//							logger.info("여기 시작"+item.getCol_nm()+":"+item2.getElement_typ());
 							
 							JsonObject obj5 = new JsonObject();  // 위로
 							JsonArray jsonArr4 = new JsonArray(); 	// 위로

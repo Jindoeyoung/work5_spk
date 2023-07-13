@@ -85,7 +85,7 @@ public class StSugangSincheongMController {
 		} else {
 			dataResult.addProperty("data", "");
 		}
-		logger.info("getSugangList=>"+dataResult.toString());
+		logger.info("getSugangSincheongList=>"+dataResult.toString());
 		return dataResult.toString();
 	}	
 	
