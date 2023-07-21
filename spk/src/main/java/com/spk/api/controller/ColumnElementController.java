@@ -127,7 +127,7 @@ public class ColumnElementController {
 	//-------------------------------------------------------------------------------------------------------------------------------------
 	// SELECT - LIST (칼럼 여러개)
 	//-------------------------------------------------------------------------------------------------------------------------------------
-	@PostMapping("/")
+	@PostMapping("")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMultiColumnElementList(@RequestBody ColumnElementM colElementM) throws Exception  {
 
@@ -237,7 +237,7 @@ public class ColumnElementController {
 			dataResult.addProperty("data", "");
 		}
 		
-		logger.info("getColumnElementList=>"+dataResult.toString());	
+		logger.info("getColumnElementList!!=>"+dataResult.toString());	
 		return dataResult.toString();
 	}	
 	
