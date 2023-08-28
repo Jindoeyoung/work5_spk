@@ -3,7 +3,7 @@ package com.spk.api.controller.system;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,7 +148,7 @@ public class DataLoadController {
 				
 				Obj3_1.addProperty("api", "/spk/hj/student-list");
 				Obj3_1.addProperty("apiMethod", "POST");
-				Obj3_2.addProperty("componentId", "CMC-001^FU-002-01");
+				Obj3_2.addProperty("componentId", "CMC-002^FU-002-01");
 				Obj3_2.addProperty("auths", "0,2,3");
 				
 				Obj3_1.add("common", Obj3_2);
