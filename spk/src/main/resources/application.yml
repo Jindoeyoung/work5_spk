@@ -57,4 +57,10 @@ spring:
 #=======================================================
 api-key: eW5hIGRvd25sb2FkIHNlcnZlciBzZWNlcnQga2V5IGF1dGg=
 secret-key: eW5hIGRvd25sb2FkIHNlcnZlciByZXN0IGFwaSBjYWxsIC0gY29udGVudHMgZG93bmxvYWQgZXhjdXRlLiA=  
-signature-algorithm: HmacSHA256    
+signature-algorithm: HmacSHA256
+
+#=======================================================
+# Sql
+#=======================================================
+mybatis:
+  mapper-locations: mappers/**/*.xml
