@@ -93,6 +93,62 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		return dataResult.toString();
 	}
 	
+	
+	
+	@Override
+	public String getSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo pSysMenuInfo) throws Exception {
+		final Logger logger = LoggerFactory.getLogger(this.getClass());
+	    //============================================================
+	    //< api-key check
+	    //============================================================
+		if (!authcheck.getMetaAuthErrGenerator(pSysMenuInfo.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(pSysMenuInfo.getApikey());
+		}
+
+        //============================================================
+        //< json 포맷 데이터 생성
+        //============================================================		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+		String Message = "SUCCESS";
+		String Success = "1";
+		
+		try {
+			SysMenuInfo sysMenuInfo = sysMenuInfoMapper.getSysMenuInfo(pSysMenuInfo);
+			dataResult.addProperty("reason", Message);
+			dataResult.addProperty("result", Success);
+//			dataResult.addProperty("menu_id", pSysMenuInfo.getMenu_id());
+			
+			if (sysMenuInfo != null) {
+				
+					JsonObject Obj1 = new JsonObject();
+					
+					Obj1.addProperty("spike_id", sysMenuInfo.getSpike_id());
+					Obj1.addProperty("commenter", sysMenuInfo.getCommenter());
+					Obj1.addProperty("requirement", sysMenuInfo.getRequest());
+					Obj1.addProperty("useFlag", sysMenuInfo.getUse_yn());
+					Obj1.addProperty("createdAt", sysMenuInfo.getReg_dt());
+					jsonArr1.add(Obj1);
+					
+					dataResult.add("flag_info", jsonArr1);
+				
+
+
+			} else {
+				JsonObject Obj3 = new JsonObject();
+				Obj3.add("result", jsonArr1);
+				dataResult.add("data", Obj3);
+			}
+			
+		} catch (Exception e) {
+			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfo] ERROR : " + e);
+			e.printStackTrace();
+		}			
+		return dataResult.toString();
+	}	
+	
+	
+	
 	@Override
 	public String insertSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo pSysMenuInfo) throws Exception {
 	    //============================================================

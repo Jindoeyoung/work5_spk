@@ -22,8 +22,17 @@ public class SysMenuInfoController {
     //============================================================	
 	@PostMapping("/getSysMenuInfoList")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String getUser(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
+	public String getMenuInfoList(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
 		return sysMenuInfoService.getSysMenuInfoList(pSysMenuInfo);
+	}	
+	
+    //============================================================
+    //< SELECT - 시스템메뉴정보 상세 조회
+    //============================================================	
+	@PostMapping("/getSysMenuInfo")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMenuInfo(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
+		return sysMenuInfoService.getSysMenuInfo(pSysMenuInfo);
 	}	
 	
 }

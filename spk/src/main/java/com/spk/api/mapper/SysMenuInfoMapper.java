@@ -18,6 +18,13 @@ public interface SysMenuInfoMapper {
 	List<SysMenuInfo> getSysMenuInfoList(
 		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
 	);
+	
+    //============================================================
+    //< SELECT - 시스템메뉴정보 리스트 조회
+    //============================================================	
+	SysMenuInfo getSysMenuInfo(
+		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+	);	
 
     //============================================================
     //< INSERT - 시스템메뉴정보 저장

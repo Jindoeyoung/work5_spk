@@ -11,6 +11,16 @@
          ORDER BY SEQ DESC
     </select>
 
+	<!-- 시스템메뉴 정보 조회  -->
+    <select id="getSysMenuInfo" resultType="com.spk.api.entity.SysMenuInfo">
+        SELECT * FROM SYS_MENU_INFO 
+        WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
+          AND MENU_ID = #{SYS_MENU_INFO.menu_id}
+          AND SEQ = (SELECT MAX(SEQ) 
+                       FROM SYS_MENU_INFO
+        			  WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
+          				AND MENU_ID = #{SYS_MENU_INFO.menu_id})                       
+    </select>
 
 	<!-- 시스템메뉴 등록  -->
     <insert id="insertSysMenuInfoL" parameterType="com.spk.api.entity.SysMenuInfo">
