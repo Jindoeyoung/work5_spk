@@ -26,6 +26,14 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 	
 	AuthCheck authcheck = new AuthCheck();
 
+	/**
+	 * <p>SELECT (List)</p>
+		 * <ul>
+		 * 	<li>시스템메뉴정보 등록 리스트를 조회한다 </li>
+	     * </ul>
+	 * @param pSysMenuInfo 클라이언트에서 요청받은 메뉴정보
+	 * @return String
+	 */	
 	@Override
 	public String getSysMenuInfoList(@Param("SYS_MENU_INFO") SysMenuInfo pSysMenuInfo) throws Exception {
 		final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -51,10 +59,7 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 			
 			dataResult.addProperty("menu_id", pSysMenuInfo.getMenu_id());
 			
-			logger.info("size=>"+sysMenuInfo.size());
-			
 			if (sysMenuInfo.size() > 0) {
-				
 				for (SysMenuInfo item : sysMenuInfo) {
 					JsonObject Obj1 = new JsonObject();
 					
@@ -65,27 +70,12 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 					jsonArr1.add(Obj1);
 					
 					dataResult.add("flag_info", jsonArr1);
-				
-//				for (SysMenuInfo item : sysMenuInfo) {
-//					JsonObject Obj1 = new JsonObject();
-//					JsonObject Obj2 = new JsonObject();
-//	
-//					Obj1.addProperty("spike_id", item.getSpike_id());
-//					Obj1.addProperty("menuCd", item.getMenuCd());
-//					Obj1.addProperty("commenter", item.getUser_nm());
-//					Obj1.addProperty("requirement", item.getRequest());
-//					Obj1.addProperty("useFlag", item.getUse_yn());
-//					jsonArr1.add(Obj1);
-//	
-//					Obj2.add("result", jsonArr1);
-//					dataResult.add("data", Obj2);
 				}
 			} else {
 				JsonObject Obj3 = new JsonObject();
 				Obj3.add("result", jsonArr1);
 				dataResult.add("data", Obj3);
 			}
-			
 		} catch (Exception e) {
 			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfoList] ERROR : " + e);
 			e.printStackTrace();
@@ -93,8 +83,14 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		return dataResult.toString();
 	}
 	
-	
-	
+	/**
+	 * <p>SELECT (MAP)</p>
+		 * <ul>
+		 * 	<li>시스템메뉴정보 등록 상세정보를 조회한다 </li>
+	     * </ul>
+	 * @param pSysMenuInfo 클라이언트에서 요청받은 메뉴정보
+	 * @return String
+	 */	
 	@Override
 	public String getSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo pSysMenuInfo) throws Exception {
 		final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -117,10 +113,8 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 			SysMenuInfo sysMenuInfo = sysMenuInfoMapper.getSysMenuInfo(pSysMenuInfo);
 			dataResult.addProperty("reason", Message);
 			dataResult.addProperty("result", Success);
-//			dataResult.addProperty("menu_id", pSysMenuInfo.getMenu_id());
 			
 			if (sysMenuInfo != null) {
-				
 					JsonObject Obj1 = new JsonObject();
 					
 					Obj1.addProperty("spike_id", sysMenuInfo.getSpike_id());
@@ -131,15 +125,11 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 					jsonArr1.add(Obj1);
 					
 					dataResult.add("flag_info", jsonArr1);
-				
-
-
 			} else {
 				JsonObject Obj3 = new JsonObject();
 				Obj3.add("result", jsonArr1);
 				dataResult.add("data", Obj3);
 			}
-			
 		} catch (Exception e) {
 			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfo] ERROR : " + e);
 			e.printStackTrace();
@@ -147,8 +137,14 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		return dataResult.toString();
 	}	
 	
-	
-	
+	/**
+	 * <p>INSERT</p>
+		 * <ul>
+		 * 	<li>시스템메뉴 정보를 등록한다 </li>
+	     * </ul>
+	 * @param pSysMenuInfo 클라이언트에서 요청받은 메뉴정보
+	 * @return String
+	 */	
 	@Override
 	public String insertSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo pSysMenuInfo) throws Exception {
 	    //============================================================
@@ -168,16 +164,13 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		
 		try {
 			int results = sysMenuInfoMapper.insertSysMenuInfo(pSysMenuInfo);
-
 			
 			if (results == 1) {
-			
 				SysMenuInfo sysMenuInfo = sysMenuInfoMapper.getSysMenuInfo(pSysMenuInfo);
 				dataResult.addProperty("reason", Message);
 				dataResult.addProperty("result", Success);
 				
 				if (sysMenuInfo != null) {
-					
 						JsonObject Obj1 = new JsonObject();
 						
 						Obj1.addProperty("spike_id", sysMenuInfo.getSpike_id());
@@ -189,22 +182,16 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 						jsonArr1.add(Obj1);
 						
 						dataResult.add("flag_info", jsonArr1);
-
 				} else {
 					JsonObject Obj3 = new JsonObject();
 					Obj3.add("result", jsonArr1);
 					dataResult.add("data", Obj3);
 				}
-			
 			} // if (results == 1) {
-			
-			
 		} catch (Exception e) {
-			logger.error("[UHJ01ServiceImpl.insertStudent] ERROR : " + e);
-			// TODO
+			logger.error("[UHJ01ServiceImpl.insertSysMenuInfo] ERROR : " + e);
 			e.printStackTrace();
 		}
 		return dataResult.toString();
-	}	
-	
+	}
 }
