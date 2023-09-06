@@ -35,4 +35,13 @@ public class SysMenuInfoController {
 		return sysMenuInfoService.getSysMenuInfo(pSysMenuInfo);
 	}	
 	
+    //============================================================
+    //< SELECT - 시스템메뉴정보 상세 조회
+    //============================================================	
+	@PostMapping("/insertMenuInfo")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String insertMenuInfo(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
+		return sysMenuInfoService.insertSysMenuInfo(pSysMenuInfo);
+	}	
+	
 }

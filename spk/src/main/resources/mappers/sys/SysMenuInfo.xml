@@ -23,7 +23,7 @@
     </select>
 
 	<!-- 시스템메뉴 등록  -->
-    <insert id="insertSysMenuInfoL" parameterType="com.spk.api.entity.SysMenuInfo">
+    <insert id="insertSysMenuInfo" parameterType="com.spk.api.entity.SysMenuInfo">
         INSERT INTO SYS_MENU_INFO 
                (spike_id, 
                 menu_id, 
@@ -35,10 +35,17 @@
                 request
                 ) 
         VALUES (
-                #{SYS_MENU_INFO.spike_id}, 
-                #{SYS_MENU_INFO.menu_id}, 
-                SELECT MAX(seq)+1 FROM SYS_MENU_INFO WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id} AND MENU_ID = #{SYS_MENU_INFO.menu_id},               
-                #{SYS_MENU_INFO.iphak_juya},
+                #{SYS_MENU_INFO.spike_id},
+                #{SYS_MENU_INFO.menu_id},
+                (SELECT MAX_SEQ 
+                   FROM 
+                      (
+	                  SELECT MAX(seq)+1 AS MAX_SEQ 
+	                   FROM SYS_MENU_INFO 
+	                  WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id} 
+	                  AND MENU_ID = #{SYS_MENU_INFO.menu_id}
+	                  ) A
+                  ),
                 sysdate(),
                 #{SYS_MENU_INFO.spike_id},
                 #{SYS_MENU_INFO.commenter},
