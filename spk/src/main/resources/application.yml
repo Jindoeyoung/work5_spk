@@ -64,3 +64,11 @@ signature-algorithm: HmacSHA256
 #=======================================================
 mybatis:
   mapper-locations: mappers/**/*.xml
+  
+#=======================================================
+# logging
+#=======================================================
+logging:
+  level:
+    root: INFO #TRACE DEBUG INFO WARN ERROR (전체레벨 로깅 지정)
+    '[com.spk.api]': DEBUG #TRACE DEBUG INFO WARN ERROR (패키지별 로깅 지정)   
