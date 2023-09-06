@@ -19,4 +19,11 @@ public interface SysMenuInfoMapper {
 		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
 	);
 
+    //============================================================
+    //< INSERT - 시스템메뉴정보 저장
+    //============================================================	
+	int insertSysMenuInfo(
+		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+	);	
+	
 }

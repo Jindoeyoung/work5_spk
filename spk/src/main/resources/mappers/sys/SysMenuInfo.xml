@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spk.api.mapper.SysMenuInfoMapper">
 
-	<!-- 시스템메뉴 등록  -->
+	<!-- 시스템메뉴 리스트 조회  -->
     <select id="getSysMenuInfoList" resultType="com.spk.api.entity.SysMenuInfo">
         SELECT * FROM SYS_MENU_INFO 
         WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
@@ -11,4 +11,30 @@
          ORDER BY SEQ DESC
     </select>
 
+
+	<!-- 시스템메뉴 등록  -->
+    <insert id="insertSysMenuInfoL" parameterType="com.spk.api.entity.SysMenuInfo">
+        INSERT INTO SYS_MENU_INFO 
+               (spike_id, 
+                menu_id, 
+                seq, 
+                reg_dt, 
+                reg_id,
+                commenter,
+                use_yn,
+                request
+                ) 
+        VALUES (
+                #{SYS_MENU_INFO.spike_id}, 
+                #{SYS_MENU_INFO.menu_id}, 
+                SELECT MAX(seq)+1 FROM SYS_MENU_INFO WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id} AND MENU_ID = #{SYS_MENU_INFO.menu_id},               
+                #{SYS_MENU_INFO.iphak_juya},
+                sysdate(),
+                #{SYS_MENU_INFO.spike_id},
+                #{SYS_MENU_INFO.commenter},
+                #{SYS_MENU_INFO.use_yn},
+                #{SYS_MENU_INFO.request}
+                ) 
+    </insert>
+    
 </mapper>

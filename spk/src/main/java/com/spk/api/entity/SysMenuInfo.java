@@ -12,7 +12,7 @@ public class SysMenuInfo {
 	private String reg_id;
 	private String upt_dt;
 	private String upt_id;
-	private String user_nm;
+	private String commenter;
 	private String use_yn;
 	private String request;
 }
