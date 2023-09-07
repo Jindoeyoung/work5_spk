@@ -37,7 +37,7 @@
         VALUES (
                 #{SYS_MENU_INFO.spike_id},
                 #{SYS_MENU_INFO.menu_id},
-                (SELECT MAX_SEQ 
+                (SELECT ifnull(MAX_SEQ, 1) 
                    FROM 
                       (
 	                  SELECT MAX(seq)+1 AS MAX_SEQ 

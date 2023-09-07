@@ -65,16 +65,15 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 					
 					Obj1.addProperty("spike_id", item.getSpike_id());
 					Obj1.addProperty("commenter", item.getCommenter());
-					Obj1.addProperty("requirement", item.getRequest());
-					Obj1.addProperty("useFlag", item.getUse_yn());
+					Obj1.addProperty("request", item.getRequest());
+					Obj1.addProperty("use_yn", item.getUse_yn());
+					Obj1.addProperty("createdAt", item.getReg_dt());
 					jsonArr1.add(Obj1);
 					
 					dataResult.add("flag_info", jsonArr1);
 				}
 			} else {
-				JsonObject Obj3 = new JsonObject();
-				Obj3.add("result", jsonArr1);
-				dataResult.add("data", Obj3);
+				dataResult.add("flag_info", jsonArr1);
 			}
 		} catch (Exception e) {
 			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfoList] ERROR : " + e);
