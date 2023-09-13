@@ -48,33 +48,80 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
         //< json 포맷 데이터 생성
         //============================================================		
 		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();
+
+		JsonArray jsonArr = new JsonArray();
+		JsonArray jsonArr2 = new JsonArray();
+		JsonArray jsonArr3 = new JsonArray();
+		JsonArray jsonArr4 = new JsonArray();
 		String Message = "SUCCESS";
 		String Success = "1";
 		
 		try {
+			
 			List<SysMenuUsr> sysMenuUsr = sysMenuUsrMapper.getSysMenuUsrList(pSysMenuUsr);
+			
 			dataResult.addProperty("reason", Message);
 			dataResult.addProperty("result", Success);
 			
+			
+			JsonObject Obj1 = new JsonObject(); //ADD
+			
 			if (sysMenuUsr.size() > 0) {
+				
+				//==================================== FOR START
 				for (SysMenuUsr item : sysMenuUsr) {
-					JsonObject Obj1 = new JsonObject();
+					logger.info("LVL=>"+ item.getLevel());
+					logger.info("MENU_NM=>"+ item.getMenu_nm());
 					
-					Obj1.addProperty("spike_id", item.getSpike_id());
-					Obj1.addProperty("division", item.getDivision());
-					Obj1.addProperty("menu_cd", item.getMenu_cd());
-					Obj1.addProperty("seq", item.getSeq());
-					Obj1.addProperty("parent_menu_cd", item.getParent_menu_cd());
-					Obj1.addProperty("menu_nm", item.getMenu_nm());
-					Obj1.addProperty("level", item.getLevel());
+					JsonObject Obj2 = new JsonObject();		
+					JsonObject Obj3 = new JsonObject();
 					
-					jsonArr1.add(Obj1);
+					if ( item.getSeq().equals("1") && item.getLevel().equals("1") ) {
+						
+						Obj1.addProperty("menuCd", item.getMenu_cd());
+						Obj1.addProperty("menuNm", item.getMenu_nm());
 					
-					dataResult.add("menu_info", jsonArr1);
+					} else if (item.getLevel().equals("2") ) {
+						
+						Obj2.addProperty("menuCd", item.getMenu_cd());
+						Obj2.addProperty("menuNm", item.getMenu_nm());
+						jsonArr.add(Obj2);
+						Obj1.add("subMenu", jsonArr);
+					} else if (item.getLevel().equals("3") ) {
+
+//						JsonObject Obj3 = new JsonObject();
+						
+						Obj3.addProperty("menuCd", item.getMenu_cd());
+						Obj3.addProperty("menuNm", item.getMenu_nm());
+						jsonArr3.add(Obj3);
+
+					} else if (item.getLevel().equals("4") ) {
+
+						JsonObject Obj4 = new JsonObject();
+						
+						Obj4.addProperty("menuCd", item.getMenu_cd());
+						Obj4.addProperty("menuNm", item.getMenu_nm());
+						jsonArr4.add(Obj4);
+
+					} 
+					Obj3.add("subMenu", jsonArr4);
+					Obj2.add("subMenu", jsonArr3);
+					
 				}
+				//==================================== FOR END				
+				
+				jsonArr2.add(Obj1);
+				dataResult.add("menu_info", jsonArr2);			
+
+				
+				
+				
+				
+				
+				
+				
 			} else {
-				dataResult.add("menu_info", jsonArr1);
+//				dataResult.add("menu_info", jsonArr); // 임시 막음
 			}
 		} catch (Exception e) {
 			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfoList] ERROR : " + e);
