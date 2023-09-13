@@ -8,6 +8,7 @@
         SELECT * FROM SYS_MENU_INFO 
         WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
           AND MENU_ID = #{SYS_MENU_INFO.menu_id}
+          AND DIVISION = #{SYS_MENU_INFO.division}
          ORDER BY SEQ DESC
     </select>
 
@@ -16,19 +17,22 @@
         SELECT * FROM SYS_MENU_INFO 
         WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
           AND MENU_ID = #{SYS_MENU_INFO.menu_id}
+          AND DIVISION = #{SYS_MENU_INFO.division}
           AND SEQ = (SELECT MAX(SEQ) 
                        FROM SYS_MENU_INFO
         			  WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
-          				AND MENU_ID = #{SYS_MENU_INFO.menu_id})                       
+          				AND MENU_ID = #{SYS_MENU_INFO.menu_id}
+          				AND DIVISION = #{SYS_MENU_INFO.division})                       
     </select>
 
 	<!-- 시스템메뉴 등록  -->
     <insert id="insertSysMenuInfo" parameterType="com.spk.api.entity.SysMenuInfo">
         INSERT INTO SYS_MENU_INFO 
                (spike_id, 
-                menu_id, 
-                seq, 
-                reg_dt, 
+                menu_id,
+                division,
+                seq,
+                reg_dt,
                 reg_id,
                 commenter,
                 use_yn,
@@ -37,6 +41,7 @@
         VALUES (
                 #{SYS_MENU_INFO.spike_id},
                 #{SYS_MENU_INFO.menu_id},
+                #{SYS_MENU_INFO.division},
                 (SELECT ifnull(MAX_SEQ, 1) 
                    FROM 
                       (
@@ -44,6 +49,7 @@
 	                   FROM SYS_MENU_INFO 
 	                  WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id} 
 	                  AND MENU_ID = #{SYS_MENU_INFO.menu_id}
+	                  AND DIVISION = #{SYS_MENU_INFO.division}
 	                  ) A
                   ),
                 sysdate(),

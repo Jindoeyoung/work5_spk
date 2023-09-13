@@ -7,6 +7,7 @@ public class SysMenuInfo {
 	private String apikey;
 	private String spike_id;
 	private String menu_id;
+	private String division;
 	private String seq;
 	private String reg_dt;
 	private String reg_id;
