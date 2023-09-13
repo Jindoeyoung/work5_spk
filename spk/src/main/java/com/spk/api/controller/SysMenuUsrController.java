@@ -22,7 +22,26 @@ public class SysMenuUsrController {
     //============================================================	
 	@PostMapping("/getSysMenuUsrList")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String getMenuInfoList(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
+	public String getMenuUsrList(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
 		return sysMenuUsrService.getSysMenuUsrList(pSysMenuUsr);
+	}
+	
+    //============================================================
+    //< SELECT - 시스템메뉴정보 상세 조회
+    //============================================================	
+	@PostMapping("/getSysMenuUsr")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getSysMenuUsr(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
+		return sysMenuUsrService.getSysMenuUsrInfo(pSysMenuUsr);
 	}	
+	
+    //============================================================
+    //< SELECT - 시스템메뉴정보 상세 조회
+    //============================================================	
+	@PostMapping("/updateSysMenuUsr")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String insertSysMenuUsr(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
+		return sysMenuUsrService.updateSysMenuUsr(pSysMenuUsr);
+	}	
+	
 }
