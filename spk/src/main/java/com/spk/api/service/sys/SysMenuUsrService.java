@@ -14,6 +14,11 @@ public interface SysMenuUsrService {
 	public String getSysMenuUsrList(@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr) throws Exception;
 	
     //============================================================
+    //< SELECT - 시스템메뉴유저 리스트 조회
+    //============================================================	
+	public String getSysMenuUsrList2(@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr) throws Exception;	
+	
+    //============================================================
     //< SELECT - 시스템메뉴정보 상세 조회
     //============================================================	
 	public String getSysMenuUsrInfo(@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr) throws Exception;	

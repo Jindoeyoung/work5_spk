@@ -5,12 +5,22 @@
 
 	<!-- 시스템메뉴유저 조회  -->
     <select id="getSysMenuUsrList" resultType="com.spk.api.entity.SysMenuUsr">
-        SELECT * FROM SYS_MENU_USR 
+        SELECT MENU_ID, MENU_NM, SEQ, LEVEL, USE_YN FROM SYS_MENU_USR 
         WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
           AND DIVISION = 'U'
           AND SEQ <![CDATA[ <= ]]> 25  <!-- 16, 25 -->
-         ORDER BY DIVISION DESC, SEQ
+         ORDER BY DIVISION DESC, SEQ   
     </select>
+    
+	<!-- 시스템메뉴유저 조회  -->
+    <select id="getSysMenuUsrList2" resultType="com.spk.api.entity.SysMenuUsr">
+		SELECT JSON_OBJECT('menuCd', MENU_ID, 'menuNm', MENU_NM) AS JSON_DATA, LEVEL
+		FROM SYS_MENU_USR    
+        WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
+          AND DIVISION = 'U'
+          <!--  AND SEQ <![CDATA[ <= ]]> 25 -->
+         ORDER BY DIVISION DESC, SEQ    
+    </select>    
     
 	<!-- 시스템메뉴유저 상세조회  -->
     <select id="getSysMenuUsrInfo" resultType="com.spk.api.entity.SysMenuUsr">

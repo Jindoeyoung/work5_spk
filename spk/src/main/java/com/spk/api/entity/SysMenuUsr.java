@@ -19,4 +19,5 @@ public class SysMenuUsr {
 	private String level;
 	private String order_no;
 	private String use_yn;
+	private String json_data;
 }

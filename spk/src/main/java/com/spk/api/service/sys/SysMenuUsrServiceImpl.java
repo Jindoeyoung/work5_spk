@@ -3,6 +3,8 @@ package com.spk.api.service.sys;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,72 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 	     * </ul>
 	 * @param pSysMenuUsr 클라이언트에서 요청받은 메뉴정보
 	 * @return String
-	 */	
+	 */
+	@Override
+	public String getSysMenuUsrList2(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
+	    //============================================================
+	    //< api-key check
+	    //============================================================
+		if (!authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey());
+		}
+
+        //============================================================
+        //< json 포맷 데이터 생성
+        //============================================================		
+		JsonObject dataResult = new JsonObject();
+
+		JsonArray jsonArr = new JsonArray();
+//		JsonArray jsonArr2 = new JsonArray();
+//		JsonArray jsonArr3 = new JsonArray();
+//		JsonArray jsonArr4 = new JsonArray();
+		String Message = "SUCCESS";
+		String Success = "1";
+		
+		try {
+			
+			List<SysMenuUsr> sysMenuUsr = sysMenuUsrMapper.getSysMenuUsrList2(pSysMenuUsr);
+			
+			dataResult.addProperty("reason", Message);
+			dataResult.addProperty("result", Success);
+			
+			
+
+			
+			if (sysMenuUsr.size() > 0) {
+
+
+				for (SysMenuUsr item : sysMenuUsr) {
+					
+//					JsonArray jsonArr = new JsonArray();
+				
+					String datas = item.getJson_data();
+//					logger.info("datas=>"+datas);
+					
+					JSONObject result = new JSONObject(datas);
+					
+					
+					
+//					logger.info("result=>"+result);
+					jsonArr.add(item.getJson_data());	
+					
+				}
+				
+				dataResult.add("menu_info", jsonArr);
+				
+				
+			} else {
+//				dataResult.add("menu_info", jsonArr); // 임시 막음
+			}
+		} catch (Exception e) {
+			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfoList] ERROR : " + e);
+			e.printStackTrace();
+		}			
+		return dataResult.toString();
+	}	
+	
+	
+	
 	@Override
 	public String getSysMenuUsrList(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
 	    //============================================================
@@ -73,7 +140,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 					
 					JsonObject Obj2 = new JsonObject();		
 					JsonObject Obj3 = new JsonObject();
-					JsonObject Obj4 = new JsonObject();
+//					JsonObject Obj4 = new JsonObject();
 
 					
 					if ( item.getSeq().equals("1") && item.getLevel().equals("1") ) {
@@ -97,7 +164,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 						
 //						Obj2.add("subMenu", jsonArr3);
 					} else if (item.getLevel().equals("4") ) {
-
+						JsonObject Obj4 = new JsonObject();
 						Obj4.addProperty("menuCd", item.getMenu_id());
 						Obj4.addProperty("menuNm", item.getMenu_nm());
 						jsonArr4.add(Obj4);
@@ -105,7 +172,9 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 //						Obj3.add("subMenu", jsonArr4);
 					}
 					
-					Obj3.add("subMenu", jsonArr4);
+//					if (item.getLevel().equals("3") ) {
+						Obj3.add("subMenu", jsonArr4);
+//					}
 					Obj2.add("subMenu", jsonArr3);
 
 				}
@@ -113,13 +182,6 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 				
 				jsonArr2.add(Obj1);
 				dataResult.add("menu_info", jsonArr2);			
-
-				
-				
-				
-				
-				
-				
 				
 			} else {
 //				dataResult.add("menu_info", jsonArr); // 임시 막음

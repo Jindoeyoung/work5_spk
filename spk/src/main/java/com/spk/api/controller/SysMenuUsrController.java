@@ -27,6 +27,15 @@ public class SysMenuUsrController {
 	}
 	
     //============================================================
+    //< SELECT - 시스템메뉴사용자 리스트 조회
+    //============================================================	
+	@PostMapping("/getSysMenuUsrList2")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMenuUsrList2(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
+		return sysMenuUsrService.getSysMenuUsrList2(pSysMenuUsr);
+	}	
+	
+    //============================================================
     //< SELECT - 시스템메뉴정보 상세 조회
     //============================================================	
 	@PostMapping("/getSysMenuUsr")
