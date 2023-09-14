@@ -51,7 +51,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 		JsonArray jsonArr = new JsonArray();
 		JsonArray jsonArr2 = new JsonArray();
 		JsonArray jsonArr3 = new JsonArray();
-		JsonArray jsonArr4 = new JsonArray();
+//		JsonArray jsonArr4 = new JsonArray();
 		String Message = "SUCCESS";
 		String Success = "1";
 		
@@ -66,13 +66,15 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 			JsonObject Obj1 = new JsonObject(); //ADD
 			
 			if (sysMenuUsr.size() > 0) {
-				
+
+				JsonArray jsonArr4 = new JsonArray();				
 				//==================================== FOR START
 				for (SysMenuUsr item : sysMenuUsr) {
 					
 					JsonObject Obj2 = new JsonObject();		
 					JsonObject Obj3 = new JsonObject();
 					JsonObject Obj4 = new JsonObject();
+
 					
 					if ( item.getSeq().equals("1") && item.getLevel().equals("1") ) {
 						
@@ -93,6 +95,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 						Obj3.addProperty("menuNm", item.getMenu_nm());
 						jsonArr3.add(Obj3);
 						
+//						Obj2.add("subMenu", jsonArr3);
 					} else if (item.getLevel().equals("4") ) {
 
 						Obj4.addProperty("menuCd", item.getMenu_id());
@@ -101,7 +104,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 						
 //						Obj3.add("subMenu", jsonArr4);
 					}
-
+					
 					Obj3.add("subMenu", jsonArr4);
 					Obj2.add("subMenu", jsonArr3);
 

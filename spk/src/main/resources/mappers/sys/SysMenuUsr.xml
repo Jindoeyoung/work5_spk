@@ -8,7 +8,7 @@
         SELECT * FROM SYS_MENU_USR 
         WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
           AND DIVISION = 'U'
-          AND SEQ <![CDATA[ <= ]]> 16
+          AND SEQ <![CDATA[ <= ]]> 25  <!-- 16, 25 -->
          ORDER BY DIVISION DESC, SEQ
     </select>
     
