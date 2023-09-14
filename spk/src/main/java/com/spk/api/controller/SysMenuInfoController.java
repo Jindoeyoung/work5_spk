@@ -36,12 +36,21 @@ public class SysMenuInfoController {
 	}	
 	
     //============================================================
-    //< SELECT - 시스템메뉴정보 상세 조회
+    //< SELECT - 시스템메뉴정보 저장
     //============================================================	
 	@PostMapping("/insertMenuInfo")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String insertMenuInfo(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
 		return sysMenuInfoService.insertSysMenuInfo(pSysMenuInfo);
+	}
+	
+    //============================================================
+    //< SELECT - 시스템메뉴정보 저장/상위메뉴 USE_YN 업데이트
+    //============================================================	
+	@PostMapping("/insertMenuInfo-v2")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String insertSysMenuInfoUpdate(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
+		return sysMenuInfoService.insertSysMenuInfoUpdate(pSysMenuInfo);
 	}	
 	
 }

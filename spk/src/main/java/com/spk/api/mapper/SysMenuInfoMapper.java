@@ -33,4 +33,27 @@ public interface SysMenuInfoMapper {
 		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
 	);	
 	
+    //============================================================
+    //< INSERT - 메뉴ID USE_YN 수정
+    //============================================================	
+	int updateUseYn(
+			@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+			//@Param("parent_menu_id") String parent_menu_id
+	);	
+	
+    //============================================================
+    //< SELECT - 상위메뉴 사용여부 칼럼(USE_YN) 값 조회
+    //============================================================	
+	SysMenuInfo getParentUseYn(
+		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+	);
+	
+    //============================================================
+    //< INSERT - 상위메뉴ID USE_YN 수정(N)
+    //============================================================	
+	int updateParentUseYn(
+			@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+			//@Param("parent_menu_id") String parent_menu_id
+	);	
+	
 }

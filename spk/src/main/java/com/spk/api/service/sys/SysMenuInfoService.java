@@ -19,7 +19,12 @@ public interface SysMenuInfoService {
 	public String getSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo) throws Exception;	
 	
     //============================================================
-    //< INSERT
+    //< INSERT - 시스템메뉴정보 저장
     //============================================================
-	public String insertSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo) throws Exception;	
+	public String insertSysMenuInfo(@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo) throws Exception;
+	
+    //============================================================
+    //< INSERT/UPDATE - 시스템메뉴정보 저장/상위메뉴 USE_YN 수정
+    //============================================================
+	public String insertSysMenuInfoUpdate(@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo) throws Exception;	
 }
