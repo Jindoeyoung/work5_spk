@@ -69,13 +69,10 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 				
 				//==================================== FOR START
 				for (SysMenuUsr item : sysMenuUsr) {
-//					logger.info("LVL=>"+ item.getLevel());
-//					logger.info("MENU_NM=>"+ item.getMenu_nm());
-//					logger.info("item=>"+ sysMenuUsr.indexOf(item));
 					
 					JsonObject Obj2 = new JsonObject();		
 					JsonObject Obj3 = new JsonObject();
-//					JsonObject Obj4 = new JsonObject();
+					JsonObject Obj4 = new JsonObject();
 					
 					if ( item.getSeq().equals("1") && item.getLevel().equals("1") ) {
 						
@@ -87,34 +84,27 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 						Obj2.addProperty("menuCd", item.getMenu_id());
 						Obj2.addProperty("menuNm", item.getMenu_nm());
 						jsonArr.add(Obj2);
+						
 						Obj1.add("subMenu", jsonArr);
+						
 					} else if (item.getLevel().equals("3") ) {
 
-//						JsonObject Obj3 = new JsonObject();
-						
 						Obj3.addProperty("menuCd", item.getMenu_id());
 						Obj3.addProperty("menuNm", item.getMenu_nm());
 						jsonArr3.add(Obj3);
-
+						
 					} else if (item.getLevel().equals("4") ) {
 
-						JsonObject Obj4 = new JsonObject();
-						
-						logger.info("item.getMenu_id()=>"+ item.getMenu_id());
-						logger.info("item.getMenu_nm()"+ item.getMenu_nm());
-						
-						
 						Obj4.addProperty("menuCd", item.getMenu_id());
 						Obj4.addProperty("menuNm", item.getMenu_nm());
 						jsonArr4.add(Obj4);
-
+						
+//						Obj3.add("subMenu", jsonArr4);
 					}
-//					if ((sysMenuUsr.indexOf(item) < 15)) {
-//						logger.info("@@@@@@HERE");
+
 					Obj3.add("subMenu", jsonArr4);
-//					}
 					Obj2.add("subMenu", jsonArr3);
-					
+
 				}
 				//==================================== FOR END				
 				
