@@ -5,11 +5,9 @@
 
 	<!-- 시스템메뉴유저 조회  -->
     <select id="getSysMenuUsrList" resultType="com.spk.api.entity.SysMenuUsr">
-        SELECT MENU_ID, MENU_NM, SEQ, LEVEL, USE_YN FROM SYS_MENU_USR 
+        SELECT MENU_ID, MENU_NM, SEQ, LEVEL, USE_YN, PARENT_MENU_ID FROM SYS_MENU_USR 
         WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
-          AND DIVISION = 'U'
-          AND SEQ <![CDATA[ <= ]]> 25  <!-- 16, 25 -->
-         ORDER BY DIVISION DESC, SEQ   
+          ORDER BY DIVISION DESC, SEQ   
     </select>
     
 	<!-- 시스템메뉴유저 조회  -->
