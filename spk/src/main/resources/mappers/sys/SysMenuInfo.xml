@@ -68,9 +68,9 @@
 		  AND MENU_ID = #{SYS_MENU_INFO.menu_id}
     </update>    
     
-	<!-- 시스템메뉴 정보 조회  -->
-    <select id="getParentUseYn" resultType="com.spk.api.entity.SysMenuInfo">
-		SELECT A.USE_YN FROM SYS_MENU_USR A
+	<!-- 특정 상위메뉴코드를 함께 갖는, 동일 Level 메뉴들의 USE_YN 값들 조회  -->
+    <select id="getSameLevelUseYn" resultType="com.spk.api.entity.SysMenuInfo">
+		SELECT DISTINCT A.USE_YN FROM SYS_MENU_USR A
 		WHERE EXISTS 
 		(
 			SELECT 1 FROM SYS_MENU_USR B
@@ -79,7 +79,6 @@
 				AND A.MENU_ID = B.MENU_ID
 				AND A.SPIKE_ID = #{SYS_MENU_INFO.spike_id}
 				AND A.DIVISION = #{SYS_MENU_INFO.division}
-				AND A.USE_YN = 'Y'
 				AND A.PARENT_MENU_ID = (SELECT A.PARENT_MENU_ID
 										  FROM SYS_MENU_MST A
 									     WHERE A.DIVISION = #{SYS_MENU_INFO.division}
@@ -89,7 +88,7 @@
     
 	<!-- 상위메뉴ID USE_YN 수정  -->
     <update id="updateParentUseYn" parameterType="com.spk.api.entity.SysMenuInfo">
-		UPDATE SYS_MENU_USR SET USE_YN = 'N', UPT_DT = sysdate(), UPT_ID = #{SYS_MENU_INFO.spike_id}
+		UPDATE SYS_MENU_USR SET USE_YN = #{use_yn}, UPT_DT = sysdate(), UPT_ID = #{SYS_MENU_INFO.spike_id}
 		WHERE MENU_ID = (SELECT A.PARENT_MENU_ID
 						    FROM SYS_MENU_MST A
 						   WHERE A.DIVISION = #{SYS_MENU_INFO.division}

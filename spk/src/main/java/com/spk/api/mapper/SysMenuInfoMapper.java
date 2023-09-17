@@ -42,9 +42,9 @@ public interface SysMenuInfoMapper {
 	);	
 	
     //============================================================
-    //< SELECT - 상위메뉴 사용여부 칼럼(USE_YN) 값 조회
+    //< SELECT - 특정 상위메뉴코드를 함께 갖는, 동일 Level 메뉴들의 USE_YN 값들 조회
     //============================================================	
-	SysMenuInfo getParentUseYn(
+	List<SysMenuInfo> getSameLevelUseYn(
 		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
 	);
 	
@@ -52,7 +52,8 @@ public interface SysMenuInfoMapper {
     //< INSERT - 상위메뉴ID USE_YN 수정(N)
     //============================================================	
 	int updateParentUseYn(
-			@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+			@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo,
+			@Param("use_yn") String use_yn
 			//@Param("parent_menu_id") String parent_menu_id
 	);	
 	
