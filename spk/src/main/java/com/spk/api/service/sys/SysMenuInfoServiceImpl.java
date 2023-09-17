@@ -219,7 +219,7 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		//< 1. SYS_MENU_INFO - INSERT (사용 유무 정보)
 		//< 2. SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
 		//< 3. SYS_MENU_USR  - SELECT (동일 Level의 USE_YN 체크)
-		//< 4. SYS_MENU_USR  - UPDATE (PARAMENU_ID 의 USR_YN - 'N'으로)
+		//< 4. SYS_MENU_USR  - UPDATE (PARAMENU_ID 의 USR_YN - param 값으로)
         //============================================================		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
@@ -231,20 +231,12 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 	        //< 1. SYS_MENU_INFO - INSERT (사용 유무 정보)
 	        //============================================================			
 			sysMenuInfoMapper.insertSysMenuInfo(pSysMenuInfo);
-//			int result = sysMenuInfoMapper.insertSysMenuInfo(pSysMenuInfo);
 			
 	        //============================================================
 	        //< 2. SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
 	        //============================================================
 			sysMenuInfoMapper.updateUseYn(pSysMenuInfo);
-//			int result2 = sysMenuInfoMapper.updateUseYn(pSysMenuInfo);
 			
-//			if (result == 1 && result2 == 1) {
-				
-	        //============================================================
-	        //< 동일 LEVEL 메뉴들의 USE_YN 을 체크하여, 모두 N 이면, 부모 메뉴ID USE_YN = 'N'
-			//< 체크 SQL 에서는 Y 인 것들을 조회하는데, 모두 N이면 not exists 이므로 null을 리턴함
-	        //============================================================
 			//============================================================
 	        //< 해당 메뉴ID 와 동일 LEVEL인 MENU_ID 들의 USE_YN 들 체크
 			//< 1. use_yn param 값으로, 동일레벨 메뉴id 들의 use_yn을 체크한다. (전체 Y/N 여부)
@@ -285,8 +277,7 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 				Obj3.add("result", jsonArr1);
 				dataResult.add("data", Obj3);
 			}
-			
-//			} // if (results == 1) {
+
 		} catch (Exception e) {
 			logger.error("[SysMenuInfoServiceImpl.insertSysMenuInfoUpdate] ERROR : " + e);
 			e.printStackTrace();
