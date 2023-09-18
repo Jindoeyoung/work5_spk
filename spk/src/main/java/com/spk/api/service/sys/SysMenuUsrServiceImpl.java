@@ -168,7 +168,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 					current.addProperty("use_yn", item.getUse_yn());
 					
 					if(parent == null) {
-						System.out.println("not found parent:"+parentId+",current:"+current);
+//						System.out.println("not found parent:"+parentId+",current:"+current);
 						result.get("subMenu").getAsJsonArray().add(current);
 					}else {
 						JsonElement children = parent.get("subMenu");
