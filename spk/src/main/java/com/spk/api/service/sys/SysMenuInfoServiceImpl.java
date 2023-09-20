@@ -216,10 +216,11 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		
         //============================================================
 		//< [Transaction 처리]
-		//< 1. SYS_MENU_INFO - INSERT (사용 유무 정보)
-		//< 2. SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
-		//< 3. SYS_MENU_USR  - SELECT (동일 Level의 USE_YN 체크)
-		//< 4. SYS_MENU_USR  - UPDATE (PARAMENU_ID 의 USR_YN - param 값으로)
+		//< 1) SYS_MENU_INFO - INSERT (사용 유무 정보)
+		//< 2) SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
+		//< 3) SYS_MENU_USR  - SELECT (동일 Level의 USE_YN 체크)
+		//< 4) SYS_MENU_USR  - UPDATE (MENU_ID 가 모두 Y또는 N이면, PARAMENU_MENU_ID 의 USR_YN - param 값으로)
+		//< 5) SYS_MENU_USR  - UPDATE (MENU_ID 가 'Y' 로 업데이트 시, PARENT_MENU_ID 가 'N' 이면, 'Y'로 UPDATE 
         //============================================================		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
@@ -228,29 +229,42 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		
 		try {
 	        //============================================================
-	        //< 1. SYS_MENU_INFO - INSERT (사용 유무 정보)
+	        //< 1) SYS_MENU_INFO - INSERT (사용 유무 정보)
 	        //============================================================			
 			sysMenuInfoMapper.insertSysMenuInfo(pSysMenuInfo);
 			
 	        //============================================================
-	        //< 2. SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
+	        //< 2) SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
 	        //============================================================
 			sysMenuInfoMapper.updateUseYn(pSysMenuInfo);
 			
 			//============================================================
-	        //< 해당 메뉴ID 와 동일 LEVEL인 MENU_ID 들의 USE_YN 들 체크
+	        //< 3) SELECT (동일 Level의 USE_YN 체크)
 			//< 1. use_yn param 값으로, 동일레벨 메뉴id 들의 use_yn을 체크한다. (전체 Y/N 여부)
-			//< 2. 모두 Y(또는N) 이면, PARENT_MENU_ID 의 USE_YN 도 Y(또는N) 으로 UPDATE 한다.
+			//< 2. 모두 N 이면, PARENT_MENU_ID 의 USE_YN 도 N 으로 UPDATE 한다.
+			//< 3. 하나라도 Y면, PARENT_MENU_ID 의 USE_YN 이 'N' 일때 'Y' 로 UPDATE 한다.
 	        //============================================================
 			List<SysMenuInfo> useYnCheck = sysMenuInfoMapper.getSameLevelUseYn(pSysMenuInfo);
-			if (useYnCheck.size() == 1) { // 모두 Y 또는 N 이면, 1행 return
+			
+			//============================================================
+	        //< 모두 Y 또는 모두 N 이면, 1행 return
+	        //============================================================			
+			if (useYnCheck.size() == 1) { 
 				for (SysMenuInfo item : useYnCheck) {
 					String sameLevel_useYn = item.getUse_yn();
 			        //============================================================
-			        //< 3. SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
+			        //< 4. SYS_MENU_USR  - UPDATE (MENU_ID 의 USE_YN - param 값으로)
 			        //============================================================						
 					sysMenuInfoMapper.updateParentUseYn(pSysMenuInfo, sameLevel_useYn);
 				}
+			//============================================================
+	        //< 복수개 이면 (Y가 한개라도 있는 케이스로, 부모 메뉴도 '사용'이 되어야 하는 케이스)
+			//< 부모의 USE_YN 이 'N' 일 경우에만 'Y' 로 UPDATE	
+	        //============================================================				
+			} else {
+				SysMenuInfo sysMenuInfo = sysMenuInfoMapper.getParentUseYn(pSysMenuInfo); 
+				if (sysMenuInfo.getUse_yn().equals("N"))
+					sysMenuInfoMapper.updateParentUseYn(pSysMenuInfo, "Y");
 			}
 			
 	        //============================================================

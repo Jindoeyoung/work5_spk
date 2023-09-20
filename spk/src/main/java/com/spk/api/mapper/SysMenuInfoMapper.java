@@ -42,11 +42,18 @@ public interface SysMenuInfoMapper {
 	);	
 	
     //============================================================
-    //< SELECT - 특정 상위메뉴코드를 함께 갖는, 동일 Level 메뉴들의 USE_YN 값들 조회
+    //< SELECT - 특정 상위메뉴ID를 함께 갖는, 동일 Level 메뉴들의 USE_YN 값들 조회
     //============================================================	
 	List<SysMenuInfo> getSameLevelUseYn(
 		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
 	);
+	
+    //============================================================
+    //< SELECT - 특정 상위메뉴ID의 USE_YN 값 조회 (특정 상위메뉴ID가 메뉴ID인 것에서 조회)
+    //============================================================	
+	SysMenuInfo getParentUseYn(
+		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
+	);	
 	
     //============================================================
     //< INSERT - 상위메뉴ID USE_YN 수정(N)

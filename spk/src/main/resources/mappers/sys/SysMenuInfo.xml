@@ -84,7 +84,18 @@
 									     WHERE A.DIVISION = #{SYS_MENU_INFO.division}
 								           AND A.MENU_ID = #{SYS_MENU_INFO.menu_id})
 		)
-    </select>    
+    </select>
+    
+	<!-- 특정 상위메뉴코드의 USE_YN 값들 조회  -->
+    <select id="getParentUseYn" resultType="com.spk.api.entity.SysMenuInfo">
+		SELECT A.USE_YN FROM SYS_MENU_USR A
+		 WHERE A.SPIKE_ID = #{SYS_MENU_INFO.spike_id}
+		   AND A.DIVISION = #{SYS_MENU_INFO.division}
+		   AND A.MENU_ID = (SELECT B.PARENT_MENU_ID
+					    	  FROM SYS_MENU_MST B
+							 WHERE B.DIVISION = #{SYS_MENU_INFO.division}
+							   AND B.MENU_ID = #{SYS_MENU_INFO.menu_id})
+    </select>        
     
 	<!-- 상위메뉴ID USE_YN 수정  -->
     <update id="updateParentUseYn" parameterType="com.spk.api.entity.SysMenuInfo">
