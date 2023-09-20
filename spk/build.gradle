@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+//	id "org.sonarqube" version "3.5.0.2730"
 }
 
 group = 'com.spk'
@@ -39,8 +40,23 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: '28.1-jre'
     implementation group: 'org.msgpack', name: 'jackson-dataformat-msgpack', version: '0.8.18'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    
+    implementation 'org.json:json:20200518'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+/*
+sonarqube {
+    properties {
+        property "sonar.projectKey", "spk2" 
+        property "sonar.host.url", "http://jochanyang.ddns.net:9000" 
+        property "sonar.login", "sqp_f768a24a12a6f58266e166183a9271ddd11c37f7" 
+        property "sonar.java.binaries", "build/classes"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java"
+    }
+}
+*/
