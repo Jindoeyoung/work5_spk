@@ -166,7 +166,9 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 					current.addProperty("menuCd", item.getMenu_id());
 					current.addProperty("menuNm", item.getMenu_nm());
 					current.addProperty("use_yn", item.getUse_yn());
-					
+					if(item.getIsDirectory() != null && item.getIsDirectory().equals("1")) {
+						current.add("subMenu", new JsonArray());
+					}
 					if(parent == null) {
 //						System.out.println("not found parent:"+parentId+",current:"+current);
 						result.get("subMenu").getAsJsonArray().add(current);
@@ -177,6 +179,20 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 							children = parent.get("subMenu").getAsJsonArray();
 						}
 						children.getAsJsonArray().add(current);
+						boolean isEveryN = true;
+						for(JsonElement child : children.getAsJsonArray()) {
+							String yn=child.getAsJsonObject().get("use_yn").getAsString();
+//							logger.info(yn);
+							if(yn.equals("Y")) {								
+								isEveryN=false;
+								break;
+							}
+						}
+						if(isEveryN) {
+							parent.addProperty("use_yn", "N");
+						}else {
+							parent.addProperty("use_yn", "Y");
+						}
 					}
 				}
 				dataResult.add("menu_info", result.get("subMenu").getAsJsonArray());
