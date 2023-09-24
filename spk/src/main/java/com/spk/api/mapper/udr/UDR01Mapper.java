@@ -15,4 +15,12 @@ public interface UDR01Mapper {
 	List<UDR01Entity> getRegistAmtList(
 		@Param("ST_REGIST_AMT") UDR01Entity udr01Entity
 	);
+	
+    //============================================================
+    //< INSERT
+    //============================================================	
+	int insertRegistAmt(
+		@Param("ST_REGIST_AMT") UDR01Entity udr01Entity
+	);
+	
 }

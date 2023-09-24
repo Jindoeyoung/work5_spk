@@ -17,9 +17,21 @@ import lombok.RequiredArgsConstructor;
 public class UDR01Controller {
 	private final UDR01Service udr01Service;
 
+    //============================================================
+    //< SELECT (List)
+    //============================================================	
 	@PostMapping("/getRegistAmtList")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getRegistAmtList(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
 		return udr01Service.getRegistAmtList(pUdr01Entity);
-	}	
+	}
+	
+    //============================================================
+    //< INSERT
+    //============================================================
+	@PostMapping("/insertRegistAmt")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String insertUser(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
+		return udr01Service.insertRegistAmt(pUdr01Entity);
+	}		
 }

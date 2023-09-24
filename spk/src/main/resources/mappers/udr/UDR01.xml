@@ -25,4 +25,46 @@
 		ORDER BY YEAR, SEMESTER, DEPT, GRADE
     </select>
     
+	<!-- 등록금입력 등록  -->
+    <insert id="insertRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
+        INSERT INTO ST_REGIST_AMT 
+            (
+			year
+			,semester
+			,dept
+			,grade
+			,reg_dt
+			,reg_id
+			,deptname
+			,entr_amt
+			,edu_amt
+			,support_amt
+			,std_amt1
+			,std_amt2
+			,std_amt3
+			,house_amt
+			,food_amt
+			,remark
+            ) 
+        VALUES 
+        	(
+            #{ST_REGIST_AMT.year}
+            ,#{ST_REGIST_AMT.semester}
+            ,#{ST_REGIST_AMT.dept}        	
+            ,#{ST_REGIST_AMT.grade}
+            ,sysdate()
+            ,#{ST_REGIST_AMT.spike_id}
+            ,#{ST_REGIST_AMT.deptname}
+            ,#{ST_REGIST_AMT.entr_amt}
+            ,#{ST_REGIST_AMT.edu_amt}
+            ,#{ST_REGIST_AMT.support_amt}
+            ,#{ST_REGIST_AMT.std_amt1}
+            ,#{ST_REGIST_AMT.std_amt2}
+            ,#{ST_REGIST_AMT.std_amt3}
+            ,#{ST_REGIST_AMT.house_amt}
+            ,#{ST_REGIST_AMT.food_amt}
+            ,#{ST_REGIST_AMT.remark}
+            ) 
+    </insert>    
+    
 </mapper>

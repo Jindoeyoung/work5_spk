@@ -11,5 +11,10 @@ public interface UDR01Service {
     //============================================================
     //< SELECT (List)
     //============================================================	
-	public String getRegistAmtList(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;	
+	public String getRegistAmtList(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;
+	
+    //============================================================
+    //< INSERT
+    //============================================================
+	public String insertRegistAmt(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;	
 }
