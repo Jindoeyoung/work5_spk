@@ -23,4 +23,10 @@ public interface UDR01Mapper {
 		@Param("ST_REGIST_AMT") UDR01Entity udr01Entity
 	);
 	
+    //============================================================
+    //< UPDATE
+    //============================================================	
+	int updateRegistAmt(
+		@Param("ST_REGIST_AMT") UDR01Entity udr01Entity
+	);	
 }

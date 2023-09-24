@@ -2,6 +2,7 @@ package com.spk.api.controller.dr;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +34,14 @@ public class UDR01Controller {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String insertUser(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
 		return udr01Service.insertRegistAmt(pUdr01Entity);
-	}		
+	}
+	
+    //============================================================
+    //< UPDATE
+    //============================================================
+	@PutMapping("/updateRegistAmt")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String updatetUser(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
+		return udr01Service.updateRegistAmt(pUdr01Entity);
+	}	
 }

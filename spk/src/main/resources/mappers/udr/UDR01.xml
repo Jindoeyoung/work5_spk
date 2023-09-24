@@ -29,22 +29,22 @@
     <insert id="insertRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
         INSERT INTO ST_REGIST_AMT 
             (
-			year
-			,semester
-			,dept
-			,grade
-			,reg_dt
-			,reg_id
-			,deptname
-			,entr_amt
-			,edu_amt
-			,support_amt
-			,std_amt1
-			,std_amt2
-			,std_amt3
-			,house_amt
-			,food_amt
-			,remark
+			YEAR
+			,SEMESTER
+			,DEPT
+			,GRADE
+			,REG_DT
+			,REG_ID
+			,DEPTNAME
+			,ENTR_AMT
+			,EDU_AMT
+			,SUPPORT_AMT
+			,STD_AMT1
+			,STD_AMT2
+			,STD_AMT3
+			,HOUSE_AMT
+			,FOOD_AMT
+			,REMARK
             ) 
         VALUES 
         	(
@@ -66,5 +66,25 @@
             ,#{ST_REGIST_AMT.remark}
             ) 
     </insert>    
+    
+	<!-- 등록금입력 등록  -->
+    <update id="updateRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
+        UPDATE ST_REGIST_AMT SET DEPTNAME 	 = #{ST_REGIST_AMT.deptname}
+                                ,ENTR_AMT 	 = #{ST_REGIST_AMT.entr_amt}
+								,EDU_AMT 	 = #{ST_REGIST_AMT.edu_amt}
+								,SUPPORT_AMT = #{ST_REGIST_AMT.support_amt}
+								,STD_AMT1 	 = #{ST_REGIST_AMT.std_amt1}
+								,STD_AMT2 	 = #{ST_REGIST_AMT.std_amt2}
+								,STD_AMT3 	 = #{ST_REGIST_AMT.std_amt3}
+								,HOUSE_AMT 	 = #{ST_REGIST_AMT.house_amt}
+								,FOOD_AMT 	 = #{ST_REGIST_AMT.food_amt}
+								,REMARK 	 = #{ST_REGIST_AMT.remark}
+								,UPT_DT      = sysdate()
+								,UPT_ID      = #{ST_REGIST_AMT.spike_id}
+		WHERE YEAR 		   = #{ST_REGIST_AMT.year}
+			  AND SEMESTER = #{ST_REGIST_AMT.semester}
+			  AND DEPT 	   = #{ST_REGIST_AMT.dept}
+			  AND GRADE    = #{ST_REGIST_AMT.grade}
+    </update>    
     
 </mapper>
