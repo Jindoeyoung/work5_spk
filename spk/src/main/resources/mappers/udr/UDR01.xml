@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spk.api.mapper.udr.UDR01Mapper">
+
+	<!-- 등록금입력 화면조회  -->
+    <select id="getRegistAmtList" resultType="com.spk.api.entity.udr.UDR01Entity">
+		SELECT 
+		    YEAR
+		    ,SEMESTER
+		    ,DEPT
+		    ,GRADE
+		    ,DEPTNAME
+		    ,ENTR_AMT
+		    ,EDU_AMT
+		    ,STD_AMT1
+		    ,STD_AMT2
+		    ,STD_AMT3
+		    ,HOUSE_AMT
+		    ,FOOD_AMT
+		    ,REMARK
+		FROM ST_REGIST_AMT
+        WHERE YEAR LIKE CONCAT('%', #{ST_REGIST_AMT.year}, '%')
+          AND SEMESTER LIKE CONCAT('%', #{ST_REGIST_AMT.semester}, '%')
+		ORDER BY YEAR, SEMESTER, DEPT, GRADE
+    </select>
+    
+</mapper>
