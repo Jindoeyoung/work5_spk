@@ -67,7 +67,7 @@ public class UDR01ServiceImle implements UDR01Service {
 					Obj1.addProperty("semester", item.getSemester());
 					Obj1.addProperty("dept", item.getDept());
 					Obj1.addProperty("grade", item.getGrade());
-					Obj1.addProperty("deptname", item.getDeptname());
+//					Obj1.addProperty("deptname", item.getDeptname());
 					Obj1.addProperty("entr_amt", item.getEntr_amt());
 					Obj1.addProperty("edu_amt", item.getEdu_amt());
 					Obj1.addProperty("std_amt1", item.getStd_amt1());
@@ -428,7 +428,8 @@ public class UDR01ServiceImle implements UDR01Service {
 			} else {
 				dataResult.addProperty("reason", NOT_OK_MESSAGE);
 				result = "0001";	
-				reason = "필수항목누락";				
+//				reason = "필수항목누락";
+				reason = "실패";
 			}
 			dataResult.addProperty("result", results);
 			
@@ -451,6 +452,18 @@ public class UDR01ServiceImle implements UDR01Service {
 			dataResult.add("data", Obj3);
 		} catch (Exception e) {
 			logger.error("[UDR01ServiceImle.insertRegistAmt] ERROR : " + e);
+			
+//			dataResult.addProperty("reason", NOT_OK_MESSAGE);
+//			dataResult.addProperty("result", results);
+//
+//			jsonArr2.add(Obj2);
+//			Obj1.add("datas", jsonArr2);			
+//			
+//			jsonArr1.add(Obj1);
+//			Obj3.add("result", jsonArr1);
+//			
+//			dataResult.add("data", Obj3);
+			
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
