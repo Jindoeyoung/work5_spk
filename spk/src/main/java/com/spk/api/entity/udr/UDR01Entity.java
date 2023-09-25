@@ -6,6 +6,7 @@ import lombok.Data;
 public class UDR01Entity {
 	private String apikey;
 	private String spike_id;
+	private String crud_gb;
 	private String year;
 	private String semester;
 	private String dept;

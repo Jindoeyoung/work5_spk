@@ -1,5 +1,7 @@
 package com.spk.api.controller.dr;
 
+//import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.udr.UDR01Entity;
+import com.spk.api.entity.udr.UDR01EntityResult;
 import com.spk.api.service.udr.UDR01Service;
 
 import lombok.RequiredArgsConstructor;
@@ -53,5 +56,15 @@ public class UDR01Controller {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String deleteRegistAmt(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
 		return udr01Service.deleteRegistAmt(pUdr01Entity);
+	}
+	
+    //============================================================
+    //< SAVE
+    //============================================================
+	@PostMapping("/saveRegistAmt")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String saveRegistAmt(@RequestBody UDR01EntityResult pUdr01Entity) throws Exception {
+//	public String saveRegistAmt(@RequestBody List<UDR01Entity> pUdr01Entity) throws Exception {
+		return udr01Service.saveRegistAmt(pUdr01Entity);
 	}	
 }

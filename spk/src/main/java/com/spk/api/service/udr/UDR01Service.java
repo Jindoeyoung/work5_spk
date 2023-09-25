@@ -1,8 +1,11 @@
 package com.spk.api.service.udr;
 
+//import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.spk.api.entity.udr.UDR01Entity;
+import com.spk.api.entity.udr.UDR01EntityResult;
 
 /**
  * <p>Service</p>
@@ -26,5 +29,11 @@ public interface UDR01Service {
     //============================================================
     //< DELETE
     //============================================================	
-	public String deleteRegistAmt(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;	
+	public String deleteRegistAmt(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;
+	
+    //============================================================
+    //< SAVE
+    //============================================================
+	public String saveRegistAmt(@Param("ST_REGIST_AMT") UDR01EntityResult pUdr01Entity) throws Exception;
+//	public String saveRegistAmt(@Param("ST_REGIST_AMT") List<UDR01Entity> pUdr01Entity) throws Exception;	
 }
