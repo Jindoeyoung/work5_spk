@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -355,6 +356,7 @@ public class UDR01ServiceImle implements UDR01Service {
 	 * @return String
 	 */	
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public String saveRegistAmt(@Param("ST_HAKJEOK_M") UDR01EntityResult pUdr01EntityResult) throws Exception {
 //	public String saveRegistAmt(@Param("ST_HAKJEOK_M") List<UDR01Entity> pUdr01Entity) throws Exception {
 	    //============================================================
@@ -450,6 +452,7 @@ public class UDR01ServiceImle implements UDR01Service {
 		} catch (Exception e) {
 			logger.error("[UDR01ServiceImle.insertRegistAmt] ERROR : " + e);
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		return dataResult.toString();
 	}	
