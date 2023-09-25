@@ -67,7 +67,7 @@
             ) 
     </insert>    
     
-	<!-- 등록금입력 등록  -->
+	<!-- 등록금입력 수정  -->
     <update id="updateRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
         UPDATE ST_REGIST_AMT SET DEPTNAME 	 = #{ST_REGIST_AMT.deptname}
                                 ,ENTR_AMT 	 = #{ST_REGIST_AMT.entr_amt}
@@ -86,5 +86,14 @@
 			  AND DEPT 	   = #{ST_REGIST_AMT.dept}
 			  AND GRADE    = #{ST_REGIST_AMT.grade}
     </update>    
+    
+	<!-- 등록금입력 삭제 -->    
+    <delete id="deleteRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
+        DELETE FROM ST_REGIST_AMT 
+		WHERE YEAR 		   = #{ST_REGIST_AMT.year}
+			  AND SEMESTER = #{ST_REGIST_AMT.semester}
+			  AND DEPT 	   = #{ST_REGIST_AMT.dept}
+			  AND GRADE    = #{ST_REGIST_AMT.grade}
+    </delete>    
     
 </mapper>

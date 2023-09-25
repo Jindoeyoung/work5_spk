@@ -1,6 +1,7 @@
 package com.spk.api.controller.dr;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class UDR01Controller {
     //============================================================
 	@PostMapping("/insertRegistAmt")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String insertUser(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
+	public String insertRegistAmt(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
 		return udr01Service.insertRegistAmt(pUdr01Entity);
 	}
 	
@@ -41,7 +42,16 @@ public class UDR01Controller {
     //============================================================
 	@PutMapping("/updateRegistAmt")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String updatetUser(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
+	public String updateRegistAmt(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
 		return udr01Service.updateRegistAmt(pUdr01Entity);
+	}
+	
+    //============================================================
+    //< DELETE
+    //============================================================
+	@DeleteMapping("/deleteRegistAmt")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String deleteRegistAmt(@RequestBody UDR01Entity pUdr01Entity) throws Exception {
+		return udr01Service.deleteRegistAmt(pUdr01Entity);
 	}	
 }

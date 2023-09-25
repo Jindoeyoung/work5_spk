@@ -21,5 +21,10 @@ public interface UDR01Service {
     //============================================================
     //< UPDATE
     //============================================================	
-	public String updateRegistAmt(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;	
+	public String updateRegistAmt(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;
+	
+    //============================================================
+    //< DELETE
+    //============================================================	
+	public String deleteRegistAmt(@Param("ST_REGIST_AMT") UDR01Entity pUdr01Entity) throws Exception;	
 }
