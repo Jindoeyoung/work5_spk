@@ -361,9 +361,9 @@ public class UDR01ServiceImle implements UDR01Service {
 	    //============================================================
 	    //< api-key check
 	    //============================================================
-//		if (!authcheck.getMetaAuthErrGenerator(pUdr01Entity.getApikey()).equals("{}")) {
-//			return authcheck.getMetaAuthErrGenerator(pUdr01Entity.getApikey());
-//		}	
+		if (!authcheck.getMetaAuthErrGenerator(pUdr01EntityResult.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(pUdr01EntityResult.getApikey());
+		}		
 		
         //============================================================
         //< json 포맷 데이터 생성
