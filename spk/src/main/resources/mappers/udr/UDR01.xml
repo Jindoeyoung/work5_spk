@@ -55,16 +55,32 @@
             ,#{ST_REGIST_AMT.hakgwa}        	
             ,#{ST_REGIST_AMT.haknyeon}
             ,sysdate()
-            ,#{ST_REGIST_AMT.spike_id}
+            ,#{ST_REGIST_AMT.user_id}
             ,#{ST_REGIST_AMT.deptname}
+            <if test="#{ST_REGIST_AMT.entr_amt} != null and #{ST_REGIST_AMT.entr_amt} != '' ">
             ,#{ST_REGIST_AMT.entr_amt}
+            </if>
+            <if test="#{ST_REGIST_AMT.edu_amt} != null and #{ST_REGIST_AMT.edu_amt} != '' ">
             ,#{ST_REGIST_AMT.edu_amt}
+            </if>
+            <if test="#{ST_REGIST_AMT.support_amt} != null and #{ST_REGIST_AMT.support_amt} != '' ">
             ,#{ST_REGIST_AMT.support_amt}
+            </if>
+            <if test="#{ST_REGIST_AMT.std_amt1} != null and #{ST_REGIST_AMT.std_amt1} != '' ">
             ,#{ST_REGIST_AMT.std_amt1}
+            </if>
+            <if test="#{ST_REGIST_AMT.std_amt2} != null and #{ST_REGIST_AMT.std_amt2} != '' ">
             ,#{ST_REGIST_AMT.std_amt2}
+            </if>
+            <if test="#{ST_REGIST_AMT.std_amt3} != null and #{ST_REGIST_AMT.std_amt3} != '' ">
             ,#{ST_REGIST_AMT.std_amt3}
+            </if>
+            <if test="#{ST_REGIST_AMT.house_amt} != null and #{ST_REGIST_AMT.house_amt} != '' ">
             ,#{ST_REGIST_AMT.house_amt}
+            </if>
+            <if test="#{ST_REGIST_AMT.food_amt} != null and #{ST_REGIST_AMT.food_amt} != '' ">
             ,#{ST_REGIST_AMT.food_amt}
+            </if>
             ,#{ST_REGIST_AMT.remark}
             ) 
     </insert>    
@@ -72,17 +88,33 @@
 	<!-- 등록금입력 수정  -->
     <update id="updateRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
         UPDATE ST_REGIST_AMT SET DEPTNAME 	 = #{ST_REGIST_AMT.deptname}
+        						<if test="#{ST_REGIST_AMT.entr_amt} != null and #{ST_REGIST_AMT.entr_amt} != '' ">
                                 ,ENTR_AMT 	 = #{ST_REGIST_AMT.entr_amt}
+                                </if>
+                                <if test="#{ST_REGIST_AMT.edu_amt} != null and #{ST_REGIST_AMT.edu_amt} != '' ">
 								,EDU_AMT 	 = #{ST_REGIST_AMT.edu_amt}
+								</if>
+								<if test="#{ST_REGIST_AMT.support_amt} != null and #{ST_REGIST_AMT.support_amt} != '' ">
 								,SUPPORT_AMT = #{ST_REGIST_AMT.support_amt}
+								</if>
+								<if test="#{ST_REGIST_AMT.std_amt1} != null and #{ST_REGIST_AMT.std_amt1} != '' ">
 								,STD_AMT1 	 = #{ST_REGIST_AMT.std_amt1}
+								</if>
+								<if test="#{ST_REGIST_AMT.std_amt2} != null and #{ST_REGIST_AMT.std_amt2} != '' ">
 								,STD_AMT2 	 = #{ST_REGIST_AMT.std_amt2}
+								</if>
+								<if test="#{ST_REGIST_AMT.std_amt3} != null and #{ST_REGIST_AMT.std_amt3} != '' ">
 								,STD_AMT3 	 = #{ST_REGIST_AMT.std_amt3}
+								</if>
+								<if test="#{ST_REGIST_AMT.house_amt} != null and #{ST_REGIST_AMT.house_amt} != '' ">
 								,HOUSE_AMT 	 = #{ST_REGIST_AMT.house_amt}
+								</if>
+								<if test="#{ST_REGIST_AMT.food_amt} != null and #{ST_REGIST_AMT.food_amt} != '' ">
 								,FOOD_AMT 	 = #{ST_REGIST_AMT.food_amt}
+								</if>
 								,REMARK 	 = #{ST_REGIST_AMT.remark}
 								,UPT_DT      = sysdate()
-								,UPT_ID      = #{ST_REGIST_AMT.spike_id}
+								,UPT_ID      = #{ST_REGIST_AMT.user_id}
 		WHERE YEAR 		   = #{ST_REGIST_AMT.year}
 			  AND HAKGI = #{ST_REGIST_AMT.hakgi}
 			  AND HAKGWA 	   = #{ST_REGIST_AMT.hakgwa}

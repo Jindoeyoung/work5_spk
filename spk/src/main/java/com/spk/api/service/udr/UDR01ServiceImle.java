@@ -386,10 +386,13 @@ public class UDR01ServiceImle implements UDR01Service {
 			List<UDR01Entity> datas = pUdr01EntityResult.getData();
 //			List<UDR01Entity> datas = pUdr01Entity;
 			
+//			pre_user_id = pUdr01EntityResult.getUser_id();
+			
+			
 			for (UDR01Entity item : datas) {
 //			for (UDR01Entity item : datas) {
 				crud_gb = item.getCrud_gb();
-			
+				item.setUser_id(pUdr01EntityResult.getUser_id());
 		        //============================================================
 		        //< SAVE
 		        //============================================================				
