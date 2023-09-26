@@ -64,9 +64,9 @@ public class UDR01ServiceImle implements UDR01Service {
 					JsonObject Obj2 = new JsonObject();
 //	logger.info("std_amt1=>"+item.getStd_amt1());
 					Obj1.addProperty("year", item.getYear());
-					Obj1.addProperty("semester", item.getHakgi()); // 변수명 확인
-					Obj1.addProperty("dept", item.getHakgwa());	   // 변수명 확인
-					Obj1.addProperty("grade", item.getHaknyeon()); // 변수명 확인
+					Obj1.addProperty("hakgi", item.getHakgi()); // 변수명 확인
+					Obj1.addProperty("hakgwa", item.getHakgwa());	   // 변수명 확인
+					Obj1.addProperty("haknyeon", item.getHaknyeon()); // 변수명 확인
 					Obj1.addProperty("entr_amt", item.getEntr_amt());
 					Obj1.addProperty("edu_amt", item.getEdu_amt());
 					Obj1.addProperty("std_amt1", item.getStd_amt1());
