@@ -7,9 +7,9 @@
     <select id="getRegistAmtList" resultType="com.spk.api.entity.udr.UDR01Entity">
 		SELECT 
 		    YEAR
-		    ,SEMESTER
-		    ,DEPT
-		    ,GRADE
+		    ,HAKGI
+		    ,HAKGWA
+		    ,HAKNYEON
 		    ,DEPTNAME
 		    ,ENTR_AMT
 		    ,EDU_AMT
@@ -21,10 +21,10 @@
 		    ,REMARK
 		FROM ST_REGIST_AMT
         WHERE ifnull(YEAR,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.year}, '%')
-          AND ifnull(SEMESTER,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.semester}, '%')
-          AND ifnull(DEPT,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.dept}, '%')
-          AND ifnull(GRADE,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.grade}, '%')
-		ORDER BY YEAR DESC, SEMESTER, DEPT, GRADE
+          AND ifnull(HAKGI,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.hakgi}, '%')
+          AND ifnull(HAKGWA,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.hakgwa}, '%')
+          AND ifnull(HAKNYEON,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.haknyeon}, '%')
+		ORDER BY YEAR DESC, HAKGI, HAKGWA, HAKNYEON
     </select>
     
 	<!-- 등록금입력 등록  -->
@@ -32,9 +32,9 @@
         INSERT INTO ST_REGIST_AMT 
             (
 			YEAR
-			,SEMESTER
-			,DEPT
-			,GRADE
+			,HAKGI
+			,HAKGWA
+			,HAKNYEON
 			,REG_DT
 			,REG_ID
 			,DEPTNAME
@@ -51,9 +51,9 @@
         VALUES 
         	(
             #{ST_REGIST_AMT.year}
-            ,#{ST_REGIST_AMT.semester}
-            ,#{ST_REGIST_AMT.dept}        	
-            ,#{ST_REGIST_AMT.grade}
+            ,#{ST_REGIST_AMT.hakgi}
+            ,#{ST_REGIST_AMT.hakgwa}        	
+            ,#{ST_REGIST_AMT.haknyeon}
             ,sysdate()
             ,#{ST_REGIST_AMT.spike_id}
             ,#{ST_REGIST_AMT.deptname}
@@ -84,18 +84,18 @@
 								,UPT_DT      = sysdate()
 								,UPT_ID      = #{ST_REGIST_AMT.spike_id}
 		WHERE YEAR 		   = #{ST_REGIST_AMT.year}
-			  AND SEMESTER = #{ST_REGIST_AMT.semester}
-			  AND DEPT 	   = #{ST_REGIST_AMT.dept}
-			  AND GRADE    = #{ST_REGIST_AMT.grade}
+			  AND HAKGI = #{ST_REGIST_AMT.hakgi}
+			  AND HAKGWA 	   = #{ST_REGIST_AMT.hakgwa}
+			  AND HAKNYEON    = #{ST_REGIST_AMT.haknyeon}
     </update>    
     
 	<!-- 등록금입력 삭제 -->    
     <delete id="deleteRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
         DELETE FROM ST_REGIST_AMT 
 		WHERE YEAR 		   = #{ST_REGIST_AMT.year}
-			  AND SEMESTER = #{ST_REGIST_AMT.semester}
-			  AND DEPT 	   = #{ST_REGIST_AMT.dept}
-			  AND GRADE    = #{ST_REGIST_AMT.grade}
+			  AND HAKGI = #{ST_REGIST_AMT.hakgi}
+			  AND HAKGWA 	   = #{ST_REGIST_AMT.hakgwa}
+			  AND HAKNYEON    = #{ST_REGIST_AMT.haknyeon}
     </delete>    
     
 </mapper>

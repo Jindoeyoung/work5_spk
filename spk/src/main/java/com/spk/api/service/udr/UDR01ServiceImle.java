@@ -62,20 +62,19 @@ public class UDR01ServiceImle implements UDR01Service {
 				for (UDR01Entity item : udr01Entity) {
 					JsonObject Obj1 = new JsonObject();
 					JsonObject Obj2 = new JsonObject();
-	
+//	logger.info("std_amt1=>"+item.getStd_amt1());
 					Obj1.addProperty("year", item.getYear());
-					Obj1.addProperty("semester", item.getSemester());
-					Obj1.addProperty("dept", item.getDept());
-					Obj1.addProperty("grade", item.getGrade());
-//					Obj1.addProperty("deptname", item.getDeptname());
+					Obj1.addProperty("semester", item.getHakgi()); // 변수명 확인
+					Obj1.addProperty("dept", item.getHakgwa());	   // 변수명 확인
+					Obj1.addProperty("grade", item.getHaknyeon()); // 변수명 확인
 					Obj1.addProperty("entr_amt", item.getEntr_amt());
 					Obj1.addProperty("edu_amt", item.getEdu_amt());
 					Obj1.addProperty("std_amt1", item.getStd_amt1());
 					Obj1.addProperty("std_amt2", item.getStd_amt2());
 					Obj1.addProperty("std_amt3", item.getStd_amt3());
-					Obj1.addProperty("std_amt1", item.getStd_amt4());
-					Obj1.addProperty("std_amt1", item.getStd_amt5());				
-					Obj1.addProperty("std_amt1", item.getStd_amt6());
+					Obj1.addProperty("house_amt", item.getHouse_amt());
+					Obj1.addProperty("food_amt", item.getFood_amt());
+					Obj1.addProperty("remark", item.getRemark());
 							
 					jsonArr1.add(Obj1);
 	

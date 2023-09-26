@@ -8,13 +8,17 @@ public class UDR01Entity {
 	private String spike_id;
 	private String crud_gb;
 	private String year;
-	private String semester;
-	private String dept;
+	
+	private String hakgi;
+	private String hakgwa;	
+//	private String semester;
+//	private String dept;
 	private String reg_dt;
 	private String reg_id;
 	private String upt_dt;
 	private String upt_id;
-	private String grade;
+	private String haknyeon;
+//	private String grade;
 	private String deptname;
 	private String entr_amt;
 	private String edu_amt;
