@@ -1,5 +1,6 @@
 package com.spk.api.util;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Utils {
@@ -22,6 +23,36 @@ public class Utils {
 			dataResult.addProperty("reason", "[" + responseCode + " ERROR] " + desc);
 			dataResult.addProperty("result", result);			
 			dataResult.addProperty("data", "");
+				
+			return dataResult;
+		} catch (Exception e) {
+//			logger.error("[Utils.getMetaErrGenerator] ERROR : " + e);
+			e.printStackTrace();
+		}
+		return dataResult;
+	}	
+	
+	public JsonObject getMetaErrGenerator2(Integer responseCode) throws Exception {
+
+		JsonObject dataResult = new JsonObject();
+//		JsonArray jsonArr = new JsonArray();
+		String desc = "";
+		String result = "0";
+		
+		try {
+			
+			if (responseCode == 600 ) {
+				desc = "DuplicateKeyException";
+				result = "-1";				
+			} else {
+				desc = "ETC ERROR, PLEASE CHECK";
+			}		
+
+			dataResult.addProperty("reason", "[" + responseCode + " ERROR] " + desc);
+			dataResult.addProperty("result", result);
+			
+			dataResult.addProperty("data", "");
+//			dataResult.add("data", jsonArr);
 				
 			return dataResult;
 		} catch (Exception e) {

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import com.spk.api.entity.udr.UDR01Entity;
 import com.spk.api.entity.udr.UDR01EntityResult;
 import com.spk.api.mapper.udr.UDR01Mapper;
 import com.spk.api.security.AuthCheck;
+import com.spk.api.util.Utils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -374,6 +376,7 @@ public class UDR01ServiceImle implements UDR01Service {
 		JsonObject Obj1 = new JsonObject();
 		JsonObject Obj2 = new JsonObject();
 		JsonObject Obj3 = new JsonObject();	
+		Utils utils = new Utils();
 		
 		String OK_MESSAGE = "SUCCESS";
 		String NOT_OK_MESSAGE = "FAIL";
@@ -452,7 +455,29 @@ public class UDR01ServiceImle implements UDR01Service {
 			Obj3.add("result", jsonArr1);
 			
 			dataResult.add("data", Obj3);
-		} catch (Exception e) {
+		} catch(DuplicateKeyException e){
+			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : DuplicateKeyException : " + e);
+			JsonObject result = new JsonObject();
+			
+	        result = utils.getMetaErrGenerator2(600);
+//	        System.out.println("result 1) ===>"+result.toString());
+	        return result.toString();			
+			
+//            System.out.println("ArithmeticException");
+//
+//			dataResult.addProperty("reason", NOT_OK_MESSAGE);
+//			dataResult.addProperty("result", results);
+//
+//			jsonArr2.add(Obj2);
+//			Obj1.add("datas", jsonArr2);			
+//			
+//			jsonArr1.add(Obj1);
+//			Obj3.add("result", jsonArr1);
+//			
+//			dataResult.add("data", Obj3);            
+            
+            
+        } catch (Exception e) {
 			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : " + e);
 			
 //			dataResult.addProperty("reason", NOT_OK_MESSAGE);
@@ -470,5 +495,10 @@ public class UDR01ServiceImle implements UDR01Service {
 			throw new RuntimeException(e);
 		}
 		return dataResult.toString();
-	}	
+	}
+	
+	
+	
+	
+	
 }
