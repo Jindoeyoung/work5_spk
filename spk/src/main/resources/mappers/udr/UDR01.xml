@@ -20,9 +20,11 @@
 		    ,FOOD_AMT
 		    ,REMARK
 		FROM ST_REGIST_AMT
-        WHERE YEAR LIKE CONCAT('%', #{ST_REGIST_AMT.year}, '%')
-          AND SEMESTER LIKE CONCAT('%', #{ST_REGIST_AMT.semester}, '%')
-		ORDER BY YEAR, SEMESTER, DEPT, GRADE
+        WHERE ifnull(YEAR,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.year}, '%')
+          AND ifnull(SEMESTER,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.semester}, '%')
+          AND ifnull(DEPT,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.dept}, '%')
+          AND ifnull(GRADE,' ') LIKE CONCAT('%', #{ST_REGIST_AMT.grade}, '%')
+		ORDER BY YEAR DESC, SEMESTER, DEPT, GRADE
     </select>
     
 	<!-- 등록금입력 등록  -->

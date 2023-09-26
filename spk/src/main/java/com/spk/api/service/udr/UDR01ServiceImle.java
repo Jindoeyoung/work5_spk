@@ -451,7 +451,7 @@ public class UDR01ServiceImle implements UDR01Service {
 			
 			dataResult.add("data", Obj3);
 		} catch (Exception e) {
-			logger.error("[UDR01ServiceImle.insertRegistAmt] ERROR : " + e);
+			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : " + e);
 			
 //			dataResult.addProperty("reason", NOT_OK_MESSAGE);
 //			dataResult.addProperty("result", results);
