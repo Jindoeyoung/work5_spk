@@ -41,7 +41,7 @@ public class Utils {
 		
 		try {
 			
-			if (responseCode == 600 ) {
+			if (responseCode == 500 ) {
 				desc = "DuplicateKeyException";
 				result = "-1";				
 			} else {
@@ -53,7 +53,7 @@ public class Utils {
 			
 			dataResult.addProperty("data", "");
 //			dataResult.add("data", jsonArr);
-				
+	
 			return dataResult;
 		} catch (Exception e) {
 //			logger.error("[Utils.getMetaErrGenerator] ERROR : " + e);

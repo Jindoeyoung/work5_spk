@@ -16,6 +16,7 @@ import com.spk.api.entity.udr.UDR01Entity;
 import com.spk.api.entity.udr.UDR01EntityResult;
 import com.spk.api.mapper.udr.UDR01Mapper;
 import com.spk.api.security.AuthCheck;
+import com.spk.api.util.ReturnException;
 import com.spk.api.util.Utils;
 
 import lombok.RequiredArgsConstructor;
@@ -455,43 +456,28 @@ public class UDR01ServiceImle implements UDR01Service {
 			Obj3.add("result", jsonArr1);
 			
 			dataResult.add("data", Obj3);
-		} catch(DuplicateKeyException e){
-			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : DuplicateKeyException : " + e);
+		} catch (DuplicateKeyException e){
+			
+//			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : DuplicateKeyException!!! : " + e);
+//			logger.error("111===============================");
 			JsonObject result = new JsonObject();
+			result = utils.getMetaErrGenerator2(500);
+//	        logger.error("result==============================="+result.toString());
+//	        
+//	        return result.toString();
+	        
+			throw new ReturnException(result, "DuplicateKeyException 발생");
 			
-	        result = utils.getMetaErrGenerator2(600);
-//	        System.out.println("result 1) ===>"+result.toString());
-	        return result.toString();			
-			
-//            System.out.println("ArithmeticException");
-//
-//			dataResult.addProperty("reason", NOT_OK_MESSAGE);
-//			dataResult.addProperty("result", results);
-//
-//			jsonArr2.add(Obj2);
-//			Obj1.add("datas", jsonArr2);			
-//			
-//			jsonArr1.add(Obj1);
-//			Obj3.add("result", jsonArr1);
-//			
-//			dataResult.add("data", Obj3);            
-            
+//			throw new RuntimeException(e);	        
             
         } catch (Exception e) {
-			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : " + e);
+			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : Exception " + e);
 			
-//			dataResult.addProperty("reason", NOT_OK_MESSAGE);
-//			dataResult.addProperty("result", results);
-//
-//			jsonArr2.add(Obj2);
-//			Obj1.add("datas", jsonArr2);			
-//			
-//			jsonArr1.add(Obj1);
-//			Obj3.add("result", jsonArr1);
-//			
-//			dataResult.add("data", Obj3);
+//			e.printStackTrace();
 			
-			e.printStackTrace();
+//			JsonObject result = new JsonObject();
+//	        result = utils.getMetaErrGenerator2(600);
+//	        return result.toString();			
 			throw new RuntimeException(e);
 		}
 		return dataResult.toString();

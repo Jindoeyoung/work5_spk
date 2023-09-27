@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spk.api.entity.udr.UDR01Entity;
 import com.spk.api.entity.udr.UDR01EntityResult;
 import com.spk.api.service.udr.UDR01Service;
+import com.spk.api.util.ReturnException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -64,7 +65,17 @@ public class UDR01Controller {
 	@PostMapping("/saveRegistAmt")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String saveRegistAmt(@RequestBody UDR01EntityResult pUdr01Entity) throws Exception {
-//	public String saveRegistAmt(@RequestBody List<UDR01Entity> pUdr01Entity) throws Exception {
-		return udr01Service.saveRegistAmt(pUdr01Entity);
-	}	
+		try{
+			return udr01Service.saveRegistAmt(pUdr01Entity);
+		} catch (ReturnException e) {
+			return (String)e.getValue();
+		}
+	}		
+	
+//	@PostMapping("/saveRegistAmt")
+//	@CrossOrigin(origins = "*", allowedHeaders = "*")
+//	public String saveRegistAmt(@RequestBody UDR01EntityResult pUdr01Entity) throws Exception {
+////	public String saveRegistAmt(@RequestBody List<UDR01Entity> pUdr01Entity) throws Exception {
+//		return udr01Service.saveRegistAmt(pUdr01Entity);
+//	}	
 }
