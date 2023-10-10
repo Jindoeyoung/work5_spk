@@ -58,28 +58,28 @@
             ,#{ST_REGIST_AMT.user_id}
             ,#{ST_REGIST_AMT.deptname}
             <if test="#{ST_REGIST_AMT.entr_amt} != null and #{ST_REGIST_AMT.entr_amt} != '' ">
-            ,#{ST_REGIST_AMT.entr_amt}
+            ,ifnull(#{ST_REGIST_AMT.entr_amt}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.edu_amt} != null and #{ST_REGIST_AMT.edu_amt} != '' ">
-            ,#{ST_REGIST_AMT.edu_amt}
+            ,ifnull(#{ST_REGIST_AMT.edu_amt}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.support_amt} != null and #{ST_REGIST_AMT.support_amt} != '' ">
-            ,#{ST_REGIST_AMT.support_amt}
+            ,ifnull(#{ST_REGIST_AMT.support_amt}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.std_amt1} != null and #{ST_REGIST_AMT.std_amt1} != '' ">
-            ,#{ST_REGIST_AMT.std_amt1}
+            ,ifnull(#{ST_REGIST_AMT.std_amt1}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.std_amt2} != null and #{ST_REGIST_AMT.std_amt2} != '' ">
-            ,#{ST_REGIST_AMT.std_amt2}
+            ,ifnull(#{ST_REGIST_AMT.std_amt2}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.std_amt3} != null and #{ST_REGIST_AMT.std_amt3} != '' ">
-            ,#{ST_REGIST_AMT.std_amt3}
+            ,ifnull(#{ST_REGIST_AMT.std_amt3}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.house_amt} != null and #{ST_REGIST_AMT.house_amt} != '' ">
-            ,#{ST_REGIST_AMT.house_amt}
+            ,ifnull(#{ST_REGIST_AMT.house_amt}, 0)
             </if>
             <if test="#{ST_REGIST_AMT.food_amt} != null and #{ST_REGIST_AMT.food_amt} != '' ">
-            ,#{ST_REGIST_AMT.food_amt}
+            ,ifnull(#{ST_REGIST_AMT.food_amt}, 0)
             </if>
             ,#{ST_REGIST_AMT.remark}
             ) 
@@ -89,28 +89,28 @@
     <update id="updateRegistAmt" parameterType="com.spk.api.entity.udr.UDR01Entity">
         UPDATE ST_REGIST_AMT SET DEPTNAME 	 = #{ST_REGIST_AMT.deptname}
         						<if test="#{ST_REGIST_AMT.entr_amt} != null and #{ST_REGIST_AMT.entr_amt} != '' ">
-                                ,ENTR_AMT 	 = #{ST_REGIST_AMT.entr_amt}
+                                ,ENTR_AMT 	 = ifnull(#{ST_REGIST_AMT.entr_amt}, 0)
                                 </if>
                                 <if test="#{ST_REGIST_AMT.edu_amt} != null and #{ST_REGIST_AMT.edu_amt} != '' ">
-								,EDU_AMT 	 = #{ST_REGIST_AMT.edu_amt}
+								,EDU_AMT 	 = ifnull(#{ST_REGIST_AMT.edu_amt}, 0)
 								</if>
 								<if test="#{ST_REGIST_AMT.support_amt} != null and #{ST_REGIST_AMT.support_amt} != '' ">
-								,SUPPORT_AMT = #{ST_REGIST_AMT.support_amt}
+								,SUPPORT_AMT = ifnull(#{ST_REGIST_AMT.support_amt}, 0)
 								</if>
 								<if test="#{ST_REGIST_AMT.std_amt1} != null and #{ST_REGIST_AMT.std_amt1} != '' ">
-								,STD_AMT1 	 = #{ST_REGIST_AMT.std_amt1}
+								,STD_AMT1 	 = ifnull(#{ST_REGIST_AMT.std_amt1}, 0)
 								</if>
 								<if test="#{ST_REGIST_AMT.std_amt2} != null and #{ST_REGIST_AMT.std_amt2} != '' ">
-								,STD_AMT2 	 = #{ST_REGIST_AMT.std_amt2}
+								,STD_AMT2 	 = ifnull(#{ST_REGIST_AMT.std_amt2}, 0)
 								</if>
 								<if test="#{ST_REGIST_AMT.std_amt3} != null and #{ST_REGIST_AMT.std_amt3} != '' ">
-								,STD_AMT3 	 = #{ST_REGIST_AMT.std_amt3}
+								,STD_AMT3 	 = ifnull(#{ST_REGIST_AMT.std_amt3}, 0)
 								</if>
 								<if test="#{ST_REGIST_AMT.house_amt} != null and #{ST_REGIST_AMT.house_amt} != '' ">
-								,HOUSE_AMT 	 = #{ST_REGIST_AMT.house_amt}
+								,HOUSE_AMT 	 = ifnull(#{ST_REGIST_AMT.house_amt}, 0)
 								</if>
 								<if test="#{ST_REGIST_AMT.food_amt} != null and #{ST_REGIST_AMT.food_amt} != '' ">
-								,FOOD_AMT 	 = #{ST_REGIST_AMT.food_amt}
+								,FOOD_AMT 	 = ifnull(#{ST_REGIST_AMT.food_amt}, 0)
 								</if>
 								,REMARK 	 = #{ST_REGIST_AMT.remark}
 								,UPT_DT      = sysdate()
