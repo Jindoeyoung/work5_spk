@@ -457,28 +457,20 @@ public class UDR01ServiceImle implements UDR01Service {
 			
 			dataResult.add("data", Obj3);
 		} catch (DuplicateKeyException e){
-			
-//			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : DuplicateKeyException!!! : " + e);
-//			logger.error("111===============================");
+			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : DuplicateKeyException : " + e);
+
 			JsonObject result = new JsonObject();
-			result = utils.getMetaErrGenerator2(500);
-//	        logger.error("result==============================="+result.toString());
-//	        
-//	        return result.toString();
-	        
+			result = utils.getMetaErrGenerator2(2000);
+			e.printStackTrace();
 			throw new ReturnException(result, "DuplicateKeyException 발생");
-			
-//			throw new RuntimeException(e);	        
             
         } catch (Exception e) {
 			logger.error("[UDR01ServiceImle.saveRegistAmt] ERROR : Exception " + e);
 			
-//			e.printStackTrace();
-			
-//			JsonObject result = new JsonObject();
-//	        result = utils.getMetaErrGenerator2(600);
-//	        return result.toString();			
-			throw new RuntimeException(e);
+			JsonObject result = new JsonObject();
+			result = utils.getMetaErrGenerator2(1000);		
+			e.printStackTrace();
+			throw new ReturnException(result, "Exception 발생");
 		}
 		return dataResult.toString();
 	}

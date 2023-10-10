@@ -37,13 +37,17 @@ public class Utils {
 		JsonObject dataResult = new JsonObject();
 //		JsonArray jsonArr = new JsonArray();
 		String desc = "";
-		String result = "0";
+		int result = 0;
 		
 		try {
 			
-			if (responseCode == 500 ) {
+			if (responseCode == 1000 ) {
+				desc = "Exception";
+				result = 0;
+			} else if (responseCode == 2000 ) {
 				desc = "DuplicateKeyException";
-				result = "-1";				
+				result = -1;
+			
 			} else {
 				desc = "ETC ERROR, PLEASE CHECK";
 			}		
