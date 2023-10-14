@@ -2,7 +2,8 @@
 # Basic
 #=======================================================
 server:
-  port: 8443
+  #port: 8443 # 본사
+  port: 8445 # 남부대
   servlet:
     context-path: /spk
     encoding:
@@ -26,13 +27,21 @@ server:
 #=======================================================    
 spring:
   datasource:
+# 내부 접속  
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://10.1.193.1:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
+#    username: dev
+#    password: Mysql1234%
+# 남부대 접속  
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.1.193.1:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
-    username: dev
-    password: Mysql1234%
+    url: jdbc:mysql://210.123.228.102:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: root
+    password: Mysql1234%    
+# 외부 접속    
 #    url: jdbc:mysql://221.133.61.193:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
 #    username: dev
 #    password: Mysql1234%
+# 로컬 접속
 #    url: jdbc:mysql://localhost:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
 #    username: spk
 #    password: spk1234%
