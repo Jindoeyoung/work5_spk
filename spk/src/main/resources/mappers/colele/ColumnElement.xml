@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spk.api.mapper.colele.ColumnElementMappers">
+
+	<!-- 칼럼 엘리먼트 마스터 조회  -->
+    <select id="getMasterList" resultType="com.spk.api.entity.colele.ColumnElementMasterEntity">
+		SELECT 
+			 TBL_NM
+			,COL_NM
+			,COL_DESC
+			,COL_AUTH
+		  FROM COL_ELEMENT_MST
+		 WHERE TBL_NM = #{table}  
+		   AND USE_YN = 'Y'
+		 ORDER BY SORT_SEQ
+    </select>
+    
+	<!-- 칼럼 엘리먼트 타입 조회  -->
+    <select id="getTypeList" resultType="com.spk.api.entity.colele.ColumnElementTypeEntity">
+		SELECT 
+			 TBL_NM 	
+			,COL_NM 
+			,ELEMENT_TYP 
+		  FROM COL_ELEMENT_TYP 		  
+		 WHERE TBL_NM = #{table} 
+		   AND COL_NM = #{column} 
+		 ORDER BY SORT_SEQ
+    </select>
+
+	<!-- 칼럼 엘리먼트 밸류 조회  -->
+    <select id="getValueList" resultType="com.spk.api.entity.colele.ColumnElementValueEntity">
+		SELECT 
+			 ELEMENT_VAL  
+			,ELEMENT_VAL_NM 
+		  FROM COL_ELEMENT_VAL 		  
+		 WHERE TBL_NM 	   = #{table} 
+		   AND COL_NM 	   = #{column} 
+		   AND ELEMENT_TYP = #{type} 
+		 ORDER BY SORT_SEQ
+    </select>
+
+</mapper>
