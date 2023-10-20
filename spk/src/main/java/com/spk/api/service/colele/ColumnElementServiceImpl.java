@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.spk.api.entity.colele.ColumnElementMasterEntity;
 import com.spk.api.entity.colele.ColumnElementTypeEntity;
 import com.spk.api.entity.colele.ColumnElementValueEntity;
+import com.spk.api.entity.colele.RequestTablesEntity;
 import com.spk.api.mapper.colele.ColumnElementMappers;
 import com.spk.api.security.AuthCheck;
 
@@ -37,19 +38,27 @@ public class ColumnElementServiceImpl implements ColumnElementService {
 	 * @return String
 	 */	
 	@Override
-	public String getColumnElementList(@Param("COL_ELEMENT_MST") ColumnElementMasterEntity colEleMaster) throws Exception {
+	public String getColumnElementList(@Param("COL_ELEMENT_MST") RequestTablesEntity reqTablesEntity) throws Exception {
 	    //============================================================
 	    //< api-key check
 	    //============================================================
-		if (!authcheck.getMetaAuthErrGenerator(colEleMaster.getApikey()).equals("{}")) {
-			return authcheck.getMetaAuthErrGenerator(colEleMaster.getApikey());
+		if (!authcheck.getMetaAuthErrGenerator(reqTablesEntity.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(reqTablesEntity.getApikey());
 		}
 
-		List<ColumnElementMasterEntity> elementMaster = columnElementMapper.getMasterList(colEleMaster.getTbl_nm());
-		
+		String[] tables = reqTablesEntity.getTbl_nm();
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();  // 반복 행 담기 용
+		
+		
+		for (int i = 0; i<tables.length; i++) {
+		
+		List<ColumnElementMasterEntity> elementMaster = columnElementMapper.getMasterList(tables[i]);
+//		List<ColumnElementMasterEntity> elementMaster = columnElementMapper.getMasterList(colEleMaster.getTbl_nm());
+		
+//		JsonArray jsonArr1 = new JsonArray();  // 반복 행 담기 용
+
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
@@ -137,13 +146,20 @@ public class ColumnElementServiceImpl implements ColumnElementService {
 				dataResult.add("data", obj2);
 			}
 
+			
+			
 		} else {
 			// 데이터 없을 시
 			dataResult.addProperty("data", "");
 		}
 		
+		
+		}
 		logger.info("getColumnElementList!!=>"+dataResult.toString());	
 		return dataResult.toString();
+		
+		
+		
 	}
 	
 	

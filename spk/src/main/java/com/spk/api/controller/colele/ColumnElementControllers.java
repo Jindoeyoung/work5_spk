@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.colele.ColumnElementMasterEntity;
+import com.spk.api.entity.colele.RequestTablesEntity;
 import com.spk.api.service.colele.ColumnElementService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,10 @@ public class ColumnElementControllers {
     //============================================================	
 	@PostMapping("")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String getColumnElementList(@RequestBody ColumnElementMasterEntity colEleMasterEntity) throws Exception {
-		return columnElementService.getColumnElementList(colEleMasterEntity);
-	}
+	public String getColumnElementList(@RequestBody RequestTablesEntity requestTablesEntity) throws Exception {
+		return columnElementService.getColumnElementList(requestTablesEntity);
+	}	
+//	public String getColumnElementList(@RequestBody ColumnElementMasterEntity colEleMasterEntity) throws Exception {
+//		return columnElementService.getColumnElementList(colEleMasterEntity);
+//	}
 }
