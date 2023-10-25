@@ -55,10 +55,6 @@ public class ColumnElementServiceImpl implements ColumnElementService {
 		for (int i = 0; i<tables.length; i++) {
 		
 		List<ColumnElementMasterEntity> elementMaster = columnElementMapper.getMasterList(tables[i]);
-//		List<ColumnElementMasterEntity> elementMaster = columnElementMapper.getMasterList(colEleMaster.getTbl_nm());
-		
-//		JsonArray jsonArr1 = new JsonArray();  // 반복 행 담기 용
-
 		
 		String Message = "SUCCESS";
 		dataResult.addProperty("reason", Message);
