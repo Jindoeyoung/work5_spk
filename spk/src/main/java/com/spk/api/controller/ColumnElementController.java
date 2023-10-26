@@ -27,7 +27,7 @@ import com.spk.api.mapper.ColumnElementValMapper;
 import com.spk.api.security.AuthCheck;
 
 @RestController
-@RequestMapping(value = "/column-element", produces = "application/json; charset=utf8")
+@RequestMapping(value = "/column-element-bak", produces = "application/json; charset=utf8")
 public class ColumnElementController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	

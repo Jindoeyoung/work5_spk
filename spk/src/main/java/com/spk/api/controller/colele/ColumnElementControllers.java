@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/col-element", produces = "application/json; charset=utf8")
+@RequestMapping(value = "/column-element", produces = "application/json; charset=utf8")
 public class ColumnElementControllers {
 	private final ColumnElementService columnElementService;
 
