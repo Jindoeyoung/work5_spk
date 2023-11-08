@@ -8,7 +8,7 @@
         SELECT * 
           FROM V_MATRIX
          WHERE GUBUN = #{gubun}
-           AND SEQ = 1 
+           AND SEQ = 6 
     </select>
     
 </mapper>

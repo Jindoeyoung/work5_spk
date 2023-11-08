@@ -16,7 +16,7 @@ public class VMatrix {
 	private String method;
 	private String uri;
 	private String default_param;
-	private String value;
+	private String default_param_value;
 	private String type_a;
 	private String method_a;
 	private String uri_a;
