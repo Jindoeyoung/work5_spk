@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spk.api.mapper.sys.VMatrixMappers">
+
+	<!-- 시스템메뉴유저 조회  -->
+    <select id="getMatrixList" resultType="com.spk.api.entity.sys.VMatrix">
+        SELECT * 
+          FROM V_MATRIX
+         WHERE GUBUN = #{gubun}
+           AND SEQ = 1 
+    </select>
+    
+</mapper>
