@@ -76,7 +76,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 			
 			BusA busA = new BusA();
 			BusA_depth_1 busA_depth_1 = new BusA_depth_1();
-			BusA_depth_2 busA_depth_2 = new BusA_depth_2();
+//			BusA_depth_2 busA_depth_2 = new BusA_depth_2();
 			BusA_depth_3 busA_depth_3 = new BusA_depth_3();
 			
 			if (datas.size() > 0) {
@@ -118,39 +118,54 @@ public class VMatrixServiceImpl implements VMatrixService {
 					//================================================================
 					
 					// [behaviors] - 1
+					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
 					//================================================================
 					List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
 					busA_depth_2.setType(item.getType());					// type (self)
 					busA_depth_2.setMethod(item.getMethod());				// method (POST/GET/PUT/DELETE/PATCH)
 					busA_depth_2.setUri(item.getUri());						// uri
 			
-									
-					busA_depth_3.setUser_id(user_id);
+					if (user_id.length()>0)				
+						busA_depth_3.setUser_id(user_id);
+					if (if_id.length()>0)
 					busA_depth_3.setIf_id(if_id);
-					busA_depth_3.setTbl_nm(arr_tbl_nm);
+					if (arr_tbl_nm.length > 0)
+						busA_depth_3.setTbl_nm(arr_tbl_nm);
 
+					
+					busA_depth_2.setDefaultParameter(busA_depth_3);
+					
+//					BusA_depth_3 defaultParameter = new BusA_depth_3();
+//					defaultParameter.
+					
 					behaviors.add(busA_depth_2);
 					//================================================================
 					
 
 					// [behaviors] - 2
+					BusA_depth_2 busA_depth_2_1 = new BusA_depth_2();
 					//================================================================
-					busA_depth_2.setType(item.getType_a());					// type (self)
-					busA_depth_2.setMethod(item.getMethod_a());				// method (POST/GET/PUT/DELETE/PATCH)
-					busA_depth_2.setUri(item.getUri_a());					// uri
+					busA_depth_2_1.setType(item.getType_a());					// type (self)
+					busA_depth_2_1.setMethod(item.getMethod_a());				// method (POST/GET/PUT/DELETE/PATCH)
+					busA_depth_2_1.setUri(item.getUri_a());					// uri
 					
-					String[] arr_setRequiredParameter = item.getRequired_param().split("^");	// requiredParameter
-					busA_depth_2.setRequiredParameter(arr_setRequiredParameter);
-					busA_depth_2.setRequiredTarget(item.getRequired_target());
+					if (item.getRequired_param().length() > 0) {
+						String[] arr_setRequiredParameter = item.getRequired_param().split("^");	// requiredParameter
+						busA_depth_2_1.setRequiredParameter(arr_setRequiredParameter);
+					}
+					
+					busA_depth_2_1.setRequiredTarget(item.getRequired_target());
 					
 					String[] Permission = item.getPermission().split("");
 					int[] intArray = new int[Permission.length];
 					for(int i = 0; i < Permission.length; i++){
 					    intArray[i] = Integer.parseInt(Permission[i]);
 					}
-					busA_depth_2.setPermission(intArray);
+					busA_depth_2_1.setPermission(intArray);
 					
-					behaviors.add(busA_depth_2);
+					behaviors.add(busA_depth_2_1);
+					
+					busA_depth_1.setBehaviors(behaviors);
 					//================================================================
 					
 					List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
