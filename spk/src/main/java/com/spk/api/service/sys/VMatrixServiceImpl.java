@@ -185,7 +185,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 					// 콤마로 총 api 갯수 구하기 (콤마개수 + 1 해준다)
 					String getType_a = item.getType_a();					
 					int apiCount = getType_a.length() - getType_a.replace(String.valueOf(","), "").length()+1;
-					logger.info("apiCount=====#@@##==>"+apiCount);				
+//					logger.info("apiCount=====#@@##==>"+apiCount);				
 					
 					// TYPE
 					String[] arr_type_a = new String[apiCount];
@@ -193,10 +193,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 						arr_type_a = item.getType_a().split(",");
 					} else {
 						arr_type_a[0] = item.getType_a();
-//						String type_a = arr_type_a[0].toString();
 					}
 
-					logger.info("arr_type_a============>"+Arrays.toString(arr_type_a));
+//					logger.info("arr_type_a============>"+Arrays.toString(arr_type_a));
 					
 					// TYPE
 					String[] arr_method_a = new String[apiCount];
@@ -237,7 +236,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						arr_defaultParamValue_a[0] = item.getDefault_param_value_a();
 					}
 					
-					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
+//					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
 					
 					// REQURED PARAM
 					String[] arr_requiredParam = new String[apiCount];
@@ -266,10 +265,10 @@ public class VMatrixServiceImpl implements VMatrixService {
 					}					
 					
 					
-					logger.info("@@@@@arr_type_a.length@@@@@@===>"+arr_type_a.length);
+//					logger.info("@@@@@arr_type_a.length@@@@@@===>"+arr_type_a.length);
 					// loop 시작 
 					for(int i = 0; i < apiCount; i++){
-					logger.info("@@@@@iiiii@@@@@@===>"+i);
+//					logger.info("@@@@@iiiii@@@@@@===>"+i);
 						BusA_depth_2 busA_depth_2_A = new BusA_depth_2();
 						BusA_depth_3 busA_depth_3_A = new BusA_depth_3();
 						List<BusA_depth_2> behaviors_A = new ArrayList<BusA_depth_2>();
@@ -292,11 +291,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//============================================================
 			            //< requiredTarget
 			            //============================================================
-//						logger.info("arr_requiredTarget[i]=######################>"+arr_requiredTarget[i]);
-//						logger.info("arr_requiredTarget=######################>"+arr_requiredTarget);
-//						logger.info("arr_requiredTarget.toString=>"+Arrays.toString(arr_requiredTarget));
-						
-//						if (arr_requiredTarget != null && arr_requiredTarget.length > 0)
 						if (arr_requiredTarget[i] != null && arr_requiredTarget[i].length() > 0)
 							busA_depth_2_A.setRequiredTarget(arr_requiredTarget[i]);						
 
@@ -310,7 +304,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//============================================================
 			            //< requiredParameter
 			            //============================================================						
-						if (arr_requiredParam[i].length() > 0) {
+						if (arr_requiredParam[i] != null && arr_requiredParam[i].length() > 0) {
 							String[] each_arr_requiredParam = new String[1];
 							if (arr_requiredParam[i].toString().contains(",")) {
 								each_arr_requiredParam = arr_requiredParam[i].toString().split(",");
@@ -331,33 +325,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 							}
 							busA_depth_2_A.setPermission(intArray);						
 						}
-							
-							
-//						String[] Permission = item.getPermission().split("");
-//						int[] intArray = new int[Permission.length];
-//						for(int j = 0; j < Permission.length; j++){
-//						    intArray[j] = Integer.parseInt(Permission[j]);
-//						}
-//						busA_depth_2_A.setPermission(intArray);						
-						
-						
-						
-						
-						
-						//behaviors.add(busA_depth_2_A);
-						//busA_depth_1.setBehaviors(behaviors);
-						
 						
 						behaviors_A.add(busA_depth_2_A);
-						
-						
-						
-						
-						
-						
-
 						behaviors.addAll(behaviors_A);
-												
 
 					// loop 끝
 					}
