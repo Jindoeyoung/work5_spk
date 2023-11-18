@@ -227,17 +227,17 @@ public class VMatrixServiceImpl implements VMatrixService {
 						}						
 					}
 					
-					logger.info("arr_requiredTarget============>"+Arrays.toString(arr_requiredTarget));
+//					logger.info("arr_requiredTarget============>"+Arrays.toString(arr_requiredTarget));
 					
 					// DEFAULT PARAM VALUE
-					String[] arr_defaultParamValue = new String[apiCount];
-					if (item.getDefault_param_value().contains(",")) {
-						arr_defaultParamValue = item.getDefault_param_value().split(",");
+					String[] arr_defaultParamValue_a = new String[apiCount];
+					if (item.getDefault_param_value_a().contains(",")) {
+						arr_defaultParamValue_a = item.getDefault_param_value_a().split(",");
 					} else {
-						arr_defaultParamValue[0] = item.getDefault_param_value();
+						arr_defaultParamValue_a[0] = item.getDefault_param_value_a();
 					}
 					
-//					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue));
+					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
 					
 					// REQURED PARAM
 					String[] arr_requiredParam = new String[apiCount];
@@ -251,6 +251,19 @@ public class VMatrixServiceImpl implements VMatrixService {
 							arr_requiredParam[j] = null;
 						}						
 					}
+					
+					// PERMISSION
+					String[] arr_permission = new String[apiCount];
+					if (item.getPermission().contains("`")) {
+						arr_permission = item.getPermission().split("`");
+					} else {
+						arr_permission[0] = item.getPermission();
+						
+						// 배열 나머지 요소는 null 로 채움
+						for(int j = 1; j < apiCount; j++){
+							arr_permission[j] = null;
+						}						
+					}					
 					
 					
 					logger.info("@@@@@arr_type_a.length@@@@@@===>"+arr_type_a.length);
@@ -290,7 +303,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//============================================================
 			            //< defaultParameter (IF_ID)
 			            //============================================================						
-						busA_depth_3_A.setIf_id(arr_defaultParamValue[i]);
+						busA_depth_3_A.setIf_id(arr_defaultParamValue_a[i]);
 
 						busA_depth_2_A.setDefaultParameter(busA_depth_3_A);
 						
@@ -310,12 +323,25 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//============================================================
 			            //< permission
 			            //============================================================
-						String[] Permission = item.getPermission().split("");
-						int[] intArray = new int[Permission.length];
-						for(int j = 0; j < Permission.length; j++){
-						    intArray[j] = Integer.parseInt(Permission[j]);
+						if (arr_permission[i] != null && arr_permission[i].length() > 0) {
+							String[] Permission = arr_permission[i].split("");
+							int[] intArray = new int[Permission.length];
+							for(int j = 0; j < Permission.length; j++){
+							    intArray[j] = Integer.parseInt(Permission[j]);
+							}
+							busA_depth_2_A.setPermission(intArray);						
 						}
-						busA_depth_2_A.setPermission(intArray);						
+							
+							
+//						String[] Permission = item.getPermission().split("");
+//						int[] intArray = new int[Permission.length];
+//						for(int j = 0; j < Permission.length; j++){
+//						    intArray[j] = Integer.parseInt(Permission[j]);
+//						}
+//						busA_depth_2_A.setPermission(intArray);						
+						
+						
+						
 						
 						
 						//behaviors.add(busA_depth_2_A);
