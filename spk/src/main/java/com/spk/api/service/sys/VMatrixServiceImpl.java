@@ -2,6 +2,7 @@ package com.spk.api.service.sys;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -71,17 +72,24 @@ public class VMatrixServiceImpl implements VMatrixService {
 		
 		try {
 			List<VMatrix> datas = vMatrixMappers.getMatrixList(vMatrix.getGubun());
-//			
+
+// [POINT]  아래 선언을, loop 시작 전에 선언			
+			List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
 			
-			
-			BusA busA = new BusA();
-			BusA_depth_1 busA_depth_1 = new BusA_depth_1();
-//			BusA_depth_2 busA_depth_2 = new BusA_depth_2();
-			BusA_depth_3 busA_depth_3 = new BusA_depth_3();
+			int rowCount = 0;
 			
 			if (datas.size() > 0) {
 				
 				for (VMatrix item : datas) {
+					
+					rowCount++;
+					
+					BusA busA = new BusA();
+					BusA_depth_1 busA_depth_1 = new BusA_depth_1();
+					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
+					BusA_depth_3 busA_depth_3 = new BusA_depth_3();
+					
+					
 					
 					logger.info("getSpike_id==>"+item.getSpike_id());
 					
@@ -146,7 +154,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 					//< : 위젯 자체 API 호출. 예)칼럼 헤더
 					//< : [behaviors] - 1
 		            //============================================================ 
-					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
+//					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
 					List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
 					
 		            //============================================================
@@ -333,16 +341,22 @@ public class VMatrixServiceImpl implements VMatrixService {
 					}
 					busA_depth_1.setBehaviors(behaviors);
 					
-					
-					List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
+// [POINT]          아래 선언을, loop 시작 전에 선언					
+//					List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
 					flag_info.add(busA_depth_1);
 					
-					logger.info("flag_info =>"+flag_info);					
+//					logger.info("rowCount =##################>"+rowCount);					
+//					logger.info("size =##################>"+datas.size());
+
+					logger.info("flag_info =>"+flag_info);
 					
-					// REDIS Insert
-					BusA insertBusA = null;
-					busAService_v4.getUser(item.getSpike_id());
-					insertBusA = busAService_v4.registerUser(item.getSpike_id(), flag_info);
+					if ( rowCount == datas.size()) {
+						logger.info("INSERT!!!>");
+						// REDIS Insert
+						BusA insertBusA = null;
+						busAService_v4.getUser(item.getSpike_id());
+						insertBusA = busAService_v4.registerUser(item.getSpike_id(), flag_info);
+					}
 					
 //					return new ResponseEntity<>(insertBusA, HttpStatus.OK);
 				}
