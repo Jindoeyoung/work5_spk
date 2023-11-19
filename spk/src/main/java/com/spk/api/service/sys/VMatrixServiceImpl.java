@@ -1,22 +1,22 @@
 package com.spk.api.service.sys;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+//import java.util.Arrays;
+//import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.tomcat.util.json.JSONParser;
-import org.json.JSONObject;
+//import org.apache.tomcat.util.json.JSONParser;
+//import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+//import com.google.gson.JsonArray;
+//import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.redis.busa_v4.BusA;
 import com.spk.api.entity.redis.busa_v4.BusA_depth_1;
@@ -359,7 +359,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 					}
 					
 //					return new ResponseEntity<>(insertBusA, HttpStatus.OK);
-				}
+				}  // end of for (VMatrix item : datas)
 
 				
 			} else {
