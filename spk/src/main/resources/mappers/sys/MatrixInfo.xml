@@ -6,9 +6,9 @@
 	<!-- 시스템메뉴유저 조회  -->
     <select id="getMatrixList" resultType="com.spk.api.entity.sys.VMatrix">
         SELECT * 
-          FROM V_MATRIX
+          FROM MATRIX
          WHERE GUBUN = #{gubun}
-           AND SEQ = 6 
+           AND SEQ in (13,14) 
     </select>
     
 </mapper>
