@@ -8,7 +8,7 @@
 		SELECT a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, a.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY 
 		FROM SYS_MENU_MST a left join SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
 		WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
-		AND b.USE_YN = 'Y'
+		<!--AND b.USE_YN = 'Y'-->
 		ORDER BY a.DIVISION DESC, a.SEQ   
     </select>
     
