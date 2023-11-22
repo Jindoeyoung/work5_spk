@@ -16,6 +16,20 @@ public interface VMatrixMappers {
 		@Param("gubun") String gubun
 	);
 	
+    //============================================================
+    //< SELECT (List) - 전체 spike_id 리스트 조회
+    //============================================================	
+	List<VMatrix> getAllSpikeIdList(
+	);
+
+    //============================================================
+    //< SELECT (List) - spike_id 별 처리할 위젯 리스트 조회
+    //============================================================	
+	List<VMatrix> getSpikeIdMatrixList(
+		 @Param("gubun") String gubun
+		,@Param("spike_id") String spike_id
+	);	
+	
 //	List<ColumnElementTypeEntity> getTypeList(
 //		 @Param("table") String table
 //		,@Param("column") String column
