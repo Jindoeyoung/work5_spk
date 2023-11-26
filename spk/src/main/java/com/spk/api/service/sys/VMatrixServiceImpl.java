@@ -124,11 +124,11 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String getDefault_param_value = item.getDefault_param_value();
 						
 						int tableCount = 0;
-						if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
+//						if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
 							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
-						}
+//						}
 						
-//						logger.info("tableCount====="+tableCount);
+						logger.info("tableCount====="+tableCount);
 						
 						String[] arr_tbl_nm = new String[tableCount];
 						
@@ -232,7 +232,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						// 콤마로 총 api 갯수 구하기 (콤마개수 + 1 해준다)
 						String getType_a = item.getType_a();					
 						int apiCount = getType_a.length() - getType_a.replace(String.valueOf(","), "").length()+1;
-	//					logger.info("apiCount=====#@@##==>"+apiCount);				
+//						logger.info("apiCount==######################################===#@@##==>"+apiCount);				
 						
 						// TYPE
 						String[] arr_type_a = new String[apiCount];
@@ -387,11 +387,11 @@ public class VMatrixServiceImpl implements VMatrixService {
 									each_arr_requiredParam = arr_requiredParam[i].toString().split(",");
 								} else {
 									each_arr_requiredParam[0] = arr_requiredParam[i];
-									
-									// 배열 나머지 요소는 null 로 채움
-									for(int j = 1; j < apiCount; j++){
-										each_arr_requiredParam[j] = null;
-									}									
+//JDY 아래 4줄은 의심									
+//									// 배열 나머지 요소는 null 로 채움
+//									for(int j = 1; j < apiCount; j++){
+//										each_arr_requiredParam[j] = null;
+//									}									
 								}
 								busA_depth_2_A.setRequiredParameter(each_arr_requiredParam);
 							}
