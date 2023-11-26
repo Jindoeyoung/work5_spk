@@ -1,6 +1,7 @@
 package com.spk.api.service.sys;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 //import java.util.Arrays;
 //import java.util.Iterator;
 import java.util.List;
@@ -110,7 +111,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 	//					String[] arr_tbl_nm = new String[commaCount-1];
 						
 						// 굳이 위 처럼 전체 배열 크리를 먼저 구하지 않고, 아래에서 콤마(,) 갯수에 의해 크기가 할당 되니까, 우선 1사이즈로 초기화 하자
-						String[] arr_tbl_nm = new String[1];
+//						String[] arr_tbl_nm = new String[1];
 						
 	//					logger.info("1. item.getDefault_param_value()====>"+item.getDefault_param_value());
 						
@@ -119,17 +120,40 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//< user_id : (공통)_그리드, (공통)_디테일
 						//< tbl_mm : 그 외 전부
 			            //============================================================
+						// 콤마로 총 테이블 갯수 구하기 (콤마개수 + 1 해준다) : (공통)_그리드, (공통)_디테일 이 아닌 경우만 해당
+						String getDefault_param_value = item.getDefault_param_value();
+						
+						int tableCount = 0;
+						if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
+							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
+						}
+						
+//						logger.info("tableCount====="+tableCount);
+						
+						String[] arr_tbl_nm = new String[tableCount];
+						
 						if ( 
 							( item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
 							  item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-002-01") ) && 
 							  item.getGubun().equals("0") ) { // BUS AVAIL 경우 
 							user_id = item.getDefault_param_value();
 						} else {
-							if (item.getDefault_param_value().contains(",")) {
-								arr_tbl_nm = item.getDefault_param_value().split(",");
-							} else {
-								arr_tbl_nm[0] = item.getDefault_param_value();
+
+							if ( tableCount > 0 ) {
+								
+								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
+									arr_tbl_nm = item.getDefault_param_value().split(",");
+								} else {
+									arr_tbl_nm[0] = item.getDefault_param_value();
+									
+									// 배열 나머지 요소는 null 로 채움
+									for(int j = 1; j < tableCount; j++){
+										arr_tbl_nm[j] = null;
+									}								
+								}
+								
 							}
+								
 						}
 						
 	//					logger.info("2. arr_tbl_nm====>"+Arrays.toString(arr_tbl_nm));
@@ -165,29 +189,38 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 			            //============================================================
 			            //< type (self)
-			            //============================================================					
-						busA_depth_2.setType(item.getType());
+			            //============================================================
+						if (item.getType().length()>0)
+							busA_depth_2.setType(item.getType());
 						
 			            //============================================================
 			            //< method (POST/GET/PUT/DELETE/PATCH)
-			            //============================================================					
-						busA_depth_2.setMethod(item.getMethod());
+			            //============================================================
+						if (item.getMethod().length()>0)
+							busA_depth_2.setMethod(item.getMethod());
 						
 			            //============================================================
 			            //< uri
 			            //============================================================
-						busA_depth_2.setUri(item.getUri());
+						if (item.getUri().length()>0)
+							busA_depth_2.setUri(item.getUri());
 	
 			            //============================================================
 			            //< defaultParameter (user_id 또는 tbl_nm)
 			            //============================================================					
 						if (user_id.length()>0)				
 							busA_depth_3.setUser_id(user_id);
-						if (arr_tbl_nm.length > 0) 
+						
+//						logger.info("Arrays.toString(arr_tbl_nm)===>"+Arrays.toString(arr_tbl_nm));
+//						logger.info("arr_tbl_nm.length====="+arr_tbl_nm.length);
+						
+						if (arr_tbl_nm != null && arr_tbl_nm.length > 0) 
 							busA_depth_3.setTbl_nm(arr_tbl_nm);
 						
-						busA_depth_2.setDefaultParameter(busA_depth_3);
-						behaviors.add(busA_depth_2);
+						if (busA_depth_3 != null)
+							busA_depth_2.setDefaultParameter(busA_depth_3);
+						if (busA_depth_2 != null)
+							behaviors.add(busA_depth_2);
 	
 			            //============================================================
 			            //< API - search 영역
@@ -310,17 +343,20 @@ public class VMatrixServiceImpl implements VMatrixService {
 				            //============================================================
 				            //< type
 				            //============================================================
-							busA_depth_2_A.setType(arr_type_a[i]);
+							if (arr_type_a[i] != null && arr_type_a[i].length() > 0)
+								busA_depth_2_A.setType(arr_type_a[i]);
 							
 				            //============================================================
 				            //< method (POST/GET/PUT/DELETE/PATCH)
-				            //============================================================						
-							busA_depth_2_A.setMethod(arr_method_a[i]);
+				            //============================================================
+							if (arr_method_a[i] != null && arr_method_a[i].length() > 0)
+								busA_depth_2_A.setMethod(arr_method_a[i]);
 							
 							//============================================================
 				            //< uri
-				            //============================================================						
-							busA_depth_2_A.setUri(arr_uri_a[i]);
+				            //============================================================
+							if (arr_uri_a[i] != null && arr_uri_a[i].length() > 0)
+								busA_depth_2_A.setUri(arr_uri_a[i]);
 	
 							//============================================================
 				            //< requiredTarget
@@ -330,20 +366,32 @@ public class VMatrixServiceImpl implements VMatrixService {
 	
 							//============================================================
 				            //< defaultParameter (IF_ID)
-				            //============================================================						
-							busA_depth_3_A.setIf_id(arr_defaultParamValue_a[i]);
+				            //============================================================
+							
+							logger.info("arr_defaultParamValue_a[i]===>"+arr_defaultParamValue_a[i]);
+							logger.info("arr_defaultParamValue_a[i].length()====="+arr_defaultParamValue_a[i].length());							
+							
+							
+							if (arr_defaultParamValue_a[i] != null && arr_defaultParamValue_a[i].length() > 0)
+								busA_depth_3_A.setIf_id(arr_defaultParamValue_a[i]);
 	
-							busA_depth_2_A.setDefaultParameter(busA_depth_3_A);
+							if (busA_depth_3_A != null)
+								busA_depth_2_A.setDefaultParameter(busA_depth_3_A);
 							
 							//============================================================
 				            //< requiredParameter
 				            //============================================================						
 							if (arr_requiredParam[i] != null && arr_requiredParam[i].length() > 0) {
 								String[] each_arr_requiredParam = new String[1];
-								if (arr_requiredParam[i].toString().contains(",")) {
+								if (arr_requiredParam[i].toString() != null && arr_requiredParam[i].toString().contains(",")) {
 									each_arr_requiredParam = arr_requiredParam[i].toString().split(",");
 								} else {
 									each_arr_requiredParam[0] = arr_requiredParam[i];
+									
+									// 배열 나머지 요소는 null 로 채움
+									for(int j = 1; j < apiCount; j++){
+										each_arr_requiredParam[j] = null;
+									}									
 								}
 								busA_depth_2_A.setRequiredParameter(each_arr_requiredParam);
 							}
@@ -359,17 +407,21 @@ public class VMatrixServiceImpl implements VMatrixService {
 								}
 								busA_depth_2_A.setPermission(intArray);						
 							}
+							if (busA_depth_2_A != null)
+								behaviors_A.add(busA_depth_2_A);
 							
-							behaviors_A.add(busA_depth_2_A);
-							behaviors.addAll(behaviors_A);
+							if (behaviors_A != null)
+								behaviors.addAll(behaviors_A);
 	
 						// loop 끝
 						}
-						busA_depth_1.setBehaviors(behaviors);
+						if (behaviors != null)
+							busA_depth_1.setBehaviors(behaviors);
 						
 	// [POINT]          아래 선언을, loop 시작 전에 선언					
 	//					List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
-						flag_info.add(busA_depth_1);
+						if (busA_depth_1 != null)
+							flag_info.add(busA_depth_1);
 						
 	//					logger.info("rowCount =##################>"+rowCount);					
 	//					logger.info("size =##################>"+datas.size());
