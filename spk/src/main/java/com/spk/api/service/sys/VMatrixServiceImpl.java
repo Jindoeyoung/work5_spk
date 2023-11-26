@@ -203,33 +203,48 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						// TYPE
 						String[] arr_type_a = new String[apiCount];
-						if (item.getType_a().contains(",")) {
+						if (item.getType_a() != null && item.getType_a().contains(",")) {
 							arr_type_a = item.getType_a().split(",");
 						} else {
 							arr_type_a[0] = item.getType_a();
+							
+							// 배열 나머지 요소는 null 로 채움
+							for(int j = 1; j < apiCount; j++){
+								arr_type_a[j] = null;
+							}							
 						}
 	
 	//					logger.info("arr_type_a============>"+Arrays.toString(arr_type_a));
 						
-						// TYPE
+						// METHOD
 						String[] arr_method_a = new String[apiCount];
-						if (item.getMethod_a().contains(",")) {
+						if (item.getMethod_a() != null && item.getMethod_a().contains(",")) {
 							arr_method_a = item.getMethod_a().split(",");
 						} else {
 							arr_method_a[0] = item.getMethod_a();
+							
+							// 배열 나머지 요소는 null 로 채움
+							for(int j = 1; j < apiCount; j++){
+								arr_method_a[j] = null;
+							}							
 						}
 						
 						// URI
 						String[] arr_uri_a = new String[apiCount];
-						if (item.getUri_a().contains(",")) {
+						if (item.getUri_a() != null && item.getUri_a().contains(",")) {
 							arr_uri_a = item.getUri_a().split(",");
 						} else {
 							arr_uri_a[0] = item.getUri_a();
+							
+							// 배열 나머지 요소는 null 로 채움
+							for(int j = 1; j < apiCount; j++){
+								arr_uri_a[j] = null;
+							}							
 						}
 						
 						// REQUIRED TARGET
 						String[] arr_requiredTarget = new String[apiCount];
-						if (item.getRequired_target().contains(",")) {
+						if (item.getRequired_target() != null && item.getRequired_target().contains(",")) {
 							arr_requiredTarget = item.getRequired_target().split(",");
 						} else {
 							arr_requiredTarget[0] = item.getRequired_target();
@@ -244,17 +259,22 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						// DEFAULT PARAM VALUE
 						String[] arr_defaultParamValue_a = new String[apiCount];
-						if (item.getDefault_param_value_a().contains(",")) {
+						if (item.getDefault_param_value_a() != null && item.getDefault_param_value_a().contains(",")) {
 							arr_defaultParamValue_a = item.getDefault_param_value_a().split(",");
 						} else {
 							arr_defaultParamValue_a[0] = item.getDefault_param_value_a();
+							
+							// 배열 나머지 요소는 null 로 채움
+							for(int j = 1; j < apiCount; j++){
+								arr_defaultParamValue_a[j] = null;
+							}							
 						}
 						
 	//					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
 						
 						// REQURED PARAM
 						String[] arr_requiredParam = new String[apiCount];
-						if (item.getRequired_param().contains("`")) {
+						if (item.getRequired_param() != null && item.getRequired_param().contains("`")) {
 							arr_requiredParam = item.getRequired_param().split("`");
 						} else {
 							arr_requiredParam[0] = item.getRequired_param();
@@ -267,7 +287,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						// PERMISSION
 						String[] arr_permission = new String[apiCount];
-						if (item.getPermission().contains("`")) {
+						if (item.getPermission() != null && item.getPermission().contains("`")) {
 							arr_permission = item.getPermission().split("`");
 						} else {
 							arr_permission[0] = item.getPermission();
