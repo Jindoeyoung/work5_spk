@@ -21,4 +21,5 @@ public class SysMenuUsr {
 	private String use_yn;
 	private String json_data;
 	private String isDirectory;
+	private String dept;
 }

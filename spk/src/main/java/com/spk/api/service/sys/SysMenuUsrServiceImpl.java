@@ -38,48 +38,6 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 	 * @return String
 	 */
 	@Override
-	public String getSysMenuUsrList2(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
-	    //============================================================
-	    //< api-key check
-	    //============================================================
-		if (!authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey()).equals("{}")) {
-			return authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey());
-		}
-
-        //============================================================
-        //< json 포맷 데이터 생성
-        //============================================================		
-		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr = new JsonArray();
-		String Message = "SUCCESS";
-		String Success = "1";
-		
-		try {
-			List<SysMenuUsr> sysMenuUsr = sysMenuUsrMapper.getSysMenuUsrList2(pSysMenuUsr);
-			
-			dataResult.addProperty("reason", Message);
-			dataResult.addProperty("result", Success);
-			
-			if (sysMenuUsr.size() > 0) {
-				for (SysMenuUsr item : sysMenuUsr) {
-					JSONObject result = new JSONObject(item.getJson_data());
-					jsonArr.add(item.getJson_data());	
-				}
-				dataResult.add("menu_info", jsonArr);
-				
-			} else {
-
-			}
-		} catch (Exception e) {
-			logger.error("[SysMenuInfoServiceImpl.getSysMenuUsrList2] ERROR : " + e);
-			e.printStackTrace();
-		}			
-		return dataResult.toString();
-	}	
-	
-	
-	
-	@Override
 	public String getSysMenuUsrList(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
 	    //============================================================
 	    //< api-key check
@@ -206,6 +164,86 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 		return dataResult.toString();
 	}
 
+	@Override
+	public String getSysMenuUsrList2(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
+	    //============================================================
+	    //< api-key check
+	    //============================================================
+		if (!authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey());
+		}
+
+        //============================================================
+        //< json 포맷 데이터 생성
+        //============================================================		
+		JsonObject dataResult = new JsonObject();
+
+		String Message = "SUCCESS";
+		String Success = "1";
+		
+		try {
+			
+			List<SysMenuUsr> sysMenuUsr = sysMenuUsrMapper.getSysMenuUsrList2(pSysMenuUsr);
+			
+			dataResult.addProperty("reason", Message);
+			dataResult.addProperty("result", Success);
+			
+			
+			JsonObject Obj1 = new JsonObject();
+			
+			if (sysMenuUsr.size() > 0) {
+
+				JsonObject result = new JsonObject();
+				result.addProperty("menuCd", "NAMBU");
+				result.add("subMenu", new JsonArray());
+								
+				for (SysMenuUsr item : sysMenuUsr) {
+					String parentId = item.getParent_menu_id();
+					JsonObject parent = getParent(result, parentId);
+					JsonObject current = new JsonObject();
+					current.addProperty("menuCd", item.getMenu_id());
+					current.addProperty("menuNm", item.getMenu_nm());
+					current.addProperty("use_yn", item.getUse_yn());
+					if(item.getIsDirectory() != null && item.getIsDirectory().equals("1")) {
+						current.add("subMenu", new JsonArray());
+					}
+					if(parent == null) {
+//						System.out.println("not found parent:"+parentId+",current:"+current);
+						result.get("subMenu").getAsJsonArray().add(current);
+					}else {
+						JsonElement children = parent.get("subMenu");
+						if(children == null) {
+							parent.add("subMenu", new JsonArray());
+							children = parent.get("subMenu").getAsJsonArray();
+						}
+						children.getAsJsonArray().add(current);
+						boolean isEveryN = true;
+						for(JsonElement child : children.getAsJsonArray()) {
+							String yn=child.getAsJsonObject().get("use_yn").getAsString();
+//							logger.info(yn);
+							if(yn.equals("Y")) {								
+								isEveryN=false;
+								break;
+							}
+						}
+						if(isEveryN) {
+							parent.addProperty("use_yn", "N");
+						}else {
+							parent.addProperty("use_yn", "Y");
+						}
+					}
+				}
+				dataResult.add("menu_info", result.get("subMenu").getAsJsonArray());
+			} else {
+				
+			}
+		} catch (Exception e) {
+			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfoList] ERROR : " + e);
+			e.printStackTrace();
+		}			
+		return dataResult.toString();
+	}		
+	
 	public JsonObject getParent(JsonObject current, String parentId) {		
 		if(current != null && current.get("menuCd") != null && current.get("menuCd").getAsString().equals(parentId)) {
 			return current;

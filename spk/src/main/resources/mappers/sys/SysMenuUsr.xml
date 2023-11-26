@@ -14,13 +14,24 @@
     
 	<!-- 시스템메뉴유저 조회  -->
     <select id="getSysMenuUsrList2" resultType="com.spk.api.entity.SysMenuUsr">
-		SELECT JSON_OBJECT('menuCd', MENU_ID, 'menuNm', MENU_NM) AS JSON_DATA, LEVEL
-		FROM SYS_MENU_USR    
-        WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
-          AND DIVISION = 'U'
-          <!--  AND SEQ <![CDATA[ <= ]]> 25 -->
-         ORDER BY DIVISION DESC, SEQ    
-    </select>    
+		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION
+		FROM
+		(
+			SELECT distinct a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, a.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION
+			FROM SYS_MENU_MST a
+			join SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
+			join SYS_MENU_AUTH c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
+			</if>
+			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
+			and ( c.depart_cd = #{SYS_MENU_USR.dept} or c.depart_cd = ( CASE WHEN #{SYS_MENU_USR.dept} = '0040' then 'ALL'    
+										                       				 WHEN #{SYS_MENU_USR.dept} = '0020' then 'ALL'
+										                      	 			 WHEN #{SYS_MENU_USR.dept} = '2000' then 'ALL' end ) )
+			</if>							                      	 			 
+		) x
+		ORDER BY x.DIVISION DESC, x.SEQ 
+    </select>
     
 	<!-- 시스템메뉴유저 상세조회  -->
     <select id="getSysMenuUsrInfo" resultType="com.spk.api.entity.SysMenuUsr">
