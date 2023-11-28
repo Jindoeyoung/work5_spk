@@ -24,6 +24,13 @@ public interface SysMenuUsrMapper {
     //============================================================	
 	List<SysMenuUsr> getSysMenuUsrList2(
 		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
+	);
+	
+    //============================================================
+    //< SELECT - 시스템메뉴유저 리스트 조회
+    //============================================================	
+	List<SysMenuUsr> getSysMenuUsrList3(
+		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
 	);	
 
     //============================================================

@@ -12,7 +12,7 @@
 		ORDER BY a.DIVISION DESC, a.SEQ   
     </select>
     
-	<!-- 시스템메뉴유저 조회  -->
+	<!-- 시스템메뉴유저 조회 : 부서별 메뉴조회 적용  -->
     <select id="getSysMenuUsrList2" resultType="com.spk.api.entity.SysMenuUsr">
 		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION
 		FROM
@@ -32,6 +32,28 @@
 		) x
 		ORDER BY x.DIVISION DESC, x.SEQ 
     </select>
+    
+	<!-- 시스템메뉴유저 조회 : OWNER 추가 -->
+    <select id="getSysMenuUsrList3" resultType="com.spk.api.entity.SysMenuUsr">
+		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
+			   case when x.ISDIRECTORY is null then x.OWNER else null end OWNER
+		FROM
+		(
+			SELECT distinct a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, a.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
+			FROM SYS_MENU_MST a
+			join SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
+			join SYS_MENU_AUTH c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
+			</if>
+			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
+			and ( c.depart_cd = #{SYS_MENU_USR.dept} or c.depart_cd = ( CASE WHEN #{SYS_MENU_USR.dept} = '0040' then 'ALL'    
+										                       				 WHEN #{SYS_MENU_USR.dept} = '0020' then 'ALL'
+										                      	 			 WHEN #{SYS_MENU_USR.dept} = '2000' then 'ALL' end ) )
+			</if>							                      	 			 
+		) x
+		ORDER BY x.DIVISION DESC, x.SEQ 
+    </select>    
     
 	<!-- 시스템메뉴유저 상세조회  -->
     <select id="getSysMenuUsrInfo" resultType="com.spk.api.entity.SysMenuUsr">

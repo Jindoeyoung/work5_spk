@@ -27,12 +27,21 @@ public class SysMenuUsrController {
 	}
 	
     //============================================================
-    //< SELECT - 시스템메뉴사용자 리스트 조회
+    //< SELECT - 시스템메뉴사용자 리스트 조회 (부서별 메뉴조회 적용)
     //============================================================	
 	@PostMapping("/getSysMenuUsrList-v2")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMenuUsrList2(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
 		return sysMenuUsrService.getSysMenuUsrList2(pSysMenuUsr);
+	}
+	
+    //============================================================
+    //< SELECT - 시스템메뉴사용자 리스트 조회 (OWNER 추가)
+    //============================================================	
+	@PostMapping("/getSysMenuUsrList-v3")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMenuUsrList3(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
+		return sysMenuUsrService.getSysMenuUsrList3(pSysMenuUsr);
 	}	
 	
     //============================================================
