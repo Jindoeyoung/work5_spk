@@ -28,6 +28,15 @@ public class VMatrixController {
 	public String getMatrixList(@RequestBody VMatrix vMatrix) throws Exception {
 		return vMatrixService.getMatrixList(vMatrix);
 	}
+
+    //============================================================
+    //< SELECT - Matrix : UserGrids 조회(mysql)-저장(redis) 처리  
+    //============================================================	
+	@PostMapping("/grids")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMatrixListGrids(@RequestBody VMatrix vMatrix) throws Exception {
+		return vMatrixService.getMatrixListGrids(vMatrix);
+	}	
 	
     //============================================================
     //< SELECT - Matrix : UserDetails 조회(mysql)-저장(redis) 처리  
