@@ -12,6 +12,11 @@ public interface VMatrixService {
     //============================================================	
 	public String getMatrixList(@Param("V_MATRIX") VMatrix vMatrix) throws Exception;
 	
+    //============================================================
+    //< SELECT - 매트릭스 조회 : Details
+    //============================================================	
+	public String getMatrixListDetails(@Param("V_MATRIX") VMatrix vMatrix) throws Exception;	
+	
 //    //============================================================
 //    //< SELECT - 시스템메뉴유저 리스트 조회
 //    //============================================================	
