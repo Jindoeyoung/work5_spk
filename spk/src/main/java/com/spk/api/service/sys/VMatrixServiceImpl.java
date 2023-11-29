@@ -31,6 +31,9 @@ import com.spk.api.mapper.sys.VMatrixMappers;
 import com.spk.api.security.AuthCheck;
 import com.spk.api.service.redis.BusAService_v4;
 
+import com.spk.api.entity.redis.userdetails_v3.*;
+import com.spk.api.service.redis.UserDetailsService_v3;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -42,7 +45,14 @@ public class VMatrixServiceImpl implements VMatrixService {
 	private BusAService_v4 busAService_v4;
 	
 	@Autowired
+	private UserDetailsService_v3 detailsService_v3;
+	
+	@Autowired
 	private VMatrixMappers vMatrixMappers;
+	
+	
+	
+	
 	
 	AuthCheck authcheck = new AuthCheck();
 
@@ -504,8 +514,11 @@ public class VMatrixServiceImpl implements VMatrixService {
 			
 				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList(vMatrix.getGubun(), user.getSpike_id()); 
 				
-	// [POINT]  아래 선언을, loop 시작 전에 선언			
-				List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
+				
+				UserDetails_depth_1 data = new UserDetails_depth_1();
+	// [POINT]  아래 선언을, loop 시작 전에 선언
+				List<UserDetails_depth_2> result = new ArrayList<UserDetails_depth_2>();
+//				List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
 				
 				int rowCount = 0;
 				
@@ -515,10 +528,16 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						rowCount++;
 						
-						BusA busA = new BusA();
-						BusA_depth_1 busA_depth_1 = new BusA_depth_1();
-						BusA_depth_2 busA_depth_2 = new BusA_depth_2();
-						BusA_depth_3 busA_depth_3 = new BusA_depth_3();
+						UserDetails details = new UserDetails();
+						UserDetails_depth_1 depth_1 = new UserDetails_depth_1();
+						UserDetails_depth_2 depth_2 = new UserDetails_depth_2();
+						UserDetails_depth_3 depth_3 = new UserDetails_depth_3();
+						UserDetails_depth_4 depth_4 = new UserDetails_depth_4();
+						
+//						BusA busA = new BusA();
+//						BusA_depth_1 busA_depth_1 = new BusA_depth_1();
+//						BusA_depth_2 busA_depth_2 = new BusA_depth_2();
+//						BusA_depth_3 busA_depth_3 = new BusA_depth_3();
 						
 						
 						
@@ -585,22 +604,22 @@ public class VMatrixServiceImpl implements VMatrixService {
 			            //============================================================
 			            //< spike_id
 			            //============================================================					
-						busA.setUser_id(item.getSpike_id());
+						details.setUser_id(item.getSpike_id());
 						
 			            //============================================================
 			            //< 위젯ID^기능ID
 			            //============================================================					
-						busA_depth_1.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
+						depth_2.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
 						
 			            //============================================================
 			            //< componentName (위젯명)
 			            //============================================================										
-						busA_depth_1.setComponentName(item.getWidget_nm());
+						depth_2.setComponentName(item.getWidget_nm());
 	
 			            //============================================================
 			            //< methods (권한)
 			            //============================================================					
-						busA_depth_1.setMethods(arr_method);
+						depth_2.setMethods(arr_method);
 	
 						
 			            //============================================================
@@ -609,42 +628,42 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//< : [behaviors] - 1
 			            //============================================================ 
 	//					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
-						List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
+						List<UserDetails_depth_3> behaviors = new ArrayList<UserDetails_depth_3>();
 						
 			            //============================================================
 			            //< type (self)
 			            //============================================================
 						if (item.getType().length()>0)
-							busA_depth_2.setType(item.getType());
+							depth_3.setType(item.getType());
 						
 			            //============================================================
 			            //< method (POST/GET/PUT/DELETE/PATCH)
 			            //============================================================
 						if (item.getMethod().length()>0)
-							busA_depth_2.setMethod(item.getMethod());
+							depth_3.setMethod(item.getMethod());
 						
 			            //============================================================
 			            //< uri
 			            //============================================================
 						if (item.getUri().length()>0)
-							busA_depth_2.setUri(item.getUri());
+							depth_3.setUri(item.getUri());
 	
 			            //============================================================
 			            //< defaultParameter (user_id 또는 tbl_nm)
 			            //============================================================					
 						if (user_id.length()>0)				
-							busA_depth_3.setUser_id(user_id);
+							depth_4.setUser_id(user_id);
 						
 //						logger.info("Arrays.toString(arr_tbl_nm)===>"+Arrays.toString(arr_tbl_nm));
 //						logger.info("arr_tbl_nm.length====="+arr_tbl_nm.length);
 						
 						if (arr_tbl_nm != null && arr_tbl_nm.length > 0) 
-							busA_depth_3.setTbl_nm(arr_tbl_nm);
+							depth_4.setTbl_nm(arr_tbl_nm);
 						
-						if (busA_depth_3 != null)
-							busA_depth_2.setDefaultParameter(busA_depth_3);
-						if (busA_depth_2 != null)
-							behaviors.add(busA_depth_2);
+						if (depth_4 != null)
+							depth_3.setDefaultParameter(depth_4);
+						if (depth_3 != null)
+							behaviors.add(depth_3);
 	
 			            //============================================================
 			            //< API - search 영역
@@ -760,33 +779,36 @@ public class VMatrixServiceImpl implements VMatrixService {
 						// loop 시작 
 						for(int i = 0; i < apiCount; i++){
 	//					logger.info("@@@@@iiiii@@@@@@===>"+i);
-							BusA_depth_2 busA_depth_2_A = new BusA_depth_2();
-							BusA_depth_3 busA_depth_3_A = new BusA_depth_3();
-							List<BusA_depth_2> behaviors_A = new ArrayList<BusA_depth_2>();
+							UserDetails_depth_3 depth_3_A = new UserDetails_depth_3();
+							UserDetails_depth_4 depth_4_A = new UserDetails_depth_4();
+							List<UserDetails_depth_3> behaviors_A = new ArrayList<UserDetails_depth_3>();
+//							BusA_depth_2 busA_depth_2_A = new BusA_depth_2();
+//							BusA_depth_3 busA_depth_3_A = new BusA_depth_3();
+//							List<BusA_depth_2> behaviors_A = new ArrayList<BusA_depth_2>();
 							
 				            //============================================================
 				            //< type
 				            //============================================================
 							if (arr_type_a[i] != null && arr_type_a[i].length() > 0)
-								busA_depth_2_A.setType(arr_type_a[i]);
+								depth_3_A.setType(arr_type_a[i]);
 							
 				            //============================================================
 				            //< method (POST/GET/PUT/DELETE/PATCH)
 				            //============================================================
 							if (arr_method_a[i] != null && arr_method_a[i].length() > 0)
-								busA_depth_2_A.setMethod(arr_method_a[i]);
+								depth_3_A.setMethod(arr_method_a[i]);
 							
 							//============================================================
 				            //< uri
 				            //============================================================
 							if (arr_uri_a[i] != null && arr_uri_a[i].length() > 0)
-								busA_depth_2_A.setUri(arr_uri_a[i]);
+								depth_3_A.setUri(arr_uri_a[i]);
 	
 							//============================================================
 				            //< requiredTarget
 				            //============================================================
 							if (arr_requiredTarget[i] != null && arr_requiredTarget[i].length() > 0)
-								busA_depth_2_A.setRequiredTarget(arr_requiredTarget[i]);						
+								depth_3_A.setRequiredTarget(arr_requiredTarget[i]);						
 	
 							//============================================================
 				            //< defaultParameter (IF_ID)
@@ -797,10 +819,10 @@ public class VMatrixServiceImpl implements VMatrixService {
 							
 							
 							if (arr_defaultParamValue_a[i] != null && arr_defaultParamValue_a[i].length() > 0)
-								busA_depth_3_A.setIf_id(arr_defaultParamValue_a[i]);
+								depth_4_A.setIf_id(arr_defaultParamValue_a[i]);
 	
-							if (busA_depth_3_A != null)
-								busA_depth_2_A.setDefaultParameter(busA_depth_3_A);
+							if (depth_4_A != null)
+								depth_3_A.setDefaultParameter(depth_4_A);
 							
 							//============================================================
 				            //< requiredParameter
@@ -817,7 +839,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 //										each_arr_requiredParam[j] = null;
 //									}									
 								}
-								busA_depth_2_A.setRequiredParameter(each_arr_requiredParam);
+								depth_3_A.setRequiredParameter(each_arr_requiredParam);
 							}
 							
 							//============================================================
@@ -829,10 +851,10 @@ public class VMatrixServiceImpl implements VMatrixService {
 								for(int j = 0; j < Permission.length; j++){
 								    intArray[j] = Integer.parseInt(Permission[j]);
 								}
-								busA_depth_2_A.setPermission(intArray);						
+								depth_3_A.setPermission(intArray);						
 							}
-							if (busA_depth_2_A != null)
-								behaviors_A.add(busA_depth_2_A);
+							if (depth_3_A != null)
+								behaviors_A.add(depth_3_A);
 							
 							if (behaviors_A != null)
 								behaviors.addAll(behaviors_A);
@@ -840,24 +862,29 @@ public class VMatrixServiceImpl implements VMatrixService {
 						// loop 끝
 						}
 						if (behaviors != null)
-							busA_depth_1.setBehaviors(behaviors);
+							depth_2.setBehaviors(behaviors);
 						
 	// [POINT]          아래 선언을, loop 시작 전에 선언					
 	//					List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
-						if (busA_depth_1 != null)
-							flag_info.add(busA_depth_1);
+						if (depth_2 != null)
+							result.add(depth_2);
 						
 	//					logger.info("rowCount =##################>"+rowCount);					
 	//					logger.info("size =##################>"+datas.size());
 	
-						logger.info("flag_info =>"+flag_info);
+						logger.info("flag_info =>"+result);
+						
+						data.setResult(result);
 						
 						if ( rowCount == datas.size()) {
 							logger.info("INSERT!!!>");
 							// REDIS Insert
-							BusA insertBusA = null;
-							busAService_v4.getUser(item.getSpike_id());
-							insertBusA = busAService_v4.registerUser(item.getSpike_id(), flag_info);
+							UserDetails insertDetails = null;
+							detailsService_v3.getUser(item.getSpike_id());
+							insertDetails = detailsService_v3.registerUser(item.getSpike_id(), data);							
+//							BusA insertBusA = null;
+//							busAService_v4.getUser(item.getSpike_id());
+//							insertBusA = busAService_v4.registerUser(item.getSpike_id(), flag_info);
 						}
 						
 	//					return new ResponseEntity<>(insertBusA, HttpStatus.OK);

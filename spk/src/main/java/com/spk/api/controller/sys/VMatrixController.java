@@ -35,6 +35,6 @@ public class VMatrixController {
 	@PostMapping("/details")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMatrixListDetails(@RequestBody VMatrix vMatrix) throws Exception {
-		return vMatrixService.getMatrixList(vMatrix);
+		return vMatrixService.getMatrixListDetails(vMatrix);
 	}	
 }
