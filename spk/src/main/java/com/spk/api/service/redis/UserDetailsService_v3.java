@@ -20,16 +20,11 @@ public class UserDetailsService_v3 {
         this.redisDAO = redisDAO;
     }
 
-//    public UserGrids registerUser(String userid, List<UserGridsDataDetail> flaginfo) throws IOException {
-//    public UserDetails registerUser(String userid, UserDetailsData data) throws IOException {
     public UserDetails registerUser(String userid, UserDetails_depth_1 data) throws IOException {
         UserDetails userApi = new UserDetails();
         userApi.setUser_id(userid);
         userApi.setData(data);
-//        userApi.setFlag_info(flaginfo);    	
-
         redisDAO.setUser(userApi);
-
         return redisDAO.getUser(userid);
     }    
 
