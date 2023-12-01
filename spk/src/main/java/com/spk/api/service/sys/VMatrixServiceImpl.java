@@ -107,6 +107,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						rowCount++;
 						
+						logger.info("rowCount#################==>"+rowCount);
+						
 						BusA busA = new BusA();
 						BusA_depth_1 busA_depth_1 = new BusA_depth_1();
 						BusA_depth_2 busA_depth_2 = new BusA_depth_2();
@@ -114,11 +116,19 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						
 						
-						logger.info("item.getSpike_id()==>"+item.getSpike_id());
+//						logger.info("item.getSpike_id()==>"+item.getSpike_id());
 						
 						//methods 배열
 						String[] arr_method = item.getMethods().split("");
 						String user_id = "";
+						
+						
+						
+						
+						
+						
+						
+						
 						
 						// Default_param_value 에서 콤마(,) 개수 구하기
 	//					String paramValue = item.getDefault_param_value();					
@@ -141,7 +151,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						int tableCount = 0;
 //						if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
+						if ("tbl_nm".equals(item.getDefault_param()) && item.getDefault_param_value() != null && item.getDefault_param_value().length() > 0) {
 							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
+						}
 //						}
 						
 						logger.info("tableCount====="+tableCount);
@@ -156,7 +168,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						} else {
 
 							if ( tableCount > 0 ) {
-								
+								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
 									arr_tbl_nm = item.getDefault_param_value().split(",");
 								} else {
@@ -171,6 +183,14 @@ public class VMatrixServiceImpl implements VMatrixService {
 							}
 								
 						}
+						
+						
+						
+						
+						
+						
+						
+						
 						
 	//					logger.info("2. arr_tbl_nm====>"+Arrays.toString(arr_tbl_nm));
 						
@@ -195,49 +215,66 @@ public class VMatrixServiceImpl implements VMatrixService {
 						busA_depth_1.setMethods(arr_method);
 	
 						
-			            //============================================================
-			            //< API - self 영역 
-						//< : 위젯 자체 API 호출. 예)칼럼 헤더
-						//< : [behaviors] - 1
-			            //============================================================ 
-	//					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
+						
+//						logger.info("item.getType()@@@@@@@@@@@@@@@@=>"+item.getType());
+//						logger.info("item.getType().length(@@@@@@@)=>"+item.getType().length());
+						
 						List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
 						
 			            //============================================================
-			            //< type (self)
-			            //============================================================
-						if (item.getType().length()>0)
-							busA_depth_2.setType(item.getType());
+			            //< self API - TYPE 유무 여부로 [TYPE]~[DEFAULT_PARAM_VALUE] 까지의 셋팅 여부 결정 
+			            //============================================================ 
+						if (item.getType() != null && item.getType().length()>0) {
+							
+//							logger.info("item.getType()@@@@@@@@@@@@@@@@=>"+item.getType());
 						
-			            //============================================================
-			            //< method (POST/GET/PUT/DELETE/PATCH)
-			            //============================================================
-						if (item.getMethod().length()>0)
-							busA_depth_2.setMethod(item.getMethod());
-						
-			            //============================================================
-			            //< uri
-			            //============================================================
-						if (item.getUri().length()>0)
-							busA_depth_2.setUri(item.getUri());
+				            //============================================================
+				            //< API - self 영역 
+							//< : 위젯 자체 API 호출. 예)칼럼 헤더
+							//< : [behaviors] - 1
+				            //============================================================ 
+		//					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
+//							List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
+							
+				            //============================================================
+				            //< type (self)
+				            //============================================================
+							if (item.getType() != null && item.getType().length()>0)
+								busA_depth_2.setType(item.getType());
+							
+				            //============================================================
+				            //< method (POST/GET/PUT/DELETE/PATCH)
+				            //============================================================
+							if (item.getMethod() != null && item.getMethod().length()>0)
+								busA_depth_2.setMethod(item.getMethod());
+							
+				            //============================================================
+				            //< uri
+				            //============================================================
+							if (item.getUri() != null && item.getUri().length()>0)
+								busA_depth_2.setUri(item.getUri());
+		
+				            //============================================================
+				            //< defaultParameter (user_id 또는 tbl_nm)
+				            //============================================================					
+							if (user_id != null && user_id.length()>0)				
+								busA_depth_3.setUser_id(user_id);
+							
+							logger.info("Arrays.toString(arr_tbl_nm)===>"+Arrays.toString(arr_tbl_nm));
+							logger.info("arr_tbl_nm.length====="+arr_tbl_nm.length);
+							
+							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
+								logger.info("arr_tbl_nm.length @@@@@@@@IN@@@@@@@@@@"+arr_tbl_nm.length);
+								busA_depth_3.setTbl_nm(arr_tbl_nm);
+							}
+							
+							if (busA_depth_3 != null)
+								busA_depth_2.setDefaultParameter(busA_depth_3);
+							if (busA_depth_2 != null)
+								behaviors.add(busA_depth_2);
 	
-			            //============================================================
-			            //< defaultParameter (user_id 또는 tbl_nm)
-			            //============================================================					
-						if (user_id.length()>0)				
-							busA_depth_3.setUser_id(user_id);
-						
-//						logger.info("Arrays.toString(arr_tbl_nm)===>"+Arrays.toString(arr_tbl_nm));
-//						logger.info("arr_tbl_nm.length====="+arr_tbl_nm.length);
-						
-						if (arr_tbl_nm != null && arr_tbl_nm.length > 0) 
-							busA_depth_3.setTbl_nm(arr_tbl_nm);
-						
-						if (busA_depth_3 != null)
-							busA_depth_2.setDefaultParameter(busA_depth_3);
-						if (busA_depth_2 != null)
-							behaviors.add(busA_depth_2);
-	
+						}	
+							
 			            //============================================================
 			            //< API - search 영역
 						//< : API 업무 영역 (데이터 조회)
@@ -246,108 +283,126 @@ public class VMatrixServiceImpl implements VMatrixService {
 			            //============================================================					
 						
 						// 콤마로 총 api 갯수 구하기 (콤마개수 + 1 해준다)
-						String getType_a = item.getType_a();					
-						int apiCount = getType_a.length() - getType_a.replace(String.valueOf(","), "").length()+1;
+						String getType_a = item.getType_a();
+						int apiCount = 0;
+						if (item.getType_a() != null && item.getType_a().length() > 0) {
+							apiCount = getType_a.length() - getType_a.replace(String.valueOf(","), "").length()+1;
+						}
+						
+//						logger.info("getType_a.length()=>"+getType_a.length());
+//						logger.info("getType_a.replace(String.valueOf(\",\"), \"\").length()=>"+getType_a.replace(String.valueOf(","), "").length());
 //						logger.info("apiCount==######################################===#@@##==>"+apiCount);				
 						
-						// TYPE
+						
 						String[] arr_type_a = new String[apiCount];
-						if (item.getType_a() != null && item.getType_a().contains(",")) {
-							arr_type_a = item.getType_a().split(",");
-						} else {
-							arr_type_a[0] = item.getType_a();
-							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_type_a[j] = null;
-							}							
-						}
-	
-	//					logger.info("arr_type_a============>"+Arrays.toString(arr_type_a));
-						
-						// METHOD
 						String[] arr_method_a = new String[apiCount];
-						if (item.getMethod_a() != null && item.getMethod_a().contains(",")) {
-							arr_method_a = item.getMethod_a().split(",");
-						} else {
-							arr_method_a[0] = item.getMethod_a();
-							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_method_a[j] = null;
-							}							
-						}
-						
-						// URI
 						String[] arr_uri_a = new String[apiCount];
-						if (item.getUri_a() != null && item.getUri_a().contains(",")) {
-							arr_uri_a = item.getUri_a().split(",");
-						} else {
-							arr_uri_a[0] = item.getUri_a();
-							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_uri_a[j] = null;
-							}							
-						}
-						
-						// REQUIRED TARGET
 						String[] arr_requiredTarget = new String[apiCount];
-						if (item.getRequired_target() != null && item.getRequired_target().contains(",")) {
-							arr_requiredTarget = item.getRequired_target().split(",");
-						} else {
-							arr_requiredTarget[0] = item.getRequired_target();
-							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_requiredTarget[j] = null;
-							}						
-						}
-						
-	//					logger.info("arr_requiredTarget============>"+Arrays.toString(arr_requiredTarget));
-						
-						// DEFAULT PARAM VALUE
 						String[] arr_defaultParamValue_a = new String[apiCount];
-						if (item.getDefault_param_value_a() != null && item.getDefault_param_value_a().contains(",")) {
-							arr_defaultParamValue_a = item.getDefault_param_value_a().split(",");
-						} else {
-							arr_defaultParamValue_a[0] = item.getDefault_param_value_a();
-							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_defaultParamValue_a[j] = null;
-							}							
-						}
-						
-	//					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
-						
-						// REQURED PARAM
 						String[] arr_requiredParam = new String[apiCount];
-						if (item.getRequired_param() != null && item.getRequired_param().contains("`")) {
-							arr_requiredParam = item.getRequired_param().split("`");
-						} else {
-							arr_requiredParam[0] = item.getRequired_param();
-							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_requiredParam[j] = null;
-							}						
-						}
-						
-						// PERMISSION
 						String[] arr_permission = new String[apiCount];
-						if (item.getPermission() != null && item.getPermission().contains("`")) {
-							arr_permission = item.getPermission().split("`");
-						} else {
-							arr_permission[0] = item.getPermission();
+						
+						if (apiCount > 0) {
 							
-							// 배열 나머지 요소는 null 로 채움
-							for(int j = 1; j < apiCount; j++){
-								arr_permission[j] = null;
-							}						
-						}					
+							// TYPE
+//							String[] arr_type_a = new String[apiCount];
+							if (item.getType_a() != null && item.getType_a().contains(",")) {
+								arr_type_a = item.getType_a().split(",");
+							} else {
+								arr_type_a[0] = item.getType_a();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_type_a[j] = null;
+								}							
+							}
+		
+		//					logger.info("arr_type_a============>"+Arrays.toString(arr_type_a));
+							
+							// METHOD
+//							String[] arr_method_a = new String[apiCount];
+							if (item.getMethod_a() != null && item.getMethod_a().contains(",")) {
+								arr_method_a = item.getMethod_a().split(",");
+							} else {
+								arr_method_a[0] = item.getMethod_a();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_method_a[j] = null;
+								}							
+							}
+							
+							// URI
+//							String[] arr_uri_a = new String[apiCount];
+							if (item.getUri_a() != null && item.getUri_a().contains(",")) {
+								arr_uri_a = item.getUri_a().split(",");
+							} else {
+								arr_uri_a[0] = item.getUri_a();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_uri_a[j] = null;
+								}							
+							}
+							
+							// REQUIRED TARGET
+//							String[] arr_requiredTarget = new String[apiCount];
+							if (item.getRequired_target() != null && item.getRequired_target().contains(",")) {
+								arr_requiredTarget = item.getRequired_target().split(",");
+							} else {
+								arr_requiredTarget[0] = item.getRequired_target();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_requiredTarget[j] = null;
+								}						
+							}
+							
+		//					logger.info("arr_requiredTarget============>"+Arrays.toString(arr_requiredTarget));
+							
+							// DEFAULT PARAM VALUE
+//							String[] arr_defaultParamValue_a = new String[apiCount];
+							if (item.getDefault_param_value_a() != null && item.getDefault_param_value_a().contains(",")) {
+								arr_defaultParamValue_a = item.getDefault_param_value_a().split(",");
+							} else {
+								arr_defaultParamValue_a[0] = item.getDefault_param_value_a();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_defaultParamValue_a[j] = null;
+								}							
+							}
+							
+		//					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
+							
+							// REQURED PARAM
+//							String[] arr_requiredParam = new String[apiCount];
+							if (item.getRequired_param() != null && item.getRequired_param().contains("`")) {
+								arr_requiredParam = item.getRequired_param().split("`");
+							} else {
+								arr_requiredParam[0] = item.getRequired_param();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_requiredParam[j] = null;
+								}						
+							}
+							
+							// PERMISSION
+//							String[] arr_permission = new String[apiCount];
+							if (item.getPermission() != null && item.getPermission().contains("`")) {
+								arr_permission = item.getPermission().split("`");
+							} else {
+								arr_permission[0] = item.getPermission();
+								
+								// 배열 나머지 요소는 null 로 채움
+								for(int j = 1; j < apiCount; j++){
+									arr_permission[j] = null;
+								}						
+							}					
 						
-						
+						}
+							
 	//					logger.info("@@@@@arr_type_a.length@@@@@@===>"+arr_type_a.length);
 						// loop 시작 
 						for(int i = 0; i < apiCount; i++){
@@ -384,8 +439,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 				            //< defaultParameter (IF_ID)
 				            //============================================================
 							
-							logger.info("arr_defaultParamValue_a[i]===>"+arr_defaultParamValue_a[i]);
-							logger.info("arr_defaultParamValue_a[i].length()====="+arr_defaultParamValue_a[i].length());							
+//							logger.info("arr_defaultParamValue_a[i]===>"+arr_defaultParamValue_a[i]);
+//							logger.info("arr_defaultParamValue_a[i].length()====="+arr_defaultParamValue_a[i].length());							
 							
 							
 							if (arr_defaultParamValue_a[i] != null && arr_defaultParamValue_a[i].length() > 0)
@@ -423,11 +478,17 @@ public class VMatrixServiceImpl implements VMatrixService {
 								}
 								busA_depth_2_A.setPermission(intArray);						
 							}
-							if (busA_depth_2_A != null)
-								behaviors_A.add(busA_depth_2_A);
 							
-							if (behaviors_A != null)
-								behaviors.addAll(behaviors_A);
+							
+							if (apiCount > 0) {
+							
+								if (busA_depth_2_A != null)
+									behaviors_A.add(busA_depth_2_A);
+								
+								if (behaviors_A != null)
+									behaviors.addAll(behaviors_A);
+							}
+							
 	
 						// loop 끝
 						}
@@ -442,7 +503,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 	//					logger.info("rowCount =##################>"+rowCount);					
 	//					logger.info("size =##################>"+datas.size());
 	
-						logger.info("flag_info =>"+flag_info);
+//						logger.info("flag_info =>"+flag_info);
 						
 						if ( rowCount == datas.size()) {
 							logger.info("INSERT!!!>");
