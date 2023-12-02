@@ -56,18 +56,14 @@ public class VMatrixServiceImpl implements VMatrixService {
 	@Autowired
 	private VMatrixMappers vMatrixMappers;
 	
-	
-	
-	
-	
 	AuthCheck authcheck = new AuthCheck();
 
 	/**
-	 * <p>SELECT (List)</p>
+	 * <p>SELECT - INSERT (Matrix - BUS Avail)</p>
 		 * <ul>
-		 * 	<li>시스템메뉴정보 등록 리스트를 조회한다 </li>
+		 * 	<li>매트릭스 데이터에서 BUS Avail을 조회하고, Json 데이터를 생성한다.  </li>
 	     * </ul>
-	 * @param pSysMenuUsr 클라이언트에서 요청받은 메뉴정보
+	 * @param vMatrix 클라이언트에서 요청받은 메뉴정보
 	 * @return String
 	 */
 	@Override
@@ -83,22 +79,15 @@ public class VMatrixServiceImpl implements VMatrixService {
         //< json 포맷 데이터 생성
         //============================================================		
 		JsonObject dataResult = new JsonObject();
-//		JsonArray jsonArr = new JsonArray();
-//		String Message = "SUCCESS";
-//		String Success = "1";
 		
 		try {
 			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList();
-//			List<VMatrix> datas = vMatrixMappers.getMatrixList(vMatrix.getGubun());
 
 			for (VMatrix user : users) {
-				logger.info("user.getSpike_id()==>"+user.getSpike_id());	
 			
 				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList(vMatrix.getGubun(), user.getSpike_id()); 
-				
-	// [POINT]  아래 선언을, loop 시작 전에 선언			
+			
 				List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
-				
 				int rowCount = 0;
 				
 				if (datas.size() > 0) {
@@ -106,40 +95,16 @@ public class VMatrixServiceImpl implements VMatrixService {
 					for (VMatrix item : datas) {
 						
 						rowCount++;
-						
-						logger.info("rowCount#################==>"+rowCount);
+//						logger.info("rowCount#################==>"+rowCount);
 						
 						BusA busA = new BusA();
 						BusA_depth_1 busA_depth_1 = new BusA_depth_1();
 						BusA_depth_2 busA_depth_2 = new BusA_depth_2();
 						BusA_depth_3 busA_depth_3 = new BusA_depth_3();
 						
-						
-						
-//						logger.info("item.getSpike_id()==>"+item.getSpike_id());
-						
 						//methods 배열
 						String[] arr_method = item.getMethods().split("");
 						String user_id = "";
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						// Default_param_value 에서 콤마(,) 개수 구하기
-	//					String paramValue = item.getDefault_param_value();					
-	//					int commaCount = paramValue.length() - paramValue.replace(String.valueOf(","), "").length();
-	//					logger.info("commaCount=====#@@##==>"+commaCount);
-	//					String[] arr_tbl_nm = new String[commaCount-1];
-						
-						// 굳이 위 처럼 전체 배열 크리를 먼저 구하지 않고, 아래에서 콤마(,) 갯수에 의해 크기가 할당 되니까, 우선 1사이즈로 초기화 하자
-//						String[] arr_tbl_nm = new String[1];
-						
-	//					logger.info("1. item.getDefault_param_value()====>"+item.getDefault_param_value());
 						
 			            //============================================================
 			            //< defaultParameter : user_id 또는 tbl_nm
@@ -150,13 +115,11 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String getDefault_param_value = item.getDefault_param_value();
 						
 						int tableCount = 0;
-//						if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
 						if ("tbl_nm".equals(item.getDefault_param()) && item.getDefault_param_value() != null && item.getDefault_param_value().length() > 0) {
 							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
 						}
-//						}
 						
-						logger.info("tableCount====="+tableCount);
+//						logger.info("tableCount====="+tableCount);
 						
 						String[] arr_tbl_nm = new String[tableCount];
 						
@@ -168,7 +131,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						} else {
 
 							if ( tableCount > 0 ) {
-								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
 									arr_tbl_nm = item.getDefault_param_value().split(",");
 								} else {
@@ -183,16 +146,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 							}
 								
 						}
-						
-						
-						
-						
-						
-						
-						
-						
-						
-	//					logger.info("2. arr_tbl_nm====>"+Arrays.toString(arr_tbl_nm));
 						
 			            //============================================================
 			            //< spike_id
@@ -213,11 +166,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 			            //< methods (권한)
 			            //============================================================					
 						busA_depth_1.setMethods(arr_method);
-	
-						
-						
-//						logger.info("item.getType()@@@@@@@@@@@@@@@@=>"+item.getType());
-//						logger.info("item.getType().length(@@@@@@@)=>"+item.getType().length());
 						
 						List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
 						
@@ -225,17 +173,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 			            //< self API - TYPE 유무 여부로 [TYPE]~[DEFAULT_PARAM_VALUE] 까지의 셋팅 여부 결정 
 			            //============================================================ 
 						if (item.getType() != null && item.getType().length()>0) {
-							
-//							logger.info("item.getType()@@@@@@@@@@@@@@@@=>"+item.getType());
 						
 				            //============================================================
 				            //< API - self 영역 
 							//< : 위젯 자체 API 호출. 예)칼럼 헤더
 							//< : [behaviors] - 1
 				            //============================================================ 
-		//					BusA_depth_2 busA_depth_2 = new BusA_depth_2();
-//							List<BusA_depth_2> behaviors = new ArrayList<BusA_depth_2>();
-							
 				            //============================================================
 				            //< type (self)
 				            //============================================================
@@ -260,11 +203,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 							if (user_id != null && user_id.length()>0)				
 								busA_depth_3.setUser_id(user_id);
 							
-							logger.info("Arrays.toString(arr_tbl_nm)===>"+Arrays.toString(arr_tbl_nm));
-							logger.info("arr_tbl_nm.length====="+arr_tbl_nm.length);
-							
 							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
-								logger.info("arr_tbl_nm.length @@@@@@@@IN@@@@@@@@@@"+arr_tbl_nm.length);
 								busA_depth_3.setTbl_nm(arr_tbl_nm);
 							}
 							
@@ -272,7 +211,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 								busA_depth_2.setDefaultParameter(busA_depth_3);
 							if (busA_depth_2 != null)
 								behaviors.add(busA_depth_2);
-	
 						}	
 							
 			            //============================================================
@@ -289,11 +227,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 							apiCount = getType_a.length() - getType_a.replace(String.valueOf(","), "").length()+1;
 						}
 						
-//						logger.info("getType_a.length()=>"+getType_a.length());
-//						logger.info("getType_a.replace(String.valueOf(\",\"), \"\").length()=>"+getType_a.replace(String.valueOf(","), "").length());
-//						logger.info("apiCount==######################################===#@@##==>"+apiCount);				
-						
-						
 						String[] arr_type_a = new String[apiCount];
 						String[] arr_method_a = new String[apiCount];
 						String[] arr_uri_a = new String[apiCount];
@@ -305,7 +238,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 						if (apiCount > 0) {
 							
 							// TYPE
-//							String[] arr_type_a = new String[apiCount];
 							if (item.getType_a() != null && item.getType_a().contains(",")) {
 								arr_type_a = item.getType_a().split(",");
 							} else {
@@ -316,11 +248,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 									arr_type_a[j] = null;
 								}							
 							}
-		
-		//					logger.info("arr_type_a============>"+Arrays.toString(arr_type_a));
 							
 							// METHOD
-//							String[] arr_method_a = new String[apiCount];
 							if (item.getMethod_a() != null && item.getMethod_a().contains(",")) {
 								arr_method_a = item.getMethod_a().split(",");
 							} else {
@@ -333,7 +262,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 							}
 							
 							// URI
-//							String[] arr_uri_a = new String[apiCount];
 							if (item.getUri_a() != null && item.getUri_a().contains(",")) {
 								arr_uri_a = item.getUri_a().split(",");
 							} else {
@@ -346,7 +274,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 							}
 							
 							// REQUIRED TARGET
-//							String[] arr_requiredTarget = new String[apiCount];
 							if (item.getRequired_target() != null && item.getRequired_target().contains(",")) {
 								arr_requiredTarget = item.getRequired_target().split(",");
 							} else {
@@ -358,10 +285,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 								}						
 							}
 							
-		//					logger.info("arr_requiredTarget============>"+Arrays.toString(arr_requiredTarget));
-							
 							// DEFAULT PARAM VALUE
-//							String[] arr_defaultParamValue_a = new String[apiCount];
 							if (item.getDefault_param_value_a() != null && item.getDefault_param_value_a().contains(",")) {
 								arr_defaultParamValue_a = item.getDefault_param_value_a().split(",");
 							} else {
@@ -373,10 +297,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 								}							
 							}
 							
-		//					logger.info("arr_defaultParamValue============>"+Arrays.toString(arr_defaultParamValue_a));
-							
 							// REQURED PARAM
-//							String[] arr_requiredParam = new String[apiCount];
 							if (item.getRequired_param() != null && item.getRequired_param().contains("`")) {
 								arr_requiredParam = item.getRequired_param().split("`");
 							} else {
@@ -389,7 +310,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 							}
 							
 							// PERMISSION
-//							String[] arr_permission = new String[apiCount];
 							if (item.getPermission() != null && item.getPermission().contains("`")) {
 								arr_permission = item.getPermission().split("`");
 							} else {
@@ -401,12 +321,11 @@ public class VMatrixServiceImpl implements VMatrixService {
 								}						
 							}					
 						
-						}
-							
-	//					logger.info("@@@@@arr_type_a.length@@@@@@===>"+arr_type_a.length);
+						} // end of if (apiCount > 0)
+
 						// loop 시작 
-						for(int i = 0; i < apiCount; i++){
-	//					logger.info("@@@@@iiiii@@@@@@===>"+i);
+						for(int i = 0; i < apiCount; i++) {
+//							logger.info("@@@@@iiiii@@@@@@===>"+i);
 							BusA_depth_2 busA_depth_2_A = new BusA_depth_2();
 							BusA_depth_3 busA_depth_3_A = new BusA_depth_3();
 							List<BusA_depth_2> behaviors_A = new ArrayList<BusA_depth_2>();
@@ -438,11 +357,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 							//============================================================
 				            //< defaultParameter (IF_ID)
 				            //============================================================
-							
-//							logger.info("arr_defaultParamValue_a[i]===>"+arr_defaultParamValue_a[i]);
-//							logger.info("arr_defaultParamValue_a[i].length()====="+arr_defaultParamValue_a[i].length());							
-							
-							
 							if (arr_defaultParamValue_a[i] != null && arr_defaultParamValue_a[i].length() > 0)
 								busA_depth_3_A.setIf_id(arr_defaultParamValue_a[i]);
 	
@@ -479,7 +393,6 @@ public class VMatrixServiceImpl implements VMatrixService {
 								busA_depth_2_A.setPermission(intArray);						
 							}
 							
-							
 							if (apiCount > 0) {
 							
 								if (busA_depth_2_A != null)
@@ -488,22 +401,14 @@ public class VMatrixServiceImpl implements VMatrixService {
 								if (behaviors_A != null)
 									behaviors.addAll(behaviors_A);
 							}
-							
-	
-						// loop 끝
-						}
+
+						} // end of for(int i = 0; i < apiCount; i++)
+						
 						if (behaviors != null && !behaviors.isEmpty())
 							busA_depth_1.setBehaviors(behaviors);
 						
-	// [POINT]          아래 선언을, loop 시작 전에 선언					
-	//					List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
 						if (busA_depth_1 != null)
 							flag_info.add(busA_depth_1);
-						
-	//					logger.info("rowCount =##################>"+rowCount);					
-	//					logger.info("size =##################>"+datas.size());
-	
-//						logger.info("flag_info =>"+flag_info);
 						
 						if ( rowCount == datas.size()) {
 							logger.info("INSERT!!!>");
@@ -513,30 +418,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 							insertBusA = busAService_v4.registerUser(item.getSpike_id(), flag_info);
 						}
 						
-	//					return new ResponseEntity<>(insertBusA, HttpStatus.OK);
 					}  // end of for (VMatrix item : datas)
-	
-					
 					
 				} else {
 				} // end of if (datas.size() > 0)			
 			
 			}
-			
-			
-//			dataResult.addProperty("reason", Message);
-//			dataResult.addProperty("result", Success);
-//			
-//			if (sysMenuUsr.size() > 0) {
-//				for (SysMenuUsr item : sysMenuUsr) {
-//					JSONObject result = new JSONObject(item.getJson_data());
-//					jsonArr.add(item.getJson_data());	
-//				}
-//				dataResult.add("menu_info", jsonArr);
-//				
-//			} else {
-//
-//			}
 		} catch (Exception e) {
 			logger.error("[VMatrixServiceImpl.getMatrixList] ERROR : " + e);
 			e.printStackTrace();
