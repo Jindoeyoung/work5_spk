@@ -492,7 +492,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 	
 						// loop 끝
 						}
-						if (behaviors != null)
+						if (behaviors != null && !behaviors.isEmpty())
 							busA_depth_1.setBehaviors(behaviors);
 						
 	// [POINT]          아래 선언을, loop 시작 전에 선언					
