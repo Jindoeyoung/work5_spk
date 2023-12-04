@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -426,7 +428,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 					// REDIS Insert
 					BusA insertBusA = null;
 					busAService_v4.getUser(spike_id);
-					insertBusA = busAService_v4.registerUser(spike_id, flag_info);					
+					insertBusA = busAService_v4.registerUser(spike_id, flag_info);
+					
+					logger.info("[details-insert-v4] new ResponseEntity<>(userApi, HttpStatus.OK) : "+new ResponseEntity<>(insertBusA, HttpStatus.OK));
 					
 				} else {
 				} // end of if (datas.size() > 0)			
