@@ -64,7 +64,7 @@
     </select>    
     
 	<!-- 시스템메뉴유저 수정  -->
-    <update id="updateSysMenuUsr" parameterType="com.spk.api.entity.SysMenuUsr">
+    <update id="updateUseYn" parameterType="com.spk.api.entity.SysMenuUsr">
         UPDATE SYS_MENU_USR
            SET USE_YN =  #{SYS_MENU_USR.use_yn} 
          WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}

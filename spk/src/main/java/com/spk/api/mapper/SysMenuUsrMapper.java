@@ -43,7 +43,7 @@ public interface SysMenuUsrMapper {
     //============================================================
     //< UPDATE - 시스템메뉴유저 수정
     //============================================================	
-	int updateSysMenuUsr(
+	int updateUseYn(
 		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
 	);	
 }

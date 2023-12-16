@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.SysMenuUsr;
+import com.spk.api.entity.SysMenuUsrSave;
 import com.spk.api.service.sys.SysMenuUsrService;
 
 import lombok.RequiredArgsConstructor;
@@ -58,8 +59,12 @@ public class SysMenuUsrController {
     //============================================================	
 	@PostMapping("/updateSysMenuUsr")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String insertSysMenuUsr(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
-		return sysMenuUsrService.updateSysMenuUsr(pSysMenuUsr);
+	public String insertSysMenuUsr(@RequestBody SysMenuUsrSave sysMenuUsrSave) throws Exception {
+		return sysMenuUsrService.updateSysMenuUsr(sysMenuUsrSave);
 	}	
+	
+//	public String insertSysMenuUsr(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
+//		return sysMenuUsrService.updateSysMenuUsr(pSysMenuUsr);
+//	}	
 	
 }

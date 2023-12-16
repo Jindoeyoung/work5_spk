@@ -14,6 +14,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.SysMenuUsr;
+import com.spk.api.entity.SysMenuUsrSave;
+import com.spk.api.entity.udr.UDR01Entity;
 import com.spk.api.mapper.SysMenuUsrMapper;
 import com.spk.api.security.AuthCheck;
 
@@ -404,54 +406,132 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 	 * @return String
 	 */	
 	@Override
-	public String updateSysMenuUsr(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
+//	public String updateSysMenuUsr(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
+	public String updateSysMenuUsr(@Param("SYS_MENU_USR") SysMenuUsrSave SysMenuUsrSave) throws Exception {
 	    //============================================================
 	    //< api-key check
 	    //============================================================
-		if (!authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey()).equals("{}")) {
-			return authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey());
+		if (!authcheck.getMetaAuthErrGenerator(SysMenuUsrSave.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(SysMenuUsrSave.getApikey());
 		}		
 		
         //============================================================
         //< json 포맷 데이터 생성
         //============================================================		
+//		JsonObject dataResult = new JsonObject();
+//		JsonArray jsonArr1 = new JsonArray();
+//		String Message = "SUCCESS";
+		
+//		String Success = "1";
+		int results = 0;
+		
+		
+		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
-		String Message = "SUCCESS";
-		String Success = "1";
+		JsonArray jsonArr2 = new JsonArray();
+		JsonObject Obj1 = new JsonObject();
+		JsonObject Obj2 = new JsonObject();
+		JsonObject Obj3 = new JsonObject();
+		
+		String OK_MESSAGE = "SUCCESS";
+		String NOT_OK_MESSAGE = "FAIL";		
+		
 		
 		try {
-			int results = sysMenuUsrMapper.updateSysMenuUsr(pSysMenuUsr);
+			
+			List<SysMenuUsr> datas = SysMenuUsrSave.getData();
+			
+			for (SysMenuUsr item : datas) {
+				item.setSpike_id(SysMenuUsrSave.getSpike_id());
+		        //============================================================
+		        //< USE_YN 업데이트
+		        //============================================================
+				results = sysMenuUsrMapper.updateUseYn(item);
+			}
+			
+	        //============================================================
+	        //< Respnse Data (Sample)
+			//< API 호출 시 공통으로 리턴받는 Response Data
+	        //============================================================			
+			String if_id = "IF-001-001";				// API id			
 			
 			if (results == 1) {
-				SysMenuUsr sysMenuUsr = sysMenuUsrMapper.getSysMenuUsrInfo(pSysMenuUsr);
-				dataResult.addProperty("reason", Message);
-				dataResult.addProperty("result", Success);
-				
-				if (sysMenuUsr != null) {
-						JsonObject Obj1 = new JsonObject();
-						
-						Obj1.addProperty("spike_id", sysMenuUsr.getSpike_id());
-						Obj1.addProperty("division", sysMenuUsr.getDivision());
-						Obj1.addProperty("menuCd", sysMenuUsr.getMenu_id());
-						Obj1.addProperty("use_yn", sysMenuUsr.getUse_yn());						
-						Obj1.addProperty("createdAt", sysMenuUsr.getReg_dt());
-						
-						jsonArr1.add(Obj1);
-						
-						dataResult.add("flag_info", jsonArr1);
-				} else {
-					JsonObject Obj3 = new JsonObject();
-					Obj3.add("result", jsonArr1);
-					dataResult.add("data", Obj3);
-				}
-			} // if (results == 1) {
+				dataResult.addProperty("reason", OK_MESSAGE);
+			} else {
+				dataResult.addProperty("reason", NOT_OK_MESSAGE);
+			}
+			
+			dataResult.addProperty("result", results);
+			
+			Obj1.addProperty("if_id", if_id);
+
+			jsonArr2.add(Obj2);
+			Obj1.add("datas", jsonArr2);			
+			
+			jsonArr1.add(Obj1);
+			Obj3.add("result", jsonArr1);
+			
+			dataResult.add("data", Obj3);			
+			
+			
+			
 		} catch (Exception e) {
 			logger.error("[SysMenuUsrServiceImpl.updateSysMenuUsr] ERROR : " + e);
 			e.printStackTrace();
 		}
 		return dataResult.toString();
 	}	
+	
+	
+//	public String updateSysMenuUsr(@Param("SYS_MENU_USR") SysMenuUsr pSysMenuUsr) throws Exception {
+//	    //============================================================
+//	    //< api-key check
+//	    //============================================================
+//		if (!authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey()).equals("{}")) {
+//			return authcheck.getMetaAuthErrGenerator(pSysMenuUsr.getApikey());
+//		}		
+//		
+//        //============================================================
+//        //< json 포맷 데이터 생성
+//        //============================================================		
+//		JsonObject dataResult = new JsonObject();
+//		JsonArray jsonArr1 = new JsonArray();
+//		String Message = "SUCCESS";
+//		String Success = "1";
+//		
+//		try {
+//			int results = sysMenuUsrMapper.updateSysMenuUsr(pSysMenuUsr);
+//			
+//			if (results == 1) {
+//				SysMenuUsr sysMenuUsr = sysMenuUsrMapper.getSysMenuUsrInfo(pSysMenuUsr);
+//				dataResult.addProperty("reason", Message);
+//				dataResult.addProperty("result", Success);
+//				
+//				if (sysMenuUsr != null) {
+//						JsonObject Obj1 = new JsonObject();
+//						
+//						Obj1.addProperty("spike_id", sysMenuUsr.getSpike_id());
+//						Obj1.addProperty("division", sysMenuUsr.getDivision());
+//						Obj1.addProperty("menuCd", sysMenuUsr.getMenu_id());
+//						Obj1.addProperty("use_yn", sysMenuUsr.getUse_yn());						
+//						Obj1.addProperty("createdAt", sysMenuUsr.getReg_dt());
+//						
+//						jsonArr1.add(Obj1);
+//						
+//						dataResult.add("flag_info", jsonArr1);
+//				} else {
+//					JsonObject Obj3 = new JsonObject();
+//					Obj3.add("result", jsonArr1);
+//					dataResult.add("data", Obj3);
+//				}
+//			} // if (results == 1) {
+//		} catch (Exception e) {
+//			logger.error("[SysMenuUsrServiceImpl.updateSysMenuUsr] ERROR : " + e);
+//			e.printStackTrace();
+//		}
+//		return dataResult.toString();
+//	}	
 	
 	
 }
