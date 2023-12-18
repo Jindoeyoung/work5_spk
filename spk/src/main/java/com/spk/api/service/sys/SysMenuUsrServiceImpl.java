@@ -15,7 +15,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.SysMenuUsr;
 import com.spk.api.entity.SysMenuUsrSave;
-import com.spk.api.entity.udr.UDR01Entity;
 import com.spk.api.error.EResultCode;
 import com.spk.api.mapper.SysMenuUsrMapper;
 import com.spk.api.security.AuthCheck;
@@ -431,10 +430,10 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 		
 		
 		JsonObject dataResult = new JsonObject();
-		JsonArray jsonArr1 = new JsonArray();
-		JsonArray jsonArr2 = new JsonArray();
-		JsonObject Obj1 = new JsonObject();
-		JsonObject Obj2 = new JsonObject();
+//		JsonArray jsonArr1 = new JsonArray();
+//		JsonArray jsonArr2 = new JsonArray();
+//		JsonObject Obj1 = new JsonObject();
+//		JsonObject Obj2 = new JsonObject();
 		JsonObject Obj3 = new JsonObject();
 		Utils utils = new Utils();
 		
@@ -458,8 +457,8 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 	        //< Respnse Data (Sample)
 			//< API 호출 시 공통으로 리턴받는 Response Data
 	        //============================================================			
-			String if_id = "IF-001-001";				// API id
-			String response_format = "json";			// 반환 data 타입
+//			String if_id = "IF-001-001";				// API id
+//			String response_format = "json";			// 반환 data 타입
 
 			if (results == 1) {
 				dataResult.addProperty("reason", OK_MESSAGE);
@@ -468,16 +467,16 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 				dataResult.addProperty("reason", NOT_OK_MESSAGE);
 			}
 			
-			dataResult.addProperty("result", results);
+			dataResult.addProperty("result", Integer.toString(results));
 			
-			Obj1.addProperty("if_id", if_id);
-			Obj1.addProperty("response_format", response_format);
-
-//			jsonArr2.add(Obj2);
-			Obj1.add("datas", jsonArr2);			
-			
-			jsonArr1.add(Obj1);
-			Obj3.add("result", jsonArr1);
+//			Obj1.addProperty("if_id", if_id);
+//			Obj1.addProperty("response_format", response_format);
+//
+////			jsonArr2.add(Obj2);
+//			Obj1.add("datas", jsonArr2);			
+//			
+//			jsonArr1.add(Obj1);
+//			Obj3.add("result", jsonArr1);
 			
 			dataResult.add("data", Obj3);			
 			

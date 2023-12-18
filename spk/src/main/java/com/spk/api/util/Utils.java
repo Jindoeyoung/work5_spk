@@ -1,6 +1,6 @@
 package com.spk.api.util;
 
-import com.google.gson.JsonArray;
+//import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.spk.api.error.EResultCode;
 
@@ -70,14 +70,14 @@ public class Utils {
 	public JsonObject getMetaErrGenerator3(EResultCode resultCode) throws Exception {
 
 		JsonObject dataResult = new JsonObject();
-		int result = -1;
+		JsonObject Obj1 = new JsonObject();
+		String result = "-1";
 		
 		try {
 
 			dataResult.addProperty("reason", "[" + resultCode.getResultCode() + " ERROR] " + resultCode.getResultMessage());
 			dataResult.addProperty("result", result);
-			
-			dataResult.addProperty("data", "");
+			dataResult.add("data", Obj1);
 	
 			return dataResult;
 		} catch (Exception e) {

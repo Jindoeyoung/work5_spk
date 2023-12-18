@@ -2,6 +2,7 @@ package com.spk.api.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +59,7 @@ public class SysMenuUsrController {
     //============================================================
     //< SELECT - 시스템메뉴정보 상세 조회
     //============================================================	
-	@PostMapping("/updateSysMenuUsr")
+	@PutMapping("/updateSysMenuUseYn")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String insertSysMenuUsr(@RequestBody SysMenuUsrSave sysMenuUsrSave) throws Exception {
 		try {
