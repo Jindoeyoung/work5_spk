@@ -2,6 +2,7 @@ package com.spk.api.util;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.spk.api.error.EResultCode;
 
 public class Utils {
 
@@ -66,6 +67,25 @@ public class Utils {
 		return dataResult;
 	}	
 	
+	public JsonObject getMetaErrGenerator3(EResultCode resultCode) throws Exception {
+
+		JsonObject dataResult = new JsonObject();
+		int result = -1;
+		
+		try {
+
+			dataResult.addProperty("reason", "[" + resultCode.getResultCode() + " ERROR] " + resultCode.getResultMessage());
+			dataResult.addProperty("result", result);
+			
+			dataResult.addProperty("data", "");
+	
+			return dataResult;
+		} catch (Exception e) {
+//			logger.error("[Utils.getMetaErrGenerator] ERROR : " + e);
+			e.printStackTrace();
+		}
+		return dataResult;
+	}	
 	
 	public JsonObject getOneGenerator(String data) throws Exception {
 		

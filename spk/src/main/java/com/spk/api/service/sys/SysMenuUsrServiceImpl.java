@@ -16,8 +16,11 @@ import com.google.gson.JsonObject;
 import com.spk.api.entity.SysMenuUsr;
 import com.spk.api.entity.SysMenuUsrSave;
 import com.spk.api.entity.udr.UDR01Entity;
+import com.spk.api.error.EResultCode;
 import com.spk.api.mapper.SysMenuUsrMapper;
 import com.spk.api.security.AuthCheck;
+import com.spk.api.util.ReturnException;
+import com.spk.api.util.Utils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -433,6 +436,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 		JsonObject Obj1 = new JsonObject();
 		JsonObject Obj2 = new JsonObject();
 		JsonObject Obj3 = new JsonObject();
+		Utils utils = new Utils();
 		
 		String OK_MESSAGE = "SUCCESS";
 		String NOT_OK_MESSAGE = "FAIL";		
@@ -454,19 +458,22 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 	        //< Respnse Data (Sample)
 			//< API 호출 시 공통으로 리턴받는 Response Data
 	        //============================================================			
-			String if_id = "IF-001-001";				// API id			
-			
+			String if_id = "IF-001-001";				// API id
+			String response_format = "json";			// 반환 data 타입
+
 			if (results == 1) {
 				dataResult.addProperty("reason", OK_MESSAGE);
 			} else {
+				results = -1;
 				dataResult.addProperty("reason", NOT_OK_MESSAGE);
 			}
 			
 			dataResult.addProperty("result", results);
 			
 			Obj1.addProperty("if_id", if_id);
+			Obj1.addProperty("response_format", response_format);
 
-			jsonArr2.add(Obj2);
+//			jsonArr2.add(Obj2);
 			Obj1.add("datas", jsonArr2);			
 			
 			jsonArr1.add(Obj1);
@@ -474,11 +481,14 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 			
 			dataResult.add("data", Obj3);			
 			
-			
-			
 		} catch (Exception e) {
-			logger.error("[SysMenuUsrServiceImpl.updateSysMenuUsr] ERROR : " + e);
+			logger.error("[SysMenuUsrServiceImpl.updateSysMenuUsr] ERROR : Exception " + e);
+			
+			JsonObject result = new JsonObject();
+			result = utils.getMetaErrGenerator3(EResultCode.FAILED_UPDATE);		
 			e.printStackTrace();
+			throw new ReturnException(result, EResultCode.FAILED_UPDATE.getResultMessage());			
+			
 		}
 		return dataResult.toString();
 	}	
