@@ -16,7 +16,8 @@ import com.spk.api.mapper.system.UserLoginMapper;
 import com.spk.api.security.AuthCheck;
 
 @RestController
-@RequestMapping(value = "/login-info", produces = "application/json; charset=utf8")
+@RequestMapping(value = "/background-info", produces = "application/json; charset=utf8")
+//@RequestMapping(value = "/login-info", produces = "application/json; charset=utf8")
 public class UserLoginController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -33,15 +34,8 @@ public class UserLoginController {
 			logger.info("[userLoginController][getBySabun] AUTHENTICATION RESTRICTIONS");
 			return authcheck.getMetaAuthErrGenerator(_userInfo.getApikey());
 		}		
-		
-		String router_id = _userInfo.getSabun().substring(0,7);
-		String sabun = _userInfo.getSabun().substring(7);
-		
-//		logger.info("router_id========>"+router_id);
-//		logger.info("sabun========>"+sabun);
-		
-//		UserInfo userInfo = userLoginMapper.getBySabun(_userInfo.getSabun());
-		UserInfo userInfo = userLoginMapper.getBySabun(router_id, sabun);
+
+		UserInfo userInfo = userLoginMapper.getBySabun(_userInfo.getSpike_id());
 		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();		
@@ -60,9 +54,9 @@ public class UserLoginController {
 			JsonObject Obj1 = new JsonObject();
 			JsonObject Obj2 = new JsonObject();
 			
-			Obj1.addProperty("user_id", userInfo.getUser_id());
-			Obj1.addProperty("user_nm", userInfo.getUser_nm());
-			Obj1.addProperty("user_grp_cd", userInfo.getUser_grp_cd());
+//			Obj1.addProperty("user_id", userInfo.getSpike_id());
+//			Obj1.addProperty("user_nm", userInfo.getName());
+//			Obj1.addProperty("user_grp_cd", userInfo.getUser_grp_cd());
 			Obj1.addProperty("background_id", userInfo.getBackground_id());
 			Obj1.addProperty("image_src", userInfo.getImage_src());
 			
