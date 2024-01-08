@@ -545,6 +545,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 						//methods 배열
 						String[] arr_method = item.getMethods().split("");
+						String if_id = "";
+						String[] arr_api_if_id;
+						String api_if_id = "";						
 //						String user_id = "";
 						
 			            //============================================================
@@ -553,16 +556,16 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//< tbl_mm : 그 외 전부
 			            //============================================================
 						// 콤마로 총 테이블 갯수 구하기 (콤마개수 + 1 해준다) : (공통)_그리드, (공통)_디테일 이 아닌 경우만 해당
-						String getDefault_param_value = item.getDefault_param_value();
-						
-						int tableCount = 0;
-						if ("tbl_nm".equals(item.getDefault_param()) && item.getDefault_param_value() != null && item.getDefault_param_value().length() > 0) {
-							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
-						}
+//						String getDefault_param_value = item.getDefault_param_value();
+//						
+//						int tableCount = 0;
+//						if ("tbl_nm".equals(item.getDefault_param()) && item.getDefault_param_value() != null && item.getDefault_param_value().length() > 0) {
+//							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
+//						}
 						
 //						logger.info("tableCount====="+tableCount);
 						
-						String[] arr_tbl_nm = new String[tableCount];
+//						String[] arr_tbl_nm = new String[tableCount];
 						
 //						if ( 
 //							( item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
@@ -571,13 +574,16 @@ public class VMatrixServiceImpl implements VMatrixService {
 //							user_id = item.getDefault_param_value();
 //						} else {
 
-							if ( tableCount > 0 ) {
-								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
-									arr_tbl_nm = item.getDefault_param_value().split(",");
-								} else {
-									arr_tbl_nm[0] = item.getDefault_param_value();
-								}
-							}
+						if_id = item.getDefault_param_value();
+						arr_api_if_id = item.getDefault_param_value_a().split(",");
+						api_if_id = arr_api_if_id[0];						
+//							if ( tableCount > 0 ) {
+//								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
+//									arr_tbl_nm = item.getDefault_param_value().split(",");
+//								} else {
+//									arr_tbl_nm[0] = item.getDefault_param_value();
+//								}
+//							}
 								
 //						}
 						
@@ -640,9 +646,22 @@ public class VMatrixServiceImpl implements VMatrixService {
 //							if (user_id != null && user_id.length()>0)				
 //								depth_4.setUser_id(user_id);
 							
-							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
+							//============================================================
+				            //< defaultParameter (if_id)
+				            //============================================================					
+							if (if_id != null && if_id.length()>0)				
+								depth_4.setIf_id(if_id) ;							
+							
+							//============================================================
+				            //< defaultParameter (api_if_id)
+				            //============================================================					
+							if (api_if_id != null && api_if_id.length()>0)				
+								depth_4.setApi_if_id(api_if_id);							
+							
+							
+//							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
 //								depth_4.setTbl_nm(arr_tbl_nm);
-							}
+//							}
 							
 							if (depth_4 != null)
 								depth_3.setDefaultParameter(depth_4);
