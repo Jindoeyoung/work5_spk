@@ -114,6 +114,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String user_id = "";
 						String if_id = "";
 						
+						String[] arr_api_if_id;
+						String api_if_id = "";
+						
 			            //============================================================
 			            //< defaultParameter : user_id 또는 tbl_nm
 						//< user_id : (공통)_그리드, (공통)_디테일
@@ -139,6 +142,13 @@ public class VMatrixServiceImpl implements VMatrixService {
 						} else {
 
 							if_id = item.getDefault_param_value();
+							
+							
+							arr_api_if_id = item.getDefault_param_value_a().split(",");
+							api_if_id = arr_api_if_id[0];
+							
+							
+							
 //							if ( tableCount > 0 ) {
 ////								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 //								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
@@ -217,6 +227,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 				            //============================================================					
 							if (if_id != null && if_id.length()>0)				
 								busA_depth_3.setIf_id(if_id) ;
+							
+							//============================================================
+				            //< defaultParameter (api_if_id)
+				            //============================================================					
+							if (api_if_id != null && api_if_id.length()>0)				
+								busA_depth_3.setApi_if_id(api_if_id);
 							
 							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
 //								busA_depth_3.setTbl_nm(arr_tbl_nm);
