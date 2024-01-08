@@ -25,7 +25,7 @@ import com.spk.api.entity.redis.busa_v5.BusA;
 @Repository
 public class BusADAO_v5 {
 
-    private static final String BUS_AVAIL_KEY = "BUS_V5_TRANS:${USER_ID}";
+    private static final String BUS_AVAIL_KEY = "BUS_V5:${USER_ID}";
 
     private final RedisConnectionFactory redisConnectionFactory;
 
@@ -92,7 +92,7 @@ public class BusADAO_v5 {
         Cursor<byte[]> cursor = redisConnection.scan(options);
 
         while (cursor.hasNext()) {
-            String user = StringUtils.replace(new String(cursor.next()), "BUS_V5_TRANS:", "");
+            String user = StringUtils.replace(new String(cursor.next()), "BUS_V5:", "");
 
             users.add(user);
         }
