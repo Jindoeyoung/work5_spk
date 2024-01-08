@@ -33,8 +33,8 @@ import com.spk.api.mapper.sys.VMatrixMappers;
 import com.spk.api.security.AuthCheck;
 import com.spk.api.service.redis.BusAService_v5;
 
-import com.spk.api.entity.redis.usergrids_v3.*;
-import com.spk.api.service.redis.UserGridsService_v3;
+import com.spk.api.entity.redis.usergrids_v5.*;
+import com.spk.api.service.redis.UserGridsService_v5;
 
 import com.spk.api.entity.redis.userdetails_v3.*;
 import com.spk.api.service.redis.UserDetailsService_v3;
@@ -50,7 +50,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 	private BusAService_v5 busAService_v5;
 
 	@Autowired
-	private UserGridsService_v3 gridsService_v3;	
+	private UserGridsService_v5 gridsService_v5;	
 	
 	@Autowired
 	private UserDetailsService_v3 detailsService_v3;
@@ -641,7 +641,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 //								depth_4.setUser_id(user_id);
 							
 							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
-								depth_4.setTbl_nm(arr_tbl_nm);
+//								depth_4.setTbl_nm(arr_tbl_nm);
 							}
 							
 							if (depth_4 != null)
@@ -867,10 +867,10 @@ public class VMatrixServiceImpl implements VMatrixService {
 					logger.info("GRIDS INSERT!!!>");
 					// REDIS Insert
 					UserGrids insertGrids = null;
-					gridsService_v3.getUser(spike_id);
-					insertGrids = gridsService_v3.registerUser(spike_id, data);
+					gridsService_v5.getUser(spike_id);
+					insertGrids = gridsService_v5.registerUser(spike_id, data);
 					
-					logger.info("[grids-insert-v4] new ResponseEntity<>(userApi, HttpStatus.OK) : "+new ResponseEntity<>(insertGrids, HttpStatus.OK));
+					logger.info("[grids-insert-v5] new ResponseEntity<>(userApi, HttpStatus.OK) : "+new ResponseEntity<>(insertGrids, HttpStatus.OK));
 					
 				} else {
 				} // end of if (datas.size() > 0)			

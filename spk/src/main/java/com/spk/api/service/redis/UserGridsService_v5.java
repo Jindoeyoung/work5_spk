@@ -1,0 +1,42 @@
+package com.spk.api.service.redis;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.spk.api.dao.redis.UserGridsDAO_v5;
+import com.spk.api.entity.redis.usergrids_v5.UserGrids;
+import com.spk.api.entity.redis.usergrids_v5.UserGrids_depth_1;
+
+@Service
+public class UserGridsService_v5 {
+
+    private final UserGridsDAO_v5 redisDAO;
+
+    public UserGridsService_v5(UserGridsDAO_v5 redisDAO) {
+        this.redisDAO = redisDAO;
+    }
+
+    public UserGrids registerUser(String userid, UserGrids_depth_1 data) throws IOException {
+        UserGrids userApi = new UserGrids();
+        userApi.setUser_id(userid);
+        userApi.setData(data);
+
+        redisDAO.setKeyValue(userApi);
+
+        return redisDAO.getKeyValue(userid);
+    }    
+
+    public void deleteUser(String userid) {
+        redisDAO.deleteKeyValue(userid);
+    }
+
+    public UserGrids getUser(String userid) throws IOException {
+        return redisDAO.getKeyValue(userid);
+    }
+
+    public List<String> getUsernameList() {
+        return redisDAO.getAllKeyValues();
+    }
+}
