@@ -21,17 +21,17 @@ import org.springframework.stereotype.Service;
 //import com.google.gson.JsonArray;
 //import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.spk.api.entity.redis.busa_v4.BusA;
-import com.spk.api.entity.redis.busa_v4.BusA_depth_1;
-import com.spk.api.entity.redis.busa_v4.BusA_depth_2;
-import com.spk.api.entity.redis.busa_v4.BusA_depth_3;
+import com.spk.api.entity.redis.busa_v5.BusA;
+import com.spk.api.entity.redis.busa_v5.BusA_depth_1;
+import com.spk.api.entity.redis.busa_v5.BusA_depth_2;
+import com.spk.api.entity.redis.busa_v5.BusA_depth_3;
 import com.spk.api.entity.sys.VMatrix;
 import com.spk.api.mapper.sys.VMatrixMappers;
 //import com.spk.api.entity.SysMenuUsr;
 //import com.spk.api.mapper.SysMenuUsrMapper;
 
 import com.spk.api.security.AuthCheck;
-import com.spk.api.service.redis.BusAService_v4;
+import com.spk.api.service.redis.BusAService_v5;
 
 import com.spk.api.entity.redis.usergrids_v3.*;
 import com.spk.api.service.redis.UserGridsService_v3;
@@ -47,7 +47,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private BusAService_v4 busAService_v4;
+	private BusAService_v5 busAService_v5;
 
 	@Autowired
 	private UserGridsService_v3 gridsService_v3;	
@@ -211,7 +211,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 								busA_depth_3.setUser_id(user_id);
 							
 							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
-								busA_depth_3.setTbl_nm(arr_tbl_nm);
+//								busA_depth_3.setTbl_nm(arr_tbl_nm);
 							}
 							
 							if (busA_depth_3 != null)
@@ -430,8 +430,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 					logger.info("INSERT!!!>");
 					// REDIS Insert
 					BusA insertBusA = null;
-					busAService_v4.getUser(spike_id);
-					insertBusA = busAService_v4.registerUser(spike_id, flag_info);
+					busAService_v5.getData(spike_id);
+					insertBusA = busAService_v5.registerData(spike_id, flag_info);
 					
 					logger.info("[details-insert-v4] new ResponseEntity<>(userApi, HttpStatus.OK) : "+new ResponseEntity<>(insertBusA, HttpStatus.OK));
 					
