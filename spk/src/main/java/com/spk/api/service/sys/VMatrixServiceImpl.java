@@ -265,6 +265,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String[] arr_defaultParamValue_a = new String[apiCount];
 						String[] arr_requiredParam = new String[apiCount];
 						String[] arr_permission = new String[apiCount];
+						String[] arr_timeout = new String[apiCount];
 						
 						if (apiCount > 0) {
 							
@@ -352,6 +353,13 @@ public class VMatrixServiceImpl implements VMatrixService {
 //								}						
 							}					
 						
+							// TIMEOUT
+							if (item.getTimeout() != null && item.getTimeout().contains(",")) {
+								arr_timeout = item.getTimeout().split(",");
+							} else {
+								arr_timeout[0] = item.getTimeout();
+							}							
+							
 						} // end of if (apiCount > 0)
 
 						// loop 시작 
@@ -391,6 +399,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 							if (arr_defaultParamValue_a[i] != null && arr_defaultParamValue_a[i].length() > 0)
 								busA_depth_3_A.setIf_id(arr_defaultParamValue_a[i]);
 	
+							//============================================================
+				            //< TIMEOUT
+				            //============================================================
+							if (arr_timeout[i] != null && arr_timeout[i].length() > 0)
+								busA_depth_2_A.setTimeout(arr_timeout[i]);							
+							
 							if (busA_depth_3_A != null)
 								busA_depth_2_A.setDefaultParameter(busA_depth_3_A);
 							

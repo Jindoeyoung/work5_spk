@@ -1,6 +1,7 @@
 package com.spk.api.entity.sys;
 
 import lombok.Data;
+//23.01.08 timeout 추가
 
 @Data
 public class VMatrix {
@@ -24,4 +25,5 @@ public class VMatrix {
 	private String required_param;
 	private String required_target;
 	private String permission;
+	private String timeout;
 }
