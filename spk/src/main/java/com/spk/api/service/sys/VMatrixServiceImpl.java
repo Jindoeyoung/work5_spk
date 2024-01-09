@@ -983,6 +983,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String[] arr_method = item.getMethods().split("");
 						String user_id = "";
 						String if_id = "";
+						String[] arr_api_if_id;
+						String api_if_id = "";
 						
 			            //============================================================
 			            //< defaultParameter : user_id 또는 tbl_nm
@@ -1007,7 +1009,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 							  item.getGubun().equals("0") ) { // BUS AVAIL 경우 
 							user_id = item.getDefault_param_value();
 						} else {
-							if_id = item.getDefault_param_value();	
+							if_id = item.getDefault_param_value();
+							arr_api_if_id = item.getDefault_param_value_a().split(",");
+							api_if_id = arr_api_if_id[0];							
 //							if ( tableCount > 0 ) {
 ////								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 //								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
@@ -1088,6 +1092,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 							if (if_id != null && if_id.length()>0)				
 								depth_4.setIf_id(if_id);							
 							
+							//============================================================
+				            //< defaultParameter (api_if_id)
+				            //============================================================					
+							if (api_if_id != null && api_if_id.length()>0)				
+								depth_4.setApi_if_id(api_if_id);							
+							
 //							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
 //								depth_4.setTbl_nm(arr_tbl_nm);
 //							}
@@ -1119,6 +1129,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String[] arr_defaultParamValue_a = new String[apiCount];
 						String[] arr_requiredParam = new String[apiCount];
 						String[] arr_permission = new String[apiCount];
+						String[] arr_timeout = new String[apiCount];
 						
 						if (apiCount > 0) {
 							
@@ -1206,6 +1217,13 @@ public class VMatrixServiceImpl implements VMatrixService {
 //								}						
 							}					
 						
+							// TIMEOUT
+							if (item.getTimeout() != null && item.getTimeout().contains(",")) {
+								arr_timeout = item.getTimeout().split(",");
+							} else {
+								arr_timeout[0] = item.getTimeout();
+							}							
+							
 						} // end of if (apiCount > 0)
 
 						// loop 시작 
@@ -1250,6 +1268,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 							if (arr_defaultParamValue_a[i] != null && arr_defaultParamValue_a[i].length() > 0)
 								depth_4_A.setIf_id(arr_defaultParamValue_a[i]);
 	
+							//============================================================
+				            //< TIMEOUT
+				            //============================================================
+							if (arr_timeout[i] != null && arr_timeout[i].length() > 0)
+								depth_3_A.setTimeout(arr_timeout[i]);							
+							
 							if (depth_4_A != null)
 								depth_3_A.setDefaultParameter(depth_4_A);
 							
