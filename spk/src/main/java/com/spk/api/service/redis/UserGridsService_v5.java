@@ -18,7 +18,7 @@ public class UserGridsService_v5 {
         this.redisDAO = redisDAO;
     }
 
-    public UserGrids registerUser(String userid, UserGrids_depth_1 data) throws IOException {
+    public UserGrids registerData(String userid, UserGrids_depth_1 data) throws IOException {
         UserGrids userApi = new UserGrids();
         userApi.setUser_id(userid);
         userApi.setData(data);
@@ -28,15 +28,15 @@ public class UserGridsService_v5 {
         return redisDAO.getKeyValue(userid);
     }    
 
-    public void deleteUser(String userid) {
+    public void deleteData(String userid) {
         redisDAO.deleteKeyValue(userid);
     }
 
-    public UserGrids getUser(String userid) throws IOException {
+    public UserGrids getData(String userid) throws IOException {
         return redisDAO.getKeyValue(userid);
     }
 
-    public List<String> getUsernameList() {
+    public List<String> getDataList() {
         return redisDAO.getAllKeyValues();
     }
 }

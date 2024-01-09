@@ -900,8 +900,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 					logger.info("GRIDS INSERT!!!>");
 					// REDIS Insert
 					UserGrids insertGrids = null;
-					gridsService_v5.getUser(spike_id);
-					insertGrids = gridsService_v5.registerUser(spike_id, data);
+					gridsService_v5.getData(spike_id);
+					insertGrids = gridsService_v5.registerData(spike_id, data);
 					
 					logger.info("[grids-insert-v5] new ResponseEntity<>(userApi, HttpStatus.OK) : "+new ResponseEntity<>(insertGrids, HttpStatus.OK));
 					
