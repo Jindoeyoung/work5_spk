@@ -14,17 +14,18 @@
 	<!-- 전체 spike_id 리스트 조회  -->
     <select id="getAllSpikeIdList" resultType="com.spk.api.entity.sys.VMatrix">
 	    SELECT a.SPIKE_ID, a.SEQ
-	      FROM MATRIX_BASE a
-	     WHERE a.SEQ = (SELECT MAX(x.SEQ) FROM MATRIX_BASE x WHERE x.SPIKE_ID = a.SPIKE_ID)
+	      FROM B_MATRIX_DR a
+	     WHERE a.SEQ = (SELECT MAX(x.SEQ) FROM B_MATRIX_DR x WHERE x.SPIKE_ID = a.SPIKE_ID)
 	  ORDER BY a.SEQ
     </select>
     
 	<!-- spike_id 별 처리할 위젯 리스트 조회  -->
     <select id="getSpikeIdMatrixList" resultType="com.spk.api.entity.sys.VMatrix">
 	    SELECT *
-	      FROM MATRIX_BASE
+	      FROM B_MATRIX_DR
 	     WHERE GUBUN = #{gubun}
 	       AND SPIKE_ID = #{spike_id}
+	  ORDER BY DEFAULT_PARAM_VALUE_A
     </select>    
     
 </mapper>

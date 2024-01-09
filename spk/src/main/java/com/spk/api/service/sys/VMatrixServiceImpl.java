@@ -650,7 +650,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 				            //< defaultParameter (if_id)
 				            //============================================================					
 							if (if_id != null && if_id.length()>0)				
-								depth_4.setIf_id(if_id) ;							
+								depth_4.setIf_id(if_id);							
 							
 							//============================================================
 				            //< defaultParameter (api_if_id)
@@ -982,23 +982,24 @@ public class VMatrixServiceImpl implements VMatrixService {
 						//methods 배열
 						String[] arr_method = item.getMethods().split("");
 						String user_id = "";
+						String if_id = "";
 						
 			            //============================================================
 			            //< defaultParameter : user_id 또는 tbl_nm
 						//< user_id : (공통)_그리드, (공통)_디테일
 						//< tbl_mm : 그 외 전부
 			            //============================================================
-						// 콤마로 총 테이블 갯수 구하기 (콤마개수 + 1 해준다) : (공통)_그리드, (공통)_디테일 이 아닌 경우만 해당
-						String getDefault_param_value = item.getDefault_param_value();
-						
-						int tableCount = 0;
-						if ("tbl_nm".equals(item.getDefault_param()) && item.getDefault_param_value() != null && item.getDefault_param_value().length() > 0) {
-							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
-						}
-						
-//						logger.info("tableCount====="+tableCount);
-						
-						String[] arr_tbl_nm = new String[tableCount];
+//						// 콤마로 총 테이블 갯수 구하기 (콤마개수 + 1 해준다) : (공통)_그리드, (공통)_디테일 이 아닌 경우만 해당
+//						String getDefault_param_value = item.getDefault_param_value();
+//						
+//						int tableCount = 0;
+//						if ("tbl_nm".equals(item.getDefault_param()) && item.getDefault_param_value() != null && item.getDefault_param_value().length() > 0) {
+//							tableCount = getDefault_param_value.length() - getDefault_param_value.replace(String.valueOf(","), "").length()+1;
+//						}
+//						
+////						logger.info("tableCount====="+tableCount);
+//						
+//						String[] arr_tbl_nm = new String[tableCount];
 						
 						if ( 
 							( item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
@@ -1006,21 +1007,21 @@ public class VMatrixServiceImpl implements VMatrixService {
 							  item.getGubun().equals("0") ) { // BUS AVAIL 경우 
 							user_id = item.getDefault_param_value();
 						} else {
-
-							if ( tableCount > 0 ) {
-//								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
-									arr_tbl_nm = item.getDefault_param_value().split(",");
-								} else {
-									arr_tbl_nm[0] = item.getDefault_param_value();
-									
-									// 배열 나머지 요소는 null 로 채움
-//									for(int j = 1; j < tableCount; j++){
-//										arr_tbl_nm[j] = null;
-//									}								
-								}
-								
-							}
+							if_id = item.getDefault_param_value();	
+//							if ( tableCount > 0 ) {
+////								logger.info("tableCount > 0 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//								if (item.getDefault_param_value() != null && item.getDefault_param_value().contains(",")) {
+//									arr_tbl_nm = item.getDefault_param_value().split(",");
+//								} else {
+//									arr_tbl_nm[0] = item.getDefault_param_value();
+//									
+//									// 배열 나머지 요소는 null 로 채움
+////									for(int j = 1; j < tableCount; j++){
+////										arr_tbl_nm[j] = null;
+////									}								
+//								}
+//								
+//							}
 								
 						}
 						
@@ -1080,6 +1081,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 				            //============================================================					
 							if (user_id != null && user_id.length()>0)				
 								depth_4.setUser_id(user_id);
+							
+							//============================================================
+				            //< defaultParameter (if_id)
+				            //============================================================					
+							if (if_id != null && if_id.length()>0)				
+								depth_4.setIf_id(if_id);							
 							
 //							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
 //								depth_4.setTbl_nm(arr_tbl_nm);
