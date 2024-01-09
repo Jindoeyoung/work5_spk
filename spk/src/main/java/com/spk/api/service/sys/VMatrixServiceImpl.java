@@ -36,8 +36,8 @@ import com.spk.api.service.redis.BusAService_v5;
 import com.spk.api.entity.redis.usergrids_v5.*;
 import com.spk.api.service.redis.UserGridsService_v5;
 
-import com.spk.api.entity.redis.userdetails_v3.*;
-import com.spk.api.service.redis.UserDetailsService_v3;
+import com.spk.api.entity.redis.userdetails_v5.*;
+import com.spk.api.service.redis.UserDetailsService_v5;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,7 +53,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 	private UserGridsService_v5 gridsService_v5;	
 	
 	@Autowired
-	private UserDetailsService_v3 detailsService_v3;
+	private UserDetailsService_v5 detailsService_v5;
 	
 	@Autowired
 	private VMatrixMappers vMatrixMappers;
@@ -1081,9 +1081,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 							if (user_id != null && user_id.length()>0)				
 								depth_4.setUser_id(user_id);
 							
-							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
-								depth_4.setTbl_nm(arr_tbl_nm);
-							}
+//							if (arr_tbl_nm != null && arr_tbl_nm.length > 0) {
+//								depth_4.setTbl_nm(arr_tbl_nm);
+//							}
 							
 							if (depth_4 != null)
 								depth_3.setDefaultParameter(depth_4);
@@ -1308,8 +1308,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 					logger.info("INSERT!!!>");
 					// REDIS Insert
 					UserDetails insertDetails = null;
-					detailsService_v3.getUser(spike_id);
-					insertDetails = detailsService_v3.registerUser(spike_id, data);
+					detailsService_v5.getData(spike_id);
+					insertDetails = detailsService_v5.registerData(spike_id, data);
 					
 					logger.info("[details-insert-v4] new ResponseEntity<>(userApi, HttpStatus.OK) : "+new ResponseEntity<>(insertDetails, HttpStatus.OK));
 					
