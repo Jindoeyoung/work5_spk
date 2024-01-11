@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spk.api.mapper.pms.api.ApiMstInfoMapper">
+
+	<!-- 시스템메뉴 등록  -->
+    <insert id="insertApiMstInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
+        INSERT INTO API_MST 
+               (
+				api_id
+				,api_nm
+				,method
+				,uri
+				,func_cd
+				,rel_api_id
+				,timeout
+                ) 
+        VALUES (
+                #{API_MST.api_id},
+                #{API_MST.api_nm},
+                #{API_MST.method},
+                #{API_MST.uri},
+                #{API_MST.func_cd},
+                #{API_MST.rel_api_id},
+                #{API_MST.timeout}
+                ) 
+    </insert>
+    
+</mapper>
