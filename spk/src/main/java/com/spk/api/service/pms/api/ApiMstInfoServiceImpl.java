@@ -75,6 +75,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		int result4 = 0;
 		String if_id = null;
 		String rel_if_id = null;
+		String func_cd = null;
 		int i = 0;
 		
 		try {
@@ -91,8 +92,10 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 					result2 = apiMstParamMapper.insertApiMstParamInfo(item2);
 				}
 				
-				if (i == 1)
+				if (i == 1) {
 					if_id = item.getApi_id();
+					func_cd = item.getFunc_cd();
+				}
 				
 				if (i == 2)
 					rel_if_id = item.getApi_id();
@@ -141,7 +144,13 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	        //< MATRIX(MySql) -> FLAG(Redis) 전송
 	        //============================================================			
 
-			final String apiUrl = "http://localhost:8443/routerspk/matrix/grids";			
+			String apiUrl = null;
+			
+			if ("GRID".equals(func_cd)) {
+				apiUrl = "http://localhost:8443/routerspk/matrix/grids";
+			} else if ("DETAIL".equals(func_cd)) {
+				apiUrl = "http://localhost:8443/routerspk/matrix/details";
+			}
 			
 	        // RestTemplate 객체 생성
 	        RestTemplate restTemplate = new RestTemplate();
