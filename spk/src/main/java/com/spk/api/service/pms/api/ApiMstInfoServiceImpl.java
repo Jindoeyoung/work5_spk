@@ -72,7 +72,9 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		int result = 0;
 		int result2 = 0;
 		int result3 = 0;
+		int result4 = 0;
 		String if_id = null;
+		String rel_if_id = null;
 		int i = 0;
 		
 		try {
@@ -91,7 +93,17 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 				
 				if (i == 1)
 					if_id = item.getApi_id();
+				
+				if (i == 2)
+					rel_if_id = item.getApi_id();
 			}
+			
+			
+	        //============================================================
+	        //< REL_API_ID 업데이트
+	        //============================================================			
+			
+			result3 = apiMstMapper.updateApiMstRelApiId(if_id, rel_if_id);
 			
 	        //============================================================
 	        //< MATRIX insert
@@ -111,7 +123,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			// 그냥, GRID 에 대한 api_id 를 search type 에 넣는다
 			
 			
-			result3 = apiMstMapper.insertMatrixInfo(if_id);
+			result4 = apiMstMapper.insertMatrixInfo(if_id);
 			
 			
 			
@@ -174,7 +186,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			
 			
 			
-			if (result < 1 || result2 < 1) {
+			if (result < 1 || result2 < 1 || result3 < 1) {
 				throw new RuntimeException("API_MST Exception");
 			}
 			

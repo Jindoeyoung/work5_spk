@@ -27,4 +27,13 @@ public interface ApiMstInfoMapper {
 		@Param("api_id") String api_id
 //		@Param("API_MST") ApiMstList apiMstList
 	);
+	
+    //============================================================
+    //< UPDATE - REL_API_ID update
+    //============================================================	
+	int updateApiMstRelApiId(
+		@Param("api_id") String api_id,
+		@Param("rel_api_id") String rel_api_id
+	);	
+	
 }
