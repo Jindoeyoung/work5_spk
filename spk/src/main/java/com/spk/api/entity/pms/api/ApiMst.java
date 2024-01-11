@@ -1,5 +1,9 @@
 package com.spk.api.entity.pms.api;
 
+import java.util.List;
+
+import com.spk.api.entity.ComApiRel;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +16,5 @@ public class ApiMst {
 	private String func_cd;
 	private String rel_api_id;
 	private String timeout;
+	private List<ApiMstParam> api_param;
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spk.api.mapper.pms.api.ApiMstParamInfoMapper">
+
+	<!-- API 파라미터 등록  -->
+    <insert id="insertApiMstParamInfo" parameterType="com.spk.api.entity.pms.api.ApiMstParam">
+        INSERT INTO API_MST_PARAM
+               (
+				SEQ
+				,API_ID
+				,ENAME
+				,KNAME
+                ) 
+        VALUES (
+                (SELECT ifnull(MAX_SEQ, 1) 
+                   FROM 
+                      (
+	                  SELECT MAX(seq)+1 AS MAX_SEQ 
+	                   FROM API_MST_PARAM 
+	                  WHERE API_ID = #{API_MST_PARAM.api_id} 
+	                  ) A
+                  ),
+                #{API_MST_PARAM.api_id},
+                #{API_MST_PARAM.ename},
+                #{API_MST_PARAM.kname}
+                ) 
+    </insert>
+    
+</mapper>

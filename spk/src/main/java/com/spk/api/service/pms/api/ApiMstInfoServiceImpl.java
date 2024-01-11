@@ -10,14 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 //import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import com.spk.api.entity.pms.api.ApiMst;
 import com.spk.api.entity.pms.api.ApiMstList;
+import com.spk.api.entity.pms.api.ApiMstParam;
 import com.spk.api.mapper.pms.api.ApiMstInfoMapper;
-
+import com.spk.api.mapper.pms.api.ApiMstParamInfoMapper;
 import com.spk.api.security.AuthCheck;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,9 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	@Autowired
 	private ApiMstInfoMapper apiMstMapper;	
 	
+	@Autowired
+	private ApiMstParamInfoMapper apiMstParamMapper;
+	
 	AuthCheck authcheck = new AuthCheck();
 	
 	/**
@@ -41,6 +46,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	 * @return String
 	 */	
 	@Override
+	@Transactional
 	public String insertApiMst(@Param("API_MST") ApiMstList apiMstList) throws Exception {	
 	    //============================================================
 	    //< api-key check
@@ -56,19 +62,29 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 //		JsonArray jsonArr1 = new JsonArray();
 //		String Message = "SUCCESS";
 //		String Success = "1";
+		int result = 0;
+		int result2 = 0;
 		
 		try {
 			List<ApiMst> datas = apiMstList.getData();
 			
 			for (ApiMst item : datas) {
-				int results = apiMstMapper.insertApiMstInfo(item);
+				// API_MST 저장
+				result = apiMstMapper.insertApiMstInfo(item);
+				
+				List<ApiMstParam> datas2 = item.getApi_param();
+				for (ApiMstParam item2 : datas2) {
+					// API_MST_PARAM 저장
+					result2 = apiMstParamMapper.insertApiMstParamInfo(item2);
+				}
 			}
 			
-//			if (results == 1) {
-//			} // if (results == 1) {
+			if (result < 1 || result2 < 1) {
+				throw new RuntimeException("API_MST Exception");
+			}			
 			
 		} catch (Exception e) {
-			logger.error("[ApiMstServiceImpl.insertApiMst] ERROR : " + e);
+			logger.error("[ApiMstInfoServiceImpl.insertApiMst] ERROR : " + e);
 			e.printStackTrace();
 		}
 		return dataResult.toString();
