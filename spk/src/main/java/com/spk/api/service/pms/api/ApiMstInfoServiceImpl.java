@@ -71,13 +71,15 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 //		String Success = "1";
 		int result = 0;
 		int result2 = 0;
-		
-		
+		int result3 = 0;
+		String if_id = null;
+		int i = 0;
 		
 		try {
 			List<ApiMst> datas = apiMstList.getData();
 			
 			for (ApiMst item : datas) {
+				i++;
 				// API_MST 저장
 				result = apiMstMapper.insertApiMstInfo(item);
 				
@@ -86,6 +88,9 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 					// API_MST_PARAM 저장
 					result2 = apiMstParamMapper.insertApiMstParamInfo(item2);
 				}
+				
+				if (i == 1)
+					if_id = item.getApi_id();
 			}
 			
 	        //============================================================
@@ -104,6 +109,20 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			// 2)   update type 에 rel_api_id 던짐 
 			
 			// 그냥, GRID 에 대한 api_id 를 search type 에 넣는다
+			
+			
+			result3 = apiMstMapper.insertMatrixInfo(if_id);
+			
+			
+			
+//			logger.info("============ START ==================");
+//			try {
+//			  // 5초 동안 현재 스레드 정지
+//			  Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//			  e.printStackTrace();
+//			}
+//			logger.info("============ END ==================");
 			
 			
 	        //============================================================

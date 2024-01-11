@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.spk.api.entity.pms.api.ApiMst;
+//import com.spk.api.entity.pms.api.ApiMstList;
 
 /**
  * <p>Mapper</p>
@@ -19,5 +20,11 @@ public interface ApiMstInfoMapper {
 		@Param("API_MST") ApiMst apiMst
 	);	
 	
-
+    //============================================================
+    //< INSERT - 매트릭스 정보 저장
+    //============================================================	
+	int insertMatrixInfo(
+		@Param("api_id") String api_id
+//		@Param("API_MST") ApiMstList apiMstList
+	);
 }

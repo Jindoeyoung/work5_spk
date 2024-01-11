@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class ApiMstList {
 	private String apikey;
-	private String api_id;
+	private String spike_id;
 	List<ApiMst> data;
 }
