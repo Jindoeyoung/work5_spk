@@ -8,9 +8,15 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 //import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
 
 //import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -23,6 +29,7 @@ import com.spk.api.mapper.pms.api.ApiMstParamInfoMapper;
 import com.spk.api.security.AuthCheck;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +72,8 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		int result = 0;
 		int result2 = 0;
 		
+		
+		
 		try {
 			List<ApiMst> datas = apiMstList.getData();
 			
@@ -79,9 +88,79 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 				}
 			}
 			
+	        //============================================================
+	        //< MATRIX insert
+	        //============================================================			
+			
+			// 박부장 SQL 로 select insert 함
+			// 여기서 2가지 타입
+			
+			// 1) GRID  
+			// 1)-> search type 에 api_Id where 조건에 던지고
+			// 2)   update type 에 1=2 를 던진다 
+			
+			// 2) GRID-SAVE
+			// 1)-> search type 에 api_Id where 조건에 던지고
+			// 2)   update type 에 rel_api_id 던짐 
+			
+			// 그냥, GRID 에 대한 api_id 를 search type 에 넣는다
+			
+			
+	        //============================================================
+	        //< MATRIX(MySql) -> FLAG(Redis) 전송
+	        //============================================================			
+
+			final String apiUrl = "http://localhost:8443/routerspk/matrix/grids";			
+			
+	        // RestTemplate 객체 생성
+	        RestTemplate restTemplate = new RestTemplate();
+
+	        // Request Body에 담을 데이터
+//	        String requestBody = "{\"spike_id\": \"%\"}";
+	        String requestBody = "{\"apikey\": \"BJDGye3B/cyODiJhIbNWNh6j6K3lHtqLAtTdjORKQ6E=\", \"spike_id\": \"%\"}";
+
+	        // HTTP 요청 헤더 설정
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_JSON);
+
+	        // HttpEntity 생성
+	        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+	        // API 호출 및 응답 받기
+	        String result_param = restTemplate.postForObject(apiUrl, requestEntity, String.class);			
+			
+//			final String apiUrl = "http://localhost:8443/routerspk/matrix/grids";
+//			
+//	        // WebClient 객체 생성
+//	        WebClient webClient = WebClient.create();
+//
+//	        HttpHeaders headers = new HttpHeaders();
+//	        headers.setContentType(MediaType.APPLICATION_JSON);
+//	        	        
+//	        
+//	        // Request Body에 담을 데이터
+//	        String requestBody = "{\"spike_id\": \"%\"}";
+//	        
+//	        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+//
+//	        // API 호출 및 응답 받기
+//	        String result_api = webClient.post()
+//	                .uri(apiUrl)
+//	                .body(BodyInserters.fromValue(requestBody))
+//	                .retrieve()
+//	                .bodyToMono(String.class)
+//	                .block();
+			
+			
+			
+			
+			
 			if (result < 1 || result2 < 1) {
 				throw new RuntimeException("API_MST Exception");
-			}			
+			}
+			
+			
+			
 			
 		} catch (Exception e) {
 			logger.error("[ApiMstInfoServiceImpl.insertApiMst] ERROR : " + e);
