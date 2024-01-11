@@ -102,8 +102,8 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	        //============================================================
 	        //< REL_API_ID 업데이트
 	        //============================================================			
-			
-			result3 = apiMstMapper.updateApiMstRelApiId(if_id, rel_if_id);
+			if ( rel_if_id != null && rel_if_id.length() > 0)
+				result3 = apiMstMapper.updateApiMstRelApiId(if_id, rel_if_id);
 			
 	        //============================================================
 	        //< MATRIX insert
@@ -186,7 +186,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			
 			
 			
-			if (result < 1 || result2 < 1 || result3 < 1) {
+			if (result < 1 || result2 < 1) {
 				throw new RuntimeException("API_MST Exception");
 			}
 			
