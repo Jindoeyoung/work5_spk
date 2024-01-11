@@ -8,8 +8,9 @@ public class VMatrix {
 	private String apikey;
 	private String gubun;
 	private String spike_id;
-	private String widget_grp_id;
-	private String func_id;
+	private String widget_func_id;
+//	private String widget_grp_id;
+//	private String func_id;
 	private String seq;
 	private String widget_nm;
 	private String methods;
