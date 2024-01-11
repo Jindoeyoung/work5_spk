@@ -20,6 +20,7 @@ public interface VMatrixMappers {
     //< SELECT (List) - 전체 spike_id 리스트 조회
     //============================================================	
 	List<VMatrix> getAllSpikeIdList(
+		@Param("spike_id") String spike_id
 	);
 
     //============================================================

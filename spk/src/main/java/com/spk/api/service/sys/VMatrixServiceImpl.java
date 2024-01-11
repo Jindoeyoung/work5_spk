@@ -83,14 +83,14 @@ public class VMatrixServiceImpl implements VMatrixService {
 		JsonObject dataResult = new JsonObject();
 		
 		try {
-			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList();
+			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList(vMatrix.getSpike_id());
 
 			for (VMatrix user : users) {
 			
 				// 테이블에서 조회한 spike_id 사용
-//				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList(vMatrix.getGubun(), user.getSpike_id());
+				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("0", user.getSpike_id());
 				// 파라미터 spike_id 사용
-				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("0", vMatrix.getSpike_id());
+//				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("0", vMatrix.getSpike_id());
 			
 				List<BusA_depth_1> flag_info = new ArrayList<BusA_depth_1>();
 //				int rowCount = 0;
@@ -512,13 +512,13 @@ public class VMatrixServiceImpl implements VMatrixService {
 		JsonObject dataResult = new JsonObject();
 		
 		try {
-			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList();
+			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList(vMatrix.getSpike_id());
 
 			for (VMatrix user : users) {
 				// 테이블에서 조회한 spike_id 사용
-//				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList(vMatrix.getGubun(), user.getSpike_id());
+				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("1", user.getSpike_id());
 				// 파라미터 spike_id 사용
-				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("1", vMatrix.getSpike_id());
+//				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("1", vMatrix.getSpike_id());
 			
 				UserGrids_depth_1 data = new UserGrids_depth_1();
 				List<UserGrids_depth_2> result = new ArrayList<UserGrids_depth_2>();				
@@ -949,14 +949,14 @@ public class VMatrixServiceImpl implements VMatrixService {
 		JsonObject dataResult = new JsonObject();
 		
 		try {
-			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList();
+			List<VMatrix> users = vMatrixMappers.getAllSpikeIdList(vMatrix.getSpike_id());
 
 			for (VMatrix user : users) {
 			
 				// 테이블에서 조회한 spike_id 사용
-//				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList(vMatrix.getGubun(), user.getSpike_id());
+				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("2", user.getSpike_id());
 				// 파라미터 spike_id 사용
-				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("2", vMatrix.getSpike_id());
+//				List<VMatrix> datas = vMatrixMappers.getSpikeIdMatrixList("2", vMatrix.getSpike_id());
 			
 				UserDetails_depth_1 data = new UserDetails_depth_1();
 				List<UserDetails_depth_2> result = new ArrayList<UserDetails_depth_2>();				
