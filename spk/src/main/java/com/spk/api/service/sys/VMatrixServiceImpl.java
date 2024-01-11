@@ -135,8 +135,10 @@ public class VMatrixServiceImpl implements VMatrixService {
 						String[] arr_tbl_nm = new String[tableCount];
 						
 						if ( 
-							( item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
-							  item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-002-01") ) && 
+							( 
+//							  item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
+//							  item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-002-01") ) &&
+							  "CMC-003^FU-001-01".equals(item.getWidget_func_id()) || "CMC-003^FU-001-02".equals(item.getWidget_func_id()) ) &&
 							  item.getGubun().equals("0") ) { // BUS AVAIL 경우 
 							user_id = item.getDefault_param_value();
 						} else {
@@ -173,8 +175,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 			            //============================================================
 			            //< 위젯ID^기능ID
-			            //============================================================					
-						busA_depth_1.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
+			            //============================================================				
+						busA_depth_1.setComponentId(item.getWidget_func_id()); // 위젯ID^기능ID
+//						busA_depth_1.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
 						
 			            //============================================================
 			            //< componentName (위젯명)
@@ -594,8 +597,9 @@ public class VMatrixServiceImpl implements VMatrixService {
 						
 			            //============================================================
 			            //< 위젯ID^기능ID
-			            //============================================================					
-						depth_2.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
+			            //============================================================
+						depth_2.setComponentId(item.getWidget_func_id());
+//						depth_2.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
 						
 			            //============================================================
 			            //< componentName (위젯명)
@@ -1003,12 +1007,12 @@ public class VMatrixServiceImpl implements VMatrixService {
 //						
 //						String[] arr_tbl_nm = new String[tableCount];
 						
-						if ( 
-							( item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
-							  item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-002-01") ) && 
-							  item.getGubun().equals("0") ) { // BUS AVAIL 경우 
-							user_id = item.getDefault_param_value();
-						} else {
+//						if ( 
+//							( item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-001-01") ||
+//							  item.getWidget_grp_id().equals("CMC-003") &&  item.getFunc_id().equals("FU-002-01") ) && 
+//							  item.getGubun().equals("0") ) { // BUS AVAIL 경우 
+//							user_id = item.getDefault_param_value();
+//						} else {
 							if_id = item.getDefault_param_value();
 							arr_api_if_id = item.getDefault_param_value_a().split(",");
 							api_if_id = arr_api_if_id[0];							
@@ -1027,7 +1031,7 @@ public class VMatrixServiceImpl implements VMatrixService {
 //								
 //							}
 								
-						}
+//						}
 						
 			            //============================================================
 			            //< spike_id
@@ -1037,7 +1041,8 @@ public class VMatrixServiceImpl implements VMatrixService {
 			            //============================================================
 			            //< 위젯ID^기능ID
 			            //============================================================					
-						depth_2.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
+						depth_2.setComponentId(item.getWidget_func_id());
+//						depth_2.setComponentId(item.getWidget_grp_id()+"^"+item.getFunc_id()); // 위젯ID^기능ID
 						
 			            //============================================================
 			            //< componentName (위젯명)
