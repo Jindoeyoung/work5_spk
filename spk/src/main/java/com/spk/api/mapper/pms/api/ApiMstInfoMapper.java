@@ -21,10 +21,11 @@ public interface ApiMstInfoMapper {
 	);	
 	
     //============================================================
-    //< INSERT - 매트릭스 정보 저장
+    //< INSERT - 매트릭스 정보 저장 (procedure 호출)
     //============================================================	
 	int insertMatrixInfo(
-		@Param("api_id") String api_id
+		@Param("api_id") String api_id,
+		@Param("spike_id") String spike_id
 //		@Param("API_MST") ApiMstList apiMstList
 	);
 	

@@ -35,8 +35,9 @@
 	<!-- 매트릭스 등록  -->
     <insert id="insertMatrixInfo" parameterType="java.util.HashMap" statementType="CALLABLE">
 		{ CALL 
-			sp_add_matrix_real(
-				#{api_id,	mode=IN, jdbcType=VARCHAR, javaType=String}  
+			sp_add_matrix_real_2(
+				#{api_id,	mode=IN, jdbcType=VARCHAR, javaType=String},
+				#{spike_id,	mode=IN, jdbcType=VARCHAR, javaType=String}
 			) 
 		} 
     </insert>    

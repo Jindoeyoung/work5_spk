@@ -125,8 +125,10 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			
 			// 그냥, GRID 에 대한 api_id 를 search type 에 넣는다
 			
-			
-			result4 = apiMstMapper.insertMatrixInfo(if_id);
+			// procedure 수행
+			// 파라미터로 받은 spike_id는 owner 로서, SUPER 12명과 더불어 추가로 매트릭스 부여받게 됨
+			// 정리) API 를 추가하면, SUPER12명 + 파라미터로 받은 owner (spike_id)
+			result4 = apiMstMapper.insertMatrixInfo(if_id, apiMstList.getSpike_id());
 			
 			
 			
@@ -146,10 +148,12 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 
 			String apiUrl = null;
 			
-			if ("GRID".equals(func_cd)) {
-				apiUrl = "http://localhost:8443/routerspk/matrix/grids";
+			if (("GRID".equals(func_cd)) || ("PRINT".equals(func_cd)) ) {
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";
+				//apiUrl = "http://localhost:8443/routerspk/matrix/grids";
 			} else if ("DETAIL".equals(func_cd)) {
-				apiUrl = "http://localhost:8443/routerspk/matrix/details";
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details";
+				//apiUrl = "http://localhost:8443/routerspk/matrix/details";
 			}
 			
 	        // RestTemplate 객체 생성
