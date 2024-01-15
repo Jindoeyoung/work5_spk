@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.spk.api.entity.pms.api.ApiMst;
 import com.spk.api.entity.pms.api.ApiMstList;
 import com.spk.api.service.pms.api.ApiMstInfoService;
+import com.spk.api.util.ReturnException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,10 @@ public class ApiMstInfoController {
 	@PostMapping("/insertApiMst")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String insertApiMst(@RequestBody ApiMstList apiMstList) throws Exception {
+		try{
 		return apiMstService.insertApiMst(apiMstList);
+		} catch (ReturnException e) {
+			return (String)e.getValue();
+		}	
 	}
 }

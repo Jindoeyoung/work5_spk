@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,6 +28,8 @@ import com.spk.api.entity.pms.api.ApiMstParam;
 import com.spk.api.mapper.pms.api.ApiMstInfoMapper;
 import com.spk.api.mapper.pms.api.ApiMstParamInfoMapper;
 import com.spk.api.security.AuthCheck;
+import com.spk.api.util.ReturnException;
+import com.spk.api.util.Utils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,6 +71,8 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
 		JsonObject Obj1 = new JsonObject();
+		Utils utils = new Utils();
+		
 		String Message = "SUCCESS";
 		String Success = "1";
 		int result = 0;
@@ -151,10 +156,10 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			
 			if (("GRID".equals(func_cd)) || ("PRINT".equals(func_cd)) ) {
 				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";
-				//apiUrl = "http://localhost:8443/routerspk/matrix/grids";
+//				apiUrl = "http://localhost:8443/routerspk/matrix/grids";
 			} else if ("DETAIL".equals(func_cd)) {
 				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details";
-				//apiUrl = "http://localhost:8443/routerspk/matrix/details";
+//				apiUrl = "http://localhost:8443/routerspk/matrix/details";
 			}
 			
 	        // RestTemplate 객체 생성
@@ -197,21 +202,34 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 //	                .block();
 			
 			
+//			logger.info("result@@@@@@@@@>"+result);
+//			logger.info("result2########>"+result2);
 			
 			
-			
-			if (result < 1 || result2 < 1) {
-				throw new RuntimeException("API_MST Exception");
-			}
+//			if (result < 1 || result2 < 1) {
+//				throw new RuntimeException("API_MST Exception");
+//			}
 			
 			dataResult.addProperty("reason", Message);
 			dataResult.addProperty("result", Success);
 			jsonArr1.add(Obj1);
 			dataResult.add("flag_info", jsonArr1);
 			
+		} catch (DuplicateKeyException e){
+			logger.error("[ApiMstInfoServiceImpl.insertApiMst] ERROR : DuplicateKeyException : " + e);
+
+			JsonObject results = new JsonObject();
+			results = utils.getMetaErrGenerator2(2000);
+			e.printStackTrace();
+			throw new ReturnException(results, "DuplicateKeyException 발생");			
+			
 		} catch (Exception e) {
 			logger.error("[ApiMstInfoServiceImpl.insertApiMst] ERROR : " + e);
+			
+			JsonObject results = new JsonObject();
+			results = utils.getMetaErrGenerator2(1000);			
 			e.printStackTrace();
+			throw new ReturnException(results, "Exception 발생");
 		}
 		return dataResult.toString();
 	}
