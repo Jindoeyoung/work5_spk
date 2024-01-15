@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-//import com.google.gson.JsonArray;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import com.spk.api.entity.pms.api.ApiMst;
@@ -66,9 +66,10 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
         //< json 포맷 데이터 생성
         //============================================================		
 		JsonObject dataResult = new JsonObject();
-//		JsonArray jsonArr1 = new JsonArray();
-//		String Message = "SUCCESS";
-//		String Success = "1";
+		JsonArray jsonArr1 = new JsonArray();
+		JsonObject Obj1 = new JsonObject();
+		String Message = "SUCCESS";
+		String Success = "1";
 		int result = 0;
 		int result2 = 0;
 		int result3 = 0;
@@ -203,8 +204,10 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 				throw new RuntimeException("API_MST Exception");
 			}
 			
-			
-			
+			dataResult.addProperty("reason", Message);
+			dataResult.addProperty("result", Success);
+			jsonArr1.add(Obj1);
+			dataResult.add("flag_info", jsonArr1);
 			
 		} catch (Exception e) {
 			logger.error("[ApiMstInfoServiceImpl.insertApiMst] ERROR : " + e);
