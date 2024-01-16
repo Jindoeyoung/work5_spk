@@ -3,6 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spk.api.mapper.pms.api.ApiMstInfoMapper">
 
+	<!-- 시스템메뉴 리스트 조회  -->
+    <select id="getApiMstList" resultType="com.spk.api.entity.pms.api.ApiMst">
+        SELECT * FROM API_MST
+         WHERE API_ID LIKE CONCAT('%', #{API_MST.api_id}, '%')
+         ORDER BY API_ID
+    </select>
+
 	<!-- API 마스터 등록  -->
     <insert id="insertApiMstInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
         INSERT INTO API_MST 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spk.api.entity.pms.api.ApiMst;
 //import com.spk.api.entity.pms.api.ApiMst;
 import com.spk.api.entity.pms.api.ApiMstList;
 import com.spk.api.service.pms.api.ApiMstInfoService;
@@ -18,9 +19,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/sys", produces = "application/json; charset=utf8")
 public class ApiMstInfoController {
 	private final ApiMstInfoService apiMstService;
-
+	
     //============================================================
-    //< INSERT - 시스템메뉴정보 저장
+    //< SELECT - API마스터 리스트 조회
+    //============================================================	
+	@PostMapping("/getApiMstList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMenuInfoList(@RequestBody ApiMst pApiMst) throws Exception {
+		return apiMstService.getApiMstList(pApiMst);
+	}	
+    //============================================================
+    //< INSERT - API마스터 저장
     //============================================================	
 	@PostMapping("/insertApiMst")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")

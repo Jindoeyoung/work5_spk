@@ -1,6 +1,6 @@
 package com.spk.api.mapper.pms.api;
 
-//import java.util.List;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +14,14 @@ import com.spk.api.entity.pms.api.ApiMst;
 @Mapper
 public interface ApiMstInfoMapper {
     //============================================================
-    //< INSERT - 시스템메뉴정보 저장
+    //< SELECT - 시스템메뉴정보 리스트 조회
+    //============================================================	
+	List<ApiMst> getApiMstList(
+		@Param("API_MST") ApiMst apiMst
+	);	
+	
+    //============================================================
+    //< INSERT - API마스터 저장
     //============================================================	
 	int insertApiMstInfo(
 		@Param("API_MST") ApiMst apiMst

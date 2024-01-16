@@ -48,6 +48,65 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	AuthCheck authcheck = new AuthCheck();
 	
 	/**
+	 * <p>SELECT (List)</p>
+		 * <ul>
+		 * 	<li>시스템메뉴정보 등록 리스트를 조회한다 </li>
+	     * </ul>
+	 * @param pSysMenuInfo 클라이언트에서 요청받은 메뉴정보
+	 * @return String
+	 */	
+	@Override
+	public String getApiMstList(@Param("SYS_MENU_INFO") ApiMst pApiMst) throws Exception {
+		final Logger logger = LoggerFactory.getLogger(this.getClass());
+	    //============================================================
+	    //< api-key check
+	    //============================================================
+		if (!authcheck.getMetaAuthErrGenerator(pApiMst.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(pApiMst.getApikey());
+		}
+
+        //============================================================
+        //< json 포맷 데이터 생성
+        //============================================================		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+		String Message = "SUCCESS";
+		String Success = "1";
+		
+		try {
+			List<ApiMst> apiMst = apiMstMapper.getApiMstList(pApiMst);
+			dataResult.addProperty("reason", Message);
+			dataResult.addProperty("result", Success);
+			
+//			dataResult.addProperty("menu_id", pApiMst.getMenu_id());
+			
+			if (apiMst.size() > 0) {
+				for (ApiMst item : apiMst) {
+					JsonObject Obj1 = new JsonObject();
+					
+					Obj1.addProperty("api_id", item.getApi_id());
+					Obj1.addProperty("api_nm", item.getApi_nm());
+					Obj1.addProperty("method", item.getMethod());
+					Obj1.addProperty("uri", item.getUri());
+					Obj1.addProperty("func_cd", item.getFunc_cd());
+					Obj1.addProperty("rel_api_id", item.getRel_api_id());
+					Obj1.addProperty("timeout", item.getTimeout());
+					
+					jsonArr1.add(Obj1);
+					
+					dataResult.add("data", jsonArr1);
+				}
+			} else {
+				dataResult.add("flag_info", jsonArr1);
+			}
+		} catch (Exception e) {
+			logger.error("[SysMenuInfoServiceImpl.getSysMenuInfoList] ERROR : " + e);
+			e.printStackTrace();
+		}			
+		return dataResult.toString();
+	}	
+	
+	/**
 	 * <p>INSERT</p>
 		 * <ul>
 		 * 	<li>API 정보를 등록한다 </li>
