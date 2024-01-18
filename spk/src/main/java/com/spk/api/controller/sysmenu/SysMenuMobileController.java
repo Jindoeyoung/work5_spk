@@ -22,17 +22,15 @@ public class SysMenuMobileController {
 	@Autowired
 	private SysMenuMobileService sysMenuMobileService;	
 //	private final SysMenuMobileService sysMenuMobileService;
-	
-
 
     //============================================================
-    //< SELECT - 시스템메뉴정보 리스트 조회
+    //< SELECT - 시스템메뉴모바일 리스트 조회
     //============================================================	
-//	@PostMapping("/getSysMenuInfoList")
-//	@CrossOrigin(origins = "*", allowedHeaders = "*")
-//	public String getMenuInfoList(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
-//		return sysMenuInfoService.getSysMenuInfoList(pSysMenuInfo);
-//	}	
+	@PostMapping("/getSysMenuMobileList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMenuInfoList(@RequestBody SysMenuMobile pSysMenuMobile) throws Exception {
+		return sysMenuMobileService.getSysMenuMobileList(pSysMenuMobile);
+	}	
 	
     //============================================================
     //< SELECT - 시스템메뉴모바일 상세 조회

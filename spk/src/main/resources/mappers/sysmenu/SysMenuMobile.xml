@@ -3,16 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spk.api.mapper.sysmenu.SysMenuMobileMapper">
 
-	<!-- 시스템메뉴 리스트 조회  
-    <select id="getSysMenuInfoList" resultType="com.spk.api.entity.SysMenuInfo">
-        SELECT * FROM SYS_MENU_INFO 
-        WHERE SPIKE_ID = #{SYS_MENU_INFO.spike_id}
-          AND MENU_ID = #{SYS_MENU_INFO.menu_id}
-          AND DIVISION = #{SYS_MENU_INFO.division}
-         ORDER BY SEQ DESC
+	<!-- 시스템메뉴 리스트 조회 --> 
+    <select id="getSysMenuMobileList" resultType="com.spk.api.entity.sysmenu.SysMenuMobile">
+        SELECT * FROM SYS_MENU_MOBILE
+        WHERE SPIKE_ID = #{SYS_MENU_MOBILE.spike_id}
+         ORDER BY REG_DT
     </select>
-	-->
-	
+
 	<!-- 시스템메뉴 모바일 정보 조회  -->
     <select id="getSysMenuMobile" resultType="com.spk.api.entity.sysmenu.SysMenuMobile">
         SELECT * FROM SYS_MENU_MOBILE 
@@ -48,7 +45,7 @@
     <update id="updateSysMenuMobile" parameterType="com.spk.api.entity.sysmenu.SysMenuMobile">
 		UPDATE SYS_MENU_MOBILE 
 		   SET MENU_NM 		= #{SYS_MENU_MOBILE.menu_nm}
-		       MOB_ICON_ID  = #{SYS_MENU_MOBILE.mob_icon_id}
+		      ,MOB_ICON_ID  = #{SYS_MENU_MOBILE.mob_icon_id}
 		      ,UPT_DT 		= sysdate()
 		      ,UPT_ID 		= #{SYS_MENU_MOBILE.spike_id}
 		WHERE SPIKE_ID = #{SYS_MENU_MOBILE.spike_id}

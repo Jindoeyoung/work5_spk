@@ -1,6 +1,6 @@
 package com.spk.api.mapper.sysmenu;
 
-//import java.util.List;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,9 +15,9 @@ public interface SysMenuMobileMapper {
     //============================================================
     //< SELECT - 시스템메뉴정보 리스트 조회
     //============================================================	
-//	List<SysMenuInfo> getSysMenuInfoList(
-//		@Param("SYS_MENU_INFO") SysMenuInfo sysMenuInfo
-//	);
+	List<SysMenuMobile> getSysMenuMobileList(
+		@Param("SYS_MENU_MOBILE") SysMenuMobile sysMenuMobile
+	);
 	
     //============================================================
     //< SELECT - 시스템메뉴 모바일 정보 조회

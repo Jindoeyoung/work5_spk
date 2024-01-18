@@ -12,7 +12,7 @@ public interface SysMenuMobileService {
     //============================================================
     //< SELECT - 시스템메뉴모바일 리스트 조회
     //============================================================	
-//	public String getSysMenuMobileList(@Param("SYS_MENU_MOBILE") SysMenuInfo sysMenuInfo) throws Exception;
+	public String getSysMenuMobileList(@Param("SYS_MENU_MOBILE") SysMenuMobile sysMenuMobile) throws Exception;
 	
     //============================================================
     //< SELECT - 시스템메뉴모바일 상세조회
