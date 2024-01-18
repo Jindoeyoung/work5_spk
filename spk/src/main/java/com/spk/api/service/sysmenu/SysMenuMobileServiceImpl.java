@@ -11,13 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-//import com.spk.api.entity.SysMenuInfo;
 import com.spk.api.entity.sysmenu.SysMenuMobile;
 import com.spk.api.error.EResultCode;
-//import com.spk.api.mapper.SysMenuInfoMapper;
 import com.spk.api.mapper.sysmenu.SysMenuMobileMapper;
 import com.spk.api.security.AuthCheck;
-//import com.spk.api.service.sys.SysMenuInfoService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,9 +30,9 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
 	AuthCheck authcheck = new AuthCheck();
 
 	/**
-	 * <p>SELECT (MAP)</p>
+	 * <p>SELECT (list)</p>
 		 * <ul>
-		 * 	<li>시스템메뉴모바일 정보 상세정보 조회 </li>
+		 * 	<li>시스템메뉴모바일 정보 리스트 조회 </li>
 	     * </ul>
 	 * @param pSysMenuMobile 클라이언트에서 요청받은 메뉴정보
 	 * @return String
@@ -55,8 +52,6 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
         //============================================================		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
-//		String Message = "SUCCESS";
-//		String Success = "1";
 		
 		try {
 			List<SysMenuMobile> sysMenuMobile = sysMenuMobileMapper.getSysMenuMobileList(pSysMenuMobile);
@@ -77,9 +72,9 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
 					dataResult.add("data", jsonArr1);
 				}
 			} else {
-				JsonObject Obj3 = new JsonObject();
-				Obj3.add("result", jsonArr1);
-				dataResult.add("data", Obj3);
+				JsonObject Obj2 = new JsonObject();
+				Obj2.add("result", jsonArr1);
+				dataResult.add("data", Obj2);
 			}
 		} catch (Exception e) {
 			logger.error("[SysMenuMobileServiceImpl.getSysMenuMobileList] ERROR : " + e);
@@ -112,13 +107,11 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
         //============================================================		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
-		String Message = "SUCCESS";
-		String Success = "1";
 		
 		try {
 			SysMenuMobile sysMenuMobile = sysMenuMobileMapper.getSysMenuMobile(pSysMenuMobile);
-			dataResult.addProperty("reason", Message);
-			dataResult.addProperty("result", Success);
+			dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
+			dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());			
 			
 			if (sysMenuMobile != null) {
 					JsonObject Obj1 = new JsonObject();
@@ -132,9 +125,9 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
 					
 					dataResult.add("data", jsonArr1);
 			} else {
-				JsonObject Obj3 = new JsonObject();
-				Obj3.add("result", jsonArr1);
-				dataResult.add("data", Obj3);
+				JsonObject Obj2 = new JsonObject();
+				Obj2.add("result", jsonArr1);
+				dataResult.add("data", Obj2);
 			}
 		} catch (Exception e) {
 			logger.error("[SysMenuMobileServiceImpl.getSysMenuMobile] ERROR : " + e);
@@ -165,16 +158,14 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
         //============================================================		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
-		String Message = "SUCCESS";
-		String Success = "1";
 		
 		try {
 			int results = sysMenuMobileMapper.insertSysMenuMobile(pSysMenuMobile);
 			
 			if (results == 1) {
 				SysMenuMobile sysMenuMobile = sysMenuMobileMapper.getSysMenuMobile(pSysMenuMobile);
-				dataResult.addProperty("reason", Message);
-				dataResult.addProperty("result", Success);
+				dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
+				dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());				
 				
 				if (sysMenuMobile != null) {
 						JsonObject Obj1 = new JsonObject();
@@ -187,13 +178,19 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
 						
 						jsonArr1.add(Obj1);
 						
-						dataResult.add("flag_info", jsonArr1);
+						dataResult.add("data", jsonArr1);
 				} else {
-					JsonObject Obj3 = new JsonObject();
-					Obj3.add("result", jsonArr1);
-					dataResult.add("data", Obj3);
+					JsonObject Obj2 = new JsonObject();
+					Obj2.add("result", jsonArr1);
+					dataResult.add("data", Obj2);
 				}
-			} // if (results == 1) {
+			} else { // if (results == 1) {
+				dataResult.addProperty("reason", EResultCode.FAIL.getResultMessage());
+				dataResult.addProperty("result", EResultCode.FAIL.getResultCode());
+				JsonObject Obj1 = new JsonObject();
+				jsonArr1.add(Obj1);
+				dataResult.add("data", jsonArr1);				
+			}
 		} catch (Exception e) {
 			logger.error("[SysMenuMobileServiceImpl.insertSysMenuMobile] ERROR : " + e);
 			e.printStackTrace();
@@ -225,16 +222,14 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
         //============================================================		
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
-		String Message = "SUCCESS";
-		String Success = "1";
 		
 		try {
 			int results = sysMenuMobileMapper.updateSysMenuMobile(pSysMenuMobile);
 			
 			if (results == 1) {
 				SysMenuMobile sysMenuMobile = sysMenuMobileMapper.getSysMenuMobile(pSysMenuMobile);
-				dataResult.addProperty("reason", Message);
-				dataResult.addProperty("result", Success);
+				dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
+				dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());				
 				
 				if (sysMenuMobile != null) {
 						JsonObject Obj1 = new JsonObject();
@@ -246,13 +241,19 @@ public class SysMenuMobileServiceImpl implements SysMenuMobileService {
 						
 						jsonArr1.add(Obj1);
 						
-						dataResult.add("flag_info", jsonArr1);
+						dataResult.add("data", jsonArr1);
 				} else {
-					JsonObject Obj3 = new JsonObject();
-					Obj3.add("result", jsonArr1);
-					dataResult.add("data", Obj3);
+					JsonObject Obj2 = new JsonObject();
+					Obj2.add("result", jsonArr1);
+					dataResult.add("data", Obj2);
 				}
-			} // if (results == 1) {
+			} else { // if (results == 1) {
+				dataResult.addProperty("reason", EResultCode.FAIL.getResultMessage());
+				dataResult.addProperty("result", EResultCode.FAIL.getResultCode());
+				JsonObject Obj1 = new JsonObject();
+				jsonArr1.add(Obj1);
+				dataResult.add("data", jsonArr1);				
+			}
 		} catch (Exception e) {
 			logger.error("[SysMenuMobileServiceImpl.updateSysMenuMobile] ERROR : " + e);
 			e.printStackTrace();
