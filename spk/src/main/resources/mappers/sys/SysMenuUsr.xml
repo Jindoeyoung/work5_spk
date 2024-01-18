@@ -41,15 +41,13 @@
 		(
 			SELECT distinct a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
 			FROM SYS_MENU_MST a
-			join SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
-			join SYS_MENU_AUTH c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
+			join SYS_MENU_USR_2 b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
+			join SYS_MENU_AUTH_3 c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
 			</if>
 			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
-			and ( c.depart_cd = #{SYS_MENU_USR.dept} or c.depart_cd = ( CASE WHEN #{SYS_MENU_USR.dept} = '0040' then 'ALL'    
-										                       				 WHEN #{SYS_MENU_USR.dept} = '0020' then 'ALL'
-										                      	 			 WHEN #{SYS_MENU_USR.dept} = '2000' then 'ALL' end ) )
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
+			AND c.depart_cd = #{SYS_MENU_USR.dept}
 			</if>							                      	 			 
 		) x
 		ORDER BY x.DIVISION DESC, x.SEQ 
