@@ -14,7 +14,8 @@ public interface ApiMstParamInfoMapper {
     //< INSERT - 시스템메뉴정보 저장
     //============================================================	
 	int insertApiMstParamInfo(
-		@Param("API_MST_PARAM") ApiMstParam apiMstParam
+		@Param("API_MST_PARAM") ApiMstParam apiMstParam,
+		@Param("spike_id") String spike_id
 	);	
 	
 

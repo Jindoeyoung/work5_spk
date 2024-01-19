@@ -14,16 +14,18 @@
     <insert id="insertApiMstInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
         INSERT INTO API_MST 
                (
-				api_id
-				,api_nm
-				,method
-				,uri
-				,func_cd
-				,rel_api_id
-				,timeout
+				API_ID
+				,REG_ID
+				,API_NM
+				,METHOD
+				,URI
+				,FUNC_CD
+				,REL_API_ID
+				,TIMEOUT
                 ) 
         VALUES (
                 #{API_MST.api_id},
+                #{spike_id},
                 #{API_MST.api_nm},
                 #{API_MST.method},
                 #{API_MST.uri},

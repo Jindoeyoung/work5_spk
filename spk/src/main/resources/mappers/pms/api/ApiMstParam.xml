@@ -9,6 +9,7 @@
                (
 				SEQ
 				,API_ID
+				,REG_ID
 				,ENAME
 				,KNAME
                 ) 
@@ -22,6 +23,7 @@
 	                  ) A
                   ),
                 #{API_MST_PARAM.api_id},
+                #{spike_id},
                 #{API_MST_PARAM.ename},
                 #{API_MST_PARAM.kname}
                 ) 

@@ -24,7 +24,8 @@ public interface ApiMstInfoMapper {
     //< INSERT - API마스터 저장
     //============================================================	
 	int insertApiMstInfo(
-		@Param("API_MST") ApiMst apiMst
+		@Param("API_MST") ApiMst apiMst,
+		@Param("spike_id") String spike_id
 	);	
 	
     //============================================================

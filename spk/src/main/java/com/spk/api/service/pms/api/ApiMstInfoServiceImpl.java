@@ -149,12 +149,12 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			for (ApiMst item : datas) {
 				i++;
 				// API_MST 저장
-				result = apiMstMapper.insertApiMstInfo(item);
+				result = apiMstMapper.insertApiMstInfo(item, apiMstList.getSpike_id());
 				
 				List<ApiMstParam> datas2 = item.getApi_param();
 				for (ApiMstParam item2 : datas2) {
 					// API_MST_PARAM 저장
-					result2 = apiMstParamMapper.insertApiMstParamInfo(item2);
+					result2 = apiMstParamMapper.insertApiMstParamInfo(item2, apiMstList.getSpike_id());
 				}
 				
 				if (i == 1) {
