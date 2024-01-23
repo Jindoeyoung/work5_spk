@@ -214,11 +214,20 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			String apiUrl = null;
 			
 			if (("GRID".equals(func_cd)) || ("PRINT".equals(func_cd)) ) {
-				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";
-//				apiUrl = "http://localhost:8443/routerspk/matrix/grids";
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";  // 남부대 개발
+//				apiUrl = "http://localhost:8443/routerspk/matrix/grids";		// 로컬
+//				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/grids"; 		// 본사 개발(내부) 
+//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/grids";   // 본사 개발(외부)
 			} else if ("DETAIL".equals(func_cd)) {
-				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details";
-//				apiUrl = "http://localhost:8443/routerspk/matrix/details";
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details"; // 남부대 개발
+//				apiUrl = "http://localhost:8443/routerspk/matrix/details";		 // 로컬
+//				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/details";		 // 본사 개발(내부)
+//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/details";  // 본사 개발(외부)
+			} else if ("REPORT".equals(func_cd)) {
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/prints";  // 남부대 개발
+//				apiUrl = "http://localhost:8443/routerspk/matrix/prints";		 // 로컬
+//				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/prints";		 // 본사 개발(내부)
+//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/prints";	 // 본사 개발(외부)			
 			}
 			
 	        // RestTemplate 객체 생성

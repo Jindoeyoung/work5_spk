@@ -45,5 +45,14 @@ public class VMatrixController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMatrixListDetails(@RequestBody VMatrix vMatrix) throws Exception {
 		return vMatrixService.getMatrixListDetails(vMatrix);
+	}
+	
+    //============================================================
+    //< SELECT - Matrix : UserGrids 조회(mysql)-저장(redis) 처리  
+    //============================================================	
+	@PostMapping("/prints")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String getMatrixListPrints(@RequestBody VMatrix vMatrix) throws Exception {
+		return vMatrixService.getMatrixListPrints(vMatrix);
 	}	
 }
