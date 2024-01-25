@@ -23,6 +23,16 @@ public interface SysMenuUsrService {
     //< SELECT - 시스템메뉴유저 리스트 조회 (OWNER 추가)
     //============================================================	
 	public String getSysMenuUsrList3(@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr) throws Exception;	
+
+    //============================================================
+    //< SELECT - 시스템메뉴유저 리스트 조회 (OWNER 추가)
+    //============================================================	
+	public String getSysMenuUsrList_GR(@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr) throws Exception;	
+	
+    //============================================================
+    //< SELECT - 시스템메뉴유저 리스트 조회 (OWNER 추가)
+    //============================================================	
+	public String getSysMenuUsrList_GR2(@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr) throws Exception;	
 	
     //============================================================
     //< SELECT - 시스템메뉴정보 상세 조회
