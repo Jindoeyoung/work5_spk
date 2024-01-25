@@ -70,20 +70,21 @@
     
 	<!-- 특정 상위메뉴코드를 함께 갖는, 동일 Level 메뉴들의 USE_YN 값들 조회  -->
     <select id="getSameLevelUseYn" resultType="com.spk.api.entity.SysMenuInfo">
-		SELECT DISTINCT A.USE_YN FROM SYS_MENU_USR A
+		SELECT DISTINCT M.USE_YN FROM SYS_MENU_USR_2 M
 		WHERE EXISTS 
 		(
-			SELECT 1 FROM SYS_MENU_USR B
-			 WHERE A.SPIKE_ID = B.SPIKE_ID
-			    AND A.DIVISION = B.DIVISION
-				AND A.MENU_ID = B.MENU_ID
-				AND A.SPIKE_ID = #{SYS_MENU_INFO.spike_id}
-				AND A.DIVISION = #{SYS_MENU_INFO.division}
-				AND A.PARENT_MENU_ID = (SELECT A.PARENT_MENU_ID
-										  FROM SYS_MENU_MST A
-									     WHERE A.DIVISION = #{SYS_MENU_INFO.division}
-								           AND A.MENU_ID = #{SYS_MENU_INFO.menu_id})
-		)
+			SELECT 1 FROM SYS_MENU_MST A 
+               INNER JOIN SYS_MENU_USR_2 B ON A.DIVISION = B.DIVISION AND A.MENU_ID = B.MENU_ID #AND A.SEQ = B.SEQ
+			 WHERE M.SPIKE_ID = B.SPIKE_ID
+			    AND M.DIVISION = B.DIVISION
+				AND M.MENU_ID = B.MENU_ID
+				AND M.SPIKE_ID = #{SYS_MENU_INFO.spike_id}
+				AND M.DIVISION = #{SYS_MENU_INFO.division}
+				AND A.PARENT_MENU_ID = (SELECT X.PARENT_MENU_ID
+										  FROM SYS_MENU_MST X
+									     WHERE X.DIVISION = #{SYS_MENU_INFO.division}
+								           AND X.MENU_ID = #{SYS_MENU_INFO.menu_id})
+		)		
     </select>
     
 	<!-- 특정 상위메뉴코드의 USE_YN 값들 조회  -->
