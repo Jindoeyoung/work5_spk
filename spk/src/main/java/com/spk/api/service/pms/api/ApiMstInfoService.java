@@ -20,4 +20,8 @@ public interface ApiMstInfoService {
     //============================================================
 	public String insertApiMst(@Param("API_MST") ApiMstList apiMstList) throws Exception;
 	
+    //============================================================
+    //< INSERT - API마스터 삭제
+    //============================================================
+	public String deleteApiMst(@Param("API_MST") ApiMstList apiMstList) throws Exception;	
 }

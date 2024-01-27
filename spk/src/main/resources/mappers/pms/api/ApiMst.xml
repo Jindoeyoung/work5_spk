@@ -51,4 +51,10 @@
 		} 
     </insert>    
     
+	<!-- API 마스터 삭제 -->
+    <delete id="deleteApiMstInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
+        DELETE FROM API_MST
+         WHERE API_ID = #{API_MST.api_id} 
+    </delete>
+    
 </mapper>

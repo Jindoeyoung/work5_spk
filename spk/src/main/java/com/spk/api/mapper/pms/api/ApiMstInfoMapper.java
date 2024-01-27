@@ -45,4 +45,10 @@ public interface ApiMstInfoMapper {
 		@Param("rel_api_id") String rel_api_id
 	);	
 	
+    //============================================================
+    //< DELETE - API정보 삭제
+    //============================================================	
+	int deleteApiMstInfo(
+		@Param("API_MST") ApiMst apiMst
+	);	
 }

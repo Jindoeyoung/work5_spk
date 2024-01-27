@@ -1,6 +1,7 @@
 package com.spk.api.controller.pms.api;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,8 @@ public class ApiMstInfoController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMenuInfoList(@RequestBody ApiMst pApiMst) throws Exception {
 		return apiMstService.getApiMstList(pApiMst);
-	}	
+	}
+	
     //============================================================
     //< INSERT - API마스터 저장
     //============================================================	
@@ -40,4 +42,18 @@ public class ApiMstInfoController {
 			return (String)e.getValue();
 		}	
 	}
+
+    //============================================================
+    //< INSERT - API마스터 삭제(PARAM, MATRIX 동시 삭제함)
+    //============================================================	
+	@DeleteMapping("/deleteApiMst")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String deleteApiMst(@RequestBody ApiMstList apiMstList) throws Exception {
+		try{
+		return apiMstService.deleteApiMst(apiMstList);
+		} catch (ReturnException e) {
+			return (String)e.getValue();
+		}	
+	}
+	
 }

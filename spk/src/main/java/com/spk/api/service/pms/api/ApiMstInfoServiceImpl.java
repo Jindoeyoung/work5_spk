@@ -13,7 +13,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -25,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.spk.api.entity.pms.api.ApiMst;
 import com.spk.api.entity.pms.api.ApiMstList;
 import com.spk.api.entity.pms.api.ApiMstParam;
+import com.spk.api.error.EResultCode;
 import com.spk.api.mapper.pms.api.ApiMstInfoMapper;
 import com.spk.api.mapper.pms.api.ApiMstParamInfoMapper;
 import com.spk.api.security.AuthCheck;
@@ -214,20 +214,20 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			String apiUrl = null;
 			
 			if (("GRID".equals(func_cd)) || ("PRINT".equals(func_cd)) ) {
-				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";  // 남부대 개발
+//				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";  // 남부대 개발
 //				apiUrl = "http://localhost:8443/routerspk/matrix/grids";		// 로컬
 //				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/grids"; 		// 본사 개발(내부) 
-//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/grids";   // 본사 개발(외부)
+				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/grids";   // 본사 개발(외부)
 			} else if ("DETAIL".equals(func_cd)) {
-				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details"; // 남부대 개발
+//				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details"; // 남부대 개발
 //				apiUrl = "http://localhost:8443/routerspk/matrix/details";		 // 로컬
 //				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/details";		 // 본사 개발(내부)
-//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/details";  // 본사 개발(외부)
+				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/details";  // 본사 개발(외부)
 			} else if ("REPORT".equals(func_cd)) {
-				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/prints";  // 남부대 개발
+//				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/prints";  // 남부대 개발
 //				apiUrl = "http://localhost:8443/routerspk/matrix/prints";		 // 로컬
 //				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/prints";		 // 본사 개발(내부)
-//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/prints";	 // 본사 개발(외부)			
+				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/prints";	 // 본사 개발(외부)			
 			}
 			
 	        // RestTemplate 객체 생성
@@ -302,6 +302,57 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		return dataResult.toString();
 	}
 	
+	/**
+	 * <p>DELETE</p>
+		 * <ul>
+		 * 	<li>API 마스터를 삭제한다. </li>
+		 * 	<li>API_MST, API_MST_PARAM, A_MATRIX 테이블 동시에 삭제한다. </li> 
+	     * </ul>
+	 * @param apiMstList 클라이언트에서 요청받은 API마스터 정보
+	 * @return String
+	 */	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public String deleteApiMst(@Param("API_MST") ApiMstList apiMstList) throws Exception {
+	    //============================================================
+	    //< api-key check
+	    //============================================================
+		if (!authcheck.getMetaAuthErrGenerator(apiMstList.getApikey()).equals("{}")) {
+			return authcheck.getMetaAuthErrGenerator(apiMstList.getApikey());
+		}	
+		
+        //============================================================
+        //< json 포맷 데이터 생성
+        //============================================================		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+		JsonObject Obj1 = new JsonObject();
+		int results = 0;
+		
+		try {
+			
+			List<ApiMst> datas = apiMstList.getData();
+			
+			for (ApiMst item : datas) {
+				results = apiMstMapper.deleteApiMstInfo(item);
+			}
 
+			if ( results == 1) {
+				dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
+				dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());
+			} else {
+				dataResult.addProperty("reason", EResultCode.FAIL.getResultMessage());
+				dataResult.addProperty("result", EResultCode.FAIL.getResultCode());
+			}
+			jsonArr1.add(Obj1);
+			dataResult.add("data", jsonArr1);			
+			
+			
+		} catch (Exception e) {
+			logger.error("[UDR01ServiceImle.updateRegistAmt] ERROR : " + e);
+			e.printStackTrace();
+		}
+		return dataResult.toString();
+	}
 	
 }
