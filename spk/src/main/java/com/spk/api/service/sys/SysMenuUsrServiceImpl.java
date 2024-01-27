@@ -456,6 +456,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 					String parentId = item.getParent_menu_id();
 					JsonObject parent = getParent(result, parentId);
 					JsonObject current = new JsonObject();
+					current.addProperty("division", item.getDivision());
 					current.addProperty("menuCd", item.getMenu_id());
 					current.addProperty("menuNm", item.getMenu_nm());
 					current.addProperty("use_yn", item.getUse_yn());

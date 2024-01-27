@@ -59,7 +59,7 @@ public class SysMenuUsrController {
     //============================================================
     //< SELECT - 시스템메뉴사용자 리스트 조회 (감리용)
     //============================================================	
-	@PostMapping("/getSysMenuUsrList-GR2")
+	@PostMapping("/getSysMenuUsrList-web")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String getMenuUsrList_GR2(@RequestBody SysMenuUsr pSysMenuUsr) throws Exception {
 		return sysMenuUsrService.getSysMenuUsrList_GR2(pSysMenuUsr);

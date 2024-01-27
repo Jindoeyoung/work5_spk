@@ -5,7 +5,7 @@ server:
   #port: 8443 # 본사
   port: 8445 # 남부대
   servlet:
-    context-path: /spk
+    context-path: /routerspk
     encoding:
       charset: UTF-8
       enabled: true
@@ -36,12 +36,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://210.123.228.102:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
     username: root
-    password: Mysql1234%    
+    password: Mysql1234%
 # 외부 접속    
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://221.133.61.193:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
 #    username: dev
 #    password: Mysql1234%
 # 로컬 접속
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/spike?serverTimezone=Asia/Seoul&characterEncoding=utf8
 #    username: spk
 #    password: spk1234%
@@ -50,16 +52,30 @@ spring:
 # Redis
 #=======================================================    
   redis:
+# 내부 접속 사용  
 #    port: 6388
+#    host: 10.1.193.1
+#    password: digi!cap!
+#    database: 0
+#    timeout: 0
+# 남부대 접속 사용  
+    port: 6388
+    host: 210.123.228.102
+    password: digi!cap!
+    database: 0
+    timeout: 0
+# 외부 접속 사용
+#    port: 6388
+#    host: 221.133.61.193
+#    password: digi!cap!
+#    database: 0
+#    timeout: 0
+# 로컬 접속 사용    
+#    port: 6379
 #    host: 127.0.0.1
 #    password: digi!cap!
 #    database: 0
 #    timeout: 0
-    port: 6379
-    host: 127.0.0.1
-    password: digi!cap!
-    database: 0
-    timeout: 0    
     
 #=======================================================
 # Security
