@@ -115,7 +115,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	 * @return String
 	 */	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public String insertApiMst(@Param("API_MST") ApiMstList apiMstList) throws Exception {	
 	    //============================================================
 	    //< api-key check
@@ -327,17 +327,40 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		JsonObject dataResult = new JsonObject();
 		JsonArray jsonArr1 = new JsonArray();
 		JsonObject Obj1 = new JsonObject();
+		Utils utils = new Utils();
+		String matrix_api_id = "";
 		int results = 0;
+		int results2 = 0;
+		int results3 = 0;
 		
 		try {
 			
 			List<ApiMst> datas = apiMstList.getData();
 			
 			for (ApiMst item : datas) {
+	            //============================================================
+	            //< API_MST 삭제
+	            //============================================================				
 				results = apiMstMapper.deleteApiMstInfo(item);
+	            //============================================================
+	            //< API_MST_PARAM 삭제
+	            //============================================================				
+				results2 = apiMstMapper.deleteApiMstParamInfo(item);
+				//============================================================
+	            //< A_MATRIX 삭제를 위한 API 묶음 생성 (,(콤마) 구분자)
+	            //============================================================				
+				matrix_api_id += item.getApi_id();
+				matrix_api_id += ",";
 			}
+            //============================================================
+            //< api_id 마지막 콤마(,) 제거
+            //============================================================
+			matrix_api_id = matrix_api_id.substring(0, matrix_api_id.length()-1);
+//			logger.info("matrix_api_id==>"+matrix_api_id);
+			
+			results3 = apiMstMapper.deleteMatrixInfo(matrix_api_id);
 
-			if ( results == 1) {
+			if ( results >= 0 && results2 >= 0 && results3 >= 0) {
 				dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
 				dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());
 			} else {
@@ -349,8 +372,12 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			
 			
 		} catch (Exception e) {
-			logger.error("[UDR01ServiceImle.updateRegistAmt] ERROR : " + e);
+			logger.error("[ApiMstInfoServiceImpl.deleteApiMst] ERROR : " + e);
+			
+			JsonObject result = new JsonObject();
+			result = utils.getMetaErrGenerator3(EResultCode.FAILED_DELETE);		
 			e.printStackTrace();
+			throw new ReturnException(result, EResultCode.FAILED_DELETE.getResultMessage());				
 		}
 		return dataResult.toString();
 	}

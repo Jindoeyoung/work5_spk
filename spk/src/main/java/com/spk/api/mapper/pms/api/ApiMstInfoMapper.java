@@ -46,9 +46,23 @@ public interface ApiMstInfoMapper {
 	);	
 	
     //============================================================
-    //< DELETE - API정보 삭제
+    //< DELETE - API_MST 삭제
     //============================================================	
 	int deleteApiMstInfo(
 		@Param("API_MST") ApiMst apiMst
+	);
+	
+    //============================================================
+    //< DELETE - API_MST_PARAM 삭제
+    //============================================================	
+	int deleteApiMstParamInfo(
+		@Param("API_MST") ApiMst apiMst
+	);
+	
+    //============================================================
+    //< DELETE - A_MATRIX 삭제
+    //============================================================	
+	int deleteMatrixInfo(
+		@Param("api_id") String api_id
 	);	
 }

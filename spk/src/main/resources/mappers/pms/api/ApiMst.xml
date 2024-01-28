@@ -51,10 +51,22 @@
 		} 
     </insert>    
     
-	<!-- API 마스터 삭제 -->
+	<!-- API 마스터(API_MST) 삭제 -->
     <delete id="deleteApiMstInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
         DELETE FROM API_MST
          WHERE API_ID = #{API_MST.api_id} 
     </delete>
     
+	<!-- API 마스터 PARAM (API_MST_PARAM) 삭제 -->
+    <delete id="deleteApiMstParamInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
+        DELETE FROM API_MST_PARAM
+         WHERE API_ID = #{API_MST.api_id}
+    </delete>    
+    
+	<!-- 매트릭스 (A_MATRIX) 삭제 -->
+    <delete id="deleteMatrixInfo" parameterType="com.spk.api.entity.pms.api.ApiMst">
+        DELETE FROM A_MATRIX
+         WHERE DEFAULT_PARAM_VALUE_A = #{api_id}
+    </delete>
+
 </mapper>
