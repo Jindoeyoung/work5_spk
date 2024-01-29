@@ -382,4 +382,103 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		return dataResult.toString();
 	}
 	
+	/**
+	 * <p>DELETE - GET 방식</p>
+		 * <ul>
+		 * 	<li>API 마스터를 삭제한다. </li>
+		 * 	<li>API_MST, API_MST_PARAM, A_MATRIX 테이블 동시에 삭제한다. </li> 
+	     * </ul>
+	 * @param apiMstList 클라이언트에서 요청받은 API마스터 정보
+	 * @return String
+	 */	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public String deleteApiMstGet(@Param("if_id1") String if_id1, @Param("if_id2") String if_id2) throws Exception {
+	    //============================================================
+	    //< api-key check
+	    //============================================================
+//		if (!authcheck.getMetaAuthErrGenerator(apiMstList.getApikey()).equals("{}")) {
+//			return authcheck.getMetaAuthErrGenerator(apiMstList.getApikey());
+//		}	
+		
+        //============================================================
+        //< json 포맷 데이터 생성
+        //============================================================		
+		JsonObject dataResult = new JsonObject();
+		JsonArray jsonArr1 = new JsonArray();
+		JsonObject Obj1 = new JsonObject();
+		Utils utils = new Utils();
+		String matrix_api_id = "";
+		int results = 0;
+		int results2 = 0;
+		int results3 = 0;
+		
+		try {
+			
+			if (if_id1.length() > 0) {
+	            //============================================================
+	            //< API_MST 삭제
+	            //============================================================				
+				results = apiMstMapper.deleteApiMstInfoGet(if_id1);
+	            //============================================================
+	            //< API_MST_PARAM 삭제
+	            //============================================================				
+				results2 = apiMstMapper.deleteApiMstParamInfoGet(if_id1);
+			}
+			
+			if (if_id2.length() > 0) {
+	            //============================================================
+	            //< API_MST 삭제
+	            //============================================================				
+				results = apiMstMapper.deleteApiMstInfoGet(if_id2);
+	            //============================================================
+	            //< API_MST_PARAM 삭제
+	            //============================================================				
+				results2 = apiMstMapper.deleteApiMstParamInfoGet(if_id2);
+			}
+			
+			//============================================================
+            //< A_MATRIX 삭제를 위한 API 묶음 생성 (,(콤마) 구분자)
+            //============================================================
+			
+			logger.info("if_id1.length()=>"+if_id1.length());
+			logger.info("if_id2.length()==>"+if_id2.length());
+			
+			//============================================================
+            //< if_id 1개 (search만 있는 케이스)
+            //============================================================			
+			if ( if_id1.length() > 0 && if_id2.length() == 0) {
+				matrix_api_id = if_id1;
+			//============================================================
+            //< if_id 2개 (search, save 케이스)
+            //============================================================				
+			} else if ( if_id1.length() > 0 && if_id2.length() > 0) {
+				matrix_api_id = if_id1 + "," + if_id2;
+			}
+			logger.info("matrix_api_id (GET) ==>"+matrix_api_id);
+			
+			results3 = apiMstMapper.deleteMatrixInfo(matrix_api_id);
+
+			if ( results >= 0 && results2 >= 0 && results3 >= 0) {
+				dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
+				dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());
+			} else {
+				dataResult.addProperty("reason", EResultCode.FAIL.getResultMessage());
+				dataResult.addProperty("result", EResultCode.FAIL.getResultCode());
+			}
+			jsonArr1.add(Obj1);
+			dataResult.add("data", jsonArr1);			
+			
+			
+		} catch (Exception e) {
+			logger.error("[ApiMstInfoServiceImpl.deleteApiMst] ERROR : " + e);
+			
+			JsonObject result = new JsonObject();
+			result = utils.getMetaErrGenerator3(EResultCode.FAILED_DELETE);		
+			e.printStackTrace();
+			throw new ReturnException(result, EResultCode.FAILED_DELETE.getResultMessage());				
+		}
+		return dataResult.toString();
+	}	
+	
 }

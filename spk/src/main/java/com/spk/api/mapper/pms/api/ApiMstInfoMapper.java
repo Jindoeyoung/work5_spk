@@ -64,5 +64,27 @@ public interface ApiMstInfoMapper {
     //============================================================	
 	int deleteMatrixInfo(
 		@Param("api_id") String api_id
+	);
+	
+	
+    //============================================================
+    //< DELETE - API_MST 삭제
+    //============================================================	
+	int deleteApiMstInfoGet(
+		@Param("if_id") String if_id
+	);
+	
+    //============================================================
+    //< DELETE - API_MST_PARAM 삭제
+    //============================================================	
+	int deleteApiMstParamInfoGet(
+		@Param("if_id") String if_id
+	);
+	
+    //============================================================
+    //< DELETE - A_MATRIX 삭제
+    //============================================================	
+	int deleteMatrixInfoGet(
+		@Param("if_id") String if_id
 	);	
 }

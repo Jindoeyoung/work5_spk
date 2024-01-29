@@ -2,6 +2,8 @@ package com.spk.api.controller.pms.api;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +48,7 @@ public class ApiMstInfoController {
     //============================================================
     //< INSERT - API마스터 삭제(PARAM, MATRIX 동시 삭제함)
     //============================================================	
-	@DeleteMapping("/deleteApiMst")
+	@DeleteMapping("/deleteApiMst_delete")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String deleteApiMst(@RequestBody ApiMstList apiMstList) throws Exception {
 		try{
@@ -55,5 +57,20 @@ public class ApiMstInfoController {
 			return (String)e.getValue();
 		}	
 	}
+	
+    //============================================================
+    //< INSERT - API마스터 삭제(PARAM, MATRIX 동시 삭제함)
+    //============================================================	
+//	@GetMapping("/deleteApiMstGet/if_id1={if_id1}&if_id2={if_id2}")
+//	@GetMapping("/deleteApiMst/{if_id1}/{if_id2}")
+	@GetMapping("/deleteApiMst/if_id1={if_id1}&if_id2={if_id2}")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String deleteApiMst(@PathVariable String if_id1, @PathVariable String if_id2) throws Exception {
+		try{
+		return apiMstService.deleteApiMstGet(if_id1, if_id2);
+		} catch (ReturnException e) {
+			return (String)e.getValue();
+		}	
+	}	
 	
 }
