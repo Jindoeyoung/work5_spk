@@ -214,20 +214,20 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 			String apiUrl = null;
 			
 			if (("GRID".equals(func_cd)) || ("PRINT".equals(func_cd)) ) {
-//				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";  // 남부대 개발
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/grids";  // 남부대 개발
 //				apiUrl = "http://localhost:8443/routerspk/matrix/grids";		// 로컬
 //				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/grids"; 		// 본사 개발(내부) 
-				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/grids";   // 본사 개발(외부)
+//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/grids";   // 본사 개발(외부)
 			} else if ("DETAIL".equals(func_cd)) {
-//				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details"; // 남부대 개발
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/details"; // 남부대 개발
 //				apiUrl = "http://localhost:8443/routerspk/matrix/details";		 // 로컬
 //				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/details";		 // 본사 개발(내부)
-				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/details";  // 본사 개발(외부)
+//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/details";  // 본사 개발(외부)
 			} else if ("REPORT".equals(func_cd)) {
-//				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/prints";  // 남부대 개발
+				apiUrl = "http://210.123.228.102:8445/routerspk/matrix/prints";  // 남부대 개발
 //				apiUrl = "http://localhost:8443/routerspk/matrix/prints";		 // 로컬
 //				apiUrl = "http://10.1.193.1:8443/routerspk/matrix/prints";		 // 본사 개발(내부)
-				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/prints";	 // 본사 개발(외부)			
+//				apiUrl = "http://221.133.61.193:8443/routerspk/matrix/prints";	 // 본사 개발(외부)			
 			}
 			
 	        // RestTemplate 객체 생성
@@ -390,10 +390,10 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 	     * </ul>
 	 * @param apiMstList 클라이언트에서 요청받은 API마스터 정보
 	 * @return String
-	 */	
+	 */
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public String deleteApiMstGet(@Param("if_id1") String if_id1, @Param("if_id2") String if_id2) throws Exception {
+	public String deleteApiMstGet(@Param("if_ids") String if_ids) throws Exception {
 	    //============================================================
 	    //< api-key check
 	    //============================================================
@@ -408,6 +408,7 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		JsonArray jsonArr1 = new JsonArray();
 		JsonObject Obj1 = new JsonObject();
 		Utils utils = new Utils();
+		String[] arr_if_ids = new String[2];
 		String matrix_api_id = "";
 		int results = 0;
 		int results2 = 0;
@@ -415,45 +416,57 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		
 		try {
 			
-			if (if_id1.length() > 0) {
+			if (if_ids != null && if_ids.contains(",")) {
+				arr_if_ids = if_ids.split(",");
+			} else {
+				arr_if_ids[0] = if_ids;
+				arr_if_ids[1] = "";
+			}			
+			
+			if (arr_if_ids[0] != null && arr_if_ids[0].length() > 0) {
 	            //============================================================
 	            //< API_MST 삭제
 	            //============================================================				
-				results = apiMstMapper.deleteApiMstInfoGet(if_id1);
+				results = apiMstMapper.deleteApiMstInfoGet(arr_if_ids[0]);
 	            //============================================================
 	            //< API_MST_PARAM 삭제
 	            //============================================================				
-				results2 = apiMstMapper.deleteApiMstParamInfoGet(if_id1);
+				results2 = apiMstMapper.deleteApiMstParamInfoGet(arr_if_ids[0]);
 			}
 			
-			if (if_id2.length() > 0) {
+			if (arr_if_ids[1] != null && arr_if_ids[1].length() > 0) {
 	            //============================================================
 	            //< API_MST 삭제
 	            //============================================================				
-				results = apiMstMapper.deleteApiMstInfoGet(if_id2);
+				results = apiMstMapper.deleteApiMstInfoGet(arr_if_ids[1]);
 	            //============================================================
 	            //< API_MST_PARAM 삭제
 	            //============================================================				
-				results2 = apiMstMapper.deleteApiMstParamInfoGet(if_id2);
+				results2 = apiMstMapper.deleteApiMstParamInfoGet(arr_if_ids[1]);
 			}
 			
 			//============================================================
             //< A_MATRIX 삭제를 위한 API 묶음 생성 (,(콤마) 구분자)
             //============================================================
 			
-			logger.info("if_id1.length()=>"+if_id1.length());
-			logger.info("if_id2.length()==>"+if_id2.length());
+			logger.info("if_id1.length()=>"+arr_if_ids[0].length());
+			
+			if (arr_if_ids[1] != null && arr_if_ids[1].length() > 0)
+			logger.info("if_id2.length()==>"+arr_if_ids[1].length());
 			
 			//============================================================
             //< if_id 1개 (search만 있는 케이스)
             //============================================================			
-			if ( if_id1.length() > 0 && if_id2.length() == 0) {
-				matrix_api_id = if_id1;
+			if ( arr_if_ids[0] != null && arr_if_ids[0].length() > 0 &&
+				 arr_if_ids[1].length() == 0) {
+				 //arr_if_ids[1] == null && arr_if_ids[1].length() == 0) {
+				matrix_api_id = arr_if_ids[0];
 			//============================================================
             //< if_id 2개 (search, save 케이스)
             //============================================================				
-			} else if ( if_id1.length() > 0 && if_id2.length() > 0) {
-				matrix_api_id = if_id1 + "," + if_id2;
+			} else if (arr_if_ids[0] != null && arr_if_ids[0].length() > 0 && 
+					   arr_if_ids[1] != "" && arr_if_ids[1].length() > 0) {
+				matrix_api_id = arr_if_ids[0] + "," + arr_if_ids[1];
 			}
 			logger.info("matrix_api_id (GET) ==>"+matrix_api_id);
 			
@@ -480,5 +493,95 @@ public class ApiMstInfoServiceImpl implements ApiMstInfoService {
 		}
 		return dataResult.toString();
 	}	
+	
+//	@Override
+//	@Transactional(rollbackFor = Exception.class)
+//	public String deleteApiMstGet(@Param("if_id1") String if_id1, @Param("if_id2") String if_id2) throws Exception {
+//	    //============================================================
+//	    //< api-key check
+//	    //============================================================
+////		if (!authcheck.getMetaAuthErrGenerator(apiMstList.getApikey()).equals("{}")) {
+////			return authcheck.getMetaAuthErrGenerator(apiMstList.getApikey());
+////		}	
+//		
+//        //============================================================
+//        //< json 포맷 데이터 생성
+//        //============================================================		
+//		JsonObject dataResult = new JsonObject();
+//		JsonArray jsonArr1 = new JsonArray();
+//		JsonObject Obj1 = new JsonObject();
+//		Utils utils = new Utils();
+//		String matrix_api_id = "";
+//		int results = 0;
+//		int results2 = 0;
+//		int results3 = 0;
+//		
+//		try {
+//			
+//			if (if_id1.length() > 0) {
+//	            //============================================================
+//	            //< API_MST 삭제
+//	            //============================================================				
+//				results = apiMstMapper.deleteApiMstInfoGet(if_id1);
+//	            //============================================================
+//	            //< API_MST_PARAM 삭제
+//	            //============================================================				
+//				results2 = apiMstMapper.deleteApiMstParamInfoGet(if_id1);
+//			}
+//			
+//			if (if_id2.length() > 0) {
+//	            //============================================================
+//	            //< API_MST 삭제
+//	            //============================================================				
+//				results = apiMstMapper.deleteApiMstInfoGet(if_id2);
+//	            //============================================================
+//	            //< API_MST_PARAM 삭제
+//	            //============================================================				
+//				results2 = apiMstMapper.deleteApiMstParamInfoGet(if_id2);
+//			}
+//			
+//			//============================================================
+//            //< A_MATRIX 삭제를 위한 API 묶음 생성 (,(콤마) 구분자)
+//            //============================================================
+//			
+//			logger.info("if_id1.length()=>"+if_id1.length());
+//			logger.info("if_id2.length()==>"+if_id2.length());
+//			
+//			//============================================================
+//            //< if_id 1개 (search만 있는 케이스)
+//            //============================================================			
+//			if ( if_id1.length() > 0 && if_id2.length() == 0) {
+//				matrix_api_id = if_id1;
+//			//============================================================
+//            //< if_id 2개 (search, save 케이스)
+//            //============================================================				
+//			} else if ( if_id1.length() > 0 && if_id2.length() > 0) {
+//				matrix_api_id = if_id1 + "," + if_id2;
+//			}
+//			logger.info("matrix_api_id (GET) ==>"+matrix_api_id);
+//			
+//			results3 = apiMstMapper.deleteMatrixInfo(matrix_api_id);
+//
+//			if ( results >= 0 && results2 >= 0 && results3 >= 0) {
+//				dataResult.addProperty("reason", EResultCode.SUCCESS.getResultMessage());
+//				dataResult.addProperty("result", EResultCode.SUCCESS.getResultCode());
+//			} else {
+//				dataResult.addProperty("reason", EResultCode.FAIL.getResultMessage());
+//				dataResult.addProperty("result", EResultCode.FAIL.getResultCode());
+//			}
+//			jsonArr1.add(Obj1);
+//			dataResult.add("data", jsonArr1);			
+//			
+//			
+//		} catch (Exception e) {
+//			logger.error("[ApiMstInfoServiceImpl.deleteApiMst] ERROR : " + e);
+//			
+//			JsonObject result = new JsonObject();
+//			result = utils.getMetaErrGenerator3(EResultCode.FAILED_DELETE);		
+//			e.printStackTrace();
+//			throw new ReturnException(result, EResultCode.FAILED_DELETE.getResultMessage());				
+//		}
+//		return dataResult.toString();
+//	}	
 	
 }

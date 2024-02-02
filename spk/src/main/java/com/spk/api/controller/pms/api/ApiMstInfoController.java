@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.pms.api.ApiMst;
@@ -61,16 +62,32 @@ public class ApiMstInfoController {
     //============================================================
     //< INSERT - API마스터 삭제(PARAM, MATRIX 동시 삭제함)
     //============================================================	
-//	@GetMapping("/deleteApiMstGet/if_id1={if_id1}&if_id2={if_id2}")
-//	@GetMapping("/deleteApiMst/{if_id1}/{if_id2}")
-	@GetMapping("/deleteApiMst/if_id1={if_id1}&if_id2={if_id2}")
+	@GetMapping("/deleteApiMst/{if_ids}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public String deleteApiMst(@PathVariable String if_id1, @PathVariable String if_id2) throws Exception {
+	public String deleteApiMst(@PathVariable String if_ids) throws Exception {	
 		try{
-		return apiMstService.deleteApiMstGet(if_id1, if_id2);
+			return apiMstService.deleteApiMstGet(if_ids);
+//			return apiMstService.deleteApiMstGet(if_id1, if_id2);
 		} catch (ReturnException e) {
 			return (String)e.getValue();
 		}	
 	}	
+	
+//    //============================================================
+//    //< INSERT - API마스터 삭제(PARAM, MATRIX 동시 삭제함)
+//    //============================================================	
+////	@GetMapping("/deleteApiMstGet/if_id1={if_id1}&if_id2={if_id2}")
+////	@GetMapping("/deleteApiMst/{if_id1}/{if_id2}")
+////	@GetMapping("/deleteApiMst/if_id1=if_id1&if_id2=if_id2")	
+//	@GetMapping("/deleteApiMst/if_id1={if_id1}&if_id2={if_id2}")
+//	@CrossOrigin(origins = "*", allowedHeaders = "*")
+//	public String deleteApiMst(@PathVariable String if_id1, @PathVariable String if_id2) throws Exception {	
+////	public String deleteApiMst(@RequestParam("if_id1") String if_id1, @RequestParam("if_id2") String if_id2) throws Exception {
+//		try{
+//			return apiMstService.deleteApiMstGet(if_id1, if_id2);
+//		} catch (ReturnException e) {
+//			return (String)e.getValue();
+//		}	
+//	}	
 	
 }
