@@ -28,5 +28,6 @@ public interface ApiMstInfoService {
     //============================================================
     //< INSERT - API마스터 삭제 (GET)
     //============================================================
-	public String deleteApiMstGet(@Param("if_id1") String if_id1, @Param("if_id2") String if_id2) throws Exception;	
+	public String deleteApiMstGet(@Param("if_ids") String if_ids) throws Exception;
+//	public String deleteApiMstGet(@Param("if_id1") String if_id1, @Param("if_id2") String if_id2) throws Exception;	
 }
