@@ -136,7 +136,38 @@
     </select>    
     -->
 
-	<!-- 시스템메뉴유저 조회 : 감리준비 --> <!-- 테이블만 G3 -->
+	<!-- 시스템메뉴유저 조회 : 감리준비 --> <!-- 테이블만 G3 
+    <select id="getSysMenuUsrList_GR2" resultType="com.spk.api.entity.SysMenuUsr">
+		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
+			   case when x.ISDIRECTORY is null then x.OWNER else null end OWNER
+		FROM
+		(
+			SELECT distinct a.MENU_ID,
+				<if test="(SYS_MENU_USR.dept == '84' or SYS_MENU_USR.dept == '0040' or SYS_MENU_USR.dept == '2000' or SYS_MENU_USR.dept == '0020' or SYS_MENU_USR.dept == '0035' or SYS_MENU_USR.dept == '0044')">
+				CASE WHEN a.SEQ = 510 THEN '학부'
+					 WHEN a.SEQ = 1337 THEN '대학원'
+					 ELSE a.MENU_NM end as MENU_NM,
+				</if>
+				<if test="!(SYS_MENU_USR.dept == '84' or SYS_MENU_USR.dept == '0040' or SYS_MENU_USR.dept == '2000' or SYS_MENU_USR.dept == '0020' or SYS_MENU_USR.dept == '0035' or SYS_MENU_USR.dept == '0044')">
+				a.MENU_NM,
+				</if>
+			a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
+			FROM SYS_MENU_MST_GR3 a
+			join SYS_MENU_USR_GR3 b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
+			join SYS_MENU_AUTH_GR3 c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
+			</if>
+			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
+			  AND c.depart_cd = #{SYS_MENU_USR.dept}
+			</if>  
+			  AND a.DIVISION NOT IN ('Y', 'Z')
+		) x
+		ORDER BY x.DIVISION DESC, x.SEQ 
+    </select>    
+     -->
+     
+	<!-- 시스템메뉴유저 조회 --> <!-- 기숙사신청조회 메뉴 추가 관련 -->
     <select id="getSysMenuUsrList_GR2" resultType="com.spk.api.entity.SysMenuUsr">
 		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
 			   case when x.ISDIRECTORY is null then x.OWNER else null end OWNER
@@ -144,16 +175,16 @@
 		(
 			SELECT distinct a.MENU_ID,
 				<if test="(SYS_MENU_USR.dept == '84' or SYS_MENU_USR.dept == '0040' or SYS_MENU_USR.dept == '2000' or SYS_MENU_USR.dept == '0020' or SYS_MENU_USR.dept == '0035' or SYS_MENU_USR.dept == '0044')"> <!-- 교수/직원의 학부/대학원 명칭을 위함 -->
-				CASE WHEN a.SEQ = 510 THEN '학부'   <!-- 교원 -> 학부료 뷰잉 -->
-					 WHEN a.SEQ = 1337 THEN '대학원' <!-- 교원 -> 학부료 뷰잉 -->
+				CASE WHEN a.SEQ = '510' THEN '학부'   <!-- 교원 -> 학부로 뷰잉 -->
+					 WHEN a.SEQ = '1337' THEN '대학원' <!-- 교원 -> 학부로 뷰잉 -->
 					 ELSE a.MENU_NM end as MENU_NM,
 				</if>
 				<if test="!(SYS_MENU_USR.dept == '84' or SYS_MENU_USR.dept == '0040' or SYS_MENU_USR.dept == '2000' or SYS_MENU_USR.dept == '0020' or SYS_MENU_USR.dept == '0035' or SYS_MENU_USR.dept == '0044')"> <!-- 교수/직원이 아닌, 학부/교환학생/대학원생 학부/대학원 명칭을 위함 -->
 				a.MENU_NM,
 				</if>
 			a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
-			FROM SYS_MENU_MST_GR3 a
-			join SYS_MENU_USR_GR3 b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
+			FROM SYS_MENU_MST_4 a
+			JOIN SYS_MENU_USR_4 b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID
 			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')"> <!-- SUPER 가 아닐경우만 -->
 			join SYS_MENU_AUTH_GR3 c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
 			</if>
@@ -161,11 +192,10 @@
 			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')"> <!-- SUPER 가 아닐경우만 -->
 			  AND c.depart_cd = #{SYS_MENU_USR.dept}
 			</if>  
-			  AND a.DIVISION NOT IN ('Y', 'Z')
+			  AND a.DIVISION NOT IN ('Y', 'Z', 'X')
 		) x
 		ORDER BY x.DIVISION DESC, x.SEQ 
-    </select>    
-    
+    </select>
     
 	<!-- 시스템메뉴유저 상세조회  -->
     <select id="getSysMenuUsrInfo" resultType="com.spk.api.entity.SysMenuUsr">
