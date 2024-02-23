@@ -60,9 +60,9 @@
 		FROM
 		(
 			SELECT distinct a.MENU_ID,
-				CASE WHEN a.SEQ = '475' THEN '학부학생'   <!-- 학생 -> 학부학생 뷰잉 -->
+				CASE WHEN a.SEQ = '475' THEN '학부생'    <!-- 학생 -> 학부생 뷰잉 -->
 				     WHEN a.SEQ = '510' THEN '학부교수'   <!-- 교원 -> 학부교수 뷰잉 -->
-				     WHEN a.SEQ = '1307' THEN '대학원학생' <!-- 학생 -> 학부교학생 뷰잉 -->
+				     WHEN a.SEQ = '1307' THEN '대학원생'  <!-- 학생 -> 대학원생 뷰잉 -->
 					 WHEN a.SEQ = '1337' THEN '대학원교수' <!-- 교원 -> 대학원교수 뷰잉 --> 
 					 ELSE a.MENU_NM end as MENU_NM,
 			a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
