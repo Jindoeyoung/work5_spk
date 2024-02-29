@@ -96,7 +96,8 @@
 				a.PARENT_MENU_ID, 
 				a.ISDIRECTORY, 
 				a.DIVISION, 
-				a.OWNER
+				a.OWNER,
+				a.ORDER_NO
 			FROM SYS_MENU_MST_W_1 a
 			JOIN SYS_MENU_USR_W_1 b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID
 			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
@@ -119,7 +120,7 @@
 			</choose>			  
 			  
 		) x
-		ORDER BY x.GUBUN, x.SEQ
+		ORDER BY x.GUBUN, x.SEQ, x.ORDER_NO
     </select>    
     
 	<!-- 시스템메뉴유저 상세조회  -->
