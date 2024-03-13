@@ -70,11 +70,11 @@
     
 	<!-- 특정 상위메뉴코드를 함께 갖는, 동일 Level 메뉴들의 USE_YN 값들 조회  -->
     <select id="getSameLevelUseYn" resultType="com.spk.api.entity.SysMenuInfo">
-		SELECT DISTINCT M.USE_YN FROM SYS_MENU_USR_2 M
+		SELECT DISTINCT M.USE_YN FROM SYS_MENU_USR M
 		WHERE EXISTS 
 		(
 			SELECT 1 FROM SYS_MENU_MST A 
-               INNER JOIN SYS_MENU_USR_2 B ON A.DIVISION = B.DIVISION AND A.MENU_ID = B.MENU_ID #AND A.SEQ = B.SEQ
+               INNER JOIN SYS_MENU_USR B ON A.DIVISION = B.DIVISION AND A.MENU_ID = B.MENU_ID #AND A.SEQ = B.SEQ
 			 WHERE M.SPIKE_ID = B.SPIKE_ID
 			    AND M.DIVISION = B.DIVISION
 				AND M.MENU_ID = B.MENU_ID

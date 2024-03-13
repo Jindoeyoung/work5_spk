@@ -15,47 +15,19 @@ public interface SysMenuUsrMapper {
     //============================================================
     //< SELECT - 시스템메뉴유저 리스트 조회
     //============================================================	
-	List<SysMenuUsr> getSysMenuUsrList(
-		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
-	);
-	
-    //============================================================
-    //< SELECT - 시스템메뉴유저 리스트 조회
-    //============================================================	
-	List<SysMenuUsr> getSysMenuUsrList2(
-		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
-	);
-	
-    //============================================================
-    //< SELECT - 시스템메뉴유저 리스트 조회
-    //============================================================	
-	List<SysMenuUsr> getSysMenuUsrList3(
+	List<SysMenuUsr> getSysMenuUsrList_GR2(
 		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
 	);	
 
     //============================================================
     //< SELECT - 시스템메뉴유저 리스트 조회
     //============================================================	
-	List<SysMenuUsr> getSysMenuUsrList_GR(
+	List<SysMenuUsr> getSysMenuUsrList(
 		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
 	);
 	
     //============================================================
-    //< SELECT - 시스템메뉴유저 리스트 조회
-    //============================================================	
-	List<SysMenuUsr> getSysMenuUsrList_GR2(
-		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
-	);	
-	
-    //============================================================
-    //< SELECT - 시스템메뉴유저 상세 조회
-    //============================================================	
-	SysMenuUsr getSysMenuUsrInfo(
-		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr
-	);	
-	
-    //============================================================
-    //< UPDATE - 시스템메뉴유저 수정
+    //< UPDATE - 시스템메뉴유저 UseYn 수정
     //============================================================	
 	int updateUseYn(
 		@Param("SYS_MENU_USR") SysMenuUsr sysMenuUsr

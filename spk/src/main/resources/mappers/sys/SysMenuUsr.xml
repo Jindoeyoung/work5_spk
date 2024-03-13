@@ -3,83 +3,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spk.api.mapper.SysMenuUsrMapper">
 
-	<!-- 시스템메뉴유저 조회  -->
-    <select id="getSysMenuUsrList" resultType="com.spk.api.entity.SysMenuUsr">
-		SELECT a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY 
-		FROM SYS_MENU_MST a left join SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
-		WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
-		<!--AND b.USE_YN = 'Y'-->
-		ORDER BY a.DIVISION DESC, a.SEQ   
-    </select>
-    
-	<!-- 시스템메뉴유저 조회 : 부서별 메뉴조회 적용  -->
-    <select id="getSysMenuUsrList2" resultType="com.spk.api.entity.SysMenuUsr">
-		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION
-		FROM
-		(
-			SELECT distinct a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION
-			FROM SYS_MENU_MST a
-			join SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
-			join SYS_MENU_AUTH c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
-			</if>
-			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == 'DIGICAPS')">
-			and ( c.depart_cd = #{SYS_MENU_USR.dept} or c.depart_cd = ( CASE WHEN #{SYS_MENU_USR.dept} = '0040' then 'ALL'    
-										                       				 WHEN #{SYS_MENU_USR.dept} = '0020' then 'ALL'
-										                      	 			 WHEN #{SYS_MENU_USR.dept} = '2000' then 'ALL' end ) )
-			</if>							                      	 			 
-		) x
-		ORDER BY x.DIVISION DESC, x.SEQ 
-    </select>
-    
-	<!-- 시스템메뉴유저 조회 : OWNER 추가 -->
-    <select id="getSysMenuUsrList3" resultType="com.spk.api.entity.SysMenuUsr">
-		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
-			   case when x.ISDIRECTORY is null then x.OWNER else null end OWNER
-		FROM
-		(
-			SELECT distinct a.MENU_ID, a.MENU_NM, a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
-			FROM SYS_MENU_MST a
-			join SYS_MENU_USR_2 b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID and a.SEQ = b.SEQ
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
-			join SYS_MENU_AUTH_3 c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
-			</if>
-			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
-			AND c.depart_cd = #{SYS_MENU_USR.dept}
-			</if>							                      	 			 
-		) x
-		ORDER BY x.DIVISION DESC, x.SEQ 
-    </select>    
-    
-	<!-- 시스템메뉴유저 조회 
-    <select id="getSysMenuUsrList_GR2" resultType="com.spk.api.entity.SysMenuUsr">
-		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
-			   case when x.ISDIRECTORY is null then x.OWNER else null end OWNER
-		FROM
-		(
-			SELECT distinct a.MENU_ID,
-				CASE WHEN a.SEQ = '475' THEN '학부생'
-				     WHEN a.SEQ = '510' THEN '학부교수'
-				     WHEN a.SEQ = '1307' THEN '대학원생'
-					 WHEN a.SEQ = '1337' THEN '대학원교수' 
-					 ELSE a.MENU_NM end as MENU_NM,
-			a.SEQ, a.LEVEL, b.USE_YN, a.PARENT_MENU_ID, a.ISDIRECTORY, a.DIVISION, a.OWNER
-			FROM SYS_MENU_MST_W a
-			JOIN SYS_MENU_USR_W b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
-			join SYS_MENU_AUTH_W c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
-			</if>
-			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
-			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
-			  AND c.depart_cd = #{SYS_MENU_USR.dept}
-			</if>  
-			  AND a.DIVISION NOT IN ('Y', 'Z', 'X')
-		) x
-		ORDER BY x.DIVISION DESC, x.SEQ 
-    </select> -->
-    
 	<!-- 시스템메뉴유저 조회 -->
     <select id="getSysMenuUsrList_GR2" resultType="com.spk.api.entity.SysMenuUsr">
 		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
@@ -123,18 +46,55 @@
 		ORDER BY x.GUBUN, x.SEQ, x.ORDER_NO
     </select>    
     
-	<!-- 시스템메뉴유저 상세조회  -->
-    <select id="getSysMenuUsrInfo" resultType="com.spk.api.entity.SysMenuUsr">
-        SELECT * FROM SYS_MENU_USR 
-        WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
-          AND DIVISION = #{SYS_MENU_USR.division}
-		  AND MENU_ID = #{SYS_MENU_USR.menu_id}	
+	<!-- 시스템메뉴유저 조회 -->
+    <select id="getSysMenuUsrList" resultType="com.spk.api.entity.SysMenuUsr">
+		SELECT x.MENU_ID, x.MENU_NM, x.SEQ, x.LEVEL, x.USE_YN, x.PARENT_MENU_ID, x.ISDIRECTORY, x.DIVISION,
+			   case when x.ISDIRECTORY is null then x.OWNER else null end OWNER
+		FROM
+		(
+			SELECT
+			    a.GUBUN,
+			    a.MENU_ID,
+				a.MENU_NM,
+				a.SEQ, 
+				a.LEVEL, 
+				b.USE_YN, 
+				a.PARENT_MENU_ID, 
+				a.ISDIRECTORY, 
+				a.DIVISION, 
+				a.OWNER,
+				a.ORDER_NO
+			FROM SYS_MENU_MST a
+			JOIN SYS_MENU_USR b on a.DIVISION = b.DIVISION and a.MENU_ID = b.MENU_ID
+			<if test="!(SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01')">
+			JOIN SYS_MENU_AUTH c on a.DIVISION = c.DIVISION and a.MENU_ID = c.MENU_ID
+			</if>
+			WHERE b.SPIKE_ID = #{SYS_MENU_USR.spike_id}
+			  AND a.ISDEL IS NULL
+			<choose>
+			    <when test="SYS_MENU_USR.dept == '0070' or SYS_MENU_USR.dept == '01'">
+			        AND a.GUBUN IN ('1','2','3')
+			    </when>
+			    <when test="SYS_MENU_USR.dept == '81' or SYS_MENU_USR.dept == '85' or SYS_MENU_USR.dept == '90' or SYS_MENU_USR.dept == '84'"> <!-- 학생/교수는 [학사웹]만 보임 -->
+					AND c.DEPART_CD = #{SYS_MENU_USR.dept}
+			        AND a.GUBUN = '1'
+			    </when>			    
+			    <otherwise>
+					AND c.DEPART_CD = #{SYS_MENU_USR.dept}
+			        AND a.GUBUN IN ('1','2','3')
+			    </otherwise>
+			</choose>			  
+			  
+		) x
+		ORDER BY x.GUBUN, x.SEQ, x.ORDER_NO
     </select>    
     
-	<!-- 시스템메뉴유저 수정  -->
+	<!-- 시스템메뉴유저 UseYn 수정  -->
     <update id="updateUseYn" parameterType="com.spk.api.entity.SysMenuUsr">
         UPDATE SYS_MENU_USR
-           SET USE_YN =  #{SYS_MENU_USR.use_yn} 
+           SET USE_YN =  #{SYS_MENU_USR.use_yn},
+           	   UPT_DT = now(),	
+               UPT_ID = #{SYS_MENU_USR.spike_id}
          WHERE SPIKE_ID = #{SYS_MENU_USR.spike_id}
            AND DIVISION = #{SYS_MENU_USR.division}
            AND MENU_ID = #{SYS_MENU_USR.menu_id}
