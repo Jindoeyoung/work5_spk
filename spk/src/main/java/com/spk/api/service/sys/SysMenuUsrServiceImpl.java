@@ -184,6 +184,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 							parent.add("subMenu", new JsonArray());
 							children = parent.get("subMenu").getAsJsonArray();
 						}
+						
 						children.getAsJsonArray().add(current);
 						boolean isEveryN = true;
 						for(JsonElement child : children.getAsJsonArray()) {
@@ -200,6 +201,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 							parent.addProperty("use_yn", "Y");
 						}
 					}
+//				System.out.println("===== FOR END =====");	
 				}
 				dataResult.add("menu_info", result.get("subMenu").getAsJsonArray());
 			} else {
