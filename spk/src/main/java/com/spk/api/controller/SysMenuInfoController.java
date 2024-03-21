@@ -2,11 +2,13 @@ package com.spk.api.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spk.api.entity.SysMenuInfo;
+import com.spk.api.entity.SysMenuSaveUsr;
 import com.spk.api.service.sys.SysMenuInfoService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,11 +48,11 @@ public class SysMenuInfoController {
 	
     //============================================================
     //< SELECT - 시스템메뉴정보 저장/상위메뉴 USE_YN 업데이트
-    //============================================================	
+    //============================================================
 	@PostMapping("/insertMenuInfo-v2")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public String insertSysMenuInfoUpdate(@RequestBody SysMenuInfo pSysMenuInfo) throws Exception {
 		return sysMenuInfoService.insertSysMenuInfoUpdate(pSysMenuInfo);
 	}	
-	
+
 }

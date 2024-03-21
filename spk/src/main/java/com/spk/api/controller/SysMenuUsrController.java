@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spk.api.entity.SysMenuSaveUsr;
 import com.spk.api.entity.SysMenuUsr;
 import com.spk.api.entity.SysMenuUsrSave;
 import com.spk.api.service.sys.SysMenuUsrService;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/sys", produces = "application/json; charset=utf8")
 public class SysMenuUsrController {
 	private final SysMenuUsrService sysMenuUsrService;
-	
+
     //============================================================
     //< SELECT - 시스템메뉴 리스트 조회
     //============================================================	
@@ -29,7 +30,7 @@ public class SysMenuUsrController {
 //		return sysMenuUsrService.getSysMenuUsrList_GR2(pSysMenuUsr);		
 		return sysMenuUsrService.getSysMenuUsrList(pSysMenuUsr);
 	}	
-	
+
     //============================================================
     //< SELECT - 시스템메뉴정보 UseYn 업데이트
     //============================================================	
@@ -43,4 +44,13 @@ public class SysMenuUsrController {
 		}
 		
 	}
+
+    //============================================================
+    //< SELECT - 시스템 메뉴 관리 기능 추가.20240314.PSD
+    //============================================================	
+	@PutMapping("/saveSysMenuInfo")  
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public String saveSysMenuInfo(@RequestBody SysMenuSaveUsr pSysMenuSaveInfo) throws Exception {
+		return sysMenuUsrService.saveSysMenuUsr(pSysMenuSaveInfo);
+	}		
 }

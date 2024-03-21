@@ -3,6 +3,7 @@ package com.spk.api.service.sys;
 import org.apache.ibatis.annotations.Param;
 
 import com.spk.api.entity.SysMenuInfo;
+import com.spk.api.entity.SysMenuSaveUsr;
 
 /**
  * <p>시스템메뉴정보 Service</p>

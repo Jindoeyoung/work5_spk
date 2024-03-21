@@ -1,6 +1,7 @@
 package com.spk.api.service.sys;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.spk.api.entity.SysMenuInfo;
+import com.spk.api.entity.SysMenuSaveUsr;
 import com.spk.api.mapper.SysMenuInfoMapper;
 import com.spk.api.security.AuthCheck;
 
@@ -298,5 +300,5 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
 		}
 		return dataResult.toString();
 	}	
-	
+
 }

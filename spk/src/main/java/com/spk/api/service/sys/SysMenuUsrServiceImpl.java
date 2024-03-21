@@ -41,7 +41,7 @@ public class SysMenuUsrServiceImpl implements SysMenuUsrService {
 	 * <p>SELECT (List)</p>
 		 * <ul>
 		 * 	<li>시스템메뉴정보 등록 리스트를 조회한다 </li>
-	     * </ul>
+		* </ul>
 	 * @param pSysMenuUsr 클라이언트에서 요청받은 메뉴정보
 	 * @return String
 	 */

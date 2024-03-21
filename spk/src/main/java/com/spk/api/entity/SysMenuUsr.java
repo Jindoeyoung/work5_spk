@@ -23,4 +23,9 @@ public class SysMenuUsr {
 	private String isDirectory;
 	private String dept;
 	private String owner;
+	
+	// 시스템 메뉴 관리 기능 추가.20240314.PSD
+	private String gubun;
+	private String isdirectory;
+	private String order_by;
 }
